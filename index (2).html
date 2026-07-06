@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新疆歷史文化數位修復展覽 | Xinjiang Digital Heritage Restoration</title>
+<style>
+  :root{
+    --sand:#EDE6D6;
+    --sand-deep:#E1D6BC;
+    --ink:#22283A;
+    --ink-soft:#454F68;
+    --jade:#3E7C74;
+    --jade-deep:#2B5851;
+    --ember:#C1502E;
+    --ember-deep:#9C3E22;
+    --paper:#FBF8F1;
+    --line:#C9BC9C;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .eng{
+    font-family:"Cormorant Garamond","Georgia",serif;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    font-size:0.72rem;
+    color:var(--jade-deep);
+  }
+  h1,h2,h3{font-family:"Noto Serif TC","Songti TC",serif; margin:0; font-weight:700;}
+
+  /* progress rail */
+  #rail{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(251,248,241,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    padding:10px 16px;
+    display:flex; align-items:center; justify-content:center; gap:16px;
+    flex-wrap:wrap;
+  }
+  #scoreBadge{
+    font-family:"Cormorant Garamond",serif; font-weight:700; font-size:0.9rem;
+    color:var(--ember-deep); border:1px solid var(--ember); padding:5px 14px;
+    border-radius:20px; background:rgba(193,80,46,0.08); white-space:nowrap;
+    transition:transform .2s ease;
+  }
+  #scoreBadge.pulse{transform:scale(1.15);}
+  .dot-group{display:flex; align-items:center; gap:6px;}
+  .dot{
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.75rem; font-family:"Cormorant Garamond",serif; font-weight:700;
+    border:1.5px solid var(--line); color:var(--ink-soft); background:var(--paper);
+    transition:all .3s ease; cursor:default;
+  }
+  .dot.unlocked{border-color:var(--jade); color:var(--jade-deep); cursor:pointer;}
+  .dot.current{background:var(--jade); color:#fff; border-color:var(--jade);}
+  .dot.done{background:var(--ember); color:#fff; border-color:var(--ember);}
+  .rail-sep{width:18px;height:1px;background:var(--line);}
+
+  section{
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:110px 24px 80px;
+    position:relative;
+    scroll-margin-top:60px;
+  }
+  section:not(#hero){display:none;}
+  section.active{display:flex;}
+
+  .frame{max-width:760px; width:100%;}
+
+  /* HERO */
+  #hero{background:
+    radial-gradient(ellipse at 20% 10%, rgba(62,124,116,0.10), transparent 55%),
+    radial-gradient(ellipse at 85% 90%, rgba(193,80,46,0.10), transparent 50%),
+    var(--sand);
+    display:flex !important;
+  }
+  .eyebrow{
+    font-size:0.78rem; letter-spacing:0.22em; color:var(--ember-deep);
+    font-family:"Cormorant Garamond",serif; text-transform:uppercase; margin-bottom:14px;
+  }
+  #hero h1{font-size:clamp(2rem,5vw,3rem); line-height:1.3;}
+  #hero .subtitle{font-family:"Cormorant Garamond",serif; font-style:italic; color:var(--ink-soft); font-size:1.15rem; margin-top:10px;}
+  #hero p.desc{margin-top:28px; color:var(--ink-soft); font-size:1.02rem;}
+  .scanline{
+    width:100%; height:3px; margin:34px 0 30px;
+    background:linear-gradient(90deg, transparent, var(--jade), var(--ember), transparent);
+    position:relative; overflow:hidden;
+  }
+  .scanline::after{
+    content:""; position:absolute; top:0; left:-30%; width:30%; height:100%;
+    background:rgba(255,255,255,0.7);
+    animation:sweep 3.2s ease-in-out infinite;
+  }
+  @keyframes sweep{0%{left:-30%;}50%{left:100%;}100%{left:100%;}}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--ink); color:var(--paper); border:none;
+    padding:14px 30px; font-size:1rem; font-family:inherit; font-weight:700;
+    border-radius:2px; cursor:pointer; letter-spacing:0.03em;
+    transition:transform .15s ease, background .2s ease;
+  }
+  .btn:hover{background:var(--jade-deep); transform:translateY(-1px);}
+  .btn:focus-visible{outline:3px solid var(--ember); outline-offset:2px;}
+  .btn.ember{background:var(--ember);}
+  .btn.ember:hover{background:var(--ember-deep);}
+  .btn[disabled]{opacity:0.35; cursor:not-allowed; transform:none;}
+
+  /* DAY sections */
+  .day-eyebrow{display:flex; align-items:baseline; gap:14px; margin-bottom:6px;}
+  .day-num{font-family:"Cormorant Garamond",serif; font-size:3rem; color:var(--jade); font-weight:700; line-height:1;}
+  .day-title h2{font-size:1.6rem;}
+  .day-title .eng{margin-top:2px; display:block;}
+  .day-loc{color:var(--ember-deep); font-size:0.95rem; margin:2px 0 22px;}
+  .day-text{color:var(--ink-soft); margin-bottom:26px;}
+
+  /* comparison slider */
+  .compare{
+    position:relative; width:100%; aspect-ratio:16/9; border-radius:3px; overflow:hidden;
+    border:1px solid var(--line); margin-bottom:10px; cursor:ew-resize; user-select:none;
+    box-shadow:0 8px 24px rgba(34,40,58,0.12);
+  }
+  .compare .layer{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:"Cormorant Garamond",serif; font-size:1.05rem; letter-spacing:0.05em; text-align:center; padding:20px;
+  }
+  .compare .before{background:linear-gradient(135deg,#8a8272,#6b6455); color:#f2ede1;}
+  .compare .after{background:linear-gradient(135deg,var(--jade-deep),var(--jade)); color:#f2ede1;}
+  .compare .after-wrap{position:absolute; inset:0; overflow:hidden; width:50%;}
+  .compare .divider{
+    position:absolute; top:0; bottom:0; left:50%; width:2px; background:var(--paper);
+    box-shadow:0 0 0 1px rgba(0,0,0,0.15);
+  }
+  .compare .handle{
+    position:absolute; top:50%; left:50%; width:38px; height:38px; border-radius:50%;
+    background:var(--paper); transform:translate(-50%,-50%);
+    display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--ink);
+    box-shadow:0 2px 8px rgba(0,0,0,0.25);
+  }
+  .compare-label{position:absolute; top:14px; font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; font-family:"Cormorant Garamond",serif; padding:4px 10px; background:rgba(34,40,58,0.55); color:#fff; border-radius:2px;}
+  .compare-label.l{left:14px;} .compare-label.r{right:14px;}
+  .compare-hint{font-size:0.82rem; color:var(--ink-soft); margin-bottom:14px; font-style:italic;}
+  .egg{
+    position:absolute; width:26px; height:26px; border-radius:50%; z-index:5;
+    background:rgba(251,248,241,0.85); border:1.5px dashed var(--ember);
+    display:flex; align-items:center; justify-content:center; font-size:0.85rem;
+    cursor:pointer; animation:eggpulse 1.8s ease-in-out infinite;
+  }
+  .egg.found{animation:none; background:var(--jade); border-color:var(--jade); color:#fff;}
+  @keyframes eggpulse{0%,100%{box-shadow:0 0 0 0 rgba(193,80,46,0.35);}50%{box-shadow:0 0 0 8px rgba(193,80,46,0);}}
+  .egg-note{
+    background:rgba(62,124,116,0.12); border-left:3px solid var(--jade); padding:10px 14px;
+    font-size:0.85rem; color:var(--jade-deep); margin-bottom:20px; display:none;
+  }
+  .egg-note.show{display:block;}
+
+  /* quiz */
+  .quiz-box{background:var(--paper); border:1px solid var(--line); border-radius:3px; padding:26px 28px;}
+  .quiz-q{font-weight:700; margin-bottom:16px;}
+  .opt{
+    display:block; width:100%; text-align:left; background:transparent; border:1px solid var(--line);
+    padding:12px 16px; margin-bottom:10px; border-radius:2px; cursor:pointer; font-family:inherit; font-size:0.95rem; color:var(--ink);
+    transition:all .15s ease;
+  }
+  .opt:hover{border-color:var(--jade);}
+  .opt.correct{background:rgba(62,124,116,0.14); border-color:var(--jade); color:var(--jade-deep); font-weight:700;}
+  .opt.wrong{background:rgba(193,80,46,0.12); border-color:var(--ember); color:var(--ember-deep);}
+  .feedback{margin-top:12px; font-size:0.9rem; min-height:1.4em; color:var(--ink-soft);}
+  .next-wrap{margin-top:24px; text-align:right;}
+
+  /* final / reflection */
+  .wall{display:flex; flex-direction:column; gap:12px; margin:22px 0; max-height:280px; overflow-y:auto; padding-right:4px;}
+  .wall .card{background:var(--paper); border:1px solid var(--line); border-left:4px solid var(--ember); padding:14px 16px; font-size:0.92rem;}
+  .wall .card .who{font-size:0.75rem; color:var(--jade-deep); margin-top:6px; font-family:"Cormorant Garamond",serif; letter-spacing:0.05em;}
+  textarea, input[type=text]{
+    width:100%; font-family:inherit; font-size:0.95rem; padding:12px 14px; border:1px solid var(--line);
+    border-radius:2px; background:var(--paper); color:var(--ink); resize:vertical;
+  }
+  textarea:focus, input[type=text]:focus{outline:2px solid var(--jade);}
+
+  .cert{
+    margin-top:30px; padding:40px; border:2px solid var(--jade); position:relative; background:var(--paper);
+    text-align:center;
+  }
+  .cert::before{
+    content:""; position:absolute; inset:8px; border:1px solid var(--line);
+  }
+  .cert .eng{display:block; margin-bottom:8px;}
+  .cert h3{font-size:1.5rem; margin-bottom:6px;}
+  .cert .name{font-family:"Cormorant Garamond",serif; font-size:1.8rem; color:var(--ember-deep); margin:14px 0; font-style:italic;}
+  .hidden{display:none !important;}
+  footer{
+    text-align:center; padding:26px; font-size:0.75rem; color:var(--ink-soft); font-family:"Cormorant Garamond",serif; letter-spacing:0.05em;
+  }
+  @media(max-width:600px){
+    section{padding:100px 18px 60px;}
+    .day-num{font-size:2.2rem;}
+  }
+</style>
+</head>
+<body>
+
+<div id="rail"><div class="dot-group" id="dotGroup"></div><div id="scoreBadge">修復點數 · 0</div></div>
+
+<!-- HERO -->
+<section id="hero" class="active">
+  <div class="frame" style="text-align:center;">
+    <div class="eyebrow">路德會協同中學 · Concordia Lutheran School</div>
+    <h1>新疆歷史文化數位修復展覽</h1>
+    <div class="subtitle">Xinjiang Digital Heritage Restoration Exhibition · 2025/26</div>
+    <div class="scanline"></div>
+    <p class="desc">
+      2026年6月28日至7月4日，本校師生遠赴新疆，走訪天山天池、喀納斯、禾木村、五彩灘、吐魯番及多處文化遺產景點。
+      新疆蘊藏珍貴的歷史印記與自然風貌，隨時光流逝，部分影像逐漸褪色模糊。
+      本展覽運用數位修復的概念，將歷史與今日並列對照，並邀請你走過這六天的考察路線——
+      在觀展的過程中，思考文化傳承與生態保育，如何共同構成國家安全的基礎。
+    </p>
+    <div style="margin-top:36px;">
+      <button class="btn" onclick="goTo(1)">開始參觀　Enter Exhibition →</button>
+    </div>
+  </div>
+</section>
+
+<!-- DAY TEMPLATE SECTIONS -->
+<section id="day1" data-day="1">
+  <div class="frame">
+    <div class="day-eyebrow">
+      <div class="day-num">01</div>
+      <div class="day-title"><h2>天山天池風景區</h2><span class="eng">Tianshan Tianchi Scenic Area</span></div>
+    </div>
+    <div class="day-loc">遊牧文明 · 農耕文明 · 哈薩克族村寨</div>
+    <p class="day-text">
+      天池是遊牧文明與農耕文明交會之地。哈薩克族世代逐水草而居，形成獨特的移動式聚落與生活智慧。
+      走進哈薩克村寨，我們看見的不只是風景，更是一種與土地共存的生活方式——這正是尊重多元民族文化的起點。
+    </p>
+
+    <div class="compare" data-slider="1">
+      <div class="layer before compare-fill">歷史舊照<br><small style="opacity:.75">（請替換為歷史照片）</small></div>
+      <div class="after-wrap"><div class="layer after" style="width:200%;">今日實景 / AI 數位修復<br><small style="opacity:.75">（請替換為修復後照片）</small></div></div>
+      <div class="divider"></div>
+      <div class="handle">⇔</div>
+      <div class="compare-label l">修復前</div>
+      <div class="compare-label r">修復後</div>
+      <div class="egg" style="top:20%; left:78%;" onclick="foundEgg(event,1)">?</div>
+    </div>
+    <p class="compare-hint">拖曳中間圓形滑桿，比較歷史與今日的天池風貌。畫面上藏著一件「文物」，找找看？（如何替換圖片：見文件末的說明）</p>
+    <div class="egg-note" id="egg1">🏺 冷知識：天池古稱「瑤池」，相傳是西王母宴請周穆王之處，海拔約1,910米。</div>
+
+    <div class="quiz-box">
+      <div class="quiz-q">哈薩克族為適應遊牧生活，傳統的移動式居所稱為什麼？</div>
+      <div id="opts1"></div>
+      <div class="feedback" id="fb1"></div>
+    </div>
+    <div class="next-wrap"><button class="btn ember" id="next1" disabled onclick="goTo(2)">前往第二站：喀納斯 →</button></div>
+  </div>
+</section>
+
+<section id="day2" data-day="2">
+  <div class="frame">
+    <div class="day-eyebrow">
+      <div class="day-num">02</div>
+      <div class="day-title"><h2>喀納斯景區</h2><span class="eng">Kanas Scenic Area</span></div>
+    </div>
+    <div class="day-loc">生態系統 · 河灣地貌 · 水資源與旅遊業</div>
+    <p class="day-text">
+      喀納斯湖周邊的生態環境，展現自然景觀與生態系統之間細膩的相互依存關係。
+      河流長期侵蝕與堆積，塑造出獨特的河灣地貌，也孕育了當地珍貴的水資源——
+      這份資源既支撐生態,也牽動著旅遊業的發展，兩者之間的平衡值得我們深思。
+    </p>
+
+    <div class="compare" data-slider="2">
+      <div class="layer before compare-fill">歷史舊照<br><small style="opacity:.75">（請替換為歷史照片）</small></div>
+      <div class="after-wrap"><div class="layer after" style="width:200%;">今日實景 / AI 數位修復<br><small style="opacity:.75">（請替換為修復後照片）</small></div></div>
+      <div class="divider"></div>
+      <div class="handle">⇔</div>
+      <div class="compare-label l">修復前</div>
+      <div class="compare-label r">修復後</div>
+      <div class="egg" style="top:65%; left:25%;" onclick="foundEgg(event,2)">?</div>
+    </div>
+    <p class="compare-hint">拖曳滑桿，觀察喀納斯河灣的今昔對照。畫面上藏著一件「文物」，找找看？</p>
+    <div class="egg-note" id="egg2">🐟 冷知識：喀納斯湖因「湖怪」傳說聞名，當地人認為是體型巨大的哲羅鮭。</div>
+
+    <div class="quiz-box">
+      <div class="quiz-q">喀納斯景區中，因形似一彎明月而得名的著名河灣是？</div>
+      <div id="opts2"></div>
+      <div class="feedback" id="fb2"></div>
+    </div>
+    <div class="next-wrap"><button class="btn ember" id="next2" disabled onclick="goTo(3)">前往第三站：禾木村 →</button></div>
+  </div>
+</section>
+
+<section id="day3" data-day="3">
+  <div class="frame">
+    <div class="day-eyebrow">
+      <div class="day-num">03</div>
+      <div class="day-title"><h2>禾木村</h2><span class="eng">Hemu Village</span></div>
+    </div>
+    <div class="day-loc">圖瓦人文化 · 傳統藝術 · 少數民族生活方式</div>
+    <p class="day-text">
+      禾木村是蒙古族圖瓦人世代居住之地。他們的傳統生活方式、木屋建築與藝術表演，
+      承載著獨特而深厚的文化內涵。透過欣賞圖瓦人的表演藝術，我們感受到國家多元文化的魅力，
+      也學習以理解和尊重的態度，看待與自己不同的生活方式。
+    </p>
+
+    <div class="compare" data-slider="3">
+      <div class="layer before compare-fill">歷史舊照<br><small style="opacity:.75">（請替換為歷史照片）</small></div>
+      <div class="after-wrap"><div class="layer after" style="width:200%;">今日實景 / AI 數位修復<br><small style="opacity:.75">（請替換為修復後照片）</small></div></div>
+      <div class="divider"></div>
+      <div class="handle">⇔</div>
+      <div class="compare-label l">修復前</div>
+      <div class="compare-label r">修復後</div>
+      <div class="egg" style="top:30%; left:50%;" onclick="foundEgg(event,3)">?</div>
+    </div>
+    <p class="compare-hint">拖曳滑桿，比較禾木村木屋聚落的今昔樣貌。畫面上藏著一件「文物」，找找看？</p>
+    <div class="egg-note" id="egg3">🎻 冷知識：圖瓦人的傳統樂器「楚吾爾」，是用蘆葦莖稈製成的吹奏樂器。</div>
+
+    <div class="quiz-box">
+      <div class="quiz-q">圖瓦人一種能同時發出高低聲部的傳統喉音唱法，稱為？</div>
+      <div id="opts3"></div>
+      <div class="feedback" id="fb3"></div>
+    </div>
+    <div class="next-wrap"><button class="btn ember" id="next3" disabled onclick="goTo(4)">前往第四站：五彩灘 →</button></div>
+  </div>
+</section>
+
+<section id="day4" data-day="4">
+  <div class="frame">
+    <div class="day-eyebrow">
+      <div class="day-num">04</div>
+      <div class="day-title"><h2>五彩灘</h2><span class="eng">Wucaitan (Colourful Beach)</span></div>
+    </div>
+    <div class="day-loc">河岸階地地貌 · 鹽鹼地生態 · 地質與環境</div>
+    <p class="day-text">
+      五彩灘的岩石經長期風力與流水侵蝕，形成溝槽與壟脊相間的獨特地貌。
+      一河之隔的兩岸，一邊是色彩斑斕的奇岩，一邊是含鹽的貧瘠土地——
+      鹽鹼地環境雖然嚴苛，卻仍有生命頑強地存活，展現地質地貌與生態環境的緊密關係。
+    </p>
+
+    <div class="compare" data-slider="4">
+      <div class="layer before compare-fill">歷史舊照<br><small style="opacity:.75">（請替換為歷史照片）</small></div>
+      <div class="after-wrap"><div class="layer after" style="width:200%;">今日實景 / AI 數位修復<br><small style="opacity:.75">（請替換為修復後照片）</small></div></div>
+      <div class="divider"></div>
+      <div class="handle">⇔</div>
+      <div class="compare-label l">修復前</div>
+      <div class="compare-label r">修復後</div>
+      <div class="egg" style="top:45%; left:15%;" onclick="foundEgg(event,4)">?</div>
+    </div>
+    <p class="compare-hint">拖曳滑桿，感受五彩灘岩石色彩的今昔變化。畫面上藏著一件「文物」，找找看？</p>
+    <div class="egg-note" id="egg4">🌊 冷知識：分隔五彩灘兩岸的額爾齊斯河，是中國唯一注入北冰洋的河流。</div>
+
+    <div class="quiz-box">
+      <div class="quiz-q">五彩灘這種由風力與流水長期侵蝕形成的特殊地貌，稱為？</div>
+      <div id="opts4"></div>
+      <div class="feedback" id="fb4"></div>
+    </div>
+    <div class="next-wrap"><button class="btn ember" id="next4" disabled onclick="goTo(5)">前往第五站：吐魯番 →</button></div>
+  </div>
+</section>
+
+<section id="day5" data-day="5">
+  <div class="frame">
+    <div class="day-eyebrow">
+      <div class="day-num">05</div>
+      <div class="day-title"><h2>吐魯番：坎兒井 · 葡萄溝 · 火焰山 · 庫木塔格沙漠</h2><span class="eng">Turpan Region</span></div>
+    </div>
+    <div class="day-loc">水利工程 · 維吾爾族文化 · 地質奇觀 · 沙漠生態</div>
+    <p class="day-text">
+      坎兒井是古代勞動人民智慧的結晶，將水源引入地下以防高溫蒸發，滋養乾旱的吐魯番。
+      葡萄溝的維吾爾族文化與農業生產相互交織；火焰山赤紅的砂岩不僅是地質奇觀，
+      更因《西遊記》而承載豐富的文學想像；庫木塔格沙漠則展現沙漠與城市共存的規劃智慧。
+    </p>
+
+    <div class="compare" data-slider="5">
+      <div class="layer before compare-fill">歷史舊照<br><small style="opacity:.75">（請替換為歷史照片）</small></div>
+      <div class="after-wrap"><div class="layer after" style="width:200%;">今日實景 / AI 數位修復<br><small style="opacity:.75">（請替換為修復後照片）</small></div></div>
+      <div class="divider"></div>
+      <div class="handle">⇔</div>
+      <div class="compare-label l">修復前</div>
+      <div class="compare-label r">修復後</div>
+      <div class="egg" style="top:20%; left:60%;" onclick="foundEgg(event,5)">?</div>
+    </div>
+    <p class="compare-hint">拖曳滑桿，比較坎兒井 / 火焰山一帶的今昔景象。畫面上藏著一件「文物」，找找看？</p>
+    <div class="egg-note" id="egg5">🌡️ 冷知識：火焰山景區內設有巨型地表溫度計，夏季實測地表溫度可超過攝氏70度。</div>
+
+    <div class="quiz-box">
+      <div class="quiz-q">在《西遊記》中，孫悟空為撲滅火焰山大火，必須向鐵扇公主借取哪一件法寶？</div>
+      <div id="opts5"></div>
+      <div class="feedback" id="fb5"></div>
+    </div>
+    <div class="next-wrap"><button class="btn ember" id="next5" disabled onclick="goTo(6)">前往終點站：文化總結 →</button></div>
+  </div>
+</section>
+
+<section id="day6" data-day="6">
+  <div class="frame">
+    <div class="day-eyebrow">
+      <div class="day-num">06</div>
+      <div class="day-title"><h2>非遺館 · 八路軍紀念館 · 國際大巴扎 · 全體分享會</h2><span class="eng">Heritage, History &amp; Reflection</span></div>
+    </div>
+    <div class="day-loc">非物質文化遺產 · 抗戰歷史 · 民生風貌 · 反思總結</div>
+    <p class="day-text">
+      新疆非物質文化遺產館展現中國傳統藝術的深厚底蘊；八路軍駐新疆辦事處紀念館，
+      讓我們認識新疆在抗戰時期作為國際通道的重要角色；國際大巴扎的煙火氣息，則是當地民生的真實寫照。
+      從天池到大巴扎，這趟旅程讓我們明白：文化的傳承與生態的保護，都是國家安全不可分割的一環。
+    </p>
+
+    <div class="quiz-box" style="margin-bottom:30px;">
+      <div class="quiz-q">結業心得留言 · Reflection Wall</div>
+      <p style="font-size:0.88rem; color:var(--ink-soft); margin-top:-8px;">在這六天的旅程中，哪一站或哪一種文化最令你印象深刻？為何守護文化安全與生態安全同樣重要？</p>
+      <input type="text" id="wallName" placeholder="姓名 / 班別" style="margin-bottom:10px;">
+      <textarea id="wallMsg" rows="3" placeholder="請輸入你的感想……"></textarea>
+      <div style="margin-top:12px; text-align:right;"><button class="btn" onclick="postWall()">發佈留言</button></div>
+      <div class="wall" id="wallList"></div>
+    </div>
+
+    <div class="quiz-box">
+      <div class="quiz-q">領取結業證書 · Certificate of Completion</div>
+      <input type="text" id="certName" placeholder="請輸入你的姓名，領取結業證書">
+      <div style="margin-top:12px; text-align:right;"><button class="btn ember" onclick="genCert()">生成證書</button></div>
+      <div class="cert hidden" id="certBox">
+        <span class="eng">Certificate of Completion</span>
+        <h3>時空修復師結業證書</h3>
+        <div class="name" id="certNameOut">___</div>
+        <p style="font-size:0.9rem; color:var(--ink-soft);">已完成「新疆歷史文化數位修復展覽」全程參觀<br>路德會協同中學 · 2025/26</p>
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--ember-deep); margin-top:6px;" id="certTier"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>路德會協同中學 · 公民與歷史科　|　「薪火相傳」平台系列 2025/26</footer>
+
+<script>
+/* ---------- 對比滑桿：拖曳互動 ---------- */
+document.querySelectorAll('.compare').forEach(el=>{
+  const afterWrap = el.querySelector('.after-wrap');
+  const divider = el.querySelector('.divider');
+  const handle = el.querySelector('.handle');
+  function setPos(px){
+    const rect = el.getBoundingClientRect();
+    let pct = ((px - rect.left) / rect.width) * 100;
+    pct = Math.max(0, Math.min(100, pct));
+    afterWrap.style.width = pct + '%';
+    divider.style.left = pct + '%';
+    handle.style.left = pct + '%';
+  }
+  let dragging=false;
+  el.addEventListener('pointerdown', e=>{dragging=true; setPos(e.clientX);});
+  window.addEventListener('pointermove', e=>{if(dragging) setPos(e.clientX);});
+  window.addEventListener('pointerup', ()=>dragging=false);
+});
+
+/* ---------- 分數與音效 ---------- */
+let score = 0;
+const attempts = {};
+function addScore(n){
+  score += n;
+  const badge = document.getElementById('scoreBadge');
+  badge.textContent = '修復點數 · ' + score;
+  badge.classList.add('pulse');
+  setTimeout(()=>badge.classList.remove('pulse'), 250);
+}
+let audioCtx;
+function beep(freq, dur, type='sine'){
+  try{
+    audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+    const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+    o.type=type; o.frequency.value=freq; o.connect(g); g.connect(audioCtx.destination);
+    g.gain.setValueAtTime(0.12, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+dur);
+    o.start(); o.stop(audioCtx.currentTime+dur);
+  }catch(e){}
+}
+function playCorrect(){ beep(660,0.12); setTimeout(()=>beep(880,0.18),110); }
+function playWrong(){ beep(180,0.22,'sawtooth'); }
+function playEgg(){ beep(990,0.08); setTimeout(()=>beep(1320,0.14),90); }
+
+/* ---------- 每日測驗設定（含提示） ---------- */
+const quizData = {
+  1:{options:["蒙古包","氈房","木屋","磚房"], answer:"氈房", hint:"回頭看看「遊牧文明」那段文字，找找哈薩克族的移動式居所名稱。"},
+  2:{options:["太陽灣","月亮灣","星星灣","彩虹灣"], answer:"月亮灣", hint:"文中提到「形狀宛如一彎明月」，是哪一個灣呢？"},
+  3:{options:["呼麥","高音","對唱","口技"], answer:"呼麥", hint:"文中提到一種「喉音唱法」，聲音低沉悠遠——這項絕技叫什麼？"},
+  4:{options:["雅丹地貌","喀斯特地貌","丹霞地貌","風蝕窪地"], answer:"雅丹地貌", hint:"文中解釋這是「風力與流水長期侵蝕」形成的地形，地質學專有名詞是？"},
+  5:{options:["金箍棒","芭蕉扇","九齒釘耙","乾坤圈"], answer:"芭蕉扇", hint:"回想《西遊記》故事，孫悟空向鐵扇公主借的是哪一把「扇」？"}
+};
+Object.keys(quizData).forEach(day=>{
+  attempts[day]=0;
+  const box = document.getElementById('opts'+day);
+  quizData[day].options.forEach(opt=>{
+    const b = document.createElement('button');
+    b.className='opt'; b.textContent=opt;
+    b.onclick=()=>checkAnswer(day, opt, b);
+    box.appendChild(b);
+  });
+});
+function checkAnswer(day, opt, btn){
+  const correct = quizData[day].answer;
+  const box = document.getElementById('opts'+day);
+  const fb = document.getElementById('fb'+day);
+  if(opt===correct){
+    [...box.children].forEach(c=>c.disabled=true);
+    btn.classList.add('correct');
+    playCorrect();
+    const gained = attempts[day]===0 ? 20 : 10;
+    addScore(gained);
+    fb.textContent = attempts[day]===0
+      ? `✓ 一次答對！+${gained} 修復點數，可以前往下一站了。`
+      : `✓ 答對了！+${gained} 修復點數，可以前往下一站了。`;
+    document.getElementById('next'+day).disabled=false;
+    unlockDot(Number(day)+1);
+    document.querySelector(`.dot[data-d="${day}"]`)?.classList.add('done');
+  } else {
+    attempts[day]++;
+    btn.classList.add('wrong');
+    playWrong();
+    fb.textContent = '✗ 尚未修復成功。提示：' + quizData[day].hint;
+  }
+}
+
+/* ---------- 隱藏文物彩蛋 ---------- */
+function foundEgg(e, day){
+  const el = e.currentTarget;
+  if(el.classList.contains('found')) return;
+  el.classList.add('found'); el.textContent='✓';
+  playEgg();
+  addScore(15);
+  const note = document.getElementById('egg'+day);
+  if(note) note.classList.add('show');
+}
+
+/* ---------- 導覽點與切換 ---------- */
+const totalDays=6;
+const dotGroup=document.getElementById('dotGroup');
+for(let i=0;i<=totalDays;i++){
+  if(i>0){const sep=document.createElement('div'); sep.className='rail-sep'; dotGroup.appendChild(sep);}
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' unlocked':'');
+  d.dataset.d=i;
+  d.textContent = i===0? '首' : i;
+  d.onclick=()=>{ if(d.classList.contains('unlocked')||d.classList.contains('current')||d.classList.contains('done')) goTo(i); };
+  dotGroup.appendChild(d);
+}
+function unlockDot(n){
+  const dot=document.querySelector(`.dot[data-d="${n}"]`);
+  if(dot) dot.classList.add('unlocked');
+}
+function goTo(n){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  const target = n===0? document.getElementById('hero') : document.getElementById('day'+n);
+  target.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.dot').forEach(d=>d.classList.remove('current'));
+  const dot=document.querySelector(`.dot[data-d="${n}"]`);
+  if(dot){ dot.classList.add('current'); dot.classList.add('unlocked'); }
+}
+
+/* ---------- 反思留言牆 ---------- */
+function postWall(){
+  const name = document.getElementById('wallName').value.trim() || '匿名同學';
+  const msg = document.getElementById('wallMsg').value.trim();
+  if(!msg) return;
+  const wall = document.getElementById('wallList');
+  const card = document.createElement('div');
+  card.className='card';
+  card.innerHTML = `${msg}<div class="who">— ${name}</div>`;
+  wall.prepend(card);
+  document.getElementById('wallMsg').value='';
+}
+
+/* ---------- 結業證書 ---------- */
+function genCert(){
+  const name = document.getElementById('certName').value.trim();
+  if(!name) return;
+  document.getElementById('certNameOut').textContent = name;
+  let tier = '見習時空修復師';
+  if(score>=140) tier='首席時空修復師';
+  else if(score>=100) tier='資深時空修復師';
+  document.getElementById('certTier').textContent = '等級評定：' + tier + '（修復點數 ' + score + '）';
+  document.getElementById('certBox').classList.remove('hidden');
+  playCorrect();
+}
+</script>
+</body>
+</html>
