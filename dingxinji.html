@@ -6,53 +6,61 @@
 <title>鼎新記 · 山河長卷</title>
 <style>
   :root{
-    --paper:#F5ECDA;
-    --paper-deep:#EADFC1;
-    --parchment:#FBF5E7;
-    --ink:#241F1B;
-    --ink-soft:#5A4E40;
+    --paper:#F1ECDC;
+    --paper-deep:#E4DCC2;
+    --parchment:#FAF6EA;
+    --ink:#20242B;
+    --ink-soft:#525A63;
+    --indigo:#24506A;
+    --indigo-deep:#173A4E;
+    --jade:#3F6D5A;
+    --jade-deep:#2A4A3D;
     --vermillion:#A6342B;
     --vermillion-deep:#7E241C;
-    --gold:#B8863B;
-    --gold-deep:#8C6425;
-    --jade:#2F5D50;
-    --jade-deep:#20423A;
-    --line:#C9AD7B;
+    --line:#C7BC9A;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:var(--paper);
+    background-color:var(--paper);
+    background-image:
+      repeating-linear-gradient(60deg, rgba(36,80,106,0.035) 0px, rgba(36,80,106,0.035) 1px, transparent 1px, transparent 26px),
+      repeating-linear-gradient(-60deg, rgba(36,80,106,0.035) 0px, rgba(36,80,106,0.035) 1px, transparent 1px, transparent 26px);
     color:var(--ink);
     font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
     line-height:1.75;
     -webkit-font-smoothing:antialiased;
   }
   h1,h2,h3{font-family:"Noto Serif TC","Kaiti TC","STKaiti",serif; margin:0; font-weight:700;}
-  .tag{font-size:0.72rem; letter-spacing:0.18em; color:var(--gold-deep);}
+  .tag{font-size:0.72rem; letter-spacing:0.18em; color:var(--indigo);}
+
+  /* 遠山近水：固定背景 */
+  #bgArt{position:fixed; left:0; right:0; bottom:0; height:40vh; min-height:240px; z-index:0; pointer-events:none; overflow:hidden;}
+  #bgArt svg{width:100%; height:100%; display:block;}
+  .cloud-deco{position:absolute; z-index:0; opacity:0.5; pointer-events:none;}
 
   /* 回紋飾帶 */
   .fret{
-    height:8px; opacity:0.55; margin:0 auto;
+    height:8px; opacity:0.5; margin:0 auto;
     background-image:
-      linear-gradient(45deg, var(--gold) 25%, transparent 25%),
-      linear-gradient(-45deg, var(--gold) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, var(--gold) 75%),
-      linear-gradient(-45deg, transparent 75%, var(--gold) 75%);
+      linear-gradient(45deg, var(--indigo) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--indigo) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--indigo) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--indigo) 75%);
     background-size:10px 10px;
   }
 
   /* 角飾框 */
   .scroll-panel{position:relative; padding:22px 24px; border:1px solid var(--line); background:var(--parchment); border-radius:2px;}
   .scroll-panel::before,.scroll-panel::after{content:""; position:absolute; width:16px; height:16px; pointer-events:none;}
-  .scroll-panel::before{top:-1px;left:-1px; border-top:2px solid var(--gold-deep); border-left:2px solid var(--gold-deep);}
-  .scroll-panel::after{bottom:-1px; right:-1px; border-bottom:2px solid var(--gold-deep); border-right:2px solid var(--gold-deep);}
+  .scroll-panel::before{top:-1px;left:-1px; border-top:2px solid var(--indigo); border-left:2px solid var(--indigo);}
+  .scroll-panel::after{bottom:-1px; right:-1px; border-bottom:2px solid var(--indigo); border-right:2px solid var(--indigo);}
 
   /* 頂部導覽 */
   #rail{
     position:fixed; top:0; left:0; right:0; z-index:50;
-    background:rgba(251,245,231,0.94);
+    background:rgba(250,246,234,0.94);
     backdrop-filter:blur(6px);
     border-bottom:1px solid var(--line);
     padding:9px 16px;
@@ -74,21 +82,21 @@
     transition:all .3s ease; cursor:default;
   }
   .dot.unlocked{border-color:var(--jade); color:var(--jade-deep); cursor:pointer;}
-  .dot.current{background:var(--vermillion); color:#fff; border-color:var(--vermillion);}
-  .dot.done{background:var(--gold-deep); color:#fff; border-color:var(--gold-deep);}
+  .dot.current{background:var(--indigo); color:#fff; border-color:var(--indigo);}
+  .dot.done{background:var(--vermillion-deep); color:#fff; border-color:var(--vermillion-deep);}
   .rail-sep{width:10px;height:1px;background:var(--line);}
 
   /* 儀表：位階／德望／四維／行囊 */
   #dashboard{
     position:fixed; top:51px; left:0; right:0; z-index:45;
-    background:rgba(251,245,231,0.96); border-bottom:1px solid var(--line);
+    background:rgba(250,246,234,0.96); border-bottom:1px solid var(--line);
     padding:8px 16px; display:none; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap;
     backdrop-filter:blur(6px); font-size:0.75rem;
   }
   #dashboard.show{display:flex;}
   #rankBadge{
-    font-weight:700; color:var(--vermillion-deep); border:1px solid var(--vermillion); padding:4px 12px;
-    border-radius:16px; background:rgba(166,52,43,0.08); white-space:nowrap; transition:transform .2s ease;
+    font-weight:700; color:var(--indigo-deep); border:1px solid var(--indigo); padding:4px 12px;
+    border-radius:16px; background:rgba(36,80,106,0.08); white-space:nowrap; transition:transform .2s ease;
   }
   #rankBadge.pulse{transform:scale(1.12);}
   .meter{display:flex; align-items:center; gap:5px;}
@@ -97,27 +105,27 @@
   .meter .mfill{height:100%; background:var(--jade); transition:width .5s ease, background .3s ease;}
   .meter .mfill.warn{background:var(--vermillion);}
   .meter .mval{font-weight:700; color:var(--ink); width:20px;}
-  #invBtn{border:1px solid var(--gold-deep); color:var(--gold-deep); background:transparent; padding:4px 12px; border-radius:16px; cursor:pointer; font-family:inherit; font-size:0.75rem;}
-  #invBtn:hover{background:rgba(184,134,59,0.1);}
+  #invBtn{border:1px solid var(--indigo); color:var(--indigo-deep); background:transparent; padding:4px 12px; border-radius:16px; cursor:pointer; font-family:inherit; font-size:0.75rem;}
+  #invBtn:hover{background:rgba(36,80,106,0.1);}
 
   /* 行囊面板 */
   #invPanel{
     position:fixed; top:96px; right:16px; z-index:60; width:min(320px,86vw);
-    background:var(--parchment); border:1px solid var(--line); box-shadow:0 10px 30px rgba(36,31,27,0.2);
+    background:var(--parchment); border:1px solid var(--line); box-shadow:0 10px 30px rgba(32,36,43,0.2);
     padding:18px; display:none; border-radius:2px;
   }
   #invPanel.show{display:block;}
   #invPanel h4{font-size:1rem; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;}
   #invPanel h4 button{background:none;border:none;font-size:1rem;cursor:pointer;color:var(--ink-soft);}
-  .inv-item{border-left:3px solid var(--gold-deep); padding:8px 10px; margin-bottom:8px; background:var(--paper); font-size:0.85rem;}
-  .inv-item b{color:var(--vermillion-deep);}
+  .inv-item{border-left:3px solid var(--indigo); padding:8px 10px; margin-bottom:8px; background:var(--paper); font-size:0.85rem;}
+  .inv-item b{color:var(--indigo-deep);}
   .inv-empty{font-size:0.85rem; color:var(--ink-soft); font-style:italic;}
 
   section{
     min-height:100vh;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     padding:130px 24px 80px;
-    position:relative;
+    position:relative; z-index:1;
     scroll-margin-top:60px;
   }
   section{display:none;}
@@ -126,20 +134,14 @@
   .frame{max-width:800px; width:100%;}
 
   /* 開篇 */
-  #hero{
-    background:
-      radial-gradient(ellipse at 15% 8%, rgba(166,52,43,0.08), transparent 55%),
-      radial-gradient(ellipse at 88% 92%, rgba(184,134,59,0.10), transparent 50%),
-      var(--paper);
-    padding-top:110px;
-  }
+  #hero{padding-top:110px; position:relative;}
   #hero.active{display:flex !important;}
   #hero h1{font-size:clamp(2.2rem,6vw,3.4rem); letter-spacing:0.12em; line-height:1.4;}
   #hero .subtitle{font-style:italic; color:var(--ink-soft); font-size:1.05rem; margin-top:12px; letter-spacing:0.06em;}
   #hero p.desc{margin-top:30px; color:var(--ink-soft); font-size:1.02rem; text-align:left;}
 
-  .divider-ornament{display:flex; align-items:center; gap:14px; margin:32px 0;}
-  .divider-ornament .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .divider-ornament{display:flex; align-items:center; gap:14px; margin:28px 0;}
+  .divider-ornament .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--indigo),transparent);}
   .divider-ornament .emblem{
     width:46px;height:46px;border-radius:50%;border:2px solid var(--vermillion);
     display:flex;align-items:center;justify-content:center;color:var(--vermillion-deep);
@@ -153,8 +155,8 @@
     border-radius:2px; cursor:pointer; letter-spacing:0.05em;
     transition:transform .15s ease, background .2s ease;
   }
-  .btn:hover{background:var(--jade-deep); transform:translateY(-1px);}
-  .btn:focus-visible{outline:3px solid var(--vermillion); outline-offset:2px;}
+  .btn:hover{background:var(--indigo-deep); transform:translateY(-1px);}
+  .btn:focus-visible{outline:3px solid var(--indigo); outline-offset:2px;}
   .btn.ember{background:var(--vermillion);}
   .btn.ember:hover{background:var(--vermillion-deep);}
   .btn[disabled]{opacity:0.35; cursor:not-allowed; transform:none;}
@@ -165,24 +167,24 @@
   .class-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; margin:20px 0 26px;}
   .class-card{border:1px solid var(--line); background:var(--parchment); padding:18px; border-radius:2px; cursor:pointer; text-align:left; transition:all .2s;}
   .class-card:hover{border-color:var(--jade);}
-  .class-card.chosen{border-color:var(--vermillion); box-shadow:0 0 0 1px var(--vermillion);}
-  .class-card h4{margin:0 0 4px; font-size:1.15rem; color:var(--vermillion-deep);}
-  .class-card .cc-tag{font-size:0.7rem; color:var(--gold-deep); letter-spacing:0.1em;}
+  .class-card.chosen{border-color:var(--indigo); box-shadow:0 0 0 1px var(--indigo);}
+  .class-card h4{margin:0 0 4px; font-size:1.15rem; color:var(--indigo-deep);}
+  .class-card .cc-tag{font-size:0.7rem; color:var(--indigo); letter-spacing:0.1em;}
   .class-card p{margin:8px 0 0; font-size:0.83rem; color:var(--ink-soft);}
   .class-card .skill{font-size:0.78rem; margin-top:8px; color:var(--jade-deep);}
   .id-scroll{display:none; margin-top:6px;}
   .id-scroll.show{display:block;}
-  .id-scroll .idname{font-size:1.2rem; font-weight:700; color:var(--vermillion-deep); margin-bottom:4px;}
+  .id-scroll .idname{font-size:1.2rem; font-weight:700; color:var(--indigo-deep); margin-bottom:4px;}
   .id-scroll .idclass{font-size:0.9rem; color:var(--ink-soft); margin-bottom:14px;}
 
   /* 任務卷 */
   .juan-row{display:flex; gap:16px; align-items:flex-start;}
   .juan-mark{
-    writing-mode:vertical-rl; font-size:0.92rem; letter-spacing:0.35em; color:var(--vermillion-deep);
+    writing-mode:vertical-rl; font-size:0.92rem; letter-spacing:0.35em; color:var(--indigo-deep);
     border-right:1px solid var(--line); padding:2px 12px 2px 0; flex-shrink:0;
   }
   .day-title h2{font-size:1.4rem;}
-  .day-loc{color:var(--gold-deep); font-size:0.88rem; margin:6px 0 4px;}
+  .day-loc{color:var(--indigo); font-size:0.88rem; margin:6px 0 4px;}
 
   .narrator{
     display:flex; gap:12px; align-items:flex-start; margin:18px 0 20px;
@@ -201,13 +203,13 @@
 
   .scroll-wrap{margin-bottom:22px;}
   .scroll-toggle{
-    background:transparent; border:1px dashed var(--gold-deep); color:var(--gold-deep);
+    background:transparent; border:1px dashed var(--indigo); color:var(--indigo);
     padding:9px 16px; border-radius:2px; cursor:pointer; font-family:inherit; font-size:0.88rem;
   }
-  .scroll-toggle:hover{background:rgba(184,134,59,0.08);}
+  .scroll-toggle:hover{background:rgba(36,80,106,0.08);}
   .scroll-box{
     margin-top:12px; padding:16px 18px; font-size:0.9rem; color:var(--ink-soft);
-    display:none; white-space:pre-line; border-left:4px solid var(--gold-deep);
+    display:none; white-space:pre-line; border-left:4px solid var(--indigo);
   }
   .scroll-box.show{display:block;}
   .scroll-box .stitle{font-weight:700; color:var(--ink); display:block; margin-bottom:8px; font-size:0.88rem;}
@@ -223,7 +225,7 @@
   .opt.enabled{opacity:1; pointer-events:auto;}
   .opt:hover.enabled{border-color:var(--jade);}
   .opt.selected{border-color:var(--ink); box-shadow:0 0 0 1px var(--ink);}
-  .opt .ospeaker{font-size:0.74rem; color:var(--vermillion-deep); font-weight:700; display:block; margin-bottom:3px;}
+  .opt .ospeaker{font-size:0.74rem; color:var(--indigo-deep); font-weight:700; display:block; margin-bottom:3px;}
   .opt .olabel{font-weight:700; display:block; margin-bottom:4px;}
   .opt .osummary{font-size:0.85rem; color:var(--ink-soft); font-weight:400;}
   .preview-box{margin-top:14px; font-size:0.87rem; color:var(--ink-soft); display:none;}
@@ -245,16 +247,16 @@
     font-family:"Kaiti TC","STKaiti",serif;
   }
   .stamp-mark.show{opacity:0.88; transform:scale(1) rotate(-6deg);}
-  .item-gained{margin-top:14px; font-size:0.86rem; color:var(--gold-deep); display:none;}
+  .item-gained{margin-top:14px; font-size:0.86rem; color:var(--indigo-deep); display:none;}
   .item-gained.show{display:block;}
   .next-wrap{margin-top:26px; text-align:right; width:100%;}
 
   /* 反思 */
   .reflect-stage{margin-bottom:30px; width:100%;}
   .reflect-stage h3{font-size:1.1rem; margin-bottom:12px;}
-  .reflect-q{background:var(--parchment); border:1px solid var(--line); border-left:3px solid var(--vermillion); padding:10px 14px; font-size:0.9rem; margin-bottom:8px; color:var(--ink-soft);}
+  .reflect-q{background:var(--parchment); border:1px solid var(--line); border-left:3px solid var(--indigo); padding:10px 14px; font-size:0.9rem; margin-bottom:8px; color:var(--ink-soft);}
   .wall{display:flex; flex-direction:column; gap:12px; margin:16px 0; max-height:260px; overflow-y:auto; padding-right:4px;}
-  .wall .card{background:var(--parchment); border:1px solid var(--line); border-left:4px solid var(--vermillion); padding:14px 16px; font-size:0.92rem;}
+  .wall .card{background:var(--parchment); border:1px solid var(--line); border-left:4px solid var(--jade); padding:14px 16px; font-size:0.92rem;}
   .wall .card .who{font-size:0.75rem; color:var(--jade-deep); margin-top:6px; letter-spacing:0.05em;}
   textarea, input[type=text]{
     width:100%; font-family:inherit; font-size:0.95rem; padding:12px 14px; border:1px solid var(--line);
@@ -262,23 +264,39 @@
   }
   textarea:focus, input[type=text]:focus{outline:2px solid var(--jade);}
 
-  .cert{margin-top:30px; padding:40px; border:2px solid var(--gold-deep); position:relative; background:var(--parchment); text-align:center;}
+  .cert{margin-top:30px; padding:40px; border:2px solid var(--indigo); position:relative; background:var(--parchment); text-align:center;}
   .cert::before{content:""; position:absolute; inset:8px; border:1px solid var(--line);}
   .cert .tag{display:block; margin-bottom:8px;}
   .cert h3{font-size:1.5rem; margin-bottom:6px;}
   .cert .name{font-size:1.7rem; color:var(--vermillion-deep); margin:14px 0; font-weight:700;}
   .cert .inv-summary{font-size:0.85rem; color:var(--ink-soft); margin-top:10px;}
   .hidden{display:none !important;}
-  footer{text-align:center; padding:26px; font-size:0.78rem; color:var(--ink-soft); letter-spacing:0.05em;}
   @media(max-width:600px){
     section{padding:170px 18px 60px;}
     .juan-mark{display:none;}
     #dashboard{gap:8px;}
     #invPanel{right:8px; top:100px;}
+    #bgArt{height:26vh;}
   }
 </style>
 </head>
 <body>
+
+<div id="bgArt" aria-hidden="true">
+  <svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#F6F1E2" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#F6F1E2" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="1180" cy="90" r="95" fill="url(#moonGlow)"/>
+    <circle cx="1180" cy="90" r="32" fill="#F6F1E2" opacity="0.8"/>
+    <path d="M0,340 Q120,255 260,300 T520,285 T780,310 T1040,275 T1300,300 T1440,285 L1440,500 L0,500 Z" fill="#24506A" opacity="0.12"/>
+    <path d="M0,385 Q180,300 380,340 T740,325 T1100,350 T1440,325 L1440,500 L0,500 Z" fill="#24506A" opacity="0.20"/>
+    <path d="M0,432 Q220,358 460,400 T900,388 T1440,400 L1440,500 L0,500 Z" fill="#173A4E" opacity="0.30"/>
+  </svg>
+</div>
 
 <div id="rail">
   <div class="dot-group" id="dotGroup"></div>
@@ -296,10 +314,14 @@
 
 <!-- 開篇 -->
 <section id="hero" class="active" data-stop="0">
+  <svg class="cloud-deco" style="top:120px; left:4%; width:110px; height:60px;" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10,45 Q5,25 25,25 Q28,10 48,15 Q55,5 68,15 Q85,10 88,28 Q105,28 100,45 Z" fill="none" stroke="#24506A" stroke-width="2" opacity="0.4"/>
+  </svg>
+  <svg class="cloud-deco" style="top:150px; right:5%; width:130px; height:70px;" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10,45 Q5,25 25,25 Q28,10 48,15 Q55,5 68,15 Q85,10 88,28 Q105,28 100,45 Z" fill="none" stroke="#3F6D5A" stroke-width="2" opacity="0.35"/>
+  </svg>
   <div class="frame" style="text-align:center;">
-    <div class="tag">跨學科教育角色扮演教案 · 無卡牌實境情境遊戲</div>
-    <div class="fret" style="width:120px; margin-top:10px;"></div>
-    <h1 style="margin-top:20px;">鼎 新 記</h1>
+    <h1>鼎 新 記</h1>
     <div class="subtitle">山河長卷．治世修行</div>
     <div class="divider-ornament">
       <div class="line"></div>
@@ -309,7 +331,7 @@
     <p class="desc">
       你將加入「鼎議堂」，成為一名肩負治理之責的使者，走過六段山河長卷——
       嶺南初定、屯門開海、汴京交子、虎門烽煙、深圳蛇口、憲制終章。
-      這裡沒有隨機抽取的卡牌，每一步抉擇都必須先展讀史料典籍，再由你議定方案、蓋下印信方能生效。
+      每一步抉擇都必須先展讀史料典籍，再由你議定方案、蓋下印信方能生效。
       你的抉擇將牽動「律維、安維、富維、文維」四維消長，亦決定你在鼎議堂中的位階與行囊中積累的信物。
       願你以史為鑑，鼎故革新，走出一段真正屬於自己的治世之旅。
     </p>
@@ -398,8 +420,6 @@
     </div>
   </div>
 </section>
-
-<footer>公民與歷史科 · 中華文化教育組　|　「薪火相傳」平台系列 2025/26</footer>
 
 <script>
 /* ---------- 資料：邦本四維 ---------- */
