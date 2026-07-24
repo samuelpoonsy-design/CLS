@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>鼎新記 · 山河長卷</title>
+<title>時空掌舵人 —— 華夏歷史與當代治理 AI 互動 RPG</title>
 <style>
   :root{
     --paper:#F1ECDC;
@@ -339,6 +339,7 @@
   .stamp-mark.show{opacity:0.88; transform:scale(1) rotate(-6deg);}
   .item-gained{margin-top:14px; font-size:0.86rem; color:var(--indigo-deep); display:none;}
   .item-gained.show{display:block;}
+  .edu-credit{margin-top:32px; padding-top:14px; border-top:1px solid var(--line); font-size:0.72rem; color:var(--ink-soft); text-align:center; letter-spacing:0.05em;}
   .next-wrap{margin-top:26px; text-align:right; width:100%;}
 
   /* 反思 */
@@ -507,8 +508,8 @@
     <path d="M10,45 Q5,25 25,25 Q28,10 48,15 Q55,5 68,15 Q85,10 88,28 Q105,28 100,45 Z" fill="none" stroke-width="2" opacity="0.35"/>
   </svg>
   <div class="frame" style="text-align:center;">
-    <h1>鼎 新 記</h1>
-    <div class="subtitle">山河長卷．治世修行</div>
+    <h1>時 空 掌 舵 人</h1>
+    <div class="subtitle">華夏歷史與當代治理 AI 互動 RPG</div>
     <div class="divider-ornament">
       <div class="line"></div>
       <div class="emblem">鼎</div>
@@ -597,9 +598,9 @@
       <div style="margin-top:12px; text-align:right;"><button class="btn ember" onclick="genCert()">生成卷軸</button></div>
       <div class="cert hidden" id="certBox">
         <span class="tag">結業卷軸</span>
-        <h3>鼎新記 · 結業卷軸</h3>
+        <h3>時空掌舵人 · 結業卷軸</h3>
         <div class="name" id="certNameOut">___</div>
-        <p style="font-size:0.9rem; color:var(--ink-soft);">已完成「鼎新記」全程情境審議 · 鼎議堂</p>
+        <p style="font-size:0.9rem; color:var(--ink-soft);">已完成「時空掌舵人」全程情境審議 · 鼎議堂</p>
         <p style="font-size:1.2rem; color:var(--vermillion-deep); margin-top:10px; font-weight:700;" id="certTitle"></p>
         <p style="font-size:0.9rem; color:var(--ink-soft); margin-top:2px;" id="certMeters"></p>
         <p style="font-size:1.05rem; color:var(--indigo-deep); margin-top:10px; font-weight:700;" id="certTier"></p>
@@ -1014,6 +1015,7 @@ function renderMissions(){
           <div id="roundBody-${m.id}"></div>
           <div class="knowledge-box" id="knowledge-${m.id}"></div>
           <div class="item-gained" id="itemgained-${m.id}"></div>
+          <div class="edu-credit">路德會協同中學公民與社會發展科 x 歷史科</div>
         </div>
       </div>
     </section>
