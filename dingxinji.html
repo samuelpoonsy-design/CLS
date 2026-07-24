@@ -296,6 +296,17 @@
 
   .decision-box{padding:22px 24px;}
   .decision-q{font-weight:700; margin-bottom:16px;}
+  .section-label{font-weight:700; font-size:0.95rem; margin:22px 0 10px; color:var(--ink);}
+  .section-label.first{margin-top:0;}
+  .delib-list{display:flex; flex-direction:column; gap:8px; margin-bottom:22px;}
+  .delib-item{background:var(--parchment); border:1px solid var(--line); border-left:3px solid var(--jade); padding:10px 14px; font-size:0.88rem; color:var(--ink-soft);}
+  .delib-item b{color:var(--jade-deep); font-weight:700;}
+  .stamp-confirm{margin-top:14px; padding:12px 14px; background:var(--indigo-tint); border-left:3px solid var(--indigo); font-size:0.88rem; color:var(--indigo-deep); font-weight:700; display:none;}
+  .stamp-confirm.show{display:block;}
+  .knowledge-box{margin-top:14px; padding:14px 16px; background:rgba(63,109,90,0.08); border-left:3px solid var(--jade); font-size:0.88rem; color:var(--ink-soft); display:none;}
+  .knowledge-box.show{display:block;}
+  .knowledge-box .klabel{font-weight:700; color:var(--jade-deep); display:block; margin-bottom:6px;}
+  .preview-header{font-weight:700; font-size:0.88rem; color:var(--ink); margin-bottom:6px;}
   .opt{
     display:block; width:100%; text-align:left; background:transparent; border:1px solid var(--line);
     padding:13px 16px; margin-bottom:10px; border-radius:2px; cursor:pointer; font-family:inherit; color:var(--ink);
@@ -455,21 +466,21 @@
     <div class="day-title" style="margin-top:8px;"><h2>三階反思：所見？所思？所行？</h2></div>
 
     <div class="reflect-stage">
-      <h3>第一階段 · 所見（經驗描述）</h3>
+      <h3>🔍 第一階段 · 所見（經驗描述）</h3>
       <div class="reflect-q">在虎門烽煙一卷中，你的鼎議堂面臨了什麼樣的資源匱乏與主權危機？</div>
       <div class="reflect-q">在憲制終章的審議中，你引述了《憲法》或《基本法》哪一條文，才成功兼顧國安與經濟？</div>
       <div class="reflect-q">在整段旅程中，哪一卷史料或哪一件行囊信物最讓你印象深刻？</div>
     </div>
 
     <div class="reflect-stage">
-      <h3>第二階段 · 所思（意義深化）</h3>
+      <h3>🤔 第二階段 · 所思（意義深化）</h3>
       <div class="reflect-q">為何秦朝建立的郡縣制與嶺南開發，對後世中國的大一統版圖有如此深遠的影響？</div>
       <div class="reflect-q">為何說《憲法》與《基本法》共同構成香港特別行政區的憲制基礎？「一國」與「兩制」有何辯證關係？</div>
       <div class="reflect-q">中華文化中「民惟邦本」與「兼收並蓄」的思想，如何體現在當代國家治理與香港多元社會之中？</div>
     </div>
 
     <div class="reflect-stage">
-      <h3>第三階段 · 所行（生活應用與轉化）</h3>
+      <h3>🚀 第三階段 · 所行（生活應用與轉化）</h3>
       <div class="reflect-q">認識到香港自古以來與國家不可分割的歷史後，你會如何增強個人的國民身份認同？</div>
       <div class="reflect-q">作為具備世界視野的香港青年，你可以如何在日常生活與未來職業中，為國家與香港的發展作出貢獻？</div>
       <div class="reflect-q">我們應如何透過創新科技與現代生活方式，保護並弘揚中華優秀傳統文化（如非遺傳承）？</div>
@@ -493,7 +504,9 @@
         <h3>鼎新記 · 結業卷軸</h3>
         <div class="name" id="certNameOut">___</div>
         <p style="font-size:0.9rem; color:var(--ink-soft);">已完成「鼎新記」全程情境審議 · 鼎議堂</p>
-        <p style="font-size:1.05rem; color:var(--vermillion-deep); margin-top:6px; font-weight:700;" id="certTier"></p>
+        <p style="font-size:1.2rem; color:var(--vermillion-deep); margin-top:10px; font-weight:700;" id="certTitle"></p>
+        <p style="font-size:0.9rem; color:var(--ink-soft); margin-top:2px;" id="certMeters"></p>
+        <p style="font-size:1.05rem; color:var(--indigo-deep); margin-top:10px; font-weight:700;" id="certTier"></p>
         <p class="inv-summary" id="certInv"></p>
       </div>
     </div>
@@ -503,13 +516,13 @@
 <script>
 /* ---------- 資料：邦本四維 ---------- */
 const meterMeta = {
-  fa:{name:'律維'},
-  guo:{name:'安維'},
-  min:{name:'富維'},
-  wen:{name:'文維'}
+  fa:{name:'⚖️ 法治值'},
+  guo:{name:'🛡️ 國安穩定'},
+  min:{name:'💰 民生經濟'},
+  wen:{name:'🌸 文化凝聚'}
 };
 const state = {
-  meters:{fa:50,guo:50,min:50,wen:50},
+  meters:{fa:100,guo:100,min:100,wen:100},
   charName:'', cls:null,
   merit:0, inventory:[],
   revealed:{}, chosen:{}, stamped:{}, dlgIndex:{}
@@ -517,10 +530,10 @@ const state = {
 
 /* ---------- 資料：四種職司 ---------- */
 const classData = [
-  {key:'exec', name:'柱國', tag:'安邦定國', focus:'guo', desc:'掌軍政大略，於變局中運籌帷幄，安定四方。', skill:'「坐鎮」：起手安維 +5。', avatar:'柱', color:'indigo'},
-  {key:'law',  name:'廷尉', tag:'明察法理', focus:'fa',  desc:'援引律令典籍，確保每項方案皆有憑有據。', skill:'「引律」：起手律維 +5。', avatar:'廷', color:'indigo-deep'},
-  {key:'fis',  name:'大司農', tag:'掌理度支', focus:'min', desc:'精算財政盈虧，務使民生殷阜，不竭澤而漁。', skill:'「量入」：起手富維 +5。', avatar:'農', color:'ink-soft'},
-  {key:'cul',  name:'太史', tag:'典籍教化', focus:'wen', desc:'記錄興衰教化黎民，凝聚民心與文化認同。', skill:'「秉筆」：起手文維 +5。', avatar:'太', color:'jade-deep'}
+  {key:'exec', name:'執政專員', tag:'大局協調', focus:'guo', desc:'負責整體決策協調與大局觀，統籌四方，權衡治理優次。', skill:'「坐鎮」：隨時掌握「🛡️ 國安穩定」的消長。', avatar:'政', color:'indigo'},
+  {key:'law',  name:'律令專員', tag:'合憲把關', focus:'fa',  desc:'負責查閱《秦律》、《憲法》與《基本法》，確認合憲合法性。', skill:'「引律」：隨時掌握「⚖️ 法治值」的消長。', avatar:'律', color:'indigo-deep'},
+  {key:'fis',  name:'度支專員', tag:'資源精算', focus:'min', desc:'負責資源精算、財政準備金與貿易經濟平衡。', skill:'「量入」：隨時掌握「💰 民生經濟」的消長。', avatar:'度', color:'ink-soft'},
+  {key:'cul',  name:'文教與文化使者', tag:'軟實力外交', focus:'wen', desc:'負責文化傳承、民族認同與軟實力外交。', skill:'「秉筆」：隨時掌握「🌸 文化凝聚」的消長。', avatar:'文', color:'jade-deep'}
 ];
 const narratorMeta = {name:'鑑史先生', avatar:'鑑', color:'jade'};
 function speakerMeta(who){
@@ -540,14 +553,21 @@ const missionData = [
     {who:'cul', line:'越人風俗自有其理，一味強壓，只怕適得其反。'}
   ],
   context:'秦始皇統一六國後，派兵平定嶺南，於此設南海郡番禺縣——香港地區自此正式納入中國版圖。然而，中原法制與本地俚越風俗差異甚大，加上山林阻隔、交通不便，如何治理這片新附之地，成為鼎議堂的第一道難題。',
+  deliberation:{
+    exec:'嶺南甫定、人心未附，大局上該以「立威」還是「懷柔」為先？如何在鎮壓與安撫之間拿捏分寸？',
+    law:'秦律強調「不得自為」，但若全盤移植而不因地制宜，是否反而動搖法治根基？可有典籍先例可援引變通？',
+    fis:'徵發勞役開鑿新道、運糧戍邊，財政與民力負擔如何精算，才不致竭澤而漁？',
+    cul:'推行「書同文、車同軌」固然利於一統，但百越文化（斷髮文身、干欄建築、龍舟習俗）該如何安置，才不致激起文化對立？'
+  },
+  knowledge:'郡縣制取代分封制，是秦代中央集權的重要基石，也奠定了此後兩千年中國「大一統」政治格局的雛形——香港自秦代納入南海郡番禺縣起，便已是中國版圖不可分割的一部分，這正是高中公民科探討香港憲制基礎時的歷史起點。「禮法並用」的治理智慧，也呼應了中華文化兼容並蓄的天下觀。',
   scrollTitle:'史料卷軸 · 雲夢睡虎地秦簡（節錄大意）',
   scrollText:'「……什伍連坐，度量衡、文字皆依秦制，不得自為……」\n——秦簡所載的什伍連坐與統一制度，反映秦代以嚴密法制鞏固中央集權的治理邏輯。',
   stampLabel:'蓋史料依據印', gated:false,
   item:{name:'秦篆量衡令牌', flavor:'刻著統一文字與度量衡的木牘，見證嶺南初定。'},
   options:[
-    {key:'A', speaker:'柱國', label:'嚴刑峻法，強制推行', summary:'全面移植秦律，不作在地調適，並徵發勞役開鑿道路運河。', quote:'「亂世用重典，唯有嚴法方能鎮服四方。」', delta:{fa:5,guo:15,min:-10,wen:-15}, feedback:'秩序雖立，但越人風俗遭強行壓制，民怨積聚，「文維」與「富維」明顯受損。'},
-    {key:'B', speaker:'太史', label:'放任自治，不加干預', summary:'暫緩推行秦律與度量衡統一，尊重越人原有習俗。', quote:'「風俗不可強改，且容其自安。」', delta:{fa:-15,guo:-15,min:0,wen:10}, feedback:'地方自主雖獲一時安穩，但中央法制未能落地，「律維」與「安維」雙雙下滑。'},
-    {key:'C', speaker:'廷尉', label:'禮法並用，因地制宜', summary:'推行秦律基本框架，保留若干因地制宜條款；派文教官推廣文字度量衡，同時尊重越人風俗。', quote:'「禮法並用，方能法立而人心歸附。」', delta:{fa:15,guo:10,min:0,wen:15}, feedback:'法制得以確立，風俗亦獲尊重——這正是「禮法並用」的治理智慧，為嶺南長治久安奠定基礎。'}
+    {key:'A', speaker:'執政專員', label:'嚴刑峻法，強制推行', summary:'全面移植秦律，不作在地調適，並徵發勞役開鑿道路運河。', quote:'「亂世用重典，唯有嚴法方能鎮服四方。」', delta:{fa:5,guo:15,min:-10,wen:-15}, feedback:'秩序雖立，但越人風俗遭強行壓制，民怨積聚，「文維」與「富維」明顯受損。'},
+    {key:'B', speaker:'文教與文化使者', label:'放任自治，不加干預', summary:'暫緩推行秦律與度量衡統一，尊重越人原有習俗。', quote:'「風俗不可強改，且容其自安。」', delta:{fa:-15,guo:-15,min:0,wen:10}, feedback:'地方自主雖獲一時安穩，但中央法制未能落地，「律維」與「安維」雙雙下滑。'},
+    {key:'C', speaker:'律令專員', label:'禮法並用，因地制宜', summary:'推行秦律基本框架，保留若干因地制宜條款；派文教官推廣文字度量衡，同時尊重越人風俗。', quote:'「禮法並用，方能法立而人心歸附。」', delta:{fa:15,guo:10,min:0,wen:15}, feedback:'法制得以確立，風俗亦獲尊重——這正是「禮法並用」的治理智慧，為嶺南長治久安奠定基礎。'}
   ]
 },
 {
@@ -559,14 +579,21 @@ const missionData = [
     {who:'exec', line:'利之所在，弊亦隨之，海防豈可鬆懈？'}
   ],
   context:'海上絲綢之路日益繁榮，廣州成為對外貿易重港，屯門因地理位置優越而設鎮駐軍，護衛海路安全。大批外商湧入，聚居「番坊」，帶來文化交流的機遇，也帶來治安與監管的挑戰。',
+  deliberation:{
+    exec:'番坊繁盛帶來稅收與威望，但也牽動海防安全，如何在開放格局中仍守住底線？',
+    law:'唐律「化外人有犯，各依本俗法」是否足以應付日益複雜的涉外案件？監管的法源何在？',
+    fis:'市舶司的稅收該如何設計，才能既充盈國庫，又不致嚇跑番商？',
+    cul:'番坊帶來的異域文化與中原禮俗如何交融共存，而不致喧賓奪主？'
+  },
+  knowledge:'唐代開放的對外政策與市舶司制度，是初中歷史科認識「盛唐氣象」的重要例證；屯門在唐代已是重要海防據點，說明香港自古以來便是中國海疆體系的一環，呼應高中公民科探討香港自古以來版圖演變的課題。「化外人有犯，各依本俗法」則體現中華文化兼收並蓄、禮法並用治理多元社會的智慧。',
   scrollTitle:'史料卷軸 ·《唐律疏議・名例律》',
   scrollText:'「諸化外人，同類自相犯者，各依本俗法；異類相犯者，以法律論。」\n——唐律容許外商依本俗自理內部糾紛，異族相犯則依唐律論處，體現開放與法治並存的氣度。',
   stampLabel:'蓋史料依據印', gated:false,
   item:{name:'番坊敕令拓本', flavor:'屯門市舶敕令的拓印，記錄開放與治安並重的智慧。'},
   options:[
-    {key:'A', speaker:'大司農', label:'全面開放，不設監管', summary:'任由番坊自治，不設市舶司稅收與治安監管。', quote:'「開放通商，利莫大焉，何必自縛？」', delta:{fa:-10,guo:-15,min:10,wen:15}, feedback:'商貿與文化交流蓬勃，但走私與治安風險上升，「安維」明顯下滑。'},
-    {key:'B', speaker:'柱國', label:'嚴格鎖港，重兵戒備', summary:'限制外商往來，屯門重兵駐守，大幅收緊貿易。', quote:'「海防為重，寧可少些商賈，不可讓宵小可乘之機。」', delta:{fa:5,guo:15,min:-20,wen:-10}, feedback:'海防雖固，但貿易萎縮、番坊生計受挫，「富維」與「文維」大幅受損。'},
-    {key:'C', speaker:'廷尉', label:'訂立《番坊管理敕令》', summary:'設市舶司統一徵稅與管理，屯門駐軍護航貿易，同時容許番坊依本俗自理內部事務。', quote:'「立敕令以定規矩，開海路以通有無，二者可並行不悖。」', delta:{fa:15,guo:10,min:15,wen:10}, feedback:'秩序、稅收、文化交流三者兼顧——這正是唐代「兼收並蓄」大國氣度的體現。'}
+    {key:'A', speaker:'度支專員', label:'全面開放，不設監管', summary:'任由番坊自治，不設市舶司稅收與治安監管。', quote:'「開放通商，利莫大焉，何必自縛？」', delta:{fa:-10,guo:-15,min:10,wen:15}, feedback:'商貿與文化交流蓬勃，但走私與治安風險上升，「安維」明顯下滑。'},
+    {key:'B', speaker:'執政專員', label:'嚴格鎖港，重兵戒備', summary:'限制外商往來，屯門重兵駐守，大幅收緊貿易。', quote:'「海防為重，寧可少些商賈，不可讓宵小可乘之機。」', delta:{fa:5,guo:15,min:-20,wen:-10}, feedback:'海防雖固，但貿易萎縮、番坊生計受挫，「富維」與「文維」大幅受損。'},
+    {key:'C', speaker:'律令專員', label:'訂立《番坊管理敕令》', summary:'設市舶司統一徵稅與管理，屯門駐軍護航貿易，同時容許番坊依本俗自理內部事務。', quote:'「立敕令以定規矩，開海路以通有無，二者可並行不悖。」', delta:{fa:15,guo:10,min:15,wen:10}, feedback:'秩序、稅收、文化交流三者兼顧——這正是唐代「兼收並蓄」大國氣度的體現。'}
   ]
 },
 {
@@ -578,14 +605,21 @@ const missionData = [
     {who:'fis', line:'輕重失衡，信用一失，禍患無窮！'}
   ],
   context:'汴京夜市燈火通明，商業高度繁榮；四川商人首創「交子」，成為世界最早的紙幣。香港地區的採珠業與製鹽業亦相當發達，茶葉、絲綢、陶瓷經海路遠銷四方。度支專員必須為交子的發行，以及海上貿易的稅收，做出精確判斷。',
+  deliberation:{
+    exec:'交子既關乎財政穩定，也牽動民心向背，發行規模該如何權衡？',
+    law:'交子發行若無明確法度規範準備金比例，日後恐生何種法律與治理風險？',
+    fis:'如何精算準備金與發行總額之間的比例，才能兼顧財政靈活與貨幣信用？',
+    cul:'誠信乃商道之本，交子的信用崩壞會如何影響社會風氣與文化凝聚？'
+  },
+  knowledge:'交子是世界最早的紙幣，反映宋代商品經濟高度發展，是初中歷史科認識宋代「商業革命」的重要例證；其興衰也說明「誠信」在經濟治理中的核心地位，呼應中華文化「義利之辨」的價值觀——義以生利、利以豐民，而非見利忘義。',
   scrollTitle:'史料卷軸 · 交子發行史實摘要',
   scrollText:'北宋政府接手交子發行後，規定須備有約三分之一的鈔本（準備金）方可流通，並限定發行總額，以維持交子的信用與幣值穩定。',
   stampLabel:'蓋史料依據印', gated:false,
   item:{name:'交子鈔本', flavor:'一枚保存完好的北宋紙鈔，信用未失。'},
   options:[
-    {key:'A', speaker:'柱國', label:'大量超發，應急軍費', summary:'不顧準備金比例，大量加印交子以應付開支。', quote:'「軍費告急，先印鈔應急，後患且待後論。」', delta:{fa:-10,guo:-10,min:-20,wen:0}, feedback:'交子迅速貶值，通貨膨脹侵蝕民生，「富維」與「安維」同步惡化——正是「不誠信商道」的教訓。'},
-    {key:'B', speaker:'太史', label:'拒用紙幣，固守鐵錢', summary:'堅持笨重鐵錢，限制海外貿易規模，不予創新。', quote:'「祖宗成法不可輕廢，鐵錢雖重，穩妥為上。」', delta:{fa:0,guo:0,min:-15,wen:-10}, feedback:'雖無通脹之虞，但交易成本高昂、錯失海外貿易良機，「富維」與「文維」停滯不前。'},
-    {key:'C', speaker:'大司農', label:'恪守準備金，規範瓷路貿易', summary:'依約三分之一準備金發行交子，並設市舶司規範茶絲瓷貿易與稅收。', quote:'「量入為出，鈔本三一，方能取信於民。」', delta:{fa:10,guo:5,min:20,wen:10}, feedback:'誠信立本，貿易暢旺——「義利之辨」的智慧，讓經濟繁榮與信用穩固並行不悖。'}
+    {key:'A', speaker:'執政專員', label:'大量超發，應急軍費', summary:'不顧準備金比例，大量加印交子以應付開支。', quote:'「軍費告急，先印鈔應急，後患且待後論。」', delta:{fa:-10,guo:-10,min:-20,wen:0}, feedback:'交子迅速貶值，通貨膨脹侵蝕民生，「富維」與「安維」同步惡化——正是「不誠信商道」的教訓。'},
+    {key:'B', speaker:'文教與文化使者', label:'拒用紙幣，固守鐵錢', summary:'堅持笨重鐵錢，限制海外貿易規模，不予創新。', quote:'「祖宗成法不可輕廢，鐵錢雖重，穩妥為上。」', delta:{fa:0,guo:0,min:-15,wen:-10}, feedback:'雖無通脹之虞，但交易成本高昂、錯失海外貿易良機，「富維」與「文維」停滯不前。'},
+    {key:'C', speaker:'度支專員', label:'恪守準備金，規範瓷路貿易', summary:'依約三分之一準備金發行交子，並設市舶司規範茶絲瓷貿易與稅收。', quote:'「量入為出，鈔本三一，方能取信於民。」', delta:{fa:10,guo:5,min:20,wen:10}, feedback:'誠信立本，貿易暢旺——「義利之辨」的智慧，讓經濟繁榮與信用穩固並行不悖。'}
   ]
 },
 {
@@ -597,14 +631,21 @@ const missionData = [
     {who:'exec', line:'國恥當前，豈能不戰而降！'}
   ],
   context:'鴉片走私氾濫，白銀外流，國力日衰。林則徐奉命赴廣東禁煙，虎門銷煙震動中外，卻招致英國以武力發動鴉片戰爭。清政府戰敗，被迫簽訂《南京條約》，割讓香港島。鼎議堂必須從這段沉痛歷史中，汲取對主權與國力的深刻反思。',
+  deliberation:{
+    exec:'戰爭已然爆發，議和與抗戰的抉擇如何影響日後國家的存續與尊嚴？',
+    law:'《南京條約》從國際法與國家主權角度而言，暴露了當時中國在國際體系中何種困境？',
+    fis:'戰爭與賠款耗費巨大國力，如何在存亡關頭仍顧及民生根基？',
+    cul:'這段屈辱歷史該如何轉化為凝聚民族氣節與愛國情懷的精神資源，而非一味悲情？'
+  },
+  knowledge:'鴉片戰爭與《南京條約》是初中中國歷史科的重要課題，標誌著中國近代史的開端與香港被英國佔領的起點；高中公民科則透過這段歷史，說明國家於1997年恢復對香港行使主權的歷史必然性與正當性。林則徐的氣節，正是中華文化「捨生取義」「知恥而後勇」精神的具體體現。',
   scrollTitle:'史料卷軸 · 林則徐奏摺與《南京條約》節錄',
   scrollText:'林則徐：「若鴉片一日未絕，本大臣一日不回，誓與此事相始終，斷無中止之理。」\n《南京條約》（1842）：中國割讓香港島予英國，開放五口通商，並賠款二千一百萬銀元。',
   stampLabel:'蓋史料依據印', gated:false,
   item:{name:'林公奏摺抄本', flavor:'抄錄林則徐奏摺的片段，銘記氣節與教訓。'},
   options:[
-    {key:'A', speaker:'大司農', label:'歸咎禁煙，主張妥協求和', summary:'認為戰爭全因禁煙操之過急，主張及早屈辱求和以避戰禍。', quote:'「戰事糜費甚巨，及早求和，保全元氣。」', delta:{fa:-10,guo:-15,min:5,wen:-20}, feedback:'求和雖暫緩戰事，卻抹煞禁煙的正當性，「文維」與「安維」大受打擊——這並非歷史應有的教訓。'},
-    {key:'B', speaker:'柱國', label:'不顧國力，力主死戰到底', summary:'無視雙方國力與軍備的巨大差距，主張不惜一切代價強硬對抗。', quote:'「縱使玉石俱焚，亦不能屈膝求和！」', delta:{fa:0,guo:-20,min:-15,wen:5}, feedback:'氣節可嘉，但盲目輕敵導致更慘重損失，「安維」與「富維」進一步惡化。'},
-    {key:'C', speaker:'太史', label:'肯定禁煙，正視差距，以史為鑑', summary:'肯定林則徐禁煙的正當性與民族氣節，同時正視國力落後的根源，將此役視為近代改革與捍衛主權的歷史轉捩點。', quote:'「禁煙無罪，國弱受欺——當銘記此恥，發憤圖強。」', delta:{fa:10,guo:5,min:0,wen:20}, feedback:'銘記屈辱，不忘自強——這段歷史正是探討「國家恢復對香港行使主權」必然性的重要根基。'}
+    {key:'A', speaker:'度支專員', label:'歸咎禁煙，主張妥協求和', summary:'認為戰爭全因禁煙操之過急，主張及早屈辱求和以避戰禍。', quote:'「戰事糜費甚巨，及早求和，保全元氣。」', delta:{fa:-10,guo:-15,min:5,wen:-20}, feedback:'求和雖暫緩戰事，卻抹煞禁煙的正當性，「文維」與「安維」大受打擊——這並非歷史應有的教訓。'},
+    {key:'B', speaker:'執政專員', label:'不顧國力，力主死戰到底', summary:'無視雙方國力與軍備的巨大差距，主張不惜一切代價強硬對抗。', quote:'「縱使玉石俱焚，亦不能屈膝求和！」', delta:{fa:0,guo:-20,min:-15,wen:5}, feedback:'氣節可嘉，但盲目輕敵導致更慘重損失，「安維」與「富維」進一步惡化。'},
+    {key:'C', speaker:'文教與文化使者', label:'肯定禁煙，正視差距，以史為鑑', summary:'肯定林則徐禁煙的正當性與民族氣節，同時正視國力落後的根源，將此役視為近代改革與捍衛主權的歷史轉捩點。', quote:'「禁煙無罪，國弱受欺——當銘記此恥，發憤圖強。」', delta:{fa:10,guo:5,min:0,wen:20}, feedback:'銘記屈辱，不忘自強——這段歷史正是探討「國家恢復對香港行使主權」必然性的重要根基。'}
   ]
 },
 {
@@ -616,14 +657,21 @@ const missionData = [
     {who:'exec', line:'外資湧入，變數難測，不如緩行。'}
   ],
   context:'國家實施改革開放，深圳設立經濟特區，香港則發揮資金、技術與管理優勢，協助內地發展，並轉型為國際金融中心。鼎議堂須在大灣區地圖沙盤上，為「產業轉型」「科技創新」「生態保護」「文化交流」四類籌碼，作出配置。',
+  deliberation:{
+    exec:'大灣區協同發展牽涉多方利益，如何統籌香港與內地的角色分工？',
+    law:'外資與產業轉型的引進，需要哪些法規配套才能確保有序而非失控？',
+    fis:'產業轉型、科技創新、生態保護、文化交流四項籌碼，如何取得財政與資源上的平衡？',
+    cul:'香港的中西文化交流優勢，如何在大灣區協同發展中發揮軟實力作用？'
+  },
+  knowledge:'改革開放與大灣區建設是高中公民科「國情與國家發展」的核心課題；香港憑藉「一國兩制」下獨特的普通法制度與國際聯繫，在國家發展大局中擔當「引進來、走出去」的橋樑角色，體現中華文化「民惟邦本」以民生福祉為施政依歸的治理智慧。',
   scrollTitle:'史料卷軸 · 改革開放史實摘要',
   scrollText:'1978年，國家推行改革開放；1980年，深圳、珠海等地設立經濟特區。香港以「前店後廠」模式，結合內地土地勞力與香港資金技術，推動珠三角迅速崛起為「世界工廠」。',
   stampLabel:'蓋憲法法理印', gated:false,
   item:{name:'特區地契圖卷', flavor:'深圳經濟特區的規劃圖卷，見證改革開放的起點。'},
   options:[
-    {key:'A', speaker:'大司農', label:'全力衝刺產業轉型，不顧環保監管', summary:'大舉引進外資與工廠，暫緩生態保護與資源安全審查。', quote:'「機不可失，先求發展，環保之事，來日方長。」', delta:{fa:-15,guo:-10,min:20,wen:0}, feedback:'經濟一時高速增長，卻埋下監管缺失與資源安全的隱患，「律維」與「安維」雙雙下滑。'},
-    {key:'B', speaker:'柱國', label:'保守觀望，拒絕深化開放', summary:'固守原有模式，不參與大灣區產業協同與科技合作。', quote:'「外資湧入，恐生變數，不如按兵不動。」', delta:{fa:0,guo:5,min:-15,wen:-10}, feedback:'雖然穩妥，卻錯失發展機遇，「富維」與「文維」停滯不前。'},
-    {key:'C', speaker:'廷尉', label:'均衡配置，依法規管外資', summary:'在產業轉型、科技創新、生態保護、文化交流四方面均衡配置籌碼，並依法規管外資。', quote:'「依法規管，產業、科創、生態、文化四者並重，方為長久之計。」', delta:{fa:10,guo:10,min:15,wen:15}, feedback:'發展與規範並重——香港正是憑藉「一國兩制」下的獨特優勢，融入國家發展大局。'}
+    {key:'A', speaker:'度支專員', label:'全力衝刺產業轉型，不顧環保監管', summary:'大舉引進外資與工廠，暫緩生態保護與資源安全審查。', quote:'「機不可失，先求發展，環保之事，來日方長。」', delta:{fa:-15,guo:-10,min:20,wen:0}, feedback:'經濟一時高速增長，卻埋下監管缺失與資源安全的隱患，「律維」與「安維」雙雙下滑。'},
+    {key:'B', speaker:'執政專員', label:'保守觀望，拒絕深化開放', summary:'固守原有模式，不參與大灣區產業協同與科技合作。', quote:'「外資湧入，恐生變數，不如按兵不動。」', delta:{fa:0,guo:5,min:-15,wen:-10}, feedback:'雖然穩妥，卻錯失發展機遇，「富維」與「文維」停滯不前。'},
+    {key:'C', speaker:'律令專員', label:'均衡配置，依法規管外資', summary:'在產業轉型、科技創新、生態保護、文化交流四方面均衡配置籌碼，並依法規管外資。', quote:'「依法規管，產業、科創、生態、文化四者並重，方為長久之計。」', delta:{fa:10,guo:10,min:15,wen:15}, feedback:'發展與規範並重——香港正是憑藉「一國兩制」下的獨特優勢，融入國家發展大局。'}
   ]
 },
 {
@@ -634,15 +682,22 @@ const missionData = [
     {who:'fis', line:'審查費時，恐誤商機，不如從權。'},
     {who:'exec', line:'國安大事，寧緊勿鬆，一律嚴辦！'}
   ],
-  context:'鼎議堂收到三項政策提案：跨國科技合作的國家安全審查、非物質文化遺產保護立法，以及綠色能源轉型合作。廷尉必須查閱《中華人民共和國憲法》與《香港特別行政區基本法》實體文本，準確引用相關條文。提案必須同時讓四維均達安全門檻（≥40），方能蓋上「憲法法理印」。',
+  context:'鼎議堂收到三項政策提案：跨國科技合作的國家安全審查、非物質文化遺產保護立法，以及綠色能源轉型合作。律令專員必須查閱《中華人民共和國憲法》與《香港特別行政區基本法》實體文本，準確引用相關條文。提案必須同時讓四維均達安全門檻（≥40），方能蓋上「憲法法理印」。',
+  deliberation:{
+    exec:'跨國科技合作、非遺立法、綠色能源三項提案並行，執政大局上該如何排序優次？',
+    law:'《憲法》第三十一條與《基本法》相關條文如何具體適用於這些當代議題？',
+    fis:'國家安全審查會否影響香港作為自由港與國際金融中心的競爭力？',
+    cul:'非物質文化遺產保護立法，如何體現國家對文化多樣性與傳承的重視？'
+  },
+  knowledge:'《憲法》與《基本法》共同構成香港特別行政區的憲制基礎——這正是高中公民科「『一國兩制』下的香港」單元的核心概念：「一國」是「兩制」的前提與基礎，國家安全則是香港長期繁榮穩定的根本保障。這呼應中華文化「大同世界觀」與「人類命運共同體」的胸襟——在保障國家整體利益的同時，仍尊重多元差異。',
   scrollTitle:'史料卷軸 ·《憲法》與《基本法》節錄',
   scrollText:'《憲法》第三十一條：國家可以在特別行政區內實行的制度，按照具體情況由全國人民代表大會以法律規定。\n《基本法》第五條：香港特別行政區不實行社會主義的制度和政策，保持原有的資本主義制度和生活方式，五十年不變。\n《基本法》第二十三條：香港特別行政區應自行立法禁止危害國家安全的行為。',
   stampLabel:'蓋憲法法理印', gated:true, safetyThreshold:40,
   item:{name:'憲法基本法合璧函', flavor:'載有《憲法》與《基本法》相關條文的合璧函，象徵「一國兩制」的憲制智慧。'},
   options:[
-    {key:'A', speaker:'大司農', label:'只顧經濟效益，擱置國安審查', summary:'優先批准跨國科技合作以促進經濟，暫緩國家安全審查。', quote:'「合作機遇稍縱即逝，審查之事，可以從緩。」', delta:{fa:-15,guo:-20,min:15,wen:0}, feedback:'國安審查缺位，潛在風險未除。'},
-    {key:'B', speaker:'柱國', label:'全面收緊，窒礙交流', summary:'以國安為由，一律否決跨國合作與非遺立法，不予任何彈性。', quote:'「國安為先，寧緊勿鬆，一律從嚴。」', delta:{fa:5,guo:15,min:-20,wen:-15}, feedback:'安全雖獲短暫保障，卻窒礙經濟與文化交流。'},
-    {key:'C', speaker:'廷尉', label:'依憲依法，兼顧國安與發展', summary:'依據《憲法》第三十一條與《基本法》第五、二十三條等條文，對科技合作作國安審查，同時完成非遺立法保護與綠色能源合作。', quote:'「依《憲法》第三十一條、《基本法》第五、二十三條而行，國安與發展本可並行。」', delta:{fa:15,guo:15,min:10,wen:15}, feedback:'法治、國安、民生、文化四者兼顧——正是「一國兩制」行穩致遠的憲制智慧。'}
+    {key:'A', speaker:'度支專員', label:'只顧經濟效益，擱置國安審查', summary:'優先批准跨國科技合作以促進經濟，暫緩國家安全審查。', quote:'「合作機遇稍縱即逝，審查之事，可以從緩。」', delta:{fa:-15,guo:-20,min:15,wen:0}, feedback:'國安審查缺位，潛在風險未除。'},
+    {key:'B', speaker:'執政專員', label:'全面收緊，窒礙交流', summary:'以國安為由，一律否決跨國合作與非遺立法，不予任何彈性。', quote:'「國安為先，寧緊勿鬆，一律從嚴。」', delta:{fa:5,guo:15,min:-20,wen:-15}, feedback:'安全雖獲短暫保障，卻窒礙經濟與文化交流。'},
+    {key:'C', speaker:'律令專員', label:'依憲依法，兼顧國安與發展', summary:'依據《憲法》第三十一條與《基本法》第五、二十三條等條文，對科技合作作國安審查，同時完成非遺立法保護與綠色能源合作。', quote:'「依《憲法》第三十一條、《基本法》第五、二十三條而行，國安與發展本可並行。」', delta:{fa:15,guo:15,min:10,wen:15}, feedback:'法治、國安、民生、文化四者兼顧——正是「一國兩制」行穩致遠的憲制智慧。'}
   ]
 }
 ];
@@ -704,10 +759,6 @@ function updateIdScroll(){
   document.getElementById('idScroll').classList.add('show');
   updateRoleHints();
 }
-function applyClassBonus(){
-  const c = classData.find(x=>x.key===state.cls);
-  if(c){ state.meters[c.focus] = Math.min(100, state.meters[c.focus]+5); }
-}
 function updateRoleHints(){
   if(!state.cls) return;
   const c = classData.find(x=>x.key===state.cls);
@@ -748,8 +799,8 @@ function renderMissions(){
         </div>
 
         <div class="scene-wrap" id="scene-${m.id}">
+          <div class="section-label first">📖 時空卷軸：情境呈現與史料</div>
           <p class="day-text">${m.context}</p>
-          <div class="role-hint" id="rolehint-${m.id}"></div>
 
           <div class="scroll-wrap">
             <button class="scroll-toggle" id="scrolltoggle-${m.id}" onclick="revealScroll('${m.id}')">📜 展開${m.scrollTitle}</button>
@@ -759,8 +810,17 @@ function renderMissions(){
             </div>
           </div>
 
+          <div class="section-label">⚖️ 議事會審議議題</div>
+          <div class="delib-list">
+            <div class="delib-item"><b>【執政專員】</b>${m.deliberation.exec}</div>
+            <div class="delib-item"><b>【律令專員】</b>${m.deliberation.law}</div>
+            <div class="delib-item"><b>【度支專員】</b>${m.deliberation.fis}</div>
+            <div class="delib-item"><b>【文教與文化使者】</b>${m.deliberation.cul}</div>
+          </div>
+          <div class="role-hint" id="rolehint-${m.id}"></div>
+
           <div class="decision-box scroll-panel">
-            <div class="decision-q">鼎議堂抉擇：本卷應採取何種方案？</div>
+            <div class="decision-q">🧭 治理抉擇方案</div>
             <div id="opts-${m.id}">
               ${m.options.map(o=>`
                 <button class="opt" data-key="${o.key}" onclick="selectOption('${m.id}','${o.key}')">
@@ -775,9 +835,11 @@ function renderMissions(){
               <button class="btn ember" id="stampbtn-${m.id}" disabled onclick="stampMission('${m.id}')">${m.stampLabel}</button>
               <div class="stamp-mark" id="stampmark-${m.id}">${m.era}</div>
             </div>
+            <div class="stamp-confirm" id="stampconfirm-${m.id}"></div>
+            <div class="knowledge-box" id="knowledge-${m.id}"></div>
             <div class="item-gained" id="itemgained-${m.id}"></div>
           </div>
-          <div class="next-wrap"><button class="btn" id="next-${m.id}" disabled onclick="goTo(${i+3})">${i<missionData.length-1 ? '前往下一卷 →' : '前往終卷：反思與結業 →'}</button></div>
+          <div class="next-wrap"><button class="btn" id="next-${m.id}" disabled onclick="goTo(${i+3})">${i<missionData.length-1 ? '➡️ 推進下一階段情境 →' : '➡️ 前往終卷：反思與結業 →'}</button></div>
         </div>
       </div>
     </section>
@@ -840,7 +902,7 @@ function selectOption(mid, key){
     const sign = d>0?'+':'';
     return `<span class="delta-chip ${cls}">${meterMeta[k].name} ${sign}${d} → ${projected}</span>`;
   }).join('');
-  preview.innerHTML = `<div class="deltas">${chips}</div><div class="feedback-text">${opt.feedback}</div>`;
+  preview.innerHTML = `<div class="preview-header">💥 治理演算與連鎖反應</div><div class="deltas">${chips}</div><div class="feedback-text">${opt.feedback}</div>`;
   preview.classList.add('show');
 
   const stampBtn = document.getElementById('stampbtn-'+mid);
@@ -878,6 +940,14 @@ function stampMission(mid){
   document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.remove('enabled'));
   document.getElementById('stampbtn-'+mid).disabled = true;
   document.getElementById('stampmark-'+mid).classList.add('show');
+  const confirmBox = document.getElementById('stampconfirm-'+mid);
+  confirmBox.textContent = m.stampLabel === '蓋憲法法理印'
+    ? '🏛️ 憲法法理印：已通過《憲法》與《基本法》合憲性審查'
+    : '🏷️ 史料依據印：已核驗歷史文獻';
+  confirmBox.classList.add('show');
+  const kb = document.getElementById('knowledge-'+mid);
+  kb.innerHTML = `<span class="klabel">💡 跨學科文化與法理小百科</span>${m.knowledge}`;
+  kb.classList.add('show');
   const ig = document.getElementById('itemgained-'+mid);
   ig.textContent = `🎐 獲得信物：${m.item.name} —— ${m.item.flavor}`;
   ig.classList.add('show');
@@ -933,11 +1003,23 @@ function postWall(){
 }
 
 /* ---------- 結業卷軸 ---------- */
+function governanceTitle(){
+  const vals = Object.values(state.meters);
+  const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
+  const min = Math.min(...vals);
+  if(avg>=90 && min>=80) return '鼎革明君議事會';
+  if(avg>=75) return '大同永續治理團隊';
+  if(avg>=55) return '篳路藍縷議事會';
+  return '如履薄冰議事會';
+}
 function genCert(){
   const name = document.getElementById('certName').value.trim();
   if(!name) return;
   document.getElementById('certNameOut').textContent = name;
-  document.getElementById('certTier').textContent = `終位：${rankTitle(state.merit)}（德望 ${state.merit}）`;
+  document.getElementById('certTitle').textContent = `治理稱號：${governanceTitle()}`;
+  document.getElementById('certMeters').textContent =
+    `${meterMeta.fa.name} ${state.meters.fa}　${meterMeta.guo.name} ${state.meters.guo}　${meterMeta.min.name} ${state.meters.min}　${meterMeta.wen.name} ${state.meters.wen}`;
+  document.getElementById('certTier').textContent = `位階：${rankTitle(state.merit)}（德望 ${state.merit}）`;
   document.getElementById('certInv').textContent = `行囊中珍藏了 ${state.inventory.length} 件信物，走過六卷山河長卷。`;
   document.getElementById('certBox').classList.remove('hidden');
 }
@@ -945,7 +1027,7 @@ function genCert(){
 /* ---------- 重新開始 ---------- */
 function resetGame(){
   if(!confirm('確定要重新開始整段旅程嗎？目前的進度將會清空。')) return;
-  state.meters = {fa:50,guo:50,min:50,wen:50};
+  state.meters = {fa:100,guo:100,min:100,wen:100};
   state.charName=''; state.cls=null; state.merit=0; state.inventory=[];
   state.revealed = {}; state.chosen = {}; state.stamped = {};
   document.getElementById('charName').value='';
@@ -967,14 +1049,6 @@ renderInventory();
 renderClassGrid();
 renderMissions();
 goTo(0);
-
-/* 選定職司後套用起手加成（只套用一次） */
-const _origSelectClass = selectClass;
-let _classBonusApplied = false;
-selectClass = function(key){
-  _origSelectClass(key);
-  if(!_classBonusApplied){ applyClassBonus(); _classBonusApplied = true; renderDashboard(); }
-};
 </script>
 </body>
 </html>
