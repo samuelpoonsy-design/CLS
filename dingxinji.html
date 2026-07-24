@@ -157,7 +157,7 @@
     font-family:inherit;
   }
   #resetLink:hover{border-color:var(--vermillion); color:var(--vermillion-deep);}
-  .dot-group{display:flex; align-items:center; gap:5px;}
+  .dot-group{display:flex; align-items:center; gap:5px; flex-wrap:wrap; justify-content:center;}
   .dot{
     width:30px;height:30px;border-radius:50%;
     display:flex;align-items:center;justify-content:center;
@@ -506,11 +506,23 @@
   }
 
   @media(max-width:600px){
-    section{padding:170px 18px 60px;}
+    section{padding:210px 18px 60px;}
     .juan-mark{display:none;}
     #dashboard{gap:8px;}
     #invPanel{right:8px; top:100px;}
     #bgArt{height:26vh;}
+    /* 導覽點在窄螢幕會換行，故縮小並讓儀表跟著下移 */
+    .dot{width:26px; height:26px; font-size:0.78rem;}
+    .rail-sep{width:5px;}
+    #dashboard{top:86px;}
+    /* 立繪縮小，把寬度讓給對話文字 */
+    .dlg-portrait{width:56px;}
+    .dialogue-box{gap:11px; padding:16px 14px 14px 12px;}
+    .dlg-line{font-size:0.9rem; line-height:1.8;}
+    .dlg-controls{flex-wrap:wrap; gap:8px;}
+    .settle-row{font-size:0.84rem; gap:10px;}
+    .verdict-flash{font-size:1.5rem; letter-spacing:0.2em;}
+    .pop-num{font-size:0.9rem;}
   }
 </style>
 </head>
