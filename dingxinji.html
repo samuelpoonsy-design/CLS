@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鼎新記 · 山河長卷</title>
+<style>
+  :root{
+    --paper:#F5ECDA;
+    --paper-deep:#EADFC1;
+    --parchment:#FBF5E7;
+    --ink:#241F1B;
+    --ink-soft:#5A4E40;
+    --vermillion:#A6342B;
+    --vermillion-deep:#7E241C;
+    --gold:#B8863B;
+    --gold-deep:#8C6425;
+    --jade:#2F5D50;
+    --jade-deep:#20423A;
+    --line:#C9AD7B;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:"Noto Serif TC","Kaiti TC","STKaiti",serif; margin:0; font-weight:700;}
+  .tag{font-size:0.72rem; letter-spacing:0.18em; color:var(--gold-deep);}
+
+  /* 回紋飾帶 */
+  .fret{
+    height:8px; opacity:0.55; margin:0 auto;
+    background-image:
+      linear-gradient(45deg, var(--gold) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--gold) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--gold) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--gold) 75%);
+    background-size:10px 10px;
+  }
+
+  /* 角飾框 */
+  .scroll-panel{position:relative; padding:22px 24px; border:1px solid var(--line); background:var(--parchment); border-radius:2px;}
+  .scroll-panel::before,.scroll-panel::after{content:""; position:absolute; width:16px; height:16px; pointer-events:none;}
+  .scroll-panel::before{top:-1px;left:-1px; border-top:2px solid var(--gold-deep); border-left:2px solid var(--gold-deep);}
+  .scroll-panel::after{bottom:-1px; right:-1px; border-bottom:2px solid var(--gold-deep); border-right:2px solid var(--gold-deep);}
+
+  /* 頂部導覽 */
+  #rail{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(251,245,231,0.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    padding:9px 16px;
+    display:flex; align-items:center; justify-content:center; gap:16px;
+    flex-wrap:wrap;
+  }
+  #resetLink{
+    font-size:0.78rem; color:var(--ink-soft);
+    border:1px solid var(--line); padding:4px 10px; border-radius:14px; cursor:pointer; background:transparent;
+    font-family:inherit;
+  }
+  #resetLink:hover{border-color:var(--vermillion); color:var(--vermillion-deep);}
+  .dot-group{display:flex; align-items:center; gap:5px;}
+  .dot{
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.85rem; font-weight:700;
+    border:1.5px solid var(--line); color:var(--ink-soft); background:var(--parchment);
+    transition:all .3s ease; cursor:default;
+  }
+  .dot.unlocked{border-color:var(--jade); color:var(--jade-deep); cursor:pointer;}
+  .dot.current{background:var(--vermillion); color:#fff; border-color:var(--vermillion);}
+  .dot.done{background:var(--gold-deep); color:#fff; border-color:var(--gold-deep);}
+  .rail-sep{width:10px;height:1px;background:var(--line);}
+
+  /* 儀表：位階／德望／四維／行囊 */
+  #dashboard{
+    position:fixed; top:51px; left:0; right:0; z-index:45;
+    background:rgba(251,245,231,0.96); border-bottom:1px solid var(--line);
+    padding:8px 16px; display:none; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap;
+    backdrop-filter:blur(6px); font-size:0.75rem;
+  }
+  #dashboard.show{display:flex;}
+  #rankBadge{
+    font-weight:700; color:var(--vermillion-deep); border:1px solid var(--vermillion); padding:4px 12px;
+    border-radius:16px; background:rgba(166,52,43,0.08); white-space:nowrap; transition:transform .2s ease;
+  }
+  #rankBadge.pulse{transform:scale(1.12);}
+  .meter{display:flex; align-items:center; gap:5px;}
+  .meter .mlabel{color:var(--ink-soft); white-space:nowrap;}
+  .meter .mtrack{width:52px; height:7px; background:var(--paper-deep); border-radius:4px; overflow:hidden; border:1px solid var(--line);}
+  .meter .mfill{height:100%; background:var(--jade); transition:width .5s ease, background .3s ease;}
+  .meter .mfill.warn{background:var(--vermillion);}
+  .meter .mval{font-weight:700; color:var(--ink); width:20px;}
+  #invBtn{border:1px solid var(--gold-deep); color:var(--gold-deep); background:transparent; padding:4px 12px; border-radius:16px; cursor:pointer; font-family:inherit; font-size:0.75rem;}
+  #invBtn:hover{background:rgba(184,134,59,0.1);}
+
+  /* 行囊面板 */
+  #invPanel{
+    position:fixed; top:96px; right:16px; z-index:60; width:min(320px,86vw);
+    background:var(--parchment); border:1px solid var(--line); box-shadow:0 10px 30px rgba(36,31,27,0.2);
+    padding:18px; display:none; border-radius:2px;
+  }
+  #invPanel.show{display:block;}
+  #invPanel h4{font-size:1rem; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;}
+  #invPanel h4 button{background:none;border:none;font-size:1rem;cursor:pointer;color:var(--ink-soft);}
+  .inv-item{border-left:3px solid var(--gold-deep); padding:8px 10px; margin-bottom:8px; background:var(--paper); font-size:0.85rem;}
+  .inv-item b{color:var(--vermillion-deep);}
+  .inv-empty{font-size:0.85rem; color:var(--ink-soft); font-style:italic;}
+
+  section{
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:130px 24px 80px;
+    position:relative;
+    scroll-margin-top:60px;
+  }
+  section{display:none;}
+  section.active{display:flex;}
+
+  .frame{max-width:800px; width:100%;}
+
+  /* 開篇 */
+  #hero{
+    background:
+      radial-gradient(ellipse at 15% 8%, rgba(166,52,43,0.08), transparent 55%),
+      radial-gradient(ellipse at 88% 92%, rgba(184,134,59,0.10), transparent 50%),
+      var(--paper);
+    padding-top:110px;
+  }
+  #hero.active{display:flex !important;}
+  #hero h1{font-size:clamp(2.2rem,6vw,3.4rem); letter-spacing:0.12em; line-height:1.4;}
+  #hero .subtitle{font-style:italic; color:var(--ink-soft); font-size:1.05rem; margin-top:12px; letter-spacing:0.06em;}
+  #hero p.desc{margin-top:30px; color:var(--ink-soft); font-size:1.02rem; text-align:left;}
+
+  .divider-ornament{display:flex; align-items:center; gap:14px; margin:32px 0;}
+  .divider-ornament .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .divider-ornament .emblem{
+    width:46px;height:46px;border-radius:50%;border:2px solid var(--vermillion);
+    display:flex;align-items:center;justify-content:center;color:var(--vermillion-deep);
+    font-weight:700;font-size:1.15rem;background:var(--parchment); flex-shrink:0;
+  }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--ink); color:var(--parchment); border:none;
+    padding:13px 28px; font-size:1rem; font-family:inherit; font-weight:700;
+    border-radius:2px; cursor:pointer; letter-spacing:0.05em;
+    transition:transform .15s ease, background .2s ease;
+  }
+  .btn:hover{background:var(--jade-deep); transform:translateY(-1px);}
+  .btn:focus-visible{outline:3px solid var(--vermillion); outline-offset:2px;}
+  .btn.ember{background:var(--vermillion);}
+  .btn.ember:hover{background:var(--vermillion-deep);}
+  .btn[disabled]{opacity:0.35; cursor:not-allowed; transform:none;}
+
+  /* 人物創設 */
+  .cc-row{display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap; margin-bottom:24px;}
+  .cc-row label{display:block; font-size:0.85rem; color:var(--ink-soft); margin-bottom:6px;}
+  .class-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; margin:20px 0 26px;}
+  .class-card{border:1px solid var(--line); background:var(--parchment); padding:18px; border-radius:2px; cursor:pointer; text-align:left; transition:all .2s;}
+  .class-card:hover{border-color:var(--jade);}
+  .class-card.chosen{border-color:var(--vermillion); box-shadow:0 0 0 1px var(--vermillion);}
+  .class-card h4{margin:0 0 4px; font-size:1.15rem; color:var(--vermillion-deep);}
+  .class-card .cc-tag{font-size:0.7rem; color:var(--gold-deep); letter-spacing:0.1em;}
+  .class-card p{margin:8px 0 0; font-size:0.83rem; color:var(--ink-soft);}
+  .class-card .skill{font-size:0.78rem; margin-top:8px; color:var(--jade-deep);}
+  .id-scroll{display:none; margin-top:6px;}
+  .id-scroll.show{display:block;}
+  .id-scroll .idname{font-size:1.2rem; font-weight:700; color:var(--vermillion-deep); margin-bottom:4px;}
+  .id-scroll .idclass{font-size:0.9rem; color:var(--ink-soft); margin-bottom:14px;}
+
+  /* 任務卷 */
+  .juan-row{display:flex; gap:16px; align-items:flex-start;}
+  .juan-mark{
+    writing-mode:vertical-rl; font-size:0.92rem; letter-spacing:0.35em; color:var(--vermillion-deep);
+    border-right:1px solid var(--line); padding:2px 12px 2px 0; flex-shrink:0;
+  }
+  .day-title h2{font-size:1.4rem;}
+  .day-loc{color:var(--gold-deep); font-size:0.88rem; margin:6px 0 4px;}
+
+  .narrator{
+    display:flex; gap:12px; align-items:flex-start; margin:18px 0 20px;
+    background:rgba(47,93,80,0.07); border-left:3px solid var(--jade); padding:12px 14px;
+  }
+  .narrator .avatar{
+    width:38px; height:38px; border-radius:50%; border:2px solid var(--jade); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; color:var(--jade-deep); font-weight:700; background:var(--parchment);
+  }
+  .narrator .say{font-size:0.9rem; color:var(--ink-soft); font-style:italic;}
+  .narrator .who{font-size:0.72rem; color:var(--jade-deep); font-style:normal; display:block; margin-bottom:2px; font-weight:700;}
+
+  .day-text{color:var(--ink-soft); margin-bottom:18px;}
+  .role-hint{font-size:0.85rem; color:var(--jade-deep); background:rgba(47,93,80,0.08); border-left:3px solid var(--jade); padding:8px 12px; margin-bottom:20px; display:none;}
+  .role-hint.show{display:block;}
+
+  .scroll-wrap{margin-bottom:22px;}
+  .scroll-toggle{
+    background:transparent; border:1px dashed var(--gold-deep); color:var(--gold-deep);
+    padding:9px 16px; border-radius:2px; cursor:pointer; font-family:inherit; font-size:0.88rem;
+  }
+  .scroll-toggle:hover{background:rgba(184,134,59,0.08);}
+  .scroll-box{
+    margin-top:12px; padding:16px 18px; font-size:0.9rem; color:var(--ink-soft);
+    display:none; white-space:pre-line; border-left:4px solid var(--gold-deep);
+  }
+  .scroll-box.show{display:block;}
+  .scroll-box .stitle{font-weight:700; color:var(--ink); display:block; margin-bottom:8px; font-size:0.88rem;}
+  .scroll-box blockquote{margin:0; font-style:italic; color:var(--ink); border-left:2px solid var(--line); padding-left:12px;}
+
+  .decision-box{padding:22px 24px;}
+  .decision-q{font-weight:700; margin-bottom:16px;}
+  .opt{
+    display:block; width:100%; text-align:left; background:transparent; border:1px solid var(--line);
+    padding:13px 16px; margin-bottom:10px; border-radius:2px; cursor:pointer; font-family:inherit; color:var(--ink);
+    transition:all .15s ease; opacity:0.45; pointer-events:none;
+  }
+  .opt.enabled{opacity:1; pointer-events:auto;}
+  .opt:hover.enabled{border-color:var(--jade);}
+  .opt.selected{border-color:var(--ink); box-shadow:0 0 0 1px var(--ink);}
+  .opt .ospeaker{font-size:0.74rem; color:var(--vermillion-deep); font-weight:700; display:block; margin-bottom:3px;}
+  .opt .olabel{font-weight:700; display:block; margin-bottom:4px;}
+  .opt .osummary{font-size:0.85rem; color:var(--ink-soft); font-weight:400;}
+  .preview-box{margin-top:14px; font-size:0.87rem; color:var(--ink-soft); display:none;}
+  .preview-box.show{display:block;}
+  .preview-box .deltas{margin:8px 0; display:flex; gap:10px; flex-wrap:wrap;}
+  .preview-box .delta-chip{font-weight:700; padding:3px 9px; border-radius:10px; font-size:0.78rem; border:1px solid var(--line);}
+  .delta-chip.up{color:var(--jade-deep); border-color:var(--jade);}
+  .delta-chip.down{color:var(--vermillion-deep); border-color:var(--vermillion);}
+  .delta-chip.flat{color:var(--ink-soft);}
+  .feedback-text{margin-top:6px; font-style:italic;}
+  .threshold-warn{background:rgba(166,52,43,0.1); border-left:3px solid var(--vermillion); padding:10px 14px; font-size:0.85rem; color:var(--vermillion-deep); margin-top:12px; display:none;}
+  .threshold-warn.show{display:block;}
+
+  .stamp-row{display:flex; align-items:center; gap:16px; margin-top:22px; flex-wrap:wrap;}
+  .stamp-mark{
+    width:56px;height:56px;border:2.5px solid var(--vermillion); border-radius:6px;
+    display:flex; align-items:center; justify-content:center; color:var(--vermillion-deep); font-weight:700;
+    font-size:1.4rem; opacity:0; transform:scale(0.5) rotate(-14deg); transition:all .35s ease; text-align:center;
+    font-family:"Kaiti TC","STKaiti",serif;
+  }
+  .stamp-mark.show{opacity:0.88; transform:scale(1) rotate(-6deg);}
+  .item-gained{margin-top:14px; font-size:0.86rem; color:var(--gold-deep); display:none;}
+  .item-gained.show{display:block;}
+  .next-wrap{margin-top:26px; text-align:right; width:100%;}
+
+  /* 反思 */
+  .reflect-stage{margin-bottom:30px; width:100%;}
+  .reflect-stage h3{font-size:1.1rem; margin-bottom:12px;}
+  .reflect-q{background:var(--parchment); border:1px solid var(--line); border-left:3px solid var(--vermillion); padding:10px 14px; font-size:0.9rem; margin-bottom:8px; color:var(--ink-soft);}
+  .wall{display:flex; flex-direction:column; gap:12px; margin:16px 0; max-height:260px; overflow-y:auto; padding-right:4px;}
+  .wall .card{background:var(--parchment); border:1px solid var(--line); border-left:4px solid var(--vermillion); padding:14px 16px; font-size:0.92rem;}
+  .wall .card .who{font-size:0.75rem; color:var(--jade-deep); margin-top:6px; letter-spacing:0.05em;}
+  textarea, input[type=text]{
+    width:100%; font-family:inherit; font-size:0.95rem; padding:12px 14px; border:1px solid var(--line);
+    border-radius:2px; background:var(--parchment); color:var(--ink); resize:vertical;
+  }
+  textarea:focus, input[type=text]:focus{outline:2px solid var(--jade);}
+
+  .cert{margin-top:30px; padding:40px; border:2px solid var(--gold-deep); position:relative; background:var(--parchment); text-align:center;}
+  .cert::before{content:""; position:absolute; inset:8px; border:1px solid var(--line);}
+  .cert .tag{display:block; margin-bottom:8px;}
+  .cert h3{font-size:1.5rem; margin-bottom:6px;}
+  .cert .name{font-size:1.7rem; color:var(--vermillion-deep); margin:14px 0; font-weight:700;}
+  .cert .inv-summary{font-size:0.85rem; color:var(--ink-soft); margin-top:10px;}
+  .hidden{display:none !important;}
+  footer{text-align:center; padding:26px; font-size:0.78rem; color:var(--ink-soft); letter-spacing:0.05em;}
+  @media(max-width:600px){
+    section{padding:170px 18px 60px;}
+    .juan-mark{display:none;}
+    #dashboard{gap:8px;}
+    #invPanel{right:8px; top:100px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="rail">
+  <div class="dot-group" id="dotGroup"></div>
+  <button id="resetLink" onclick="resetGame()">重新開始</button>
+</div>
+<div id="dashboard">
+  <span id="rankBadge">位階 · 見習司使</span>
+  <div id="meterRow" style="display:flex; gap:14px; flex-wrap:wrap;"></div>
+  <button id="invBtn" onclick="toggleInv()">行囊 (<span id="invCount">0</span>)</button>
+</div>
+<div id="invPanel">
+  <h4>行囊 · 隨身信物 <button onclick="toggleInv()">✕</button></h4>
+  <div id="invList"><div class="inv-empty">尚未收得任何信物。</div></div>
+</div>
+
+<!-- 開篇 -->
+<section id="hero" class="active" data-stop="0">
+  <div class="frame" style="text-align:center;">
+    <div class="tag">跨學科教育角色扮演教案 · 無卡牌實境情境遊戲</div>
+    <div class="fret" style="width:120px; margin-top:10px;"></div>
+    <h1 style="margin-top:20px;">鼎 新 記</h1>
+    <div class="subtitle">山河長卷．治世修行</div>
+    <div class="divider-ornament">
+      <div class="line"></div>
+      <div class="emblem">鼎</div>
+      <div class="line"></div>
+    </div>
+    <p class="desc">
+      你將加入「鼎議堂」，成為一名肩負治理之責的使者，走過六段山河長卷——
+      嶺南初定、屯門開海、汴京交子、虎門烽煙、深圳蛇口、憲制終章。
+      這裡沒有隨機抽取的卡牌，每一步抉擇都必須先展讀史料典籍，再由你議定方案、蓋下印信方能生效。
+      你的抉擇將牽動「律維、安維、富維、文維」四維消長，亦決定你在鼎議堂中的位階與行囊中積累的信物。
+      願你以史為鑑，鼎故革新，走出一段真正屬於自己的治世之旅。
+    </p>
+    <div style="margin-top:36px;">
+      <button class="btn" onclick="goTo(1)">踏入鼎議堂 →</button>
+    </div>
+  </div>
+</section>
+
+<!-- 人物創設 -->
+<section id="roster" data-stop="1">
+  <div class="frame scroll-panel">
+    <div class="tag">序卷 · 定名入堂</div>
+    <div class="day-title" style="margin-top:8px;"><h2>為使者定名，選定職司</h2></div>
+    <p class="day-text">每位入堂使者皆有姓名與職司。職司決定你起手的專長，往後每段情境也會提示你最需留意的一維——但方案終須由鼎議堂全體共議而定。</p>
+
+    <div class="cc-row">
+      <div style="flex:1; min-width:220px;">
+        <label>你的姓名</label>
+        <input type="text" id="charName" placeholder="請輸入你的姓名" oninput="updateIdScroll()">
+      </div>
+    </div>
+
+    <div class="class-grid" id="classGrid"></div>
+
+    <div class="id-scroll" id="idScroll">
+      <div class="tag">身份卷軸</div>
+      <div class="idname" id="idName">___</div>
+      <div class="idclass" id="idClass"></div>
+    </div>
+
+    <div class="next-wrap"><button class="btn ember" id="rosterNext" disabled onclick="goTo(2)">前往卷一：嶺南初定 →</button></div>
+  </div>
+</section>
+
+<div id="missionsRoot"></div>
+
+<!-- 終卷：反思與結業 -->
+<section id="final" data-stop="8">
+  <div class="frame">
+    <div class="tag">終卷 · 體驗式反思</div>
+    <div class="day-title" style="margin-top:8px;"><h2>三階反思：所見？所思？所行？</h2></div>
+
+    <div class="reflect-stage">
+      <h3>第一階段 · 所見（經驗描述）</h3>
+      <div class="reflect-q">在虎門烽煙一卷中，你的鼎議堂面臨了什麼樣的資源匱乏與主權危機？</div>
+      <div class="reflect-q">在憲制終章的審議中，你引述了《憲法》或《基本法》哪一條文，才成功兼顧國安與經濟？</div>
+      <div class="reflect-q">在整段旅程中，哪一卷史料或哪一件行囊信物最讓你印象深刻？</div>
+    </div>
+
+    <div class="reflect-stage">
+      <h3>第二階段 · 所思（意義深化）</h3>
+      <div class="reflect-q">為何秦朝建立的郡縣制與嶺南開發，對後世中國的大一統版圖有如此深遠的影響？</div>
+      <div class="reflect-q">為何說《憲法》與《基本法》共同構成香港特別行政區的憲制基礎？「一國」與「兩制」有何辯證關係？</div>
+      <div class="reflect-q">中華文化中「民惟邦本」與「兼收並蓄」的思想，如何體現在當代國家治理與香港多元社會之中？</div>
+    </div>
+
+    <div class="reflect-stage">
+      <h3>第三階段 · 所行（生活應用與轉化）</h3>
+      <div class="reflect-q">認識到香港自古以來與國家不可分割的歷史後，你會如何增強個人的國民身份認同？</div>
+      <div class="reflect-q">作為具備世界視野的香港青年，你可以如何在日常生活與未來職業中，為國家與香港的發展作出貢獻？</div>
+      <div class="reflect-q">我們應如何透過創新科技與現代生活方式，保護並弘揚中華優秀傳統文化（如非遺傳承）？</div>
+    </div>
+
+    <div class="decision-box scroll-panel" style="margin-bottom:30px;">
+      <div class="decision-q">反思留言牆</div>
+      <p style="font-size:0.88rem; color:var(--ink-soft); margin-top:-8px;">揀選以上任何一題，寫下你的反思。</p>
+      <input type="text" id="wallName" placeholder="姓名 / 組別" style="margin-bottom:10px;">
+      <textarea id="wallMsg" rows="3" placeholder="請輸入你的感想……"></textarea>
+      <div style="margin-top:12px; text-align:right;"><button class="btn" onclick="postWall()">發佈留言</button></div>
+      <div class="wall" id="wallList"></div>
+    </div>
+
+    <div class="decision-box scroll-panel">
+      <div class="decision-q">領取結業卷軸</div>
+      <input type="text" id="certName" placeholder="請輸入你的姓名，領取結業卷軸">
+      <div style="margin-top:12px; text-align:right;"><button class="btn ember" onclick="genCert()">生成卷軸</button></div>
+      <div class="cert hidden" id="certBox">
+        <span class="tag">結業卷軸</span>
+        <h3>鼎新記 · 結業卷軸</h3>
+        <div class="name" id="certNameOut">___</div>
+        <p style="font-size:0.9rem; color:var(--ink-soft);">已完成「鼎新記」全程情境審議 · 鼎議堂</p>
+        <p style="font-size:1.05rem; color:var(--vermillion-deep); margin-top:6px; font-weight:700;" id="certTier"></p>
+        <p class="inv-summary" id="certInv"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>公民與歷史科 · 中華文化教育組　|　「薪火相傳」平台系列 2025/26</footer>
+
+<script>
+/* ---------- 資料：邦本四維 ---------- */
+const meterMeta = {
+  fa:{name:'律維'},
+  guo:{name:'安維'},
+  min:{name:'富維'},
+  wen:{name:'文維'}
+};
+const state = {
+  meters:{fa:50,guo:50,min:50,wen:50},
+  charName:'', cls:null,
+  merit:0, inventory:[],
+  revealed:{}, chosen:{}, stamped:{}
+};
+
+/* ---------- 資料：四種職司 ---------- */
+const classData = [
+  {key:'exec', name:'柱國', tag:'安邦定國', focus:'guo', desc:'掌軍政大略，於變局中運籌帷幄，安定四方。', skill:'「坐鎮」：起手安維 +5。'},
+  {key:'law',  name:'廷尉', tag:'明察法理', focus:'fa',  desc:'援引律令典籍，確保每項方案皆有憑有據。', skill:'「引律」：起手律維 +5。'},
+  {key:'fis',  name:'大司農', tag:'掌理度支', focus:'min', desc:'精算財政盈虧，務使民生殷阜，不竭澤而漁。', skill:'「量入」：起手富維 +5。'},
+  {key:'cul',  name:'太史', tag:'典籍教化', focus:'wen', desc:'記錄興衰教化黎民，凝聚民心與文化認同。', skill:'「秉筆」：起手文維 +5。'}
+];
+
+/* ---------- 資料：六卷情境 ---------- */
+const missionData = [
+{
+  id:'m1', juan:'卷一', era:'秦', chapterTag:'第一章 · 大一統與文明融和',
+  title:'嶺南初定：郡縣與教化', loc:'秦代 · 南海郡番禺縣 · 中央集權與郡縣制',
+  narrator:'南海之地，山高林密，俚越雜處。始皇新設郡縣，法度未行，人心未附——鼎議堂，且看你如何定分止爭。',
+  context:'秦始皇統一六國後，派兵平定嶺南，於此設南海郡番禺縣——香港地區自此正式納入中國版圖。然而，中原法制與本地俚越風俗差異甚大，加上山林阻隔、交通不便，如何治理這片新附之地，成為鼎議堂的第一道難題。',
+  scrollTitle:'史料卷軸 · 雲夢睡虎地秦簡（節錄大意）',
+  scrollText:'「……什伍連坐，度量衡、文字皆依秦制，不得自為……」\n——秦簡所載的什伍連坐與統一制度，反映秦代以嚴密法制鞏固中央集權的治理邏輯。',
+  stampLabel:'蓋史料依據印', gated:false,
+  item:{name:'秦篆量衡令牌', flavor:'刻著統一文字與度量衡的木牘，見證嶺南初定。'},
+  options:[
+    {key:'A', speaker:'柱國', label:'嚴刑峻法，強制推行', summary:'全面移植秦律，不作在地調適，並徵發勞役開鑿道路運河。', quote:'「亂世用重典，唯有嚴法方能鎮服四方。」', delta:{fa:5,guo:15,min:-10,wen:-15}, feedback:'秩序雖立，但越人風俗遭強行壓制，民怨積聚，「文維」與「富維」明顯受損。'},
+    {key:'B', speaker:'太史', label:'放任自治，不加干預', summary:'暫緩推行秦律與度量衡統一，尊重越人原有習俗。', quote:'「風俗不可強改，且容其自安。」', delta:{fa:-15,guo:-15,min:0,wen:10}, feedback:'地方自主雖獲一時安穩，但中央法制未能落地，「律維」與「安維」雙雙下滑。'},
+    {key:'C', speaker:'廷尉', label:'禮法並用，因地制宜', summary:'推行秦律基本框架，保留若干因地制宜條款；派文教官推廣文字度量衡，同時尊重越人風俗。', quote:'「禮法並用，方能法立而人心歸附。」', delta:{fa:15,guo:10,min:0,wen:15}, feedback:'法制得以確立，風俗亦獲尊重——這正是「禮法並用」的治理智慧，為嶺南長治久安奠定基礎。'}
+  ]
+},
+{
+  id:'m2', juan:'卷二', era:'唐', chapterTag:'第一章 · 大一統與文明融和',
+  title:'屯門開海：番坊與防務', loc:'唐代 · 廣州市舶司 · 屯門鎮 · 海路貿易與番坊管理',
+  narrator:'大唐開廣運四海，屯門波濤日夜不息。番舶雲集，番坊喧鬧——開放與防範之間，分寸何在？',
+  context:'海上絲綢之路日益繁榮，廣州成為對外貿易重港，屯門因地理位置優越而設鎮駐軍，護衛海路安全。大批外商湧入，聚居「番坊」，帶來文化交流的機遇，也帶來治安與監管的挑戰。',
+  scrollTitle:'史料卷軸 ·《唐律疏議・名例律》',
+  scrollText:'「諸化外人，同類自相犯者，各依本俗法；異類相犯者，以法律論。」\n——唐律容許外商依本俗自理內部糾紛，異族相犯則依唐律論處，體現開放與法治並存的氣度。',
+  stampLabel:'蓋史料依據印', gated:false,
+  item:{name:'番坊敕令拓本', flavor:'屯門市舶敕令的拓印，記錄開放與治安並重的智慧。'},
+  options:[
+    {key:'A', speaker:'大司農', label:'全面開放，不設監管', summary:'任由番坊自治，不設市舶司稅收與治安監管。', quote:'「開放通商，利莫大焉，何必自縛？」', delta:{fa:-10,guo:-15,min:10,wen:15}, feedback:'商貿與文化交流蓬勃，但走私與治安風險上升，「安維」明顯下滑。'},
+    {key:'B', speaker:'柱國', label:'嚴格鎖港，重兵戒備', summary:'限制外商往來，屯門重兵駐守，大幅收緊貿易。', quote:'「海防為重，寧可少些商賈，不可讓宵小可乘之機。」', delta:{fa:5,guo:15,min:-20,wen:-10}, feedback:'海防雖固，但貿易萎縮、番坊生計受挫，「富維」與「文維」大幅受損。'},
+    {key:'C', speaker:'廷尉', label:'訂立《番坊管理敕令》', summary:'設市舶司統一徵稅與管理，屯門駐軍護航貿易，同時容許番坊依本俗自理內部事務。', quote:'「立敕令以定規矩，開海路以通有無，二者可並行不悖。」', delta:{fa:15,guo:10,min:15,wen:10}, feedback:'秩序、稅收、文化交流三者兼顧——這正是唐代「兼收並蓄」大國氣度的體現。'}
+  ]
+},
+{
+  id:'m3', juan:'卷三', era:'宋', chapterTag:'第二章 · 海上絲路的繁榮與近現代轉向',
+  title:'汴京交子：誠信與瓷路', loc:'宋代 · 汴京夜市 · 交子 · 香港採珠製鹽業',
+  narrator:'汴京夜市燈火如晝，交子輕薄卻繫著萬千商賈的信用。度支之道，不在多印，而在守信。',
+  context:'汴京夜市燈火通明，商業高度繁榮；四川商人首創「交子」，成為世界最早的紙幣。香港地區的採珠業與製鹽業亦相當發達，茶葉、絲綢、陶瓷經海路遠銷四方。度支專員必須為交子的發行，以及海上貿易的稅收，做出精確判斷。',
+  scrollTitle:'史料卷軸 · 交子發行史實摘要',
+  scrollText:'北宋政府接手交子發行後，規定須備有約三分之一的鈔本（準備金）方可流通，並限定發行總額，以維持交子的信用與幣值穩定。',
+  stampLabel:'蓋史料依據印', gated:false,
+  item:{name:'交子鈔本', flavor:'一枚保存完好的北宋紙鈔，信用未失。'},
+  options:[
+    {key:'A', speaker:'柱國', label:'大量超發，應急軍費', summary:'不顧準備金比例，大量加印交子以應付開支。', quote:'「軍費告急，先印鈔應急，後患且待後論。」', delta:{fa:-10,guo:-10,min:-20,wen:0}, feedback:'交子迅速貶值，通貨膨脹侵蝕民生，「富維」與「安維」同步惡化——正是「不誠信商道」的教訓。'},
+    {key:'B', speaker:'太史', label:'拒用紙幣，固守鐵錢', summary:'堅持笨重鐵錢，限制海外貿易規模，不予創新。', quote:'「祖宗成法不可輕廢，鐵錢雖重，穩妥為上。」', delta:{fa:0,guo:0,min:-15,wen:-10}, feedback:'雖無通脹之虞，但交易成本高昂、錯失海外貿易良機，「富維」與「文維」停滯不前。'},
+    {key:'C', speaker:'大司農', label:'恪守準備金，規範瓷路貿易', summary:'依約三分之一準備金發行交子，並設市舶司規範茶絲瓷貿易與稅收。', quote:'「量入為出，鈔本三一，方能取信於民。」', delta:{fa:10,guo:5,min:20,wen:10}, feedback:'誠信立本，貿易暢旺——「義利之辨」的智慧，讓經濟繁榮與信用穩固並行不悖。'}
+  ]
+},
+{
+  id:'m4', juan:'卷四', era:'清', chapterTag:'第二章 · 海上絲路的繁榮與近現代轉向',
+  title:'虎門烽煙：存亡與氣節', loc:'清代 · 虎門銷煙 · 鴉片戰爭 ·《南京條約》',
+  narrator:'虎門硝煙未散，炮火已至珠江口。國之存亡，繫於一念——是屈膝，是死戰，還是知恥而後勇？',
+  context:'鴉片走私氾濫，白銀外流，國力日衰。林則徐奉命赴廣東禁煙，虎門銷煙震動中外，卻招致英國以武力發動鴉片戰爭。清政府戰敗，被迫簽訂《南京條約》，割讓香港島。鼎議堂必須從這段沉痛歷史中，汲取對主權與國力的深刻反思。',
+  scrollTitle:'史料卷軸 · 林則徐奏摺與《南京條約》節錄',
+  scrollText:'林則徐：「若鴉片一日未絕，本大臣一日不回，誓與此事相始終，斷無中止之理。」\n《南京條約》（1842）：中國割讓香港島予英國，開放五口通商，並賠款二千一百萬銀元。',
+  stampLabel:'蓋史料依據印', gated:false,
+  item:{name:'林公奏摺抄本', flavor:'抄錄林則徐奏摺的片段，銘記氣節與教訓。'},
+  options:[
+    {key:'A', speaker:'大司農', label:'歸咎禁煙，主張妥協求和', summary:'認為戰爭全因禁煙操之過急，主張及早屈辱求和以避戰禍。', quote:'「戰事糜費甚巨，及早求和，保全元氣。」', delta:{fa:-10,guo:-15,min:5,wen:-20}, feedback:'求和雖暫緩戰事，卻抹煞禁煙的正當性，「文維」與「安維」大受打擊——這並非歷史應有的教訓。'},
+    {key:'B', speaker:'柱國', label:'不顧國力，力主死戰到底', summary:'無視雙方國力與軍備的巨大差距，主張不惜一切代價強硬對抗。', quote:'「縱使玉石俱焚，亦不能屈膝求和！」', delta:{fa:0,guo:-20,min:-15,wen:5}, feedback:'氣節可嘉，但盲目輕敵導致更慘重損失，「安維」與「富維」進一步惡化。'},
+    {key:'C', speaker:'太史', label:'肯定禁煙，正視差距，以史為鑑', summary:'肯定林則徐禁煙的正當性與民族氣節，同時正視國力落後的根源，將此役視為近代改革與捍衛主權的歷史轉捩點。', quote:'「禁煙無罪，國弱受欺——當銘記此恥，發憤圖強。」', delta:{fa:10,guo:5,min:0,wen:20}, feedback:'銘記屈辱，不忘自強——這段歷史正是探討「國家恢復對香港行使主權」必然性的重要根基。'}
+  ]
+},
+{
+  id:'m5', juan:'卷五', era:'革', chapterTag:'第三章 · 當代治理、改革開放與全球互聯',
+  title:'蛇口潮聲：協同與轉型', loc:'當代 · 深圳經濟特區 · 大灣區產業協同',
+  narrator:'深圳蛇口，推土機隆隆作響。香江之資，北望神州——這是一盤如何落子的大棋？',
+  context:'國家實施改革開放，深圳設立經濟特區，香港則發揮資金、技術與管理優勢，協助內地發展，並轉型為國際金融中心。鼎議堂須在大灣區地圖沙盤上，為「產業轉型」「科技創新」「生態保護」「文化交流」四類籌碼，作出配置。',
+  scrollTitle:'史料卷軸 · 改革開放史實摘要',
+  scrollText:'1978年，國家推行改革開放；1980年，深圳、珠海等地設立經濟特區。香港以「前店後廠」模式，結合內地土地勞力與香港資金技術，推動珠三角迅速崛起為「世界工廠」。',
+  stampLabel:'蓋憲法法理印', gated:false,
+  item:{name:'特區地契圖卷', flavor:'深圳經濟特區的規劃圖卷，見證改革開放的起點。'},
+  options:[
+    {key:'A', speaker:'大司農', label:'全力衝刺產業轉型，不顧環保監管', summary:'大舉引進外資與工廠，暫緩生態保護與資源安全審查。', quote:'「機不可失，先求發展，環保之事，來日方長。」', delta:{fa:-15,guo:-10,min:20,wen:0}, feedback:'經濟一時高速增長，卻埋下監管缺失與資源安全的隱患，「律維」與「安維」雙雙下滑。'},
+    {key:'B', speaker:'柱國', label:'保守觀望，拒絕深化開放', summary:'固守原有模式，不參與大灣區產業協同與科技合作。', quote:'「外資湧入，恐生變數，不如按兵不動。」', delta:{fa:0,guo:5,min:-15,wen:-10}, feedback:'雖然穩妥，卻錯失發展機遇，「富維」與「文維」停滯不前。'},
+    {key:'C', speaker:'廷尉', label:'均衡配置，依法規管外資', summary:'在產業轉型、科技創新、生態保護、文化交流四方面均衡配置籌碼，並依法規管外資。', quote:'「依法規管，產業、科創、生態、文化四者並重，方為長久之計。」', delta:{fa:10,guo:10,min:15,wen:15}, feedback:'發展與規範並重——香港正是憑藉「一國兩制」下的獨特優勢，融入國家發展大局。'}
+  ]
+},
+{
+  id:'m6', juan:'卷六', era:'憲', chapterTag:'第三章 · 當代治理、改革開放與全球互聯',
+  title:'憲制終章：一國兩制', loc:'當代 ·《憲法》與《基本法》· 跨國科技合作審查 · 非遺保護立法',
+  narrator:'《憲法》與《基本法》如車之兩輪，鳥之雙翼。今日的方案，能否經得起法理的最終檢驗？',
+  context:'鼎議堂收到三項政策提案：跨國科技合作的國家安全審查、非物質文化遺產保護立法，以及綠色能源轉型合作。廷尉必須查閱《中華人民共和國憲法》與《香港特別行政區基本法》實體文本，準確引用相關條文。提案必須同時讓四維均達安全門檻（≥40），方能蓋上「憲法法理印」。',
+  scrollTitle:'史料卷軸 ·《憲法》與《基本法》節錄',
+  scrollText:'《憲法》第三十一條：國家可以在特別行政區內實行的制度，按照具體情況由全國人民代表大會以法律規定。\n《基本法》第五條：香港特別行政區不實行社會主義的制度和政策，保持原有的資本主義制度和生活方式，五十年不變。\n《基本法》第二十三條：香港特別行政區應自行立法禁止危害國家安全的行為。',
+  stampLabel:'蓋憲法法理印', gated:true, safetyThreshold:40,
+  item:{name:'憲法基本法合璧函', flavor:'載有《憲法》與《基本法》相關條文的合璧函，象徵「一國兩制」的憲制智慧。'},
+  options:[
+    {key:'A', speaker:'大司農', label:'只顧經濟效益，擱置國安審查', summary:'優先批准跨國科技合作以促進經濟，暫緩國家安全審查。', quote:'「合作機遇稍縱即逝，審查之事，可以從緩。」', delta:{fa:-15,guo:-20,min:15,wen:0}, feedback:'國安審查缺位，潛在風險未除。'},
+    {key:'B', speaker:'柱國', label:'全面收緊，窒礙交流', summary:'以國安為由，一律否決跨國合作與非遺立法，不予任何彈性。', quote:'「國安為先，寧緊勿鬆，一律從嚴。」', delta:{fa:5,guo:15,min:-20,wen:-15}, feedback:'安全雖獲短暫保障，卻窒礙經濟與文化交流。'},
+    {key:'C', speaker:'廷尉', label:'依憲依法，兼顧國安與發展', summary:'依據《憲法》第三十一條與《基本法》第五、二十三條等條文，對科技合作作國安審查，同時完成非遺立法保護與綠色能源合作。', quote:'「依《憲法》第三十一條、《基本法》第五、二十三條而行，國安與發展本可並行。」', delta:{fa:15,guo:15,min:10,wen:15}, feedback:'法治、國安、民生、文化四者兼顧——正是「一國兩制」行穩致遠的憲制智慧。'}
+  ]
+}
+];
+
+/* ---------- 渲染：儀表 ---------- */
+function renderDashboard(){
+  document.getElementById('meterRow').innerHTML = Object.keys(meterMeta).map(k=>{
+    const v = Math.max(0,Math.min(100,state.meters[k]));
+    const warn = v<40 ? ' warn' : '';
+    return `<div class="meter"><span class="mlabel">${meterMeta[k].name}</span><div class="mtrack"><div class="mfill${warn}" style="width:${v}%"></div></div><span class="mval">${v}</span></div>`;
+  }).join('');
+  document.getElementById('rankBadge').textContent = '位階 · ' + rankTitle(state.merit);
+  document.getElementById('invCount').textContent = state.inventory.length;
+}
+function rankTitle(merit){
+  if(merit>=150) return '太傅';
+  if(merit>=120) return '上卿';
+  if(merit>=90) return '卿';
+  if(merit>=60) return '令使';
+  return '見習司使';
+}
+function pulseRank(){
+  const b = document.getElementById('rankBadge');
+  b.classList.add('pulse');
+  setTimeout(()=>b.classList.remove('pulse'),250);
+}
+
+/* ---------- 渲染：行囊 ---------- */
+function renderInventory(){
+  const list = document.getElementById('invList');
+  if(!state.inventory.length){ list.innerHTML = '<div class="inv-empty">尚未收得任何信物。</div>'; return; }
+  list.innerHTML = state.inventory.map(it=>`<div class="inv-item"><b>${it.name}</b><br>${it.flavor}</div>`).join('');
+}
+function toggleInv(){ document.getElementById('invPanel').classList.toggle('show'); }
+
+/* ---------- 渲染：人物創設 ---------- */
+function renderClassGrid(){
+  document.getElementById('classGrid').innerHTML = classData.map(c=>
+    `<div class="class-card" data-class="${c.key}" onclick="selectClass('${c.key}')">
+      <h4>${c.name}</h4>
+      <span class="cc-tag">${c.tag}</span>
+      <p>${c.desc}</p>
+      <div class="skill">${c.skill}</div>
+    </div>`).join('');
+}
+function selectClass(key){
+  state.cls = key;
+  document.querySelectorAll('.class-card').forEach(c=>c.classList.toggle('chosen', c.dataset.class===key));
+  updateIdScroll();
+}
+function updateIdScroll(){
+  state.charName = document.getElementById('charName').value.trim();
+  const ok = state.charName && state.cls;
+  document.getElementById('rosterNext').disabled = !ok;
+  if(!ok){ document.getElementById('idScroll').classList.remove('show'); return; }
+  const c = classData.find(x=>x.key===state.cls);
+  document.getElementById('idName').textContent = state.charName;
+  document.getElementById('idClass').textContent = `職司：${c.name}（${c.tag}） · ${c.skill}`;
+  document.getElementById('idScroll').classList.add('show');
+  updateRoleHints();
+}
+function applyClassBonus(){
+  const c = classData.find(x=>x.key===state.cls);
+  if(c){ state.meters[c.focus] = Math.min(100, state.meters[c.focus]+5); }
+}
+function updateRoleHints(){
+  if(!state.cls) return;
+  const c = classData.find(x=>x.key===state.cls);
+  missionData.forEach(m=>{
+    const el = document.getElementById('rolehint-'+m.id);
+    if(el){ el.textContent = `身為${c.name}，這一刻你最需要留意「${meterMeta[c.focus].name}」的變化。`; el.classList.add('show'); }
+  });
+}
+
+/* ---------- 渲染：六卷情境 ---------- */
+function renderMissions(){
+  const root = document.getElementById('missionsRoot');
+  root.innerHTML = missionData.map((m,i)=>`
+    <section id="${m.id}" data-stop="${i+2}">
+      <div class="frame">
+        <div class="juan-row">
+          <div class="juan-mark">${m.juan}</div>
+          <div style="flex:1;">
+            <div class="tag">${m.chapterTag}</div>
+            <div class="day-title" style="margin-top:6px;"><h2>${m.title}</h2></div>
+            <div class="day-loc">${m.loc}</div>
+          </div>
+        </div>
+
+        <div class="narrator">
+          <div class="avatar">史</div>
+          <div class="say"><span class="who">鑑史先生</span>「${m.narrator}」</div>
+        </div>
+
+        <p class="day-text">${m.context}</p>
+        <div class="role-hint" id="rolehint-${m.id}"></div>
+
+        <div class="scroll-wrap">
+          <button class="scroll-toggle" id="scrolltoggle-${m.id}" onclick="revealScroll('${m.id}')">📜 展開${m.scrollTitle}</button>
+          <div class="scroll-box" id="scrollbox-${m.id}">
+            <span class="stitle">${m.scrollTitle}</span>
+            <blockquote>${m.scrollText}</blockquote>
+          </div>
+        </div>
+
+        <div class="decision-box scroll-panel">
+          <div class="decision-q">鼎議堂抉擇：本卷應採取何種方案？</div>
+          <div id="opts-${m.id}">
+            ${m.options.map(o=>`
+              <button class="opt" data-key="${o.key}" onclick="selectOption('${m.id}','${o.key}')">
+                <span class="ospeaker">${o.speaker}進言：${o.quote}</span>
+                <span class="olabel">${o.key}．${o.label}</span>
+                <span class="osummary">${o.summary}</span>
+              </button>`).join('')}
+          </div>
+          <div class="preview-box" id="preview-${m.id}"></div>
+          <div class="threshold-warn" id="warn-${m.id}"></div>
+          <div class="stamp-row">
+            <button class="btn ember" id="stampbtn-${m.id}" disabled onclick="stampMission('${m.id}')">${m.stampLabel}</button>
+            <div class="stamp-mark" id="stampmark-${m.id}">${m.era}</div>
+          </div>
+          <div class="item-gained" id="itemgained-${m.id}"></div>
+        </div>
+        <div class="next-wrap"><button class="btn" id="next-${m.id}" disabled onclick="goTo(${i+3})">${i<missionData.length-1 ? '前往下一卷 →' : '前往終卷：反思與結業 →'}</button></div>
+      </div>
+    </section>
+  `).join('');
+}
+
+/* ---------- 互動：展開史料卷軸 ---------- */
+function revealScroll(mid){
+  state.revealed[mid] = true;
+  document.getElementById('scrollbox-'+mid).classList.add('show');
+  document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.add('enabled'));
+}
+
+/* ---------- 互動：揀選方案（預覽，尚未生效） ---------- */
+function selectOption(mid, key){
+  if(!state.revealed[mid]) return;
+  if(state.stamped[mid]) return;
+  state.chosen[mid] = key;
+  document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.toggle('selected', b.dataset.key===key));
+
+  const m = missionData.find(x=>x.id===mid);
+  const opt = m.options.find(o=>o.key===key);
+  const preview = document.getElementById('preview-'+mid);
+  const chips = Object.keys(opt.delta).map(k=>{
+    const d = opt.delta[k];
+    const projected = Math.max(0,Math.min(100, state.meters[k]+d));
+    const cls = d>0?'up':(d<0?'down':'flat');
+    const sign = d>0?'+':'';
+    return `<span class="delta-chip ${cls}">${meterMeta[k].name} ${sign}${d} → ${projected}</span>`;
+  }).join('');
+  preview.innerHTML = `<div class="deltas">${chips}</div><div class="feedback-text">${opt.feedback}</div>`;
+  preview.classList.add('show');
+
+  const stampBtn = document.getElementById('stampbtn-'+mid);
+  const warnBox = document.getElementById('warn-'+mid);
+  if(m.gated){
+    const failing = Object.keys(opt.delta).filter(k=>Math.max(0,Math.min(100,state.meters[k]+opt.delta[k])) < m.safetyThreshold);
+    if(failing.length){
+      warnBox.textContent = `⚠ 未達安全門檻：${failing.map(k=>meterMeta[k].name).join('、')} 仍低於 ${m.safetyThreshold}。請重新审议方案，或回顧先前各卷的抉擇如何影響今日局面。`;
+      warnBox.classList.add('show');
+      stampBtn.disabled = true;
+    } else {
+      warnBox.classList.remove('show');
+      stampBtn.disabled = false;
+    }
+  } else {
+    stampBtn.disabled = false;
+  }
+}
+
+/* ---------- 互動：蓋印確認 → 生效 ---------- */
+function stampMission(mid){
+  const m = missionData.find(x=>x.id===mid);
+  const key = state.chosen[mid];
+  if(!key) return;
+  const opt = m.options.find(o=>o.key===key);
+  Object.keys(opt.delta).forEach(k=>{
+    state.meters[k] = Math.max(0,Math.min(100, state.meters[k]+opt.delta[k]));
+  });
+  state.merit += (key==='C' ? 30 : 15);
+  state.inventory.push(m.item);
+  renderDashboard();
+  renderInventory();
+  pulseRank();
+  state.stamped[mid] = true;
+  document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.remove('enabled'));
+  document.getElementById('stampbtn-'+mid).disabled = true;
+  document.getElementById('stampmark-'+mid).classList.add('show');
+  const ig = document.getElementById('itemgained-'+mid);
+  ig.textContent = `🎐 獲得信物：${m.item.name} —— ${m.item.flavor}`;
+  ig.classList.add('show');
+  document.getElementById('next-'+mid).disabled = false;
+  const idx = missionData.findIndex(x=>x.id===mid);
+  unlockDot(idx+3);
+  document.querySelector(`.dot[data-d="${idx+2}"]`)?.classList.add('done');
+}
+
+/* ---------- 導覽點與切換 ---------- */
+const totalStops = missionData.length + 2;
+const dotGroup = document.getElementById('dotGroup');
+const dotLabels = ['引','身'].concat(missionData.map(m=>m.era)).concat(['終']);
+function buildDots(){
+  dotGroup.innerHTML = '';
+  for(let i=0;i<=totalStops;i++){
+    if(i>0){const sep=document.createElement('div'); sep.className='rail-sep'; dotGroup.appendChild(sep);}
+    const d=document.createElement('div');
+    d.className='dot'+(i===0?' unlocked':'');
+    d.dataset.d=i;
+    d.textContent = dotLabels[i] || i;
+    d.onclick=()=>{ if(d.classList.contains('unlocked')||d.classList.contains('current')||d.classList.contains('done')) goTo(i); };
+    dotGroup.appendChild(d);
+  }
+}
+function unlockDot(n){
+  const dot=document.querySelector(`.dot[data-d="${n}"]`);
+  if(dot) dot.classList.add('unlocked');
+}
+function goTo(n){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  const target = document.querySelector(`section[data-stop="${n}"]`) || document.getElementById('hero');
+  target.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.dot').forEach(d=>d.classList.remove('current'));
+  const dot=document.querySelector(`.dot[data-d="${n}"]`);
+  if(dot){ dot.classList.add('current'); dot.classList.add('unlocked'); }
+  document.getElementById('dashboard').classList.toggle('show', n>=2);
+  document.getElementById('invPanel').classList.remove('show');
+}
+
+/* ---------- 反思留言牆 ---------- */
+function postWall(){
+  const name = document.getElementById('wallName').value.trim() || '匿名組別';
+  const msg = document.getElementById('wallMsg').value.trim();
+  if(!msg) return;
+  const wall = document.getElementById('wallList');
+  const card = document.createElement('div');
+  card.className='card';
+  card.innerHTML = `${msg}<div class="who">— ${name}</div>`;
+  wall.prepend(card);
+  document.getElementById('wallMsg').value='';
+}
+
+/* ---------- 結業卷軸 ---------- */
+function genCert(){
+  const name = document.getElementById('certName').value.trim();
+  if(!name) return;
+  document.getElementById('certNameOut').textContent = name;
+  document.getElementById('certTier').textContent = `終位：${rankTitle(state.merit)}（德望 ${state.merit}）`;
+  document.getElementById('certInv').textContent = `行囊中珍藏了 ${state.inventory.length} 件信物，走過六卷山河長卷。`;
+  document.getElementById('certBox').classList.remove('hidden');
+}
+
+/* ---------- 重新開始 ---------- */
+function resetGame(){
+  if(!confirm('確定要重新開始整段旅程嗎？目前的進度將會清空。')) return;
+  state.meters = {fa:50,guo:50,min:50,wen:50};
+  state.charName=''; state.cls=null; state.merit=0; state.inventory=[];
+  state.revealed = {}; state.chosen = {}; state.stamped = {};
+  document.getElementById('charName').value='';
+  renderDashboard();
+  renderInventory();
+  renderClassGrid();
+  document.getElementById('idScroll').classList.remove('show');
+  document.getElementById('rosterNext').disabled = true;
+  renderMissions();
+  buildDots();
+  goTo(0);
+}
+
+/* ---------- 初始化 ---------- */
+buildDots();
+renderDashboard();
+document.getElementById('dashboard').classList.remove('show');
+renderInventory();
+renderClassGrid();
+renderMissions();
+goTo(0);
+
+/* 選定職司後套用起手加成（只套用一次） */
+const _origSelectClass = selectClass;
+let _classBonusApplied = false;
+selectClass = function(key){
+  _origSelectClass(key);
+  if(!_classBonusApplied){ applyClassBonus(); _classBonusApplied = true; renderDashboard(); }
+};
+</script>
+</body>
+</html>
