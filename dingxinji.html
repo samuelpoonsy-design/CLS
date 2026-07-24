@@ -190,6 +190,8 @@
   #invPanel h4{font-size:1rem; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;}
   #invPanel h4 button{background:none;border:none;font-size:1rem;cursor:pointer;color:var(--ink-soft);}
   .inv-item{border-left:3px solid var(--indigo); padding:8px 10px; margin-bottom:8px; background:var(--paper); font-size:0.85rem;}
+  .inv-icon{width:26px; height:26px; vertical-align:middle; margin-right:8px; color:var(--indigo-deep);}
+  .item-gained .inv-icon{width:22px; height:22px; margin-right:6px; color:var(--indigo-deep);}
   .inv-item b{color:var(--indigo-deep);}
   .inv-empty{font-size:0.85rem; color:var(--ink-soft); font-style:italic;}
 
@@ -214,11 +216,18 @@
 
   .divider-ornament{display:flex; align-items:center; gap:14px; margin:28px 0;}
   .divider-ornament .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--indigo),transparent);}
-  .divider-ornament .emblem{
-    width:46px;height:46px;border-radius:50%;border:2px solid var(--vermillion);
+  .helm{position:relative; width:88px; height:88px; flex-shrink:0;}
+  .helm svg{width:100%; height:100%;}
+  .helm .emblem{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:44px;height:44px;border-radius:50%;border:2px solid var(--vermillion);
     display:flex;align-items:center;justify-content:center;color:var(--vermillion-deep);
-    font-weight:700;font-size:1.15rem;background:var(--parchment); flex-shrink:0;
+    font-weight:700;font-size:1.1rem;background:var(--parchment);
   }
+  .helm-ring{fill:none; stroke:var(--vermillion); stroke-width:3; opacity:0.55;}
+  .helm-hub{fill:none; stroke:var(--vermillion); stroke-width:2.5; opacity:0.55;}
+  .helm-spoke{stroke:var(--vermillion); stroke-width:2.5; opacity:0.55;}
+  .helm-knob{fill:var(--vermillion); opacity:0.6;}
 
   .btn{
     display:inline-flex; align-items:center; gap:8px;
@@ -240,8 +249,9 @@
   .class-card{border:1px solid var(--line); background:var(--parchment); padding:18px; border-radius:2px; cursor:pointer; text-align:left; transition:all .2s;}
   .class-card:hover{border-color:var(--jade);}
   .class-card.chosen{border-color:var(--indigo); box-shadow:0 0 0 1px var(--indigo);}
-  .class-card h4{margin:0 0 4px; font-size:1.15rem; color:var(--indigo-deep);}
-  .class-card .cc-tag{font-size:0.7rem; color:var(--indigo); letter-spacing:0.1em;}
+  .portrait-svg{width:64px; height:64px; display:block; margin:0 auto 10px;}
+  .class-card h4{margin:0 0 4px; font-size:1.15rem; color:var(--indigo-deep); text-align:center;}
+  .class-card .cc-tag{font-size:0.7rem; color:var(--indigo); letter-spacing:0.1em; display:block; text-align:center;}
   .class-card p{margin:8px 0 0; font-size:0.83rem; color:var(--ink-soft);}
   .class-card .skill{font-size:0.78rem; margin-top:8px; color:var(--jade-deep);}
   .id-scroll{display:none; margin-top:6px;}
@@ -257,6 +267,11 @@
   }
   .day-title h2{font-size:1.4rem;}
   .day-loc{color:var(--indigo); font-size:0.88rem; margin:6px 0 4px;}
+  .mission-art{width:100%; height:auto; margin:14px 0 6px; display:block;}
+  .mart-a{fill:var(--indigo); opacity:0.82;}
+  .mart-b{fill:var(--indigo-deep); opacity:0.92;}
+  .mart-line{stroke:var(--indigo-deep); stroke-width:2.5; fill:none;}
+  .mart-accent{fill:var(--vermillion); opacity:0.75;}
 
   .dialogue-box{
     display:flex; gap:12px; align-items:flex-start; margin:18px 0 4px;
@@ -512,7 +527,29 @@
     <div class="subtitle">華夏歷史與當代治理 AI 互動 RPG</div>
     <div class="divider-ornament">
       <div class="line"></div>
-      <div class="emblem">鼎</div>
+      <div class="helm">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle class="helm-ring" cx="50" cy="50" r="46"/>
+          <circle class="helm-hub" cx="50" cy="50" r="16"/>
+          <line class="helm-spoke" x1="64" y1="50" x2="96" y2="50"/>
+          <line class="helm-spoke" x1="60" y1="60" x2="82.5" y2="82.5"/>
+          <line class="helm-spoke" x1="50" y1="64" x2="50" y2="96"/>
+          <line class="helm-spoke" x1="40" y1="60" x2="17.5" y2="82.5"/>
+          <line class="helm-spoke" x1="36" y1="50" x2="4" y2="50"/>
+          <line class="helm-spoke" x1="40" y1="40" x2="17.5" y2="17.5"/>
+          <line class="helm-spoke" x1="50" y1="36" x2="50" y2="4"/>
+          <line class="helm-spoke" x1="60" y1="40" x2="82.5" y2="17.5"/>
+          <circle class="helm-knob" cx="96" cy="50" r="3"/>
+          <circle class="helm-knob" cx="82.5" cy="82.5" r="3"/>
+          <circle class="helm-knob" cx="50" cy="96" r="3"/>
+          <circle class="helm-knob" cx="17.5" cy="82.5" r="3"/>
+          <circle class="helm-knob" cx="4" cy="50" r="3"/>
+          <circle class="helm-knob" cx="17.5" cy="17.5" r="3"/>
+          <circle class="helm-knob" cx="50" cy="4" r="3"/>
+          <circle class="helm-knob" cx="82.5" cy="17.5" r="3"/>
+        </svg>
+        <div class="emblem">鼎</div>
+      </div>
       <div class="line"></div>
     </div>
     <p class="desc">
@@ -659,7 +696,7 @@ const missionData = [
   knowledge:'郡縣制取代分封制，是秦代中央集權的重要基石，也奠定了此後兩千年中國「大一統」政治格局的雛形——香港自秦代納入南海郡番禺縣起，便已是中國版圖不可分割的一部分，這正是高中公民科探討香港憲制基礎時的歷史起點。「禮法並用」的治理智慧，也呼應了中華文化兼容並蓄的天下觀。',
   scrollTitle:'史料卷軸 · 雲夢睡虎地秦簡（節錄大意）',
   scrollText:'「……什伍連坐，度量衡、文字皆依秦制，不得自為……」\n——秦簡所載的什伍連坐與統一制度，反映秦代以嚴密法制鞏固中央集權的治理邏輯。',
-  item:{name:'秦篆量衡令牌', flavor:'刻著統一文字與度量衡的木牘，見證嶺南初定。'},
+  item:{name:'秦篆量衡令牌', flavor:'刻著統一文字與度量衡的木牘，見證嶺南初定。', icon:'tablet'},
   rounds:[
     { label:'法制推行方式', stampLabel:'蓋史料依據印', gated:false, options:[
       {key:'A', speaker:'執政專員', label:'嚴刑峻法，強制推行', summary:'全面移植秦律，不作在地調適，並徵發勞役開鑿道路運河。', quote:'「亂世用重典，唯有嚴法方能鎮服四方。」', delta:{fa:5,guo:15,min:-10,wen:-15}, feedback:'秩序雖立，但越人風俗遭強行壓制，民怨積聚，「文維」與「富維」明顯受損。'},
@@ -701,7 +738,7 @@ const missionData = [
   knowledge:'唐代開放的對外政策與市舶司制度，是初中歷史科認識「盛唐氣象」的重要例證；屯門在唐代已是重要海防據點，說明香港自古以來便是中國海疆體系的一環，呼應高中公民科探討香港自古以來版圖演變的課題。「化外人有犯，各依本俗法」則體現中華文化兼收並蓄、禮法並用治理多元社會的智慧。',
   scrollTitle:'史料卷軸 ·《唐律疏議・名例律》',
   scrollText:'「諸化外人，同類自相犯者，各依本俗法；異類相犯者，以法律論。」\n——唐律容許外商依本俗自理內部糾紛，異族相犯則依唐律論處，體現開放與法治並存的氣度。',
-  item:{name:'番坊敕令拓本', flavor:'屯門市舶敕令的拓印，記錄開放與治安並重的智慧。'},
+  item:{name:'番坊敕令拓本', flavor:'屯門市舶敕令的拓印，記錄開放與治安並重的智慧。', icon:'stamp'},
   rounds:[
     { label:'番坊管理體制', stampLabel:'蓋史料依據印', gated:false, options:[
       {key:'A', speaker:'度支專員', label:'全面開放，不設監管', summary:'任由番坊自治，不設市舶司稅收與治安監管。', quote:'「開放通商，利莫大焉，何必自縛？」', delta:{fa:-10,guo:-15,min:10,wen:15}, feedback:'商貿與文化交流蓬勃，但走私與治安風險上升，「安維」明顯下滑。'},
@@ -743,7 +780,7 @@ const missionData = [
   knowledge:'交子是世界最早的紙幣，反映宋代商品經濟高度發展，是初中歷史科認識宋代「商業革命」的重要例證；其興衰也說明「誠信」在經濟治理中的核心地位，呼應中華文化「義利之辨」的價值觀——義以生利、利以豐民，而非見利忘義。',
   scrollTitle:'史料卷軸 · 交子發行史實摘要',
   scrollText:'北宋政府接手交子發行後，規定須備有約三分之一的鈔本（準備金）方可流通，並限定發行總額，以維持交子的信用與幣值穩定。',
-  item:{name:'交子鈔本', flavor:'一枚保存完好的北宋紙鈔，信用未失。'},
+  item:{name:'交子鈔本', flavor:'一枚保存完好的北宋紙鈔，信用未失。', icon:'note'},
   rounds:[
     { label:'交子準備金比例', stampLabel:'蓋史料依據印', gated:false, options:[
       {key:'A', speaker:'執政專員', label:'大量超發，應急軍費', summary:'不顧準備金比例，大量加印交子以應付開支。', quote:'「軍費告急，先印鈔應急，後患且待後論。」', delta:{fa:-10,guo:-10,min:-20,wen:0}, feedback:'交子迅速貶值，通貨膨脹侵蝕民生，「富維」與「安維」同步惡化——正是「不誠信商道」的教訓。'},
@@ -785,7 +822,7 @@ const missionData = [
   knowledge:'鴉片戰爭與《南京條約》是初中中國歷史科的重要課題，標誌著中國近代史的開端與香港被英國佔領的起點；高中公民科則透過這段歷史，說明國家於1997年恢復對香港行使主權的歷史必然性與正當性。林則徐的氣節，正是中華文化「捨生取義」「知恥而後勇」精神的具體體現。',
   scrollTitle:'史料卷軸 · 林則徐奏摺與《南京條約》節錄',
   scrollText:'林則徐：「若鴉片一日未絕，本大臣一日不回，誓與此事相始終，斷無中止之理。」\n《南京條約》（1842）：中國割讓香港島予英國，開放五口通商，並賠款二千一百萬銀元。',
-  item:{name:'林公奏摺抄本', flavor:'抄錄林則徐奏摺的片段，銘記氣節與教訓。'},
+  item:{name:'林公奏摺抄本', flavor:'抄錄林則徐奏摺的片段，銘記氣節與教訓。', icon:'memo'},
   rounds:[
     { label:'禁煙立場的歷史反思', stampLabel:'蓋史料依據印', gated:false, options:[
       {key:'A', speaker:'度支專員', label:'歸咎禁煙，主張妥協求和', summary:'認為戰爭全因禁煙操之過急，主張及早屈辱求和以避戰禍。', quote:'「戰事糜費甚巨，及早求和，保全元氣。」', delta:{fa:-10,guo:-15,min:5,wen:-20}, feedback:'求和雖暫緩戰事，卻抹煞禁煙的正當性，「文維」與「安維」大受打擊——這並非歷史應有的教訓。'},
@@ -827,7 +864,7 @@ const missionData = [
   knowledge:'改革開放與大灣區建設是高中公民科「國情與國家發展」的核心課題；香港憑藉「一國兩制」下獨特的普通法制度與國際聯繫，在國家發展大局中擔當「引進來、走出去」的橋樑角色，體現中華文化「民惟邦本」以民生福祉為施政依歸的治理智慧。',
   scrollTitle:'史料卷軸 · 改革開放史實摘要',
   scrollText:'1978年，國家推行改革開放；1980年，深圳、珠海等地設立經濟特區。香港以「前店後廠」模式，結合內地土地勞力與香港資金技術，推動珠三角迅速崛起為「世界工廠」。',
-  item:{name:'特區地契圖卷', flavor:'深圳經濟特區的規劃圖卷，見證改革開放的起點。'},
+  item:{name:'特區地契圖卷', flavor:'深圳經濟特區的規劃圖卷，見證改革開放的起點。', icon:'map'},
   rounds:[
     { label:'大灣區四類籌碼配置', stampLabel:'蓋憲法法理印', gated:false, options:[
       {key:'A', speaker:'度支專員', label:'全力衝刺產業轉型，不顧環保監管', summary:'大舉引進外資與工廠，暫緩生態保護與資源安全審查。', quote:'「機不可失，先求發展，環保之事，來日方長。」', delta:{fa:-15,guo:-10,min:20,wen:0}, feedback:'經濟一時高速增長，卻埋下監管缺失與資源安全的隱患，「律維」與「安維」雙雙下滑。'},
@@ -869,7 +906,7 @@ const missionData = [
   knowledge:'《憲法》與《基本法》共同構成香港特別行政區的憲制基礎——這正是高中公民科「『一國兩制』下的香港」單元的核心概念：「一國」是「兩制」的前提與基礎，國家安全則是香港長期繁榮穩定的根本保障。這呼應中華文化「大同世界觀」與「人類命運共同體」的胸襟——在保障國家整體利益的同時，仍尊重多元差異。',
   scrollTitle:'史料卷軸 ·《憲法》與《基本法》節錄',
   scrollText:'《憲法》第三十一條：國家可以在特別行政區內實行的制度，按照具體情況由全國人民代表大會以法律規定。\n《基本法》第五條：香港特別行政區不實行社會主義的制度和政策，保持原有的資本主義制度和生活方式，五十年不變。\n《基本法》第二十三條：香港特別行政區應自行立法禁止危害國家安全的行為。',
-  item:{name:'憲法基本法合璧函', flavor:'載有《憲法》與《基本法》相關條文的合璧函，象徵「一國兩制」的憲制智慧。'},
+  item:{name:'憲法基本法合璧函', flavor:'載有《憲法》與《基本法》相關條文的合璧函，象徵「一國兩制」的憲制智慧。', icon:'book'},
   rounds:[
     { label:'跨國科技合作審查', stampLabel:'蓋憲法法理印', gated:false, options:[
       {key:'A', speaker:'度支專員', label:'只顧經濟效益，擱置國安審查', summary:'優先批准跨國科技合作以促進經濟，暫緩國家安全審查。', quote:'「合作機遇稍縱即逝，審查之事，可以從緩。」', delta:{fa:-15,guo:-20,min:15,wen:0}, feedback:'國安審查缺位，潛在風險未除。'},
@@ -919,17 +956,42 @@ function pulseRank(){
 }
 
 /* ---------- 渲染：行囊 ---------- */
+const itemIconPaths = {
+  tablet:'<rect x="11" y="6" width="18" height="28" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><line x1="17" y1="10" x2="17" y2="30" stroke="currentColor" stroke-width="1.5"/><line x1="23" y1="10" x2="23" y2="30" stroke="currentColor" stroke-width="1.5"/>',
+  stamp:'<circle cx="8" cy="20" r="5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="8" y="15" width="24" height="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="20" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="20" r="4" fill="currentColor" opacity="0.55"/>',
+  note:'<rect x="6" y="12" width="28" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="20" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="16" x2="12" y2="16" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="24" x2="12" y2="24" stroke="currentColor" stroke-width="1.5"/><line x1="28" y1="16" x2="31" y2="16" stroke="currentColor" stroke-width="1.5"/><line x1="28" y1="24" x2="31" y2="24" stroke="currentColor" stroke-width="1.5"/>',
+  memo:'<rect x="14" y="8" width="12" height="24" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="20" cy="8" rx="6" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="20" cy="32" rx="6" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><line x1="16" y1="14" x2="24" y2="14" stroke="currentColor" stroke-width="1.2"/><line x1="16" y1="19" x2="24" y2="19" stroke="currentColor" stroke-width="1.2"/><line x1="16" y1="24" x2="24" y2="24" stroke="currentColor" stroke-width="1.2"/>',
+  map:'<ellipse cx="8" cy="20" rx="3" ry="7" fill="none" stroke="currentColor" stroke-width="2"/><rect x="8" y="13" width="24" height="14" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="32" cy="20" rx="3" ry="7" fill="none" stroke="currentColor" stroke-width="2"/><line x1="14" y1="13" x2="14" y2="27" stroke="currentColor" stroke-width="1"/><line x1="20" y1="13" x2="20" y2="27" stroke="currentColor" stroke-width="1"/><line x1="26" y1="13" x2="26" y2="27" stroke="currentColor" stroke-width="1"/><line x1="8" y1="20" x2="32" y2="20" stroke="currentColor" stroke-width="1"/>',
+  book:'<rect x="9" y="8" width="22" height="26" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><line x1="14" y1="8" x2="14" y2="34" stroke="currentColor" stroke-width="1.5"/><circle cx="24" cy="21" r="4" fill="currentColor" opacity="0.5"/>'
+};
+function itemIconSvg(key){
+  return `<svg class="inv-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">${itemIconPaths[key]||''}</svg>`;
+}
 function renderInventory(){
   const list = document.getElementById('invList');
   if(!state.inventory.length){ list.innerHTML = '<div class="inv-empty">尚未收得任何信物。</div>'; return; }
-  list.innerHTML = state.inventory.map(it=>`<div class="inv-item"><b>${it.name}</b><br>${it.flavor}</div>`).join('');
+  list.innerHTML = state.inventory.map(it=>`<div class="inv-item">${itemIconSvg(it.icon)}<b>${it.name}</b><br>${it.flavor}</div>`).join('');
 }
 function toggleInv(){ document.getElementById('invPanel').classList.toggle('show'); }
 
 /* ---------- 渲染：人物創設 ---------- */
+function classPortraitSvg(c){
+  const propMap = {
+    exec: '<rect x="32" y="9" width="36" height="9" rx="2"/><ellipse cx="21" cy="16" rx="12" ry="3"/><ellipse cx="79" cy="16" rx="12" ry="3"/>',
+    law: '<g fill="none" stroke="currentColor" stroke-width="2.5"><line x1="78" y1="58" x2="78" y2="78"/><line x1="68" y1="62" x2="88" y2="62"/><path d="M68,62 Q68,70 74,70 Q68,70 68,62"/><path d="M88,62 Q88,70 82,70 Q88,70 88,62"/></g>',
+    fis: '<g fill="none" stroke="currentColor" stroke-width="2"><rect x="64" y="58" width="28" height="18" rx="2"/><line x1="64" y1="67" x2="92" y2="67"/></g><g fill="currentColor"><circle cx="71" cy="62" r="2.2"/><circle cx="78" cy="62" r="2.2"/><circle cx="85" cy="62" r="2.2"/><circle cx="71" cy="72" r="2.2"/><circle cx="78" cy="72" r="2.2"/><circle cx="85" cy="72" r="2.2"/></g>',
+    cul: '<g stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="66" y1="82" x2="88" y2="60"/></g><circle cx="90" cy="58" r="5" fill="currentColor"/>'
+  };
+  return `<svg class="portrait-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="color:var(--${c.color})">
+    <circle cx="50" cy="33" r="17" fill="currentColor" opacity="0.85"/>
+    <path d="M18,96 Q18,58 50,58 Q82,58 82,96 Z" fill="currentColor" opacity="0.85"/>
+    <g opacity="0.85">${propMap[c.key]}</g>
+  </svg>`;
+}
 function renderClassGrid(){
   document.getElementById('classGrid').innerHTML = classData.map(c=>
     `<div class="class-card" data-class="${c.key}" onclick="selectClass('${c.key}')">
+      ${classPortraitSvg(c)}
       <h4>${c.name}</h4>
       <span class="cc-tag">${c.tag}</span>
       <p>${c.desc}</p>
@@ -962,6 +1024,90 @@ function updateRoleHints(){
 }
 
 /* ---------- 渲染：六卷情境 ---------- */
+/* ---------- 資料：六卷場景插圖 ---------- */
+function bambooStalk(x){
+  return `<g class="mart-b">
+    <rect x="${x-3}" y="18" width="6" height="102" rx="3"/>
+    <rect x="${x-7}" y="42" width="14" height="4"/>
+    <rect x="${x-7}" y="70" width="14" height="4"/>
+    <rect x="${x-7}" y="96" width="14" height="4"/>
+    <path d="M${x},22 L${x-16},10 L${x-2},26 Z"/>
+    <path d="M${x},22 L${x+18},8 L${x+4},26 Z"/>
+  </g>`;
+}
+function skylineBars(){
+  const heights = [42,68,50,88,60,98,46,78,54,64];
+  let x = 44, out = '';
+  heights.forEach((h,i)=>{
+    const w = 34;
+    out += `<rect class="${i%2===0?'mart-a':'mart-b'}" x="${x}" y="${120-h}" width="${w}" height="${h}"/>`;
+    x += w + 8;
+  });
+  return out;
+}
+const missionArt = {
+  m1: `<svg class="mission-art" viewBox="0 0 760 130" xmlns="http://www.w3.org/2000/svg">
+    ${bambooStalk(70)}${bambooStalk(105)}
+    <rect class="mart-a" x="330" y="45" width="100" height="55" rx="12"/>
+    <rect class="mart-b" x="336" y="30" width="10" height="18" rx="4"/>
+    <rect class="mart-b" x="414" y="30" width="10" height="18" rx="4"/>
+    <path class="mart-b" d="M345,100 L338,126 L358,126 L360,100 Z"/>
+    <path class="mart-b" d="M370,100 L365,130 L395,130 L390,100 Z"/>
+    <path class="mart-b" d="M400,100 L402,126 L422,126 L415,100 Z"/>
+    ${bambooStalk(655)}${bambooStalk(690)}
+  </svg>`,
+  m2: `<svg class="mission-art" viewBox="0 0 760 130" xmlns="http://www.w3.org/2000/svg">
+    <path class="mart-line" d="M20,106 Q60,98 100,106 T180,106 T260,106 T340,106 T420,106 T500,106 T580,106 T660,106 T740,106"/>
+    <path class="mart-line" d="M20,118 Q60,112 100,118 T180,118 T260,118 T340,118 T420,118 T500,118 T580,118 T660,118 T740,118"/>
+    <path class="mart-a" d="M300,88 Q380,112 460,88 L448,100 Q380,120 312,100 Z"/>
+    <line class="mart-line" x1="380" y1="26" x2="380" y2="88"/>
+    <path class="mart-b" d="M383,28 L383,84 L432,78 Z"/>
+    <path class="mart-accent" d="M383,26 L383,15 L400,20 Z"/>
+  </svg>`,
+  m3: `<svg class="mission-art" viewBox="0 0 760 130" xmlns="http://www.w3.org/2000/svg">
+    <g transform="rotate(-10 380 110)"><rect class="mart-a" x="335" y="52" width="92" height="56" rx="6"/><line class="mart-line" x1="350" y1="70" x2="410" y2="70" stroke-width="2"/><line class="mart-line" x1="350" y1="86" x2="410" y2="86" stroke-width="2"/></g>
+    <g transform="rotate(2 380 110)"><rect class="mart-b" x="340" y="48" width="92" height="56" rx="6"/><line class="mart-line" x1="355" y1="66" x2="415" y2="66" stroke-width="2"/><line class="mart-line" x1="355" y1="82" x2="415" y2="82" stroke-width="2"/></g>
+    <g transform="rotate(11 380 110)"><rect class="mart-a" x="345" y="53" width="92" height="56" rx="6"/><line class="mart-line" x1="360" y1="71" x2="420" y2="71" stroke-width="2"/><line class="mart-line" x1="360" y1="87" x2="420" y2="87" stroke-width="2"/></g>
+    <ellipse class="mart-accent" cx="630" cy="68" rx="22" ry="30"/>
+    <rect class="mart-b" x="626" y="32" width="8" height="8"/>
+    <line class="mart-line" x1="630" y1="98" x2="630" y2="118"/>
+    <ellipse class="mart-accent" cx="130" cy="68" rx="22" ry="30"/>
+    <rect class="mart-b" x="126" y="32" width="8" height="8"/>
+    <line class="mart-line" x1="130" y1="98" x2="130" y2="118"/>
+  </svg>`,
+  m4: `<svg class="mission-art" viewBox="0 0 760 130" xmlns="http://www.w3.org/2000/svg">
+    <rect class="mart-a" x="20" y="96" width="720" height="24"/>
+    <rect class="mart-a" x="40" y="82" width="20" height="14"/><rect class="mart-a" x="90" y="82" width="20" height="14"/><rect class="mart-a" x="140" y="82" width="20" height="14"/><rect class="mart-a" x="190" y="82" width="20" height="14"/><rect class="mart-a" x="240" y="82" width="20" height="14"/><rect class="mart-a" x="290" y="82" width="20" height="14"/><rect class="mart-a" x="470" y="82" width="20" height="14"/><rect class="mart-a" x="520" y="82" width="20" height="14"/><rect class="mart-a" x="570" y="82" width="20" height="14"/><rect class="mart-a" x="620" y="82" width="20" height="14"/><rect class="mart-a" x="670" y="82" width="20" height="14"/><rect class="mart-a" x="710" y="82" width="20" height="14"/>
+    <rect class="mart-b" x="330" y="60" width="100" height="22" rx="10" transform="rotate(-6 380 71)"/>
+    <circle class="mart-b" cx="400" cy="96" r="14"/>
+    <circle class="mart-accent" cx="448" cy="54" r="10" opacity="0.5"/>
+    <circle class="mart-accent" cx="464" cy="42" r="7" opacity="0.35"/>
+    <circle class="mart-accent" cx="478" cy="34" r="5" opacity="0.25"/>
+  </svg>`,
+  m5: `<svg class="mission-art" viewBox="0 0 760 130" xmlns="http://www.w3.org/2000/svg">
+    <circle class="mart-accent" cx="670" cy="42" r="40" opacity="0.18"/>
+    <circle class="mart-accent" cx="670" cy="42" r="22"/>
+    ${skylineBars()}
+    <line class="mart-line" x1="600" y1="20" x2="600" y2="118"/>
+    <line class="mart-line" x1="548" y1="26" x2="638" y2="26"/>
+    <line class="mart-line" x1="600" y1="20" x2="568" y2="48"/>
+    <line class="mart-line" x1="552" y1="26" x2="552" y2="58"/>
+  </svg>`,
+  m6: `<svg class="mission-art" viewBox="0 0 760 130" xmlns="http://www.w3.org/2000/svg">
+    <line class="mart-line" x1="380" y1="22" x2="380" y2="88"/>
+    <circle class="mart-b" cx="380" cy="16" r="6"/>
+    <path class="mart-b" d="M362,88 L398,88 L380,106 Z"/>
+    <line class="mart-line" x1="328" y1="36" x2="432" y2="36"/>
+    <line class="mart-line" x1="328" y1="36" x2="328" y2="56"/>
+    <path class="mart-a" d="M310,56 Q310,72 328,72 Q346,72 346,56 Z"/>
+    <line class="mart-line" x1="432" y1="36" x2="432" y2="56"/>
+    <path class="mart-a" d="M414,56 Q414,72 432,72 Q450,72 450,56 Z"/>
+    <path class="mart-b" d="M300,98 Q380,88 460,98 L460,116 Q380,106 300,116 Z"/>
+    <line class="mart-line" x1="315" y1="104" x2="445" y2="104" stroke-width="1.5"/>
+    <line class="mart-line" x1="315" y1="110" x2="445" y2="110" stroke-width="1.5"/>
+  </svg>`
+};
+
 function renderMissions(){
   const root = document.getElementById('missionsRoot');
   root.innerHTML = missionData.map((m,i)=>`
@@ -975,6 +1121,8 @@ function renderMissions(){
             <div class="day-loc">${m.loc}</div>
           </div>
         </div>
+
+        ${missionArt[m.id] || ''}
 
         <div class="dialogue-box">
           <div class="dlg-avatar" id="dlgAvatar-${m.id}"></div>
@@ -1181,7 +1329,7 @@ function stampMission(mid){
     state.inventory.push(m.item);
     renderInventory();
     const ig = document.getElementById('itemgained-'+mid);
-    ig.textContent = `🎐 獲得信物：${m.item.name} —— ${m.item.flavor}`;
+    ig.innerHTML = `${itemIconSvg(m.item.icon)}獲得信物：${m.item.name} —— ${m.item.flavor}`;
     ig.classList.add('show');
     unlockDot(missionIdx+3);
     document.querySelector(`.dot[data-d="${missionIdx+2}"]`)?.classList.add('done');
