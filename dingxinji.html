@@ -258,16 +258,23 @@
   .day-title h2{font-size:1.4rem;}
   .day-loc{color:var(--indigo); font-size:0.88rem; margin:6px 0 4px;}
 
-  .narrator{
-    display:flex; gap:12px; align-items:flex-start; margin:18px 0 20px;
-    background:rgba(47,93,80,0.07); border-left:3px solid var(--jade); padding:12px 14px;
+  .dialogue-box{
+    display:flex; gap:12px; align-items:flex-start; margin:18px 0 4px;
+    background:rgba(47,93,80,0.07); border:1px solid var(--line); padding:14px 16px; min-height:64px;
   }
-  .narrator .avatar{
-    width:38px; height:38px; border-radius:50%; border:2px solid var(--jade); flex-shrink:0;
-    display:flex; align-items:center; justify-content:center; color:var(--jade-deep); font-weight:700; background:var(--parchment);
+  .dlg-avatar{
+    width:40px; height:40px; border-radius:50%; border:2px solid var(--jade); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-weight:700; background:var(--parchment);
+    transition:border-color .2s ease, color .2s ease;
   }
-  .narrator .say{font-size:0.9rem; color:var(--ink-soft); font-style:italic;}
-  .narrator .who{font-size:0.72rem; color:var(--jade-deep); font-style:normal; display:block; margin-bottom:2px; font-weight:700;}
+  .dlg-body{flex:1; padding-top:2px;}
+  .dlg-who{font-size:0.74rem; color:var(--jade-deep); display:block; margin-bottom:3px; font-weight:700;}
+  .dlg-line{font-size:0.92rem; color:var(--ink-soft); font-style:italic;}
+  .dlg-controls{display:flex; justify-content:space-between; align-items:center; margin:10px 0 22px;}
+  .dlg-progress{font-size:0.75rem; color:var(--ink-soft);}
+  .dlg-btns{display:flex; gap:8px;}
+  .scene-wrap{display:none;}
+  .scene-wrap.show{display:block;}
 
   .day-text{color:var(--ink-soft); margin-bottom:18px;}
   .role-hint{font-size:0.85rem; color:var(--jade-deep); background:rgba(47,93,80,0.08); border-left:3px solid var(--jade); padding:8px 12px; margin-bottom:20px; display:none;}
@@ -505,23 +512,33 @@ const state = {
   meters:{fa:50,guo:50,min:50,wen:50},
   charName:'', cls:null,
   merit:0, inventory:[],
-  revealed:{}, chosen:{}, stamped:{}
+  revealed:{}, chosen:{}, stamped:{}, dlgIndex:{}
 };
 
 /* ---------- 資料：四種職司 ---------- */
 const classData = [
-  {key:'exec', name:'柱國', tag:'安邦定國', focus:'guo', desc:'掌軍政大略，於變局中運籌帷幄，安定四方。', skill:'「坐鎮」：起手安維 +5。'},
-  {key:'law',  name:'廷尉', tag:'明察法理', focus:'fa',  desc:'援引律令典籍，確保每項方案皆有憑有據。', skill:'「引律」：起手律維 +5。'},
-  {key:'fis',  name:'大司農', tag:'掌理度支', focus:'min', desc:'精算財政盈虧，務使民生殷阜，不竭澤而漁。', skill:'「量入」：起手富維 +5。'},
-  {key:'cul',  name:'太史', tag:'典籍教化', focus:'wen', desc:'記錄興衰教化黎民，凝聚民心與文化認同。', skill:'「秉筆」：起手文維 +5。'}
+  {key:'exec', name:'柱國', tag:'安邦定國', focus:'guo', desc:'掌軍政大略，於變局中運籌帷幄，安定四方。', skill:'「坐鎮」：起手安維 +5。', avatar:'柱', color:'indigo'},
+  {key:'law',  name:'廷尉', tag:'明察法理', focus:'fa',  desc:'援引律令典籍，確保每項方案皆有憑有據。', skill:'「引律」：起手律維 +5。', avatar:'廷', color:'indigo-deep'},
+  {key:'fis',  name:'大司農', tag:'掌理度支', focus:'min', desc:'精算財政盈虧，務使民生殷阜，不竭澤而漁。', skill:'「量入」：起手富維 +5。', avatar:'農', color:'ink-soft'},
+  {key:'cul',  name:'太史', tag:'典籍教化', focus:'wen', desc:'記錄興衰教化黎民，凝聚民心與文化認同。', skill:'「秉筆」：起手文維 +5。', avatar:'太', color:'jade-deep'}
 ];
+const narratorMeta = {name:'鑑史先生', avatar:'鑑', color:'jade'};
+function speakerMeta(who){
+  if(who==='narrator') return narratorMeta;
+  const c = classData.find(x=>x.key===who);
+  return {name:c.name, avatar:c.avatar, color:c.color};
+}
 
 /* ---------- 資料：六卷情境 ---------- */
 const missionData = [
 {
   id:'m1', juan:'卷一', era:'秦', chapterTag:'第一章 · 大一統與文明融和',
   title:'嶺南初定：郡縣與教化', loc:'秦代 · 南海郡番禺縣 · 中央集權與郡縣制',
-  narrator:'南海之地，山高林密，俚越雜處。始皇新設郡縣，法度未行，人心未附——鼎議堂，且看你如何定分止爭。',
+  dialogue:[
+    {who:'narrator', line:'南海之地，山高林密，俚越雜處。始皇新設郡縣，法度未行，人心未附——鼎議堂，且看你如何定分止爭。'},
+    {who:'exec', line:'新附之地，若不重典鎮之，恐生變亂！'},
+    {who:'cul', line:'越人風俗自有其理，一味強壓，只怕適得其反。'}
+  ],
   context:'秦始皇統一六國後，派兵平定嶺南，於此設南海郡番禺縣——香港地區自此正式納入中國版圖。然而，中原法制與本地俚越風俗差異甚大，加上山林阻隔、交通不便，如何治理這片新附之地，成為鼎議堂的第一道難題。',
   scrollTitle:'史料卷軸 · 雲夢睡虎地秦簡（節錄大意）',
   scrollText:'「……什伍連坐，度量衡、文字皆依秦制，不得自為……」\n——秦簡所載的什伍連坐與統一制度，反映秦代以嚴密法制鞏固中央集權的治理邏輯。',
@@ -536,7 +553,11 @@ const missionData = [
 {
   id:'m2', juan:'卷二', era:'唐', chapterTag:'第一章 · 大一統與文明融和',
   title:'屯門開海：番坊與防務', loc:'唐代 · 廣州市舶司 · 屯門鎮 · 海路貿易與番坊管理',
-  narrator:'大唐開廣運四海，屯門波濤日夜不息。番舶雲集，番坊喧鬧——開放與防範之間，分寸何在？',
+  dialogue:[
+    {who:'narrator', line:'大唐開廣運四海，屯門波濤日夜不息。番舶雲集，番坊喧鬧——開放與防範之間，分寸何在？'},
+    {who:'fis', line:'番商雲集，稅利可觀，何必自縛手腳？'},
+    {who:'exec', line:'利之所在，弊亦隨之，海防豈可鬆懈？'}
+  ],
   context:'海上絲綢之路日益繁榮，廣州成為對外貿易重港，屯門因地理位置優越而設鎮駐軍，護衛海路安全。大批外商湧入，聚居「番坊」，帶來文化交流的機遇，也帶來治安與監管的挑戰。',
   scrollTitle:'史料卷軸 ·《唐律疏議・名例律》',
   scrollText:'「諸化外人，同類自相犯者，各依本俗法；異類相犯者，以法律論。」\n——唐律容許外商依本俗自理內部糾紛，異族相犯則依唐律論處，體現開放與法治並存的氣度。',
@@ -551,7 +572,11 @@ const missionData = [
 {
   id:'m3', juan:'卷三', era:'宋', chapterTag:'第二章 · 海上絲路的繁榮與近現代轉向',
   title:'汴京交子：誠信與瓷路', loc:'宋代 · 汴京夜市 · 交子 · 香港採珠製鹽業',
-  narrator:'汴京夜市燈火如晝，交子輕薄卻繫著萬千商賈的信用。度支之道，不在多印，而在守信。',
+  dialogue:[
+    {who:'narrator', line:'汴京夜市燈火如晝，交子輕薄卻繫著萬千商賈的信用。度支之道，不在多印，而在守信。'},
+    {who:'exec', line:'軍費周轉不靈，交子多印一些又有何妨？'},
+    {who:'fis', line:'輕重失衡，信用一失，禍患無窮！'}
+  ],
   context:'汴京夜市燈火通明，商業高度繁榮；四川商人首創「交子」，成為世界最早的紙幣。香港地區的採珠業與製鹽業亦相當發達，茶葉、絲綢、陶瓷經海路遠銷四方。度支專員必須為交子的發行，以及海上貿易的稅收，做出精確判斷。',
   scrollTitle:'史料卷軸 · 交子發行史實摘要',
   scrollText:'北宋政府接手交子發行後，規定須備有約三分之一的鈔本（準備金）方可流通，並限定發行總額，以維持交子的信用與幣值穩定。',
@@ -566,7 +591,11 @@ const missionData = [
 {
   id:'m4', juan:'卷四', era:'清', chapterTag:'第二章 · 海上絲路的繁榮與近現代轉向',
   title:'虎門烽煙：存亡與氣節', loc:'清代 · 虎門銷煙 · 鴉片戰爭 ·《南京條約》',
-  narrator:'虎門硝煙未散，炮火已至珠江口。國之存亡，繫於一念——是屈膝，是死戰，還是知恥而後勇？',
+  dialogue:[
+    {who:'narrator', line:'虎門硝煙未散，炮火已至珠江口。國之存亡，繫於一念——是屈膝，是死戰，還是知恥而後勇？'},
+    {who:'fis', line:'兵連禍結，糜費無度，不如早日議和。'},
+    {who:'exec', line:'國恥當前，豈能不戰而降！'}
+  ],
   context:'鴉片走私氾濫，白銀外流，國力日衰。林則徐奉命赴廣東禁煙，虎門銷煙震動中外，卻招致英國以武力發動鴉片戰爭。清政府戰敗，被迫簽訂《南京條約》，割讓香港島。鼎議堂必須從這段沉痛歷史中，汲取對主權與國力的深刻反思。',
   scrollTitle:'史料卷軸 · 林則徐奏摺與《南京條約》節錄',
   scrollText:'林則徐：「若鴉片一日未絕，本大臣一日不回，誓與此事相始終，斷無中止之理。」\n《南京條約》（1842）：中國割讓香港島予英國，開放五口通商，並賠款二千一百萬銀元。',
@@ -581,7 +610,11 @@ const missionData = [
 {
   id:'m5', juan:'卷五', era:'革', chapterTag:'第三章 · 當代治理、改革開放與全球互聯',
   title:'蛇口潮聲：協同與轉型', loc:'當代 · 深圳經濟特區 · 大灣區產業協同',
-  narrator:'深圳蛇口，推土機隆隆作響。香江之資，北望神州——這是一盤如何落子的大棋？',
+  dialogue:[
+    {who:'narrator', line:'深圳蛇口，推土機隆隆作響。香江之資，北望神州——這是一盤如何落子的大棋？'},
+    {who:'fis', line:'機不可失，先開閘引資再說！'},
+    {who:'exec', line:'外資湧入，變數難測，不如緩行。'}
+  ],
   context:'國家實施改革開放，深圳設立經濟特區，香港則發揮資金、技術與管理優勢，協助內地發展，並轉型為國際金融中心。鼎議堂須在大灣區地圖沙盤上，為「產業轉型」「科技創新」「生態保護」「文化交流」四類籌碼，作出配置。',
   scrollTitle:'史料卷軸 · 改革開放史實摘要',
   scrollText:'1978年，國家推行改革開放；1980年，深圳、珠海等地設立經濟特區。香港以「前店後廠」模式，結合內地土地勞力與香港資金技術，推動珠三角迅速崛起為「世界工廠」。',
@@ -596,7 +629,11 @@ const missionData = [
 {
   id:'m6', juan:'卷六', era:'憲', chapterTag:'第三章 · 當代治理、改革開放與全球互聯',
   title:'憲制終章：一國兩制', loc:'當代 ·《憲法》與《基本法》· 跨國科技合作審查 · 非遺保護立法',
-  narrator:'《憲法》與《基本法》如車之兩輪，鳥之雙翼。今日的方案，能否經得起法理的最終檢驗？',
+  dialogue:[
+    {who:'narrator', line:'《憲法》與《基本法》如車之兩輪，鳥之雙翼。今日的方案，能否經得起法理的最終檢驗？'},
+    {who:'fis', line:'審查費時，恐誤商機，不如從權。'},
+    {who:'exec', line:'國安大事，寧緊勿鬆，一律嚴辦！'}
+  ],
   context:'鼎議堂收到三項政策提案：跨國科技合作的國家安全審查、非物質文化遺產保護立法，以及綠色能源轉型合作。廷尉必須查閱《中華人民共和國憲法》與《香港特別行政區基本法》實體文本，準確引用相關條文。提案必須同時讓四維均達安全門檻（≥40），方能蓋上「憲法法理印」。',
   scrollTitle:'史料卷軸 ·《憲法》與《基本法》節錄',
   scrollText:'《憲法》第三十一條：國家可以在特別行政區內實行的制度，按照具體情況由全國人民代表大會以法律規定。\n《基本法》第五條：香港特別行政區不實行社會主義的制度和政策，保持原有的資本主義制度和生活方式，五十年不變。\n《基本法》第二十三條：香港特別行政區應自行立法禁止危害國家安全的行為。',
@@ -695,44 +732,88 @@ function renderMissions(){
           </div>
         </div>
 
-        <div class="narrator">
-          <div class="avatar">史</div>
-          <div class="say"><span class="who">鑑史先生</span>「${m.narrator}」</div>
+        <div class="dialogue-box">
+          <div class="dlg-avatar" id="dlgAvatar-${m.id}"></div>
+          <div class="dlg-body">
+            <span class="dlg-who" id="dlgWho-${m.id}"></span>
+            <span class="dlg-line" id="dlgLine-${m.id}"></span>
+          </div>
         </div>
-
-        <p class="day-text">${m.context}</p>
-        <div class="role-hint" id="rolehint-${m.id}"></div>
-
-        <div class="scroll-wrap">
-          <button class="scroll-toggle" id="scrolltoggle-${m.id}" onclick="revealScroll('${m.id}')">📜 展開${m.scrollTitle}</button>
-          <div class="scroll-box" id="scrollbox-${m.id}">
-            <span class="stitle">${m.scrollTitle}</span>
-            <blockquote>${m.scrollText}</blockquote>
+        <div class="dlg-controls" id="dlgControls-${m.id}">
+          <span class="dlg-progress" id="dlgProgress-${m.id}"></span>
+          <div class="dlg-btns">
+            <button class="scroll-toggle" onclick="skipDialogue('${m.id}')">跳過對話</button>
+            <button class="btn" id="dlgNext-${m.id}" onclick="advanceDialogue('${m.id}')">▶ 續</button>
           </div>
         </div>
 
-        <div class="decision-box scroll-panel">
-          <div class="decision-q">鼎議堂抉擇：本卷應採取何種方案？</div>
-          <div id="opts-${m.id}">
-            ${m.options.map(o=>`
-              <button class="opt" data-key="${o.key}" onclick="selectOption('${m.id}','${o.key}')">
-                <span class="ospeaker">${o.speaker}進言：${o.quote}</span>
-                <span class="olabel">${o.key}．${o.label}</span>
-                <span class="osummary">${o.summary}</span>
-              </button>`).join('')}
+        <div class="scene-wrap" id="scene-${m.id}">
+          <p class="day-text">${m.context}</p>
+          <div class="role-hint" id="rolehint-${m.id}"></div>
+
+          <div class="scroll-wrap">
+            <button class="scroll-toggle" id="scrolltoggle-${m.id}" onclick="revealScroll('${m.id}')">📜 展開${m.scrollTitle}</button>
+            <div class="scroll-box" id="scrollbox-${m.id}">
+              <span class="stitle">${m.scrollTitle}</span>
+              <blockquote>${m.scrollText}</blockquote>
+            </div>
           </div>
-          <div class="preview-box" id="preview-${m.id}"></div>
-          <div class="threshold-warn" id="warn-${m.id}"></div>
-          <div class="stamp-row">
-            <button class="btn ember" id="stampbtn-${m.id}" disabled onclick="stampMission('${m.id}')">${m.stampLabel}</button>
-            <div class="stamp-mark" id="stampmark-${m.id}">${m.era}</div>
+
+          <div class="decision-box scroll-panel">
+            <div class="decision-q">鼎議堂抉擇：本卷應採取何種方案？</div>
+            <div id="opts-${m.id}">
+              ${m.options.map(o=>`
+                <button class="opt" data-key="${o.key}" onclick="selectOption('${m.id}','${o.key}')">
+                  <span class="ospeaker">${o.speaker}進言：${o.quote}</span>
+                  <span class="olabel">${o.key}．${o.label}</span>
+                  <span class="osummary">${o.summary}</span>
+                </button>`).join('')}
+            </div>
+            <div class="preview-box" id="preview-${m.id}"></div>
+            <div class="threshold-warn" id="warn-${m.id}"></div>
+            <div class="stamp-row">
+              <button class="btn ember" id="stampbtn-${m.id}" disabled onclick="stampMission('${m.id}')">${m.stampLabel}</button>
+              <div class="stamp-mark" id="stampmark-${m.id}">${m.era}</div>
+            </div>
+            <div class="item-gained" id="itemgained-${m.id}"></div>
           </div>
-          <div class="item-gained" id="itemgained-${m.id}"></div>
+          <div class="next-wrap"><button class="btn" id="next-${m.id}" disabled onclick="goTo(${i+3})">${i<missionData.length-1 ? '前往下一卷 →' : '前往終卷：反思與結業 →'}</button></div>
         </div>
-        <div class="next-wrap"><button class="btn" id="next-${m.id}" disabled onclick="goTo(${i+3})">${i<missionData.length-1 ? '前往下一卷 →' : '前往終卷：反思與結業 →'}</button></div>
       </div>
     </section>
   `).join('');
+  missionData.forEach(m=>{ state.dlgIndex[m.id] = 0; renderDialogueLine(m.id); });
+}
+
+/* ---------- 互動：議事對話 ---------- */
+function renderDialogueLine(mid){
+  const m = missionData.find(x=>x.id===mid);
+  const idx = state.dlgIndex[mid] || 0;
+  const entry = m.dialogue[idx];
+  const meta = speakerMeta(entry.who);
+  const avatarEl = document.getElementById('dlgAvatar-'+mid);
+  avatarEl.textContent = meta.avatar;
+  avatarEl.style.borderColor = `var(--${meta.color})`;
+  avatarEl.style.color = `var(--${meta.color})`;
+  document.getElementById('dlgWho-'+mid).textContent = meta.name;
+  document.getElementById('dlgLine-'+mid).textContent = `「${entry.line}」`;
+  document.getElementById('dlgProgress-'+mid).textContent = `${idx+1} / ${m.dialogue.length}`;
+  document.getElementById('dlgNext-'+mid).textContent = idx < m.dialogue.length-1 ? '▶ 續' : '▶ 開始審議';
+}
+function advanceDialogue(mid){
+  const m = missionData.find(x=>x.id===mid);
+  const idx = state.dlgIndex[mid] || 0;
+  if(idx < m.dialogue.length-1){
+    state.dlgIndex[mid] = idx+1;
+    renderDialogueLine(mid);
+  } else {
+    completeDialogue(mid);
+  }
+}
+function skipDialogue(mid){ completeDialogue(mid); }
+function completeDialogue(mid){
+  document.getElementById('dlgControls-'+mid).style.display = 'none';
+  document.getElementById('scene-'+mid).classList.add('show');
 }
 
 /* ---------- 互動：展開史料卷軸 ---------- */
