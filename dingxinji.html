@@ -285,21 +285,43 @@
   .mart-line{stroke:var(--indigo-deep); stroke-width:2.5; fill:none;}
   .mart-accent{fill:var(--vermillion); opacity:0.75;}
 
+  /* 對話框：JRPG 式框線 + 立繪 + 姓名牌 */
   .dialogue-box{
-    display:flex; gap:12px; align-items:flex-start; margin:18px 0 4px;
-    background:rgba(47,93,80,0.07); border:1px solid var(--line); padding:14px 16px; min-height:64px;
+    position:relative; display:flex; gap:16px; align-items:stretch;
+    margin:26px 0 4px; padding:18px 20px 18px 18px; min-height:112px;
+    background:var(--parchment);
+    border:2px solid var(--indigo-deep); border-radius:3px;
+    box-shadow:inset 0 0 0 2px var(--parchment), inset 0 0 0 3px var(--line), 0 4px 14px var(--shadow);
+    cursor:pointer; user-select:none;
   }
-  .dlg-avatar{
-    width:40px; height:40px; border-radius:50%; border:2px solid var(--jade); flex-shrink:0;
-    display:flex; align-items:center; justify-content:center; font-weight:700; background:var(--parchment);
-    transition:border-color .2s ease, color .2s ease;
+  .dialogue-box:focus-visible{outline:3px solid var(--vermillion); outline-offset:3px;}
+  .dlg-portrait{
+    width:88px; flex-shrink:0; border:1px solid var(--line); border-radius:2px;
+    background:var(--paper); display:flex; align-items:flex-end; justify-content:center; overflow:hidden;
   }
-  .dlg-body{flex:1; padding-top:2px;}
-  .dlg-who{font-size:0.74rem; color:var(--jade-deep); display:block; margin-bottom:3px; font-weight:700;}
-  .dlg-line{font-size:0.92rem; color:var(--ink-soft); font-style:italic;}
-  .dlg-controls{display:flex; justify-content:space-between; align-items:center; margin:10px 0 22px;}
-  .dlg-progress{font-size:0.75rem; color:var(--ink-soft);}
-  .dlg-btns{display:flex; gap:8px;}
+  .dlg-portrait svg{width:100%; height:auto; display:block; margin:0;}
+  .dlg-nametag{
+    position:absolute; top:-13px; left:16px; padding:2px 14px;
+    background:var(--indigo-deep); color:var(--parchment);
+    font-size:0.76rem; font-weight:700; letter-spacing:0.12em; border-radius:2px;
+    box-shadow:0 2px 6px var(--shadow);
+  }
+  .dlg-body{flex:1; padding-top:6px; min-width:0;}
+  .dlg-line{font-size:0.95rem; color:var(--ink); line-height:1.9;}
+  .dlg-caret{
+    display:inline-block; width:0; height:0; margin-left:6px; vertical-align:middle;
+    border-left:7px solid var(--vermillion); border-top:5px solid transparent; border-bottom:5px solid transparent;
+    opacity:0;
+  }
+  .dlg-caret.show{opacity:1;}
+  @media (prefers-reduced-motion: no-preference){
+    .dlg-caret.show{animation:caretBlink 1s steps(1) infinite;}
+  }
+  @keyframes caretBlink{0%,60%{opacity:1;}61%,100%{opacity:0.15;}}
+  .dlg-controls{display:flex; justify-content:space-between; align-items:center; margin:12px 0 22px;}
+  .dlg-progress{font-size:0.75rem; color:var(--ink-soft); letter-spacing:0.08em;}
+  .dlg-hint{font-size:0.72rem; color:var(--ink-soft); font-style:italic;}
+  .dlg-btns{display:flex; gap:8px; align-items:center;}
   .scene-wrap{display:none;}
   .scene-wrap.show{display:block;}
 
@@ -328,6 +350,61 @@
   .delib-list{display:flex; flex-direction:column; gap:8px; margin-bottom:22px;}
   .delib-item{background:var(--parchment); border:1px solid var(--line); border-left:3px solid var(--jade); padding:10px 14px; font-size:0.88rem; color:var(--ink-soft);}
   .delib-item b{color:var(--jade-deep); font-weight:700;}
+  /* 數值浮動跳字 / 判定閃字 / 震動 / 卷末結算 */
+  .pop-layer{position:fixed; inset:0; pointer-events:none; z-index:70;}
+  .pop-num{
+    position:absolute; font-weight:700; font-size:1.05rem; white-space:nowrap;
+    text-shadow:0 1px 3px var(--paper), 0 0 8px var(--paper);
+  }
+  .pop-num.up{color:var(--jade-deep);}
+  .pop-num.down{color:var(--vermillion);}
+  @media (prefers-reduced-motion: no-preference){
+    .pop-num{animation:popFloat 1.25s ease-out forwards;}
+  }
+  @keyframes popFloat{
+    0%{transform:translateY(6px) scale(0.85); opacity:0;}
+    18%{transform:translateY(0) scale(1.12); opacity:1;}
+    100%{transform:translateY(-42px) scale(1); opacity:0;}
+  }
+  .verdict-flash{
+    position:fixed; top:38%; left:50%; z-index:75; pointer-events:none;
+    font-size:2.4rem; font-weight:700; letter-spacing:0.3em; opacity:0;
+    font-family:"Noto Serif TC","Kaiti TC",serif;
+    text-shadow:0 2px 12px var(--shadow);
+  }
+  .verdict-flash.good{color:var(--jade-deep);}
+  .verdict-flash.bad{color:var(--vermillion);}
+  @media (prefers-reduced-motion: no-preference){
+    .verdict-flash{animation:verdictPop 1.15s ease-out forwards;}
+  }
+  @keyframes verdictPop{
+    0%{transform:translate(-50%,0) scale(0.5); opacity:0;}
+    22%{transform:translate(-50%,0) scale(1.15); opacity:1;}
+    72%{transform:translate(-50%,0) scale(1); opacity:1;}
+    100%{transform:translate(-50%,-18px) scale(1); opacity:0;}
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .shake{animation:shakeIt .42s ease-in-out;}
+  }
+  @keyframes shakeIt{
+    0%,100%{transform:translate(0,0);}
+    15%{transform:translate(-6px,2px);} 30%{transform:translate(5px,-2px);}
+    45%{transform:translate(-4px,1px);} 60%{transform:translate(4px,-1px);}
+    80%{transform:translate(-2px,0);}
+  }
+  .settle-box{
+    margin-top:20px; border:2px solid var(--indigo-deep); background:var(--parchment);
+    padding:20px 22px; display:none;
+    box-shadow:inset 0 0 0 2px var(--parchment), inset 0 0 0 3px var(--line);
+  }
+  .settle-box.show{display:block;}
+  .settle-title{font-weight:700; font-size:1.05rem; margin-bottom:14px; letter-spacing:0.08em; color:var(--indigo-deep); text-align:center;}
+  .settle-row{display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px dashed var(--line); font-size:0.9rem;}
+  .settle-row:last-of-type{border-bottom:none;}
+  .settle-row .sv{font-weight:700; font-variant-numeric:tabular-nums;}
+  .settle-row .sv.up{color:var(--jade-deep);} .settle-row .sv.down{color:var(--vermillion);}
+  .settle-loot{margin-top:12px; padding-top:12px; border-top:2px solid var(--line); font-size:0.88rem; color:var(--indigo-deep);}
+
   .stamp-confirm{margin-top:14px; padding:12px 14px; background:var(--indigo-tint); border-left:3px solid var(--indigo); font-size:0.88rem; color:var(--indigo-deep); font-weight:700; display:none;}
   .stamp-confirm.show{display:block;}
   .knowledge-box{margin-top:14px; padding:14px 16px; background:rgba(63,109,90,0.08); border-left:3px solid var(--jade); font-size:0.88rem; color:var(--ink-soft); display:none;}
@@ -335,13 +412,21 @@
   .knowledge-box .klabel{font-weight:700; color:var(--jade-deep); display:block; margin-bottom:6px;}
   .preview-header{font-weight:700; font-size:0.88rem; color:var(--ink); margin-bottom:6px;}
   .opt{
+    position:relative;
     display:block; width:100%; text-align:left; background:transparent; border:1px solid var(--line);
-    padding:13px 16px; margin-bottom:10px; border-radius:2px; cursor:pointer; font-family:inherit; color:var(--ink);
+    padding:13px 16px 13px 34px; margin-bottom:10px; border-radius:2px; cursor:pointer; font-family:inherit; color:var(--ink);
     transition:all .15s ease; opacity:0.45; pointer-events:none;
   }
+  /* JRPG 選單游標：懸停／選中時出現指標 */
+  .opt::before{
+    content:'☛'; position:absolute; left:10px; top:13px;
+    color:var(--vermillion); font-size:0.95rem; opacity:0;
+    transform:translateX(-5px); transition:opacity .15s ease, transform .15s ease;
+  }
+  .opt.enabled:hover::before, .opt.selected::before{opacity:1; transform:translateX(0);}
   .opt.enabled{opacity:1; pointer-events:auto;}
-  .opt:hover.enabled{border-color:var(--jade);}
-  .opt.selected{border-color:var(--ink); box-shadow:0 0 0 1px var(--ink);}
+  .opt.enabled:hover{border-color:var(--jade); background:var(--indigo-tint);}
+  .opt.selected{border-color:var(--indigo-deep); box-shadow:0 0 0 1px var(--indigo-deep); background:var(--indigo-tint);}
   .opt .ospeaker{font-size:0.74rem; color:var(--indigo-deep); font-weight:700; display:block; margin-bottom:3px;}
   .opt .olabel{font-weight:700; display:block; margin-bottom:4px;}
   .opt .osummary{font-size:0.85rem; color:var(--ink-soft); font-weight:400;}
@@ -521,6 +606,7 @@
   <div id="meterRow" style="display:flex; gap:14px; flex-wrap:wrap;"></div>
   <button id="invBtn" onclick="toggleInv()">行囊 (<span id="invCount">0</span>)</button>
 </div>
+<div class="pop-layer" id="popLayer" aria-hidden="true"></div>
 <div id="invPanel">
   <h4>行囊 · 隨身信物 <button onclick="toggleInv()">✕</button></h4>
   <div id="invList"><div class="inv-empty">尚未收得任何信物。</div></div>
@@ -578,14 +664,14 @@
       <div class="line"></div>
     </div>
     <p class="desc">
-      你將加入「中國歷史傳承人」，成為一名肩負治理之責的使者，走過六段山河長卷——
+      你將成為一名「中國歷史傳承人」，肩負治理之責，走過六段山河長卷——
       嶺南初定、屯門開海、汴京交子、虎門烽煙、深圳蛇口、憲制終章。
       每一步抉擇都必須先展讀史料典籍，再由你議定方案、蓋下印信方能生效。
-      你的抉擇將牽動「律維、安維、富維、文維」四維消長，亦決定你在中國歷史傳承人中的位階與行囊中積累的信物。
+      你的抉擇將牽動「律維、安維、富維、文維」四維消長，亦決定你作為傳承人的位階與行囊中積累的信物。
       願你以史為鑑，鼎故革新，走出一段真正屬於自己的治世之旅。
     </p>
     <div style="margin-top:36px;">
-      <button class="btn" onclick="goTo(1)">加入中國歷史傳承人 →</button>
+      <button class="btn" onclick="goTo(1)">承接傳承人之責 →</button>
     </div>
     <div class="edu-credit">路德會協同中學公民與社會發展科 x 歷史科</div>
   </div>
@@ -594,9 +680,9 @@
 <!-- 人物創設 -->
 <section id="roster" data-stop="1">
   <div class="frame scroll-panel">
-    <div class="tag">序卷 · 定名入堂</div>
+    <div class="tag">序卷 · 定名受命</div>
     <div class="day-title" style="margin-top:8px;"><h2>為使者定名，選定職司</h2></div>
-    <p class="day-text">每位入堂使者皆有姓名與職司。職司決定你起手的專長，往後每段情境也會提示你最需留意的一維——但方案終須由中國歷史傳承人全體共議而定。</p>
+    <p class="day-text">每位傳承人皆有姓名與職司。職司決定你起手的專長，往後每段情境也會提示你最需留意的一維——但方案終須由你權衡全局後定奪。</p>
 
     <div class="cc-row">
       <div style="flex:1; min-width:220px;">
@@ -640,7 +726,7 @@
 
     <div class="reflect-stage">
       <h3><svg class="stage-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><circle cx="13" cy="13" r="9" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="19" y1="19" x2="27" y2="27" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>🔍 第一階段 · 所見（經驗描述）</h3>
-      <div class="reflect-q">在虎門烽煙一卷中，你的中國歷史傳承人面臨了什麼樣的資源匱乏與主權危機？</div>
+      <div class="reflect-q">在虎門烽煙一卷中，你面臨了什麼樣的資源匱乏與主權危機？</div>
       <div class="reflect-q">在憲制終章的審議中，你引述了《憲法》或《基本法》哪一條文，才成功兼顧國安與經濟？</div>
       <div class="reflect-q">在整段旅程中，哪一卷史料或哪一件行囊信物最讓你印象深刻？</div>
     </div>
@@ -703,7 +789,7 @@ const state = {
   meters:{fa:100,guo:100,min:100,wen:100},
   charName:'', cls:null,
   merit:0, inventory:[],
-  revealed:{}, chosen:{}, stamped:{}, dlgIndex:{}, roundIndex:{}
+  revealed:{}, chosen:{}, stamped:{}, dlgIndex:{}, roundIndex:{}, typing:{}, missionStart:{}, missionMeritStart:{}
 };
 
 /* ---------- 資料：四種職司 ---------- */
@@ -726,11 +812,11 @@ const missionData = [
   id:'m1', juan:'卷一', era:'秦', chapterTag:'第一章 · 大一統與文明融和',
   title:'嶺南初定：郡縣與教化', loc:'秦代 · 南海郡番禺縣 · 中央集權與郡縣制',
   dialogue:[
-    {who:'narrator', line:'南海之地，山高林密，俚越雜處。始皇新設郡縣，法度未行，人心未附——中國歷史傳承人，且看你如何定分止爭。'},
+    {who:'narrator', line:'南海之地，山高林密，俚越雜處。始皇新設郡縣，法度未行，人心未附——傳承人，且看你如何定分止爭。'},
     {who:'exec', line:'新附之地，若不重典鎮之，恐生變亂！'},
     {who:'cul', line:'越人風俗自有其理，一味強壓，只怕適得其反。'}
   ],
-  context:'秦始皇統一六國後，派兵平定嶺南，於此設南海郡番禺縣——香港地區自此正式納入中國版圖。然而，中原法制與本地俚越風俗差異甚大，加上山林阻隔、交通不便，如何治理這片新附之地，成為中國歷史傳承人的第一道難題。',
+  context:'秦始皇統一六國後，派兵平定嶺南，於此設南海郡番禺縣——香港地區自此正式納入中國版圖。然而，中原法制與本地俚越風俗差異甚大，加上山林阻隔、交通不便，如何治理這片新附之地，成為你上任後的第一道難題。',
   deliberation:{
     exec:'嶺南甫定、人心未附，大局上該以「立威」還是「懷柔」為先？如何在鎮壓與安撫之間拿捏分寸？',
     law:'秦律強調「不得自為」，但若全盤移植而不因地制宜，是否反而動搖法治根基？可有典籍先例可援引變通？',
@@ -856,7 +942,7 @@ const missionData = [
     {who:'fis', line:'兵連禍結，糜費無度，不如早日議和。'},
     {who:'exec', line:'國恥當前，豈能不戰而降！'}
   ],
-  context:'鴉片走私氾濫，白銀外流，國力日衰。林則徐奉命赴廣東禁煙，虎門銷煙震動中外，卻招致英國以武力發動鴉片戰爭。清政府戰敗，被迫簽訂《南京條約》，割讓香港島。中國歷史傳承人必須從這段沉痛歷史中，汲取對主權與國力的深刻反思。',
+  context:'鴉片走私氾濫，白銀外流，國力日衰。林則徐奉命赴廣東禁煙，虎門銷煙震動中外，卻招致英國以武力發動鴉片戰爭。清政府戰敗，被迫簽訂《南京條約》，割讓香港島。你必須從這段沉痛歷史中，汲取對主權與國力的深刻反思。',
   deliberation:{
     exec:'戰爭已然爆發，議和與抗戰的抉擇如何影響日後國家的存續與尊嚴？',
     law:'《南京條約》從國際法與國家主權角度而言，暴露了當時中國在國際體系中何種困境？',
@@ -898,7 +984,7 @@ const missionData = [
     {who:'fis', line:'機不可失，先開閘引資再說！'},
     {who:'exec', line:'外資湧入，變數難測，不如緩行。'}
   ],
-  context:'國家實施改革開放，深圳設立經濟特區，香港則發揮資金、技術與管理優勢，協助內地發展，並轉型為國際金融中心。中國歷史傳承人須在大灣區地圖沙盤上，為「產業轉型」「科技創新」「生態保護」「文化交流」四類籌碼，作出配置。',
+  context:'國家實施改革開放，深圳設立經濟特區，香港則發揮資金、技術與管理優勢，協助內地發展，並轉型為國際金融中心。你須在大灣區地圖沙盤上，為「產業轉型」「科技創新」「生態保護」「文化交流」四類籌碼，作出配置。',
   deliberation:{
     exec:'大灣區協同發展牽涉多方利益，如何統籌香港與內地的角色分工？',
     law:'外資與產業轉型的引進，需要哪些法規配套才能確保有序而非失控？',
@@ -940,7 +1026,7 @@ const missionData = [
     {who:'fis', line:'審查費時，恐誤商機，不如從權。'},
     {who:'exec', line:'國安大事，寧緊勿鬆，一律嚴辦！'}
   ],
-  context:'中國歷史傳承人收到三項政策提案：跨國科技合作的國家安全審查、非物質文化遺產保護立法，以及綠色能源轉型合作。律令專員必須查閱《中華人民共和國憲法》與《香港特別行政區基本法》實體文本，準確引用相關條文。',
+  context:'你收到三項政策提案：跨國科技合作的國家安全審查、非物質文化遺產保護立法，以及綠色能源轉型合作。律令專員必須查閱《中華人民共和國憲法》與《香港特別行政區基本法》實體文本，準確引用相關條文。',
   deliberation:{
     exec:'跨國科技合作、非遺立法、綠色能源三項提案並行，執政大局上該如何排序優次？',
     law:'《憲法》第三十一條與《基本法》相關條文如何具體適用於這些當代議題？',
@@ -967,10 +1053,10 @@ const missionData = [
       {key:'B', speaker:'度支專員', label:'一再拖延，議而不決', summary:'因顧慮爭議而一再拖延改革，議而不決。', quote:'「爭議未消，不如暫緩推行。」', delta:{fa:-15,guo:-15,min:0,wen:0}, feedback:'制度懸而未決，治理秩序持續存在不確定性，「律維」與「安維」下滑。'},
       {key:'C', speaker:'文教與文化使者', label:'廣泛解說，凝聚社會共識', summary:'透過廣泛公眾解說與教育，闡明「愛國者治港」原則對「一國兩制」行穩致遠的意義。', quote:'「講清楚、說明白，方能凝聚社會共識。」', delta:{fa:15,guo:15,min:5,wen:15}, feedback:'社會對制度改革的理解漸增，治理秩序更趨穩固——這正是良好管治須「說之以理」的重要一課。'}
     ]},
-    { label:'大灣區青年發展（終局考驗）', situation:'中國歷史傳承人即將完成最後一項提案——支持香港青年融入大灣區發展、深化國民身份認同的長遠政策。這是全程最後一道考驗，提案須讓四維指標同時維持在安全門檻（≥40）之上，方能蓋上最終的「憲法法理印」，為這段治世之旅畫上句點。', stampLabel:'蓋憲法法理印', gated:true, safetyThreshold:40, options:[
+    { label:'大灣區青年發展（終局考驗）', situation:'你即將完成最後一項提案——支持香港青年融入大灣區發展、深化國民身份認同的長遠政策。這是全程最後一道考驗，提案須讓四維指標同時維持在安全門檻（≥40）之上，方能蓋上最終的「憲法法理印」，為這段治世之旅畫上句點。', stampLabel:'蓋憲法法理印', gated:true, safetyThreshold:40, options:[
       {key:'A', speaker:'度支專員', label:'口號宣傳，不設實質支援', summary:'僅以口號式宣傳鼓勵青年北上發展，不提供具體配套支援。', quote:'「多加宣傳，青年自會響應。」', delta:{fa:-10,guo:-10,min:-10,wen:-15}, feedback:'缺乏實質支援，青年參與度低，政策淪為空談。'},
       {key:'B', speaker:'執政專員', label:'強制配額，行政指令主導', summary:'以行政指令強制安排青年名額到大灣區實習就業，不顧個人意願。', quote:'「以行政指令，強力推動青年北上。」', delta:{fa:-15,guo:5,min:-15,wen:-10}, feedback:'表面達標，但青年缺乏認同感，「法治值」與「民生經濟」皆受質疑。'},
-      {key:'C', speaker:'律令專員', label:'完善配套，雙向自願交流', summary:'完善實習就業、住房、稅務等配套支援，鼓勵青年自願雙向交流融入大灣區。', quote:'「完善配套，雙向自願，方能贏得青年真心認同。」', delta:{fa:15,guo:10,min:15,wen:20}, feedback:'香港青年積極參與大灣區發展，國民身份認同與家國情懷日漸深厚——中國歷史傳承人的治世之旅，至此圓滿功成。'}
+      {key:'C', speaker:'律令專員', label:'完善配套，雙向自願交流', summary:'完善實習就業、住房、稅務等配套支援，鼓勵青年自願雙向交流融入大灣區。', quote:'「完善配套，雙向自願，方能贏得青年真心認同。」', delta:{fa:15,guo:10,min:15,wen:20}, feedback:'香港青年積極參與大灣區發展，國民身份認同與家國情懷日漸深厚——傳承人的治世之旅，至此圓滿功成。'}
     ]}
   ]
 }
@@ -1188,18 +1274,21 @@ function renderMissions(){
 
         ${missionArt[m.id] || ''}
 
-        <div class="dialogue-box">
-          <div class="dlg-avatar" id="dlgAvatar-${m.id}"></div>
+        <div class="dialogue-box" id="dlgBox-${m.id}" tabindex="0" role="button"
+             aria-label="對話框，點擊或按空白鍵推進"
+             onclick="tapDialogue('${m.id}')"
+             onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();tapDialogue('${m.id}');}">
+          <div class="dlg-nametag" id="dlgWho-${m.id}"></div>
+          <div class="dlg-portrait" id="dlgPortrait-${m.id}"></div>
           <div class="dlg-body">
-            <span class="dlg-who" id="dlgWho-${m.id}"></span>
-            <span class="dlg-line" id="dlgLine-${m.id}"></span>
+            <span class="dlg-line" id="dlgLine-${m.id}"></span><span class="dlg-caret" id="dlgCaret-${m.id}"></span>
           </div>
         </div>
         <div class="dlg-controls" id="dlgControls-${m.id}">
           <span class="dlg-progress" id="dlgProgress-${m.id}"></span>
           <div class="dlg-btns">
-            <button class="scroll-toggle" onclick="skipDialogue('${m.id}')">跳過對話</button>
-            <button class="btn" id="dlgNext-${m.id}" onclick="advanceDialogue('${m.id}')">▶ 續</button>
+            <span class="dlg-hint">點對話框或按空白鍵推進</span>
+            <button class="scroll-toggle" onclick="event.stopPropagation();skipDialogue('${m.id}')">跳過對話</button>
           </div>
         </div>
 
@@ -1215,7 +1304,7 @@ function renderMissions(){
             </div>
           </div>
 
-          <div class="section-label">⚖️ 議事會審議議題</div>
+          <div class="section-label">⚖️ 四司審議議題</div>
           <div class="delib-list">
             <div class="delib-item"><b>【執政專員】</b>${m.deliberation.exec}</div>
             <div class="delib-item"><b>【律令專員】</b>${m.deliberation.law}</div>
@@ -1227,6 +1316,7 @@ function renderMissions(){
           <div id="roundBody-${m.id}"></div>
           <div class="knowledge-box" id="knowledge-${m.id}"></div>
           <div class="item-gained" id="itemgained-${m.id}"></div>
+          <div class="settle-box" id="settle-${m.id}"></div>
           <div class="edu-credit">路德會協同中學公民與社會發展科 x 歷史科</div>
         </div>
       </div>
@@ -1235,7 +1325,7 @@ function renderMissions(){
   missionData.forEach((m,i)=>{
     state.dlgIndex[m.id] = 0;
     state.roundIndex[m.id] = 0;
-    renderDialogueLine(m.id);
+    renderDialogueLine(m.id, true);
     renderRound(m.id, i);
   });
 }
@@ -1281,20 +1371,71 @@ function advanceRound(mid){
   window.scrollTo({top:document.getElementById(mid).offsetTop, behavior:'smooth'});
 }
 
-/* ---------- 互動：議事對話 ---------- */
-function renderDialogueLine(mid){
+/* ---------- 互動：議事對話（打字機 + 立繪 + 姓名牌） ---------- */
+const typeTimers = {};
+const REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function speakerPortrait(who){
+  if(who === 'narrator'){
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="color:var(--jade)">
+      <circle cx="50" cy="30" r="16" fill="currentColor" opacity="0.85"/>
+      <path d="M20,100 Q20,58 50,58 Q80,58 80,100 Z" fill="currentColor" opacity="0.85"/>
+      <g opacity="0.85" fill="none" stroke="currentColor" stroke-width="3">
+        <rect x="30" y="70" width="40" height="24" rx="2" fill="var(--paper)"/>
+        <line x1="50" y1="70" x2="50" y2="94"/>
+      </g>
+    </svg>`;
+  }
+  const c = classData.find(x=>x.key===who);
+  return classPortraitSvg(c).replace('class="portrait-svg" ','');
+}
+function renderDialogueLine(mid, instant){
   const m = missionData.find(x=>x.id===mid);
   const idx = state.dlgIndex[mid] || 0;
   const entry = m.dialogue[idx];
   const meta = speakerMeta(entry.who);
-  const avatarEl = document.getElementById('dlgAvatar-'+mid);
-  avatarEl.textContent = meta.avatar;
-  avatarEl.style.borderColor = `var(--${meta.color})`;
-  avatarEl.style.color = `var(--${meta.color})`;
-  document.getElementById('dlgWho-'+mid).textContent = meta.name;
-  document.getElementById('dlgLine-'+mid).textContent = `「${entry.line}」`;
-  document.getElementById('dlgProgress-'+mid).textContent = `${idx+1} / ${m.dialogue.length}`;
-  document.getElementById('dlgNext-'+mid).textContent = idx < m.dialogue.length-1 ? '▶ 續' : '▶ 開始審議';
+  const nameTag = document.getElementById('dlgWho-'+mid);
+  nameTag.textContent = meta.name;
+  nameTag.style.background = `var(--${meta.color})`;
+  document.getElementById('dlgPortrait-'+mid).innerHTML = speakerPortrait(entry.who);
+  document.getElementById('dlgProgress-'+mid).textContent =
+    `${idx+1} / ${m.dialogue.length}` + (idx === m.dialogue.length-1 ? '　· 最後一句' : '');
+  typeLine(mid, `「${entry.line}」`, instant);
+}
+function typeLine(mid, text, instant){
+  clearInterval(typeTimers[mid]);
+  const lineEl = document.getElementById('dlgLine-'+mid);
+  const caret = document.getElementById('dlgCaret-'+mid);
+  if(instant || REDUCED_MOTION){
+    lineEl.textContent = text;
+    state.typing = state.typing || {};
+    state.typing[mid] = false;
+    caret.classList.add('show');
+    return;
+  }
+  state.typing = state.typing || {};
+  state.typing[mid] = true;
+  caret.classList.remove('show');
+  lineEl.textContent = '';
+  let i = 0;
+  typeTimers[mid] = setInterval(()=>{
+    lineEl.textContent = text.slice(0, ++i);
+    if(i >= text.length){
+      clearInterval(typeTimers[mid]);
+      state.typing[mid] = false;
+      caret.classList.add('show');
+    }
+  }, 38);
+}
+/* 點對話框／空白鍵：打字中→立即補完；已完成→下一句 */
+function tapDialogue(mid){
+  if(state.typing && state.typing[mid]){
+    const m = missionData.find(x=>x.id===mid);
+    const entry = m.dialogue[state.dlgIndex[mid] || 0];
+    typeLine(mid, `「${entry.line}」`, true);
+    return;
+  }
+  advanceDialogue(mid);
 }
 function advanceDialogue(mid){
   const m = missionData.find(x=>x.id===mid);
@@ -1306,8 +1447,16 @@ function advanceDialogue(mid){
     completeDialogue(mid);
   }
 }
-function skipDialogue(mid){ completeDialogue(mid); }
+function skipDialogue(mid){
+  clearInterval(typeTimers[mid]);
+  if(state.typing) state.typing[mid] = false;
+  completeDialogue(mid);
+}
 function completeDialogue(mid){
+  clearInterval(typeTimers[mid]);
+  const box = document.getElementById('dlgBox-'+mid);
+  if(box){ box.onclick = null; box.style.cursor = 'default'; box.removeAttribute('tabindex'); }
+  document.getElementById('dlgCaret-'+mid).classList.remove('show');
   document.getElementById('dlgControls-'+mid).style.display = 'none';
   document.getElementById('scene-'+mid).classList.add('show');
 }
@@ -1360,6 +1509,60 @@ function selectOption(mid, key){
 }
 
 /* ---------- 互動：蓋印確認 → 生效 ---------- */
+/* ---------- 視覺回饋：跳字／判定／震動 ---------- */
+function popMeterDeltas(delta){
+  const layer = document.getElementById('popLayer');
+  const meters = document.querySelectorAll('#meterRow .meter');
+  Object.keys(meterMeta).forEach((k,i)=>{
+    const d = delta[k];
+    if(!d || !meters[i]) return;
+    const r = meters[i].getBoundingClientRect();
+    const s = document.createElement('div');
+    s.className = 'pop-num ' + (d>0 ? 'up' : 'down');
+    s.textContent = (d>0 ? '+' : '') + d;
+    s.style.left = (r.left + r.width/2 - 12) + 'px';
+    s.style.top = (r.bottom + 2) + 'px';
+    layer.appendChild(s);
+    setTimeout(()=>s.remove(), 1400);
+  });
+}
+function verdictFlash(text, good){
+  const el = document.createElement('div');
+  el.className = 'verdict-flash ' + (good ? 'good' : 'bad');
+  el.textContent = text;
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), 1300);
+}
+function shakeScreen(){
+  const el = document.querySelector('section.active');
+  if(!el) return;
+  el.classList.remove('shake');
+  void el.offsetWidth;
+  el.classList.add('shake');
+  setTimeout(()=>el.classList.remove('shake'), 520);
+}
+/* ---------- 卷末結算 ---------- */
+function showSettlement(mid, m, missionIdx){
+  const start = state.missionStart[mid] || {fa:100,guo:100,min:100,wen:100};
+  const meritGain = state.merit - (state.missionMeritStart[mid] || 0);
+  const rows = Object.keys(meterMeta).map(k=>{
+    const diff = state.meters[k] - start[k];
+    const cls = diff>0 ? 'up' : (diff<0 ? 'down' : '');
+    const sign = diff>0 ? '+' : '';
+    /* 起跳即滿值時，增益會被上限截掉，標示「維持滿值」以免誤讀為毫無成效 */
+    const note = (diff===0 && state.meters[k]===100) ? '維持滿值' : `(${sign}${diff})`;
+    return `<div class="settle-row"><span>${meterMeta[k].name}</span><span class="sv ${cls}">${start[k]} → ${state.meters[k]}　${note}</span></div>`;
+  }).join('');
+  const box = document.getElementById('settle-'+mid);
+  box.innerHTML = `
+    <div class="settle-title">◆ ${m.juan}　卷末結算 ◆</div>
+    ${rows}
+    <div class="settle-row"><span>德望</span><span class="sv up">+${meritGain}</span></div>
+    <div class="settle-row"><span>位階</span><span class="sv">${rankTitle(state.merit)}</span></div>
+    <div class="settle-loot">${itemIconSvg(m.item.icon)}戰利品：${m.item.name}</div>`;
+  box.classList.add('show');
+}
+
 function stampMission(mid){
   const missionIdx = missionData.findIndex(x=>x.id===mid);
   const m = missionData[missionIdx];
@@ -1369,11 +1572,20 @@ function stampMission(mid){
   const key = state.chosen[rkey];
   if(!key) return;
   const opt = round.options.find(o=>o.key===key);
+  if(ridx === 0){
+    state.missionStart[mid] = Object.assign({}, state.meters);
+    state.missionMeritStart[mid] = state.merit;
+  }
   Object.keys(opt.delta).forEach(k=>{
     state.meters[k] = Math.max(0,Math.min(100, state.meters[k]+opt.delta[k]));
   });
   state.merit += (key==='C' ? 30 : 15);
   state.stamped[rkey] = true;
+  /* 視覺回饋 */
+  popMeterDeltas(opt.delta);
+  const worst = Math.min(...Object.values(opt.delta));
+  if(worst >= 0){ verdictFlash('上　策', true); }
+  else if(worst <= -15){ verdictFlash('失　策', false); shakeScreen(); }
   document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.remove('enabled'));
   document.getElementById('stampbtn-'+mid).disabled = true;
   document.getElementById('stampmark-'+mid).classList.add('show');
@@ -1400,6 +1612,7 @@ function stampMission(mid){
   }
   renderDashboard();
   pulseRank();
+  if(isLastRound) showSettlement(mid, m, missionIdx);
   document.getElementById('nextround-'+mid).disabled = false;
 }
 
@@ -1436,6 +1649,13 @@ function goTo(n){
   const inForest = n===1;
   document.getElementById('forestArt').classList.toggle('show', inForest);
   document.getElementById('bgArt').style.display = inForest ? 'none' : '';
+  /* 進入某一卷時才啟動該卷的打字機，避免六卷同時跑 */
+  const mission = missionData[n-2];
+  if(mission){
+    const ctrls = document.getElementById('dlgControls-'+mission.id);
+    const unfinished = ctrls && ctrls.style.display !== 'none';
+    if(unfinished && (state.dlgIndex[mission.id]||0) === 0) renderDialogueLine(mission.id);
+  }
 }
 
 /* ---------- 反思留言牆 ---------- */
@@ -1456,10 +1676,10 @@ function governanceTitle(){
   const vals = Object.values(state.meters);
   const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
   const min = Math.min(...vals);
-  if(avg>=90 && min>=80) return '鼎革明君議事會';
-  if(avg>=75) return '大同永續治理團隊';
-  if(avg>=55) return '篳路藍縷議事會';
-  return '如履薄冰議事會';
+  if(avg>=90 && min>=80) return '革故鼎新．一代傳承宗師';
+  if(avg>=75) return '大同永續．傳承良臣';
+  if(avg>=55) return '篳路藍縷．勤勉傳承人';
+  return '如履薄冰．見習傳承人';
 }
 function genCert(){
   const name = document.getElementById('certName').value.trim();
@@ -1478,7 +1698,8 @@ function resetGame(){
   if(!confirm('確定要重新開始整段旅程嗎？目前的進度將會清空。')) return;
   state.meters = {fa:100,guo:100,min:100,wen:100};
   state.charName=''; state.cls=null; state.merit=0; state.inventory=[];
-  state.revealed = {}; state.chosen = {}; state.stamped = {}; state.roundIndex = {};
+  Object.keys(typeTimers).forEach(k=>clearInterval(typeTimers[k]));
+  state.revealed = {}; state.chosen = {}; state.stamped = {}; state.roundIndex = {}; state.typing = {}; state.missionStart = {}; state.missionMeritStart = {};
   document.getElementById('charName').value='';
   renderDashboard();
   renderInventory();
