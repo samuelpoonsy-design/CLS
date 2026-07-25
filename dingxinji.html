@@ -320,37 +320,68 @@
 
   /* 對話框：JRPG 式框線 + 立繪 + 姓名牌 */
   .dialogue-box{
-    position:relative; display:flex; gap:16px; align-items:stretch;
-    margin:26px 0 4px; padding:18px 20px 18px 18px; min-height:112px;
-    background:var(--parchment);
-    border:2px solid var(--indigo-deep); border-radius:3px;
-    box-shadow:inset 0 0 0 2px var(--parchment), inset 0 0 0 3px var(--line), 0 4px 14px var(--shadow);
+    position:relative; display:flex; gap:18px; align-items:stretch;
+    margin:30px 0 4px; padding:22px 24px 20px 20px; min-height:150px;
+    background:
+      repeating-linear-gradient(115deg, var(--indigo-tint) 0 2px, transparent 2px 34px),
+      repeating-linear-gradient(25deg, rgba(0,0,0,0.02) 0 1px, transparent 1px 22px),
+      var(--parchment);
+    border:3px solid var(--indigo-deep); border-radius:2px;
+    box-shadow:
+      inset 0 0 0 5px var(--parchment),
+      inset 0 0 0 6px var(--line),
+      inset 0 0 0 8px var(--parchment),
+      0 6px 18px var(--shadow);
     cursor:pointer; user-select:none;
   }
+  .dialogue-box::before, .dialogue-box::after,
+  .dialogue-box .dlg-corner-l, .dialogue-box .dlg-corner-r{
+    content:''; position:absolute; width:20px; height:20px; pointer-events:none;
+    border-color:var(--vermillion); opacity:0.75;
+  }
+  .dialogue-box::before{ top:6px; left:6px; border-top:2.5px solid; border-left:2.5px solid; border-radius:3px 0 0 0; }
+  .dialogue-box::after{ top:6px; right:6px; border-top:2.5px solid; border-right:2.5px solid; border-radius:0 3px 0 0; }
+  .dialogue-box .dlg-corner-l{ bottom:6px; left:6px; border-bottom:2.5px solid; border-left:2.5px solid; border-radius:0 0 0 3px; }
+  .dialogue-box .dlg-corner-r{ bottom:6px; right:6px; border-bottom:2.5px solid; border-right:2.5px solid; border-radius:0 0 3px 0; }
   .dialogue-box:focus-visible{outline:3px solid var(--vermillion); outline-offset:3px;}
   .dlg-portrait{
-    width:88px; flex-shrink:0; border:1px solid var(--line); border-radius:2px;
-    background:var(--paper); display:flex; align-items:flex-end; justify-content:center; overflow:hidden;
+    width:150px; flex-shrink:0; position:relative; padding:5px;
+    border:1px solid var(--line); border-radius:2px;
+    background:var(--paper);
+    display:flex; align-items:flex-end; justify-content:center; overflow:hidden;
   }
-  .dlg-portrait svg{width:100%; height:auto; display:block; margin:0;}
+  .dlg-portrait::before{
+    content:''; position:absolute; inset:5px; border:1px solid var(--indigo-tint); border-radius:1px; pointer-events:none;
+  }
+  .dlg-portrait svg{width:100%; height:auto; display:block; margin:0; position:relative;}
+  .dlg-portrait-pop svg{ transform-origin:bottom center; }
+  @media (prefers-reduced-motion: no-preference){
+    .dlg-portrait-pop svg{ animation:dlgPortraitPop 0.32s ease-out; }
+  }
+  @keyframes dlgPortraitPop{ 0%{ transform:translateY(6px) scale(0.96); opacity:0.5; filter:brightness(0.85); } 100%{ transform:translateY(0) scale(1); opacity:1; filter:brightness(1.06); } }
   .dlg-nametag{
-    position:absolute; top:-13px; left:16px; padding:2px 14px;
+    position:absolute; top:-16px; left:20px; padding:4px 20px 5px;
     background:var(--indigo-deep); color:var(--parchment);
-    font-size:0.76rem; font-weight:700; letter-spacing:0.12em; border-radius:2px;
-    box-shadow:0 2px 6px var(--shadow);
+    font-size:0.78rem; font-weight:700; letter-spacing:0.12em;
+    clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);
+    box-shadow:0 3px 8px var(--shadow);
   }
-  .dlg-body{flex:1; padding-top:6px; min-width:0;}
-  .dlg-line{font-size:0.95rem; color:var(--ink); line-height:1.9;}
+  .dlg-nametag::before{
+    content:''; position:absolute; top:-7px; left:50%; width:2px; height:8px;
+    background:var(--indigo-deep); transform:translateX(-50%);
+  }
+  .dlg-body{flex:1; padding-top:8px; min-width:0;}
+  .dlg-line{font-size:0.97rem; color:var(--ink); line-height:1.9;}
   .dlg-caret{
     display:inline-block; width:0; height:0; margin-left:6px; vertical-align:middle;
-    border-left:7px solid var(--vermillion); border-top:5px solid transparent; border-bottom:5px solid transparent;
-    opacity:0;
+    border-left:8px solid var(--vermillion); border-top:5.5px solid transparent; border-bottom:5.5px solid transparent;
+    opacity:0; transform-origin:left center;
   }
   .dlg-caret.show{opacity:1;}
   @media (prefers-reduced-motion: no-preference){
-    .dlg-caret.show{animation:caretBlink 1s steps(1) infinite;}
+    .dlg-caret.show{animation:caretBreathe 1.1s ease-in-out infinite;}
   }
-  @keyframes caretBlink{0%,60%{opacity:1;}61%,100%{opacity:0.15;}}
+  @keyframes caretBreathe{0%,100%{opacity:1; transform:translateX(0) scale(1);}50%{opacity:0.45; transform:translateX(3px) scale(0.85);}}
   .dlg-controls{display:flex; justify-content:space-between; align-items:center; margin:12px 0 22px;}
   .dlg-progress{font-size:0.75rem; color:var(--ink-soft); letter-spacing:0.08em;}
   .dlg-hint{font-size:0.72rem; color:var(--ink-soft); font-style:italic;}
@@ -549,8 +580,9 @@
     .rail-sep{width:5px;}
     #dashboard{top:86px;}
     /* 立繪縮小，把寬度讓給對話文字 */
-    .dlg-portrait{width:56px;}
-    .dialogue-box{gap:11px; padding:16px 14px 14px 12px;}
+    .dlg-portrait{width:74px; padding:3px;}
+    .dialogue-box{gap:11px; padding:18px 14px 14px 12px; margin-top:24px;}
+    .dlg-nametag{left:12px; padding:3px 14px 4px; font-size:0.72rem;}
     .dlg-line{font-size:0.9rem; line-height:1.8;}
     .dlg-controls{flex-wrap:wrap; gap:8px;}
     .settle-row{font-size:0.84rem; gap:10px;}
@@ -1228,17 +1260,51 @@ function toggleCodex(){
 }
 
 /* ---------- 渲染：人物創設 ---------- */
-function classPortraitSvg(c){
+function inferMood(text){
+  if(!text) return 'neutral';
+  const glad = ['讚','佳','妥','善哉','上策','欣慰','安心','順利','感謝','值得','明智','穩妥','太好','喜','善用','妥當'];
+  const worry = ['憂','危','恐','慌','失策','錯','糟','麻煩','隱患','風險','警惕','擔心','嚴重','不安','動盪','衝突','禍','失衡','告急'];
+  if(glad.some(w=>text.includes(w))) return 'glad';
+  if(worry.some(w=>text.includes(w))) return 'worry';
+  return 'neutral';
+}
+function faceSvg(mood, cx){
+  cx = cx || 50;
+  const bx = cx - 8, ex1 = cx - 7, ex2 = cx + 7;
+  const brows = {
+    neutral: `<line x1="${bx}" y1="26" x2="${bx+8}" y2="25" /><line x1="${cx+2}" y1="25" x2="${cx+10}" y2="26" />`,
+    glad:    `<line x1="${bx}" y1="25" x2="${bx+8}" y2="24" /><line x1="${cx+2}" y1="24" x2="${cx+10}" y2="25" />`,
+    worry:   `<line x1="${bx}" y1="24" x2="${bx+8}" y2="27" /><line x1="${cx+2}" y1="27" x2="${cx+10}" y2="24" />`
+  };
+  const mouth = {
+    neutral: `<path d="M${cx-5},40 Q${cx},41.5 ${cx+5},40" />`,
+    glad:    `<path d="M${cx-5},39 Q${cx},44 ${cx+5},39" />`,
+    worry:   `<path d="M${cx-5},41.5 Q${cx},38.5 ${cx+5},41.5" />`
+  };
+  return `<g fill="none" stroke="var(--ink)" stroke-width="1.1" stroke-linecap="round">
+    ${brows[mood]||brows.neutral}
+    <ellipse cx="${ex1}" cy="31" rx="1.6" ry="2" fill="var(--paper)" stroke="var(--ink)" stroke-width="0.8"/>
+    <ellipse cx="${ex2}" cy="31" rx="1.6" ry="2" fill="var(--paper)" stroke="var(--ink)" stroke-width="0.8"/>
+    ${mouth[mood]||mouth.neutral}
+  </g>`;
+}
+function classPortraitSvg(c, mood){
+  mood = mood || 'neutral';
   const propMap = {
-    exec: '<rect x="32" y="9" width="36" height="9" rx="2"/><ellipse cx="21" cy="16" rx="12" ry="3"/><ellipse cx="79" cy="16" rx="12" ry="3"/>',
+    exec: '<rect x="32" y="9" width="36" height="9" rx="2"/><ellipse cx="21" cy="16" rx="12" ry="3"/><ellipse cx="79" cy="16" rx="12" ry="3"/><rect x="30" y="16" width="4" height="6" opacity="0.7"/><rect x="66" y="16" width="4" height="6" opacity="0.7"/>',
     law: '<g fill="none" stroke="currentColor" stroke-width="2.5"><line x1="78" y1="58" x2="78" y2="78"/><line x1="68" y1="62" x2="88" y2="62"/><path d="M68,62 Q68,70 74,70 Q68,70 68,62"/><path d="M88,62 Q88,70 82,70 Q88,70 88,62"/></g>',
     fis: '<g fill="none" stroke="currentColor" stroke-width="2"><rect x="64" y="58" width="28" height="18" rx="2"/><line x1="64" y1="67" x2="92" y2="67"/></g><g fill="currentColor"><circle cx="71" cy="62" r="2.2"/><circle cx="78" cy="62" r="2.2"/><circle cx="85" cy="62" r="2.2"/><circle cx="71" cy="72" r="2.2"/><circle cx="78" cy="72" r="2.2"/><circle cx="85" cy="72" r="2.2"/></g>',
     cul: '<g stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="66" y1="82" x2="88" y2="60"/></g><circle cx="90" cy="58" r="5" fill="currentColor"/>'
   };
   return `<svg class="portrait-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="color:var(--${c.color})">
-    <circle cx="50" cy="33" r="17" fill="currentColor" opacity="0.85"/>
-    <path d="M18,96 Q18,58 50,58 Q82,58 82,96 Z" fill="currentColor" opacity="0.85"/>
-    <g opacity="0.85">${propMap[c.key]}</g>
+    <path d="M15,97 Q17,56 51,57 Q84,59 85,97 Z" fill="#000" opacity="0.12"/>
+    <ellipse cx="52" cy="33" rx="16.5" ry="17" fill="#000" opacity="0.1"/>
+    <path d="M18,96 Q18,58 50,58 Q82,58 82,96 Z" fill="currentColor" opacity="0.88"/>
+    <circle cx="49" cy="33" r="17" fill="currentColor" opacity="0.9"/>
+    <path d="M32,86 Q50,80 68,86 L68,96 L32,96 Z" fill="#fff" opacity="0.1"/>
+    <line x1="49" y1="58" x2="49" y2="80" stroke="#000" stroke-opacity="0.14" stroke-width="2"/>
+    ${faceSvg(mood, 48)}
+    <g opacity="0.9">${propMap[c.key]}</g>
   </svg>`;
 }
 function classBadgeSvg(c){
@@ -1402,6 +1468,7 @@ function renderMissions(){
              onclick="tapDialogue('${m.id}')"
              onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();tapDialogue('${m.id}');}">
           <div class="dlg-nametag" id="dlgWho-${m.id}"></div>
+          <span class="dlg-corner-l" aria-hidden="true"></span><span class="dlg-corner-r" aria-hidden="true"></span>
           <div class="dlg-portrait" id="dlgPortrait-${m.id}"></div>
           <div class="dlg-body">
             <span class="dlg-line" id="dlgLine-${m.id}"></span><span class="dlg-caret" id="dlgCaret-${m.id}"></span>
@@ -1500,19 +1567,23 @@ function advanceRound(mid){
 const typeTimers = {};
 const REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function speakerPortrait(who){
+function speakerPortrait(who, text){
+  const mood = inferMood(text);
   if(who === 'narrator'){
     return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="color:var(--jade)">
-      <circle cx="50" cy="30" r="16" fill="currentColor" opacity="0.85"/>
-      <path d="M20,100 Q20,58 50,58 Q80,58 80,100 Z" fill="currentColor" opacity="0.85"/>
-      <g opacity="0.85" fill="none" stroke="currentColor" stroke-width="3">
+      <path d="M17,101 Q19,60 51,61 Q81,63 83,101 Z" fill="#000" opacity="0.12"/>
+      <path d="M20,100 Q20,58 50,58 Q80,58 80,100 Z" fill="currentColor" opacity="0.9"/>
+      <circle cx="49" cy="30" r="16" fill="currentColor" opacity="0.9"/>
+      <path d="M34,88 Q50,83 66,88 L66,100 L34,100 Z" fill="#fff" opacity="0.1"/>
+      ${faceSvg(mood, 48)}
+      <g opacity="0.9" fill="none" stroke="currentColor" stroke-width="3">
         <rect x="30" y="70" width="40" height="24" rx="2" fill="var(--paper)"/>
         <line x1="50" y1="70" x2="50" y2="94"/>
       </g>
     </svg>`;
   }
   const c = classData.find(x=>x.key===who);
-  return classPortraitSvg(c).replace('class="portrait-svg" ','');
+  return classPortraitSvg(c, mood).replace('class="portrait-svg" ','');
 }
 function renderDialogueLine(mid, instant){
   const m = missionData.find(x=>x.id===mid);
@@ -1522,7 +1593,11 @@ function renderDialogueLine(mid, instant){
   const nameTag = document.getElementById('dlgWho-'+mid);
   nameTag.textContent = meta.name;
   nameTag.style.background = `var(--${meta.color})`;
-  document.getElementById('dlgPortrait-'+mid).innerHTML = speakerPortrait(entry.who);
+  const portraitEl = document.getElementById('dlgPortrait-'+mid);
+  portraitEl.innerHTML = speakerPortrait(entry.who, entry.line);
+  portraitEl.classList.remove('dlg-portrait-pop');
+  void portraitEl.offsetWidth;
+  portraitEl.classList.add('dlg-portrait-pop');
   document.getElementById('dlgProgress-'+mid).textContent =
     `${idx+1} / ${m.dialogue.length}` + (idx === m.dialogue.length-1 ? '　· 最後一句' : '');
   typeLine(mid, `「${entry.line}」`, instant);
