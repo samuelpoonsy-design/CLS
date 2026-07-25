@@ -798,7 +798,7 @@ const meterMeta = {
   wen:{name:'🌸 文化凝聚'}
 };
 const state = {
-  meters:{fa:100,guo:100,min:100,wen:100},
+  meters:{fa:50,guo:50,min:50,wen:50},
   charName:'', cls:null,
   merit:0, inventory:[],
   revealed:{}, chosen:{}, stamped:{}, dlgIndex:{}, roundIndex:{}, typing:{}, missionStart:{}, missionMeritStart:{}
@@ -841,24 +841,24 @@ const missionData = [
   item:{name:'秦篆量衡令牌', flavor:'刻著統一文字與度量衡的木牘，見證嶺南初定。', icon:'tablet'},
   rounds:[
     { label:'法制推行方式', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'嚴刑峻法，強制推行', summary:'全面移植秦律，不作在地調適，並徵發勞役開鑿道路運河。', quote:'「亂世用重典，唯有嚴法方能鎮服四方。」', delta:{fa:5,guo:15,min:-10,wen:-15}, feedback:'秩序雖立，但越人風俗遭強行壓制，民怨積聚，「文維」與「富維」明顯受損。'},
-      {key:'B', speaker:'文教與文化使者', label:'放任自治，不加干預', summary:'暫緩推行秦律與度量衡統一，尊重越人原有習俗。', quote:'「風俗不可強改，且容其自安。」', delta:{fa:-15,guo:-15,min:0,wen:10}, feedback:'地方自主雖獲一時安穩，但中央法制未能落地，「律維」與「安維」雙雙下滑。'},
-      {key:'C', speaker:'律令專員', label:'禮法並用，因地制宜', summary:'推行秦律基本框架，保留若干因地制宜條款；派文教官推廣文字度量衡，同時尊重越人風俗。', quote:'「禮法並用，方能法立而人心歸附。」', delta:{fa:15,guo:10,min:0,wen:15}, feedback:'法制得以確立，風俗亦獲尊重——這正是「禮法並用」的治理智慧，為嶺南長治久安奠定基礎。'}
+      {key:'A', speaker:'執政專員', label:'嚴刑峻法，強制推行', summary:'全面移植秦律，不作在地調適，並徵發勞役開鑿道路運河。', quote:'「亂世用重典，唯有嚴法方能鎮服四方。」', delta:{fa:2,guo:5,min:-3,wen:-5}, feedback:'秩序雖立，但越人風俗遭強行壓制，民怨積聚，「文維」與「富維」明顯受損。'},
+      {key:'B', speaker:'文教與文化使者', label:'放任自治，不加干預', summary:'暫緩推行秦律與度量衡統一，尊重越人原有習俗。', quote:'「風俗不可強改，且容其自安。」', delta:{fa:-5,guo:-5,min:0,wen:3}, feedback:'地方自主雖獲一時安穩，但中央法制未能落地，「律維」與「安維」雙雙下滑。'},
+      {key:'C', speaker:'律令專員', label:'禮法並用，因地制宜', summary:'推行秦律基本框架，保留若干因地制宜條款；派文教官推廣文字度量衡，同時尊重越人風俗。', quote:'「禮法並用，方能法立而人心歸附。」', delta:{fa:5,guo:3,min:0,wen:5}, feedback:'法制得以確立，風俗亦獲尊重——這正是「禮法並用」的治理智慧，為嶺南長治久安奠定基礎。'}
     ]},
     { label:'徵役與交通建設', situation:'為連通中原與嶺南，秦廷徵發民伕開鑿靈渠、修築馳道，工程浩大，民伕死傷枕藉，沿途郡縣糧秣轉運壓力沉重。度支專員憂心民力難以為繼，執政專員則堅持工程不可中斷。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'暫緩工程，休養民力', summary:'立即停止靈渠與馳道工程，讓民伕返鄉休息，日後再議。', quote:'「民力已竭，若不休養，恐生民變。」', delta:{fa:0,guo:-10,min:10,wen:5}, feedback:'民力稍緩，但南北交通遲遲未通，中央對嶺南的掌控力，「安維」持續受限。'},
-      {key:'B', speaker:'執政專員', label:'嚴令趕工，不恤民力', summary:'不顧民伕死傷，嚴令限期完工，違者連坐。', quote:'「工程一日不成，南疆一日不穩，敢有懈怠者斬！」', delta:{fa:5,guo:15,min:-20,wen:-10}, feedback:'交通雖提前打通，但民伕死傷慘重，民怨沸騰，「富維」與「文維」大幅受損。'},
-      {key:'C', speaker:'度支專員', label:'分段施工，以工代賑', summary:'將工程分段推進，並發放糧餉「以工代賑」，兼顧交通建設與民力恢復。', quote:'「工程可緩，民心不可失；以工代賑，兩全其美。」', delta:{fa:5,guo:10,min:10,wen:5}, feedback:'靈渠、馳道次第完工，民伕亦得溫飽——「以工代賑」的智慧，讓建設與民生並行不悖。'}
+      {key:'A', speaker:'度支專員', label:'暫緩工程，休養民力', summary:'立即停止靈渠與馳道工程，讓民伕返鄉休息，日後再議。', quote:'「民力已竭，若不休養，恐生民變。」', delta:{fa:0,guo:-3,min:3,wen:2}, feedback:'民力稍緩，但南北交通遲遲未通，中央對嶺南的掌控力，「安維」持續受限。'},
+      {key:'B', speaker:'執政專員', label:'嚴令趕工，不恤民力', summary:'不顧民伕死傷，嚴令限期完工，違者連坐。', quote:'「工程一日不成，南疆一日不穩，敢有懈怠者斬！」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'交通雖提前打通，但民伕死傷慘重，民怨沸騰，「富維」與「文維」大幅受損。'},
+      {key:'C', speaker:'度支專員', label:'分段施工，以工代賑', summary:'將工程分段推進，並發放糧餉「以工代賑」，兼顧交通建設與民力恢復。', quote:'「工程可緩，民心不可失；以工代賑，兩全其美。」', delta:{fa:2,guo:3,min:3,wen:2}, feedback:'靈渠、馳道次第完工，民伕亦得溫飽——「以工代賑」的智慧，讓建設與民生並行不悖。'}
     ]},
     { label:'移民實邊政策', situation:'秦廷議決遷徙中原罪犯、商人與貧民南下嶺南「與越雜處」，充實邊地人口。文教與文化使者關注移民與百越原居民能否和睦共處，律令專員則須確立移民與原居民的法律地位。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'律令專員', label:'移民凌駕，越人為役', summary:'規定移民享有優先土地與法律地位，百越原居民淪為附庸勞役。', quote:'「移民乃我族之本，越人自當為其所用。」', delta:{fa:10,guo:5,min:5,wen:-20}, feedback:'移民雖迅速站穩腳跟，但百越原居民淪為次等，「文維」嚴重受損，埋下長期民族矛盾。'},
-      {key:'B', speaker:'文教與文化使者', label:'禁止通婚，隔離而治', summary:'嚴禁移民與越人通婚往來，兩族分居而治，互不干涉。', quote:'「兩族風俗迥異，不如分居而治，各安其份。」', delta:{fa:-5,guo:-10,min:-5,wen:0}, feedback:'表面相安無事，實則兩族長期隔閡，難以真正融合，「安維」與「富維」皆未見起色。'},
-      {key:'C', speaker:'執政專員', label:'雜居通婚，一視同仁', summary:'鼓勵移民與越人雜居通婚，法律上一視同仁，共享土地與資源。', quote:'「與越雜處，一視同仁，方能化異為同。」', delta:{fa:10,guo:10,min:10,wen:15}, feedback:'移民與百越逐漸融合，嶺南人口日增，經濟漸興——這正是後世嶺南族群融合的歷史根源。'}
+      {key:'A', speaker:'律令專員', label:'移民凌駕，越人為役', summary:'規定移民享有優先土地與法律地位，百越原居民淪為附庸勞役。', quote:'「移民乃我族之本，越人自當為其所用。」', delta:{fa:3,guo:2,min:2,wen:-6}, feedback:'移民雖迅速站穩腳跟，但百越原居民淪為次等，「文維」嚴重受損，埋下長期民族矛盾。'},
+      {key:'B', speaker:'文教與文化使者', label:'禁止通婚，隔離而治', summary:'嚴禁移民與越人通婚往來，兩族分居而治，互不干涉。', quote:'「兩族風俗迥異，不如分居而治，各安其份。」', delta:{fa:-2,guo:-3,min:-2,wen:0}, feedback:'表面相安無事，實則兩族長期隔閡，難以真正融合，「安維」與「富維」皆未見起色。'},
+      {key:'C', speaker:'執政專員', label:'雜居通婚，一視同仁', summary:'鼓勵移民與越人雜居通婚，法律上一視同仁，共享土地與資源。', quote:'「與越雜處，一視同仁，方能化異為同。」', delta:{fa:3,guo:3,min:3,wen:5}, feedback:'移民與百越逐漸融合，嶺南人口日增，經濟漸興——這正是後世嶺南族群融合的歷史根源。'}
     ]},
     { label:'羈縻部族首領', situation:'深山中仍有百越部族首領未完全臣服，時而反抗秦吏。執政專員須決定如何處置這些「化外」勢力，以穩定嶺南全局。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'派兵清剿，斬草除根', summary:'派遣重兵深入山林，武力鎮壓所有未臣服部族。', quote:'「不服王化者，唯有兵戈以服之。」', delta:{fa:-5,guo:10,min:-15,wen:-20}, feedback:'部分部族雖被鎮壓，但山林游擊不斷，秦軍疲於奔命，「富維」與「文維」持續流失。'},
-      {key:'B', speaker:'度支專員', label:'置之不理，任其自生自滅', summary:'對深山部族不聞不問，任由其自治自理。', quote:'「山高路遠，何必勞師遠征？」', delta:{fa:-10,guo:-15,min:0,wen:5}, feedback:'表面無事，但邊防隱患未除，中央權威在深山地帶形同虛設，「律維」與「安維」下滑。'},
-      {key:'C', speaker:'律令專員', label:'冊封首領，以夷制夷', summary:'冊封歸順的部族首領為地方吏員，賦予有限自治權，以夷制夷、以撫代剿。', quote:'「冊封其酋，以夷制夷，不戰而屈人之兵，方為上策。」', delta:{fa:10,guo:15,min:5,wen:15}, feedback:'羈縻政策奏效，部族首領歸心，嶺南終告底定——這正是後世歷代治理邊疆民族的重要智慧源頭。'}
+      {key:'A', speaker:'執政專員', label:'派兵清剿，斬草除根', summary:'派遣重兵深入山林，武力鎮壓所有未臣服部族。', quote:'「不服王化者，唯有兵戈以服之。」', delta:{fa:-2,guo:3,min:-5,wen:-6}, feedback:'部分部族雖被鎮壓，但山林游擊不斷，秦軍疲於奔命，「富維」與「文維」持續流失。'},
+      {key:'B', speaker:'度支專員', label:'置之不理，任其自生自滅', summary:'對深山部族不聞不問，任由其自治自理。', quote:'「山高路遠，何必勞師遠征？」', delta:{fa:-3,guo:-5,min:0,wen:2}, feedback:'表面無事，但邊防隱患未除，中央權威在深山地帶形同虛設，「律維」與「安維」下滑。'},
+      {key:'C', speaker:'律令專員', label:'冊封首領，以夷制夷', summary:'冊封歸順的部族首領為地方吏員，賦予有限自治權，以夷制夷、以撫代剿。', quote:'「冊封其酋，以夷制夷，不戰而屈人之兵，方為上策。」', delta:{fa:3,guo:5,min:2,wen:5}, feedback:'羈縻政策奏效，部族首領歸心，嶺南終告底定——這正是後世歷代治理邊疆民族的重要智慧源頭。'}
     ]}
   ]
 },
@@ -883,24 +883,24 @@ const missionData = [
   item:{name:'番坊敕令拓本', flavor:'屯門市舶敕令的拓印，記錄開放與治安並重的智慧。', icon:'stamp'},
   rounds:[
     { label:'番坊管理體制', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'全面開放，不設監管', summary:'任由番坊自治，不設市舶司稅收與治安監管。', quote:'「開放通商，利莫大焉，何必自縛？」', delta:{fa:-10,guo:-15,min:10,wen:15}, feedback:'商貿與文化交流蓬勃，但走私與治安風險上升，「安維」明顯下滑。'},
-      {key:'B', speaker:'執政專員', label:'嚴格鎖港，重兵戒備', summary:'限制外商往來，屯門重兵駐守，大幅收緊貿易。', quote:'「海防為重，寧可少些商賈，不可讓宵小可乘之機。」', delta:{fa:5,guo:15,min:-20,wen:-10}, feedback:'海防雖固，但貿易萎縮、番坊生計受挫，「富維」與「文維」大幅受損。'},
-      {key:'C', speaker:'律令專員', label:'訂立《番坊管理敕令》', summary:'設市舶司統一徵稅與管理，屯門駐軍護航貿易，同時容許番坊依本俗自理內部事務。', quote:'「立敕令以定規矩，開海路以通有無，二者可並行不悖。」', delta:{fa:15,guo:10,min:15,wen:10}, feedback:'秩序、稅收、文化交流三者兼顧——這正是唐代「兼收並蓄」大國氣度的體現。'}
+      {key:'A', speaker:'度支專員', label:'全面開放，不設監管', summary:'任由番坊自治，不設市舶司稅收與治安監管。', quote:'「開放通商，利莫大焉，何必自縛？」', delta:{fa:-3,guo:-5,min:3,wen:5}, feedback:'商貿與文化交流蓬勃，但走私與治安風險上升，「安維」明顯下滑。'},
+      {key:'B', speaker:'執政專員', label:'嚴格鎖港，重兵戒備', summary:'限制外商往來，屯門重兵駐守，大幅收緊貿易。', quote:'「海防為重，寧可少些商賈，不可讓宵小可乘之機。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'海防雖固，但貿易萎縮、番坊生計受挫，「富維」與「文維」大幅受損。'},
+      {key:'C', speaker:'律令專員', label:'訂立《番坊管理敕令》', summary:'設市舶司統一徵稅與管理，屯門駐軍護航貿易，同時容許番坊依本俗自理內部事務。', quote:'「立敕令以定規矩，開海路以通有無，二者可並行不悖。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'秩序、稅收、文化交流三者兼顧——這正是唐代「兼收並蓄」大國氣度的體現。'}
     ]},
     { label:'屯門鎮駐軍規模', situation:'屯門鎮地當要衝，朝廷須決定駐軍規模。兵力過少恐難禦海寇，兵力過多則耗費軍餉、擾民生。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'重兵長駐，不計軍費', summary:'大興屯門駐軍，不惜耗費國庫。', quote:'「海防重於一切，軍費在所不惜。」', delta:{fa:0,guo:20,min:-20,wen:-5}, feedback:'海防固若金湯，但軍費耗費過巨，「富維」重挫。'},
-      {key:'B', speaker:'度支專員', label:'裁減駐軍，節省軍費', summary:'大幅裁減屯門駐軍，以節省開支。', quote:'「軍費浩繁，不如裁軍節流。」', delta:{fa:0,guo:-20,min:10,wen:0}, feedback:'國庫暫緩壓力，但海防空虛，海寇趁虛而入的風險大增，「安維」下滑。'},
-      {key:'C', speaker:'執政專員', label:'寓兵於民，兵農合一', summary:'採府兵制，寓兵於農，平時屯田，戰時徵召。', quote:'「兵農合一，寓兵於民，既固海防，又省軍費。」', delta:{fa:10,guo:15,min:10,wen:0}, feedback:'屯門鎮兵力可持續維持，海防與財政得以兼顧——府兵制的智慧，正是唐代軍事制度的重要創舉。'}
+      {key:'A', speaker:'執政專員', label:'重兵長駐，不計軍費', summary:'大興屯門駐軍，不惜耗費國庫。', quote:'「海防重於一切，軍費在所不惜。」', delta:{fa:0,guo:6,min:-6,wen:-2}, feedback:'海防固若金湯，但軍費耗費過巨，「富維」重挫。'},
+      {key:'B', speaker:'度支專員', label:'裁減駐軍，節省軍費', summary:'大幅裁減屯門駐軍，以節省開支。', quote:'「軍費浩繁，不如裁軍節流。」', delta:{fa:0,guo:-6,min:3,wen:0}, feedback:'國庫暫緩壓力，但海防空虛，海寇趁虛而入的風險大增，「安維」下滑。'},
+      {key:'C', speaker:'執政專員', label:'寓兵於民，兵農合一', summary:'採府兵制，寓兵於農，平時屯田，戰時徵召。', quote:'「兵農合一，寓兵於民，既固海防，又省軍費。」', delta:{fa:3,guo:5,min:3,wen:0}, feedback:'屯門鎮兵力可持續維持，海防與財政得以兼顧——府兵制的智慧，正是唐代軍事制度的重要創舉。'}
     ]},
     { label:'市舶司關稅則例', situation:'市舶司統一徵稅後，關稅稅率該如何釐定？稅率過高恐令番商卻步，過低則國庫收益有限。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'輕稅招徠，不計庫收', summary:'大幅降低關稅，以招徠更多番商。', quote:'「稅輕則商聚，何必計較一時稅收？」', delta:{fa:-5,guo:0,min:5,wen:15}, feedback:'番商雲集，文化交流興盛，然而國庫關稅收入銳減，「富維」未如預期增長。'},
-      {key:'B', speaker:'執政專員', label:'重稅盤剝，充盈國庫', summary:'大幅提高關稅，榨取最大稅收。', quote:'「番商求利而來，重稅何妨？」', delta:{fa:0,guo:0,min:15,wen:-15}, feedback:'短期稅收大增，但番商紛紛轉往他港，長遠而言「文維」與商貿活力受損。'},
-      {key:'C', speaker:'律令專員', label:'則例分級，依貨論稅', summary:'依貨物種類與價值訂立分級稅則，量力而徵。', quote:'「則例分明，依貨論稅，商賈與國庫兩利。」', delta:{fa:15,guo:5,min:15,wen:5}, feedback:'稅則清晰公平，商賈樂於前來，國庫稅收亦穩步增長——這正是唐代市舶司制度化管理的智慧。'}
+      {key:'A', speaker:'度支專員', label:'輕稅招徠，不計庫收', summary:'大幅降低關稅，以招徠更多番商。', quote:'「稅輕則商聚，何必計較一時稅收？」', delta:{fa:-2,guo:0,min:2,wen:5}, feedback:'番商雲集，文化交流興盛，然而國庫關稅收入銳減，「富維」未如預期增長。'},
+      {key:'B', speaker:'執政專員', label:'重稅盤剝，充盈國庫', summary:'大幅提高關稅，榨取最大稅收。', quote:'「番商求利而來，重稅何妨？」', delta:{fa:0,guo:0,min:5,wen:-5}, feedback:'短期稅收大增，但番商紛紛轉往他港，長遠而言「文維」與商貿活力受損。'},
+      {key:'C', speaker:'律令專員', label:'則例分級，依貨論稅', summary:'依貨物種類與價值訂立分級稅則，量力而徵。', quote:'「則例分明，依貨論稅，商賈與國庫兩利。」', delta:{fa:5,guo:2,min:5,wen:2}, feedback:'稅則清晰公平，商賈樂於前來，國庫稅收亦穩步增長——這正是唐代市舶司制度化管理的智慧。'}
     ]},
     { label:'番商宗教與婚俗融入', situation:'番坊中信奉伊斯蘭教、祆教等異域宗教的商人日增，並有番商欲與本地人通婚定居。文教與文化使者須議定政策。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'文教與文化使者', label:'禁止異教，不准通婚', summary:'嚴禁番商在境內傳教，亦不准與本地人通婚。', quote:'「異教異俗，不可使其蔓延。」', delta:{fa:-5,guo:5,min:-10,wen:-15}, feedback:'表面維持「純正」，實則番商離心，貿易與文化交流雙雙受挫。'},
-      {key:'B', speaker:'度支專員', label:'全然放任，不加規範', summary:'對番坊宗教與婚俗全然不加干涉或登記管理。', quote:'「信仰婚俗，悉聽尊便，官府何必多管？」', delta:{fa:-15,guo:-5,min:10,wen:10}, feedback:'番坊自治雖獲好感，但缺乏管理令部分糾紛無從仲裁，「律維」下滑。'},
-      {key:'C', speaker:'文教與文化使者', label:'容教許婚，依法登記', summary:'容許番商保有信仰並與本地人通婚，但須向官府登記備案。', quote:'「兼容並蓄，依法備案，方顯大國氣度。」', delta:{fa:10,guo:5,min:10,wen:20}, feedback:'番坊安居樂業，中外通婚漸成風氣——這正是唐代「胡漢交融」盛世氣象的生動寫照。'}
+      {key:'A', speaker:'文教與文化使者', label:'禁止異教，不准通婚', summary:'嚴禁番商在境內傳教，亦不准與本地人通婚。', quote:'「異教異俗，不可使其蔓延。」', delta:{fa:-2,guo:2,min:-3,wen:-5}, feedback:'表面維持「純正」，實則番商離心，貿易與文化交流雙雙受挫。'},
+      {key:'B', speaker:'度支專員', label:'全然放任，不加規範', summary:'對番坊宗教與婚俗全然不加干涉或登記管理。', quote:'「信仰婚俗，悉聽尊便，官府何必多管？」', delta:{fa:-5,guo:-2,min:3,wen:3}, feedback:'番坊自治雖獲好感，但缺乏管理令部分糾紛無從仲裁，「律維」下滑。'},
+      {key:'C', speaker:'文教與文化使者', label:'容教許婚，依法登記', summary:'容許番商保有信仰並與本地人通婚，但須向官府登記備案。', quote:'「兼容並蓄，依法備案，方顯大國氣度。」', delta:{fa:3,guo:2,min:3,wen:6}, feedback:'番坊安居樂業，中外通婚漸成風氣——這正是唐代「胡漢交融」盛世氣象的生動寫照。'}
     ]}
   ]
 },
@@ -925,24 +925,24 @@ const missionData = [
   item:{name:'交子鈔本', flavor:'一枚保存完好的北宋紙鈔，信用未失。', icon:'note'},
   rounds:[
     { label:'交子準備金比例', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'大量超發，應急軍費', summary:'不顧準備金比例，大量加印交子以應付開支。', quote:'「軍費告急，先印鈔應急，後患且待後論。」', delta:{fa:-10,guo:-10,min:-20,wen:0}, feedback:'交子迅速貶值，通貨膨脹侵蝕民生，「富維」與「安維」同步惡化——正是「不誠信商道」的教訓。'},
-      {key:'B', speaker:'文教與文化使者', label:'拒用紙幣，固守鐵錢', summary:'堅持笨重鐵錢，限制海外貿易規模，不予創新。', quote:'「祖宗成法不可輕廢，鐵錢雖重，穩妥為上。」', delta:{fa:0,guo:0,min:-15,wen:-10}, feedback:'雖無通脹之虞，但交易成本高昂、錯失海外貿易良機，「富維」與「文維」停滯不前。'},
-      {key:'C', speaker:'度支專員', label:'恪守準備金，規範瓷路貿易', summary:'依約三分之一準備金發行交子，並設市舶司規範茶絲瓷貿易與稅收。', quote:'「量入為出，鈔本三一，方能取信於民。」', delta:{fa:10,guo:5,min:20,wen:10}, feedback:'誠信立本，貿易暢旺——「義利之辨」的智慧，讓經濟繁榮與信用穩固並行不悖。'}
+      {key:'A', speaker:'執政專員', label:'大量超發，應急軍費', summary:'不顧準備金比例，大量加印交子以應付開支。', quote:'「軍費告急，先印鈔應急，後患且待後論。」', delta:{fa:-3,guo:-3,min:-6,wen:0}, feedback:'交子迅速貶值，通貨膨脹侵蝕民生，「富維」與「安維」同步惡化——正是「不誠信商道」的教訓。'},
+      {key:'B', speaker:'文教與文化使者', label:'拒用紙幣，固守鐵錢', summary:'堅持笨重鐵錢，限制海外貿易規模，不予創新。', quote:'「祖宗成法不可輕廢，鐵錢雖重，穩妥為上。」', delta:{fa:0,guo:0,min:-5,wen:-3}, feedback:'雖無通脹之虞，但交易成本高昂、錯失海外貿易良機，「富維」與「文維」停滯不前。'},
+      {key:'C', speaker:'度支專員', label:'恪守準備金，規範瓷路貿易', summary:'依約三分之一準備金發行交子，並設市舶司規範茶絲瓷貿易與稅收。', quote:'「量入為出，鈔本三一，方能取信於民。」', delta:{fa:3,guo:2,min:6,wen:3}, feedback:'誠信立本，貿易暢旺——「義利之辨」的智慧，讓經濟繁榮與信用穩固並行不悖。'}
     ]},
     { label:'海外貿易船引配額', situation:'市舶司對出海貿易商船發放「船引」（許可證），數量該如何管制？', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'船引不設限，自由出海', summary:'取消船引配額限制，任何商船皆可自由出海貿易。', quote:'「貿易自由，何必設限？」', delta:{fa:-15,guo:-10,min:15,wen:10}, feedback:'貿易蓬勃一時，但走私與海盜船隻混雜其中難以稽查，「安維」與「律維」受損。'},
-      {key:'B', speaker:'執政專員', label:'嚴格限額，寧缺勿濫', summary:'大幅削減船引發放數量，僅許少數官商出海。', quote:'「商船氾濫難管，不如嚴格限額。」', delta:{fa:5,guo:10,min:-20,wen:-10}, feedback:'管理雖見成效，但海外貿易萎縮，商賈怨聲載道，「富維」與「文維」下滑。'},
-      {key:'C', speaker:'律令專員', label:'船引登記，按額核發', summary:'建立船引登記制度，依港口容量與商船信譽核發配額。', quote:'「按額核發，有序管理，方能行之久遠。」', delta:{fa:15,guo:10,min:15,wen:5}, feedback:'海外貿易井然有序，港口秩序與商貿活力兼備——這正是宋代市舶制度成熟的體現。'}
+      {key:'A', speaker:'度支專員', label:'船引不設限，自由出海', summary:'取消船引配額限制，任何商船皆可自由出海貿易。', quote:'「貿易自由，何必設限？」', delta:{fa:-5,guo:-3,min:5,wen:3}, feedback:'貿易蓬勃一時，但走私與海盜船隻混雜其中難以稽查，「安維」與「律維」受損。'},
+      {key:'B', speaker:'執政專員', label:'嚴格限額，寧缺勿濫', summary:'大幅削減船引發放數量，僅許少數官商出海。', quote:'「商船氾濫難管，不如嚴格限額。」', delta:{fa:2,guo:3,min:-6,wen:-3}, feedback:'管理雖見成效，但海外貿易萎縮，商賈怨聲載道，「富維」與「文維」下滑。'},
+      {key:'C', speaker:'律令專員', label:'船引登記，按額核發', summary:'建立船引登記制度，依港口容量與商船信譽核發配額。', quote:'「按額核發，有序管理，方能行之久遠。」', delta:{fa:5,guo:3,min:5,wen:2}, feedback:'海外貿易井然有序，港口秩序與商貿活力兼備——這正是宋代市舶制度成熟的體現。'}
     ]},
     { label:'汴京物價與囤積居奇', situation:'汴京米糧因富商囤積居奇，價格飛漲，民怨四起。度支專員須決定平抑物價之法。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'放任市場，不加干預', summary:'堅信市場自會調節，不設任何平抑措施。', quote:'「物價漲跌，市場自有其道。」', delta:{fa:0,guo:-15,min:-15,wen:-5}, feedback:'米價持續飛漲，民生困苦，民怨累積，「安維」與「富維」雙雙下滑。'},
-      {key:'B', speaker:'律令專員', label:'強制徵收，平價配售', summary:'強行徵收富商糧倉存糧，由官府平價配售。', quote:'「糧價失控，唯有強徵平糶。」', delta:{fa:-15,guo:5,min:5,wen:-10}, feedback:'米價暫時回穩，但強徵引發商界不滿與法治爭議，「律維」明顯受損。'},
-      {key:'C', speaker:'度支專員', label:'設常平倉，豐年儲糧', summary:'設立常平倉制度，豐年購入儲糧、荒年平價拋售，調節供需。', quote:'「常平倉制，豐儲歉糶，方是長治久安之道。」', delta:{fa:10,guo:10,min:15,wen:5}, feedback:'米價漸趨平穩，民生獲得保障——常平倉制度正是中國古代「調節供需、以豐補歉」治理智慧的典範。'}
+      {key:'A', speaker:'執政專員', label:'放任市場，不加干預', summary:'堅信市場自會調節，不設任何平抑措施。', quote:'「物價漲跌，市場自有其道。」', delta:{fa:0,guo:-5,min:-5,wen:-2}, feedback:'米價持續飛漲，民生困苦，民怨累積，「安維」與「富維」雙雙下滑。'},
+      {key:'B', speaker:'律令專員', label:'強制徵收，平價配售', summary:'強行徵收富商糧倉存糧，由官府平價配售。', quote:'「糧價失控，唯有強徵平糶。」', delta:{fa:-5,guo:2,min:2,wen:-3}, feedback:'米價暫時回穩，但強徵引發商界不滿與法治爭議，「律維」明顯受損。'},
+      {key:'C', speaker:'度支專員', label:'設常平倉，豐年儲糧', summary:'設立常平倉制度，豐年購入儲糧、荒年平價拋售，調節供需。', quote:'「常平倉制，豐儲歉糶，方是長治久安之道。」', delta:{fa:3,guo:3,min:5,wen:2}, feedback:'米價漸趨平穩，民生獲得保障——常平倉制度正是中國古代「調節供需、以豐補歉」治理智慧的典範。'}
     ]},
     { label:'香港採珠製鹽稅收', situation:'香港地區的大埔採珠業與屯門一帶製鹽業日漸興旺，朝廷須決定如何徵稅與管理這些地方產業。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'律令專員', label:'官營壟斷，重稅徵榷', summary:'將採珠、製鹽收歸官營壟斷，課以重稅。', quote:'「山海之利，豈可假手於民？」', delta:{fa:0,guo:5,min:10,wen:-15}, feedback:'國庫稅收增加，但漁民鹽戶生計大受打擊，「文維」與地方民心受損。'},
-      {key:'B', speaker:'文教與文化使者', label:'放任自產自銷，不加課稅', summary:'對採珠製鹽業完全不加管理課稅。', quote:'「民生小利，何必徵稅擾民？」', delta:{fa:-10,guo:0,min:-10,wen:5}, feedback:'民間雖獲喘息，但官府坐失財源，長遠而言難以支持地方建設，「富維」停滯。'},
-      {key:'C', speaker:'度支專員', label:'官督民營，合理抽稅', summary:'採「官督民營」模式，容許民間經營，依比例合理抽稅。', quote:'「官督民營，稅賦合理，民生與國用兩不誤。」', delta:{fa:10,guo:5,min:15,wen:10}, feedback:'採珠製鹽業穩步發展，稅收亦見增長——香港地區的海洋經濟基礎，正由此奠定。'}
+      {key:'A', speaker:'律令專員', label:'官營壟斷，重稅徵榷', summary:'將採珠、製鹽收歸官營壟斷，課以重稅。', quote:'「山海之利，豈可假手於民？」', delta:{fa:0,guo:2,min:3,wen:-5}, feedback:'國庫稅收增加，但漁民鹽戶生計大受打擊，「文維」與地方民心受損。'},
+      {key:'B', speaker:'文教與文化使者', label:'放任自產自銷，不加課稅', summary:'對採珠製鹽業完全不加管理課稅。', quote:'「民生小利，何必徵稅擾民？」', delta:{fa:-3,guo:0,min:-3,wen:2}, feedback:'民間雖獲喘息，但官府坐失財源，長遠而言難以支持地方建設，「富維」停滯。'},
+      {key:'C', speaker:'度支專員', label:'官督民營，合理抽稅', summary:'採「官督民營」模式，容許民間經營，依比例合理抽稅。', quote:'「官督民營，稅賦合理，民生與國用兩不誤。」', delta:{fa:3,guo:2,min:5,wen:3}, feedback:'採珠製鹽業穩步發展，稅收亦見增長——香港地區的海洋經濟基礎，正由此奠定。'}
     ]}
   ]
 },
@@ -967,24 +967,24 @@ const missionData = [
   item:{name:'林公奏摺抄本', flavor:'抄錄林則徐奏摺的片段，銘記氣節與教訓。', icon:'memo'},
   rounds:[
     { label:'禁煙立場的歷史反思', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'歸咎禁煙，主張妥協求和', summary:'認為戰爭全因禁煙操之過急，主張及早屈辱求和以避戰禍。', quote:'「戰事糜費甚巨，及早求和，保全元氣。」', delta:{fa:-10,guo:-15,min:5,wen:-20}, feedback:'求和雖暫緩戰事，卻抹煞禁煙的正當性，「文維」與「安維」大受打擊——這並非歷史應有的教訓。'},
-      {key:'B', speaker:'執政專員', label:'不顧國力，力主死戰到底', summary:'無視雙方國力與軍備的巨大差距，主張不惜一切代價強硬對抗。', quote:'「縱使玉石俱焚，亦不能屈膝求和！」', delta:{fa:0,guo:-20,min:-15,wen:5}, feedback:'氣節可嘉，但盲目輕敵導致更慘重損失，「安維」與「富維」進一步惡化。'},
-      {key:'C', speaker:'文教與文化使者', label:'肯定禁煙，正視差距，以史為鑑', summary:'肯定林則徐禁煙的正當性與民族氣節，同時正視國力落後的根源，將此役視為近代改革與捍衛主權的歷史轉捩點。', quote:'「禁煙無罪，國弱受欺——當銘記此恥，發憤圖強。」', delta:{fa:10,guo:5,min:0,wen:20}, feedback:'銘記屈辱，不忘自強——這段歷史正是探討「國家恢復對香港行使主權」必然性的重要根基。'}
+      {key:'A', speaker:'度支專員', label:'歸咎禁煙，主張妥協求和', summary:'認為戰爭全因禁煙操之過急，主張及早屈辱求和以避戰禍。', quote:'「戰事糜費甚巨，及早求和，保全元氣。」', delta:{fa:-3,guo:-5,min:2,wen:-6}, feedback:'求和雖暫緩戰事，卻抹煞禁煙的正當性，「文維」與「安維」大受打擊——這並非歷史應有的教訓。'},
+      {key:'B', speaker:'執政專員', label:'不顧國力，力主死戰到底', summary:'無視雙方國力與軍備的巨大差距，主張不惜一切代價強硬對抗。', quote:'「縱使玉石俱焚，亦不能屈膝求和！」', delta:{fa:0,guo:-6,min:-5,wen:2}, feedback:'氣節可嘉，但盲目輕敵導致更慘重損失，「安維」與「富維」進一步惡化。'},
+      {key:'C', speaker:'文教與文化使者', label:'肯定禁煙，正視差距，以史為鑑', summary:'肯定林則徐禁煙的正當性與民族氣節，同時正視國力落後的根源，將此役視為近代改革與捍衛主權的歷史轉捩點。', quote:'「禁煙無罪，國弱受欺——當銘記此恥，發憤圖強。」', delta:{fa:3,guo:2,min:0,wen:6}, feedback:'銘記屈辱，不忘自強——這段歷史正是探討「國家恢復對香港行使主權」必然性的重要根基。'}
     ]},
     { label:'廣州十三行貿易體制', situation:'鴉片戰爭前，廣州十三行壟斷對外貿易，外商屢屢抱怨體制僵化。度支專員須評估是否改革這套「一口通商」體制。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'固守十三行，拒絕改革', summary:'堅持十三行壟斷體制，不作任何開放。', quote:'「祖宗成法，豈可輕言更張？」', delta:{fa:0,guo:5,min:-15,wen:-10}, feedback:'體制僵化引發外商積怨，埋下日後衝突的種子，「富維」與「文維」受損。'},
-      {key:'B', speaker:'度支專員', label:'全面開放，廢除十三行', summary:'立即廢除十三行制度，全面開放通商口岸。', quote:'「不如順應潮流，全面開埠通商。」', delta:{fa:-15,guo:-15,min:10,wen:0}, feedback:'雖然一時貿易活絡，但朝廷倉促失去管控，「律維」與「安維」大幅下滑。'},
-      {key:'C', speaker:'律令專員', label:'漸進改良，擴大監管', summary:'保留基本管理架構，但逐步改良行商制度、增設監督機制。', quote:'「循序漸進，擴大監管，方能穩中求變。」', delta:{fa:10,guo:10,min:10,wen:5}, feedback:'貿易體制逐步現代化，惜為時已晚未能扭轉戰爭大勢——但這段歷史仍值得後世借鏡「穩中求變」的道理。'}
+      {key:'A', speaker:'執政專員', label:'固守十三行，拒絕改革', summary:'堅持十三行壟斷體制，不作任何開放。', quote:'「祖宗成法，豈可輕言更張？」', delta:{fa:0,guo:2,min:-5,wen:-3}, feedback:'體制僵化引發外商積怨，埋下日後衝突的種子，「富維」與「文維」受損。'},
+      {key:'B', speaker:'度支專員', label:'全面開放，廢除十三行', summary:'立即廢除十三行制度，全面開放通商口岸。', quote:'「不如順應潮流，全面開埠通商。」', delta:{fa:-5,guo:-5,min:3,wen:0}, feedback:'雖然一時貿易活絡，但朝廷倉促失去管控，「律維」與「安維」大幅下滑。'},
+      {key:'C', speaker:'律令專員', label:'漸進改良，擴大監管', summary:'保留基本管理架構，但逐步改良行商制度、增設監督機制。', quote:'「循序漸進，擴大監管，方能穩中求變。」', delta:{fa:3,guo:3,min:3,wen:2}, feedback:'貿易體制逐步現代化，惜為時已晚未能扭轉戰爭大勢——但這段歷史仍值得後世借鏡「穩中求變」的道理。'}
     ]},
     { label:'三元里民眾抗英', situation:'英軍進犯廣州城郊，三元里一帶民眾自發組織團練抗擊英軍。執政專員須決定官府對民間抗英力量的態度。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'嚴禁民團，恐生民變', summary:'擔心民間武裝坐大失控，嚴令解散三元里團練。', quote:'「民間擁兵，恐生尾大不掉之患。」', delta:{fa:-5,guo:-10,min:0,wen:-20}, feedback:'民心大失，錯失團結民力抗敵的良機，「文維」重挫。'},
-      {key:'B', speaker:'度支專員', label:'放任自行其是，官府置身事外', summary:'對民團抗英不聞不問，亦不予支援協調。', quote:'「民自為戰，官府何必插手？」', delta:{fa:-10,guo:-15,min:-5,wen:5}, feedback:'民團孤軍作戰，缺乏官方支援協調，抗敵成效有限，「安維」持續下滑。'},
-      {key:'C', speaker:'文教與文化使者', label:'官民協同，因勢利導', summary:'官府因勢利導，協調民團與正規軍配合作戰，凝聚全民抗敵力量。', quote:'「軍民同心，協力抗敵，方顯民族氣節。」', delta:{fa:5,guo:10,min:0,wen:20}, feedback:'三元里軍民同仇敵愾的事蹟，成為近代中國民族氣節與愛國精神的重要象徵。'}
+      {key:'A', speaker:'執政專員', label:'嚴禁民團，恐生民變', summary:'擔心民間武裝坐大失控，嚴令解散三元里團練。', quote:'「民間擁兵，恐生尾大不掉之患。」', delta:{fa:-2,guo:-3,min:0,wen:-6}, feedback:'民心大失，錯失團結民力抗敵的良機，「文維」重挫。'},
+      {key:'B', speaker:'度支專員', label:'放任自行其是，官府置身事外', summary:'對民團抗英不聞不問，亦不予支援協調。', quote:'「民自為戰，官府何必插手？」', delta:{fa:-3,guo:-5,min:-2,wen:2}, feedback:'民團孤軍作戰，缺乏官方支援協調，抗敵成效有限，「安維」持續下滑。'},
+      {key:'C', speaker:'文教與文化使者', label:'官民協同，因勢利導', summary:'官府因勢利導，協調民團與正規軍配合作戰，凝聚全民抗敵力量。', quote:'「軍民同心，協力抗敵，方顯民族氣節。」', delta:{fa:2,guo:3,min:0,wen:6}, feedback:'三元里軍民同仇敵愾的事蹟，成為近代中國民族氣節與愛國精神的重要象徵。'}
     ]},
     { label:'五口通商善後應對', situation:'《南京條約》既簽，五口通商已成定局。清廷須議定如何因應這場劇變，為日後自強圖存奠定基礎。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'諱敗為勝，粉飾太平', summary:'對外宣稱議和乃「恩准通商」，對內掩蓋戰敗真相。', quote:'「對外宜言撫恤遠人，不必張揚戰事。」', delta:{fa:-15,guo:-10,min:0,wen:-20}, feedback:'粉飾太平無助於真正改革，錯失反省變革的契機，「文維」與「律維」持續受損。'},
-      {key:'B', speaker:'文教與文化使者', label:'全盤西化，盡棄舊制', summary:'主張立即全盤仿效西方制度，盡棄中國傳統體制。', quote:'「舊制已然無用，不如全盤仿效泰西。」', delta:{fa:-10,guo:-15,min:5,wen:-10}, feedback:'操之過急引發朝野強烈反彈，改革難以落實，「安維」與「文維」皆受衝擊。'},
-      {key:'C', speaker:'律令專員', label:'正視差距，師夷長技', summary:'正視戰敗根源，主張「師夷長技以制夷」，務實學習西方軍事科技以圖自強。', quote:'「知恥而後勇，師夷長技以制夷，方為自強之道。」', delta:{fa:10,guo:10,min:5,wen:15}, feedback:'「師夷長技以制夷」的主張，成為日後洋務運動自強圖存的重要思想先聲。'}
+      {key:'A', speaker:'執政專員', label:'諱敗為勝，粉飾太平', summary:'對外宣稱議和乃「恩准通商」，對內掩蓋戰敗真相。', quote:'「對外宜言撫恤遠人，不必張揚戰事。」', delta:{fa:-5,guo:-3,min:0,wen:-6}, feedback:'粉飾太平無助於真正改革，錯失反省變革的契機，「文維」與「律維」持續受損。'},
+      {key:'B', speaker:'文教與文化使者', label:'全盤西化，盡棄舊制', summary:'主張立即全盤仿效西方制度，盡棄中國傳統體制。', quote:'「舊制已然無用，不如全盤仿效泰西。」', delta:{fa:-3,guo:-5,min:2,wen:-3}, feedback:'操之過急引發朝野強烈反彈，改革難以落實，「安維」與「文維」皆受衝擊。'},
+      {key:'C', speaker:'律令專員', label:'正視差距，師夷長技', summary:'正視戰敗根源，主張「師夷長技以制夷」，務實學習西方軍事科技以圖自強。', quote:'「知恥而後勇，師夷長技以制夷，方為自強之道。」', delta:{fa:3,guo:3,min:2,wen:5}, feedback:'「師夷長技以制夷」的主張，成為日後洋務運動自強圖存的重要思想先聲。'}
     ]}
   ]
 },
@@ -1009,24 +1009,24 @@ const missionData = [
   item:{name:'特區地契圖卷', flavor:'深圳經濟特區的規劃圖卷，見證改革開放的起點。', icon:'map'},
   rounds:[
     { label:'大灣區四類籌碼配置', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'全力衝刺產業轉型，不顧環保監管', summary:'大舉引進外資與工廠，暫緩生態保護與資源安全審查。', quote:'「機不可失，先求發展，環保之事，來日方長。」', delta:{fa:-15,guo:-10,min:20,wen:0}, feedback:'經濟一時高速增長，卻埋下監管缺失與資源安全的隱患，「律維」與「安維」雙雙下滑。'},
-      {key:'B', speaker:'執政專員', label:'保守觀望，拒絕深化開放', summary:'固守原有模式，不參與大灣區產業協同與科技合作。', quote:'「外資湧入，恐生變數，不如按兵不動。」', delta:{fa:0,guo:5,min:-15,wen:-10}, feedback:'雖然穩妥，卻錯失發展機遇，「富維」與「文維」停滯不前。'},
-      {key:'C', speaker:'律令專員', label:'均衡配置，依法規管外資', summary:'在產業轉型、科技創新、生態保護、文化交流四方面均衡配置籌碼，並依法規管外資。', quote:'「依法規管，產業、科創、生態、文化四者並重，方為長久之計。」', delta:{fa:10,guo:10,min:15,wen:15}, feedback:'發展與規範並重——香港正是憑藉「一國兩制」下的獨特優勢，融入國家發展大局。'}
+      {key:'A', speaker:'度支專員', label:'全力衝刺產業轉型，不顧環保監管', summary:'大舉引進外資與工廠，暫緩生態保護與資源安全審查。', quote:'「機不可失，先求發展，環保之事，來日方長。」', delta:{fa:-5,guo:-3,min:6,wen:0}, feedback:'經濟一時高速增長，卻埋下監管缺失與資源安全的隱患，「律維」與「安維」雙雙下滑。'},
+      {key:'B', speaker:'執政專員', label:'保守觀望，拒絕深化開放', summary:'固守原有模式，不參與大灣區產業協同與科技合作。', quote:'「外資湧入，恐生變數，不如按兵不動。」', delta:{fa:0,guo:2,min:-5,wen:-3}, feedback:'雖然穩妥，卻錯失發展機遇，「富維」與「文維」停滯不前。'},
+      {key:'C', speaker:'律令專員', label:'均衡配置，依法規管外資', summary:'在產業轉型、科技創新、生態保護、文化交流四方面均衡配置籌碼，並依法規管外資。', quote:'「依法規管，產業、科創、生態、文化四者並重，方為長久之計。」', delta:{fa:3,guo:3,min:5,wen:5}, feedback:'發展與規範並重——香港正是憑藉「一國兩制」下的獨特優勢，融入國家發展大局。'}
     ]},
     { label:'前店後廠勞工權益', situation:'「前店後廠」模式下，大量內地勞工湧入珠三角工廠，勞動條件與權益保障備受關注。度支專員須權衡生產成本與勞工福祉。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'壓低成本，不顧勞權', summary:'壓低工資與福利以維持產業競爭力，不設勞工權益保障。', quote:'「成本才是競爭力的根本，勞權暫且擱置。」', delta:{fa:-15,guo:-5,min:15,wen:-15}, feedback:'短期成本優勢明顯，但勞資糾紛頻生，「文維」與「律維」雙雙受損。'},
-      {key:'B', speaker:'律令專員', label:'嚴格管制，增加企業負擔', summary:'立即實施最嚴格的勞工保障法規，大幅增加企業經營成本。', quote:'「勞工權益優先，企業成本其次。」', delta:{fa:10,guo:0,min:-20,wen:5}, feedback:'勞工權益雖獲保障，但企業成本驟增，部分工廠外移，「富維」明顯下滑。'},
-      {key:'C', speaker:'執政專員', label:'循序完善，勞資共贏', summary:'循序漸進完善勞動法規與社會保障，同時維持產業競爭力。', quote:'「勞資共贏，循序完善，方能行穩致遠。」', delta:{fa:15,guo:5,min:10,wen:15}, feedback:'勞工權益逐步改善，產業競爭力亦未受損——這正是改革開放「摸著石頭過河」漸進務實精神的體現。'}
+      {key:'A', speaker:'度支專員', label:'壓低成本，不顧勞權', summary:'壓低工資與福利以維持產業競爭力，不設勞工權益保障。', quote:'「成本才是競爭力的根本，勞權暫且擱置。」', delta:{fa:-5,guo:-2,min:5,wen:-5}, feedback:'短期成本優勢明顯，但勞資糾紛頻生，「文維」與「律維」雙雙受損。'},
+      {key:'B', speaker:'律令專員', label:'嚴格管制，增加企業負擔', summary:'立即實施最嚴格的勞工保障法規，大幅增加企業經營成本。', quote:'「勞工權益優先，企業成本其次。」', delta:{fa:3,guo:0,min:-6,wen:2}, feedback:'勞工權益雖獲保障，但企業成本驟增，部分工廠外移，「富維」明顯下滑。'},
+      {key:'C', speaker:'執政專員', label:'循序完善，勞資共贏', summary:'循序漸進完善勞動法規與社會保障，同時維持產業競爭力。', quote:'「勞資共贏，循序完善，方能行穩致遠。」', delta:{fa:5,guo:2,min:3,wen:5}, feedback:'勞工權益逐步改善，產業競爭力亦未受損——這正是改革開放「摸著石頭過河」漸進務實精神的體現。'}
     ]},
     { label:'深港跨境基建協同', situation:'港深兩地醞釀興建跨境鐵路與口岸基建，以強化雙城協同，但涉及龐大的土地、財政與規劃協調問題。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'各自為政，互不協調', summary:'港深各自按自身規劃推進，不作聯合協調。', quote:'「各有各的規劃，何必事事協調？」', delta:{fa:0,guo:0,min:-15,wen:-15}, feedback:'基建重複浪費、銜接不暢，錯失協同發展的效益，「富維」與「文維」受損。'},
-      {key:'B', speaker:'度支專員', label:'倉促上馬，不計成本', summary:'為求盡快建成，倉促上馬，不作充分規劃評估。', quote:'「宜早不宜遲，先建了再說。」', delta:{fa:-15,guo:0,min:-10,wen:0}, feedback:'工程雖快速推進，但規劃粗疏引發後續爭議與超支，「律維」明顯受損。'},
-      {key:'C', speaker:'律令專員', label:'聯合規劃，分階段推進', summary:'港深成立聯合規劃小組，分階段、按實際需求推進跨境基建。', quote:'「聯合規劃，分階段推進，方是務實之道。」', delta:{fa:15,guo:10,min:15,wen:10}, feedback:'跨境基建有序推進，港深「一小時生活圈」逐步成形——區域協同發展的效益日益彰顯。'}
+      {key:'A', speaker:'執政專員', label:'各自為政，互不協調', summary:'港深各自按自身規劃推進，不作聯合協調。', quote:'「各有各的規劃，何必事事協調？」', delta:{fa:0,guo:0,min:-5,wen:-5}, feedback:'基建重複浪費、銜接不暢，錯失協同發展的效益，「富維」與「文維」受損。'},
+      {key:'B', speaker:'度支專員', label:'倉促上馬，不計成本', summary:'為求盡快建成，倉促上馬，不作充分規劃評估。', quote:'「宜早不宜遲，先建了再說。」', delta:{fa:-5,guo:0,min:-3,wen:0}, feedback:'工程雖快速推進，但規劃粗疏引發後續爭議與超支，「律維」明顯受損。'},
+      {key:'C', speaker:'律令專員', label:'聯合規劃，分階段推進', summary:'港深成立聯合規劃小組，分階段、按實際需求推進跨境基建。', quote:'「聯合規劃，分階段推進，方是務實之道。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'跨境基建有序推進，港深「一小時生活圈」逐步成形——區域協同發展的效益日益彰顯。'}
     ]},
     { label:'金融開放與資本監管', situation:'香港作為國際金融中心，面對內地資本市場開放的呼聲，須決定金融互聯互通的開放步伐與監管配套。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'全面開放，資本自由進出', summary:'立即全面開放資本帳戶，不設任何限制。', quote:'「金融全面開放，方能盡顯自由港優勢。」', delta:{fa:-15,guo:-20,min:15,wen:0}, feedback:'短期資金流入暢旺，但監管缺位使系統性金融風險大增，「安維」與「律維」重挫。'},
-      {key:'B', speaker:'執政專員', label:'嚴格管制，拒絕互聯互通', summary:'拒絕任何跨境金融互聯互通機制，維持高度管制。', quote:'「金融安全為重，互聯互通暫緩為宜。」', delta:{fa:5,guo:15,min:-20,wen:-10}, feedback:'金融體系雖穩健，但錯失國際資本樞紐的發展機遇，「富維」明顯受限。'},
-      {key:'C', speaker:'律令專員', label:'漸進試點，風險可控互聯', summary:'透過「滬深港通」等機制漸進試點，在風險可控下推進互聯互通。', quote:'「漸進試點，風險可控，方能行穩致遠。」', delta:{fa:15,guo:10,min:15,wen:10}, feedback:'金融市場穩步對外開放，香港「國際金融中心」與「國家金融安全屏障」角色相得益彰。'}
+      {key:'A', speaker:'度支專員', label:'全面開放，資本自由進出', summary:'立即全面開放資本帳戶，不設任何限制。', quote:'「金融全面開放，方能盡顯自由港優勢。」', delta:{fa:-5,guo:-6,min:5,wen:0}, feedback:'短期資金流入暢旺，但監管缺位使系統性金融風險大增，「安維」與「律維」重挫。'},
+      {key:'B', speaker:'執政專員', label:'嚴格管制，拒絕互聯互通', summary:'拒絕任何跨境金融互聯互通機制，維持高度管制。', quote:'「金融安全為重，互聯互通暫緩為宜。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'金融體系雖穩健，但錯失國際資本樞紐的發展機遇，「富維」明顯受限。'},
+      {key:'C', speaker:'律令專員', label:'漸進試點，風險可控互聯', summary:'透過「滬深港通」等機制漸進試點，在風險可控下推進互聯互通。', quote:'「漸進試點，風險可控，方能行穩致遠。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'金融市場穩步對外開放，香港「國際金融中心」與「國家金融安全屏障」角色相得益彰。'}
     ]}
   ]
 },
@@ -1051,24 +1051,24 @@ const missionData = [
   item:{name:'憲法基本法合璧函', flavor:'載有《憲法》與《基本法》相關條文的合璧函，象徵「一國兩制」的憲制智慧。', icon:'book'},
   rounds:[
     { label:'跨國科技合作審查', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'只顧經濟效益，擱置國安審查', summary:'優先批准跨國科技合作以促進經濟，暫緩國家安全審查。', quote:'「合作機遇稍縱即逝，審查之事，可以從緩。」', delta:{fa:-15,guo:-20,min:15,wen:0}, feedback:'國安審查缺位，潛在風險未除。'},
-      {key:'B', speaker:'執政專員', label:'全面收緊，窒礙交流', summary:'以國安為由，一律否決跨國合作與非遺立法，不予任何彈性。', quote:'「國安為先，寧緊勿鬆，一律從嚴。」', delta:{fa:5,guo:15,min:-20,wen:-15}, feedback:'安全雖獲短暫保障，卻窒礙經濟與文化交流。'},
-      {key:'C', speaker:'律令專員', label:'依憲依法，兼顧國安與發展', summary:'依據《憲法》第三十一條與《基本法》第五、二十三條等條文，對科技合作作國安審查，同時完成非遺立法保護與綠色能源合作。', quote:'「依《憲法》第三十一條、《基本法》第五、二十三條而行，國安與發展本可並行。」', delta:{fa:15,guo:15,min:10,wen:15}, feedback:'法治、國安、民生、文化四者兼顧——正是「一國兩制」行穩致遠的憲制智慧。'}
+      {key:'A', speaker:'度支專員', label:'只顧經濟效益，擱置國安審查', summary:'優先批准跨國科技合作以促進經濟，暫緩國家安全審查。', quote:'「合作機遇稍縱即逝，審查之事，可以從緩。」', delta:{fa:-5,guo:-6,min:5,wen:0}, feedback:'國安審查缺位，潛在風險未除。'},
+      {key:'B', speaker:'執政專員', label:'全面收緊，窒礙交流', summary:'以國安為由，一律否決跨國合作與非遺立法，不予任何彈性。', quote:'「國安為先，寧緊勿鬆，一律從嚴。」', delta:{fa:2,guo:5,min:-6,wen:-5}, feedback:'安全雖獲短暫保障，卻窒礙經濟與文化交流。'},
+      {key:'C', speaker:'律令專員', label:'依憲依法，兼顧國安與發展', summary:'依據《憲法》第三十一條與《基本法》第五、二十三條等條文，對科技合作作國安審查，同時完成非遺立法保護與綠色能源合作。', quote:'「依《憲法》第三十一條、《基本法》第五、二十三條而行，國安與發展本可並行。」', delta:{fa:5,guo:5,min:3,wen:5}, feedback:'法治、國安、民生、文化四者兼顧——正是「一國兩制」行穩致遠的憲制智慧。'}
     ]},
     { label:'跨境數據與私隱保護', situation:'大灣區數據跨境流動日益頻繁，個人資料保護與國家數據安全的平衡引發關注。律令專員須提出規管方案。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'數據自由流動，不設限制', summary:'完全開放跨境數據流動，不設任何審查機制。', quote:'「數據自由流動，方能促進區域協同。」', delta:{fa:-15,guo:-15,min:10,wen:5}, feedback:'數據流通雖便利，但國家安全與個人私隱皆缺乏保障，「安維」與「律維」受損。'},
-      {key:'B', speaker:'執政專員', label:'全面鎖閉，禁止數據跨境', summary:'禁止一切個人資料跨境傳輸。', quote:'「數據安全為重，寧可犧牲便利。」', delta:{fa:5,guo:15,min:-20,wen:-10}, feedback:'安全雖獲保障，但區域數字經濟協同發展受阻，「富維」明顯受損。'},
-      {key:'C', speaker:'律令專員', label:'分類管理，合規跨境流動', summary:'依資料敏感程度分類管理，建立合規跨境流動機制。', quote:'「分類管理，合規流動，安全與發展兩不誤。」', delta:{fa:15,guo:10,min:10,wen:10}, feedback:'數據依法有序跨境流動，個人私隱與國家安全均獲保障——這正是當代治理「發展與安全並重」的具體實踐。'}
+      {key:'A', speaker:'度支專員', label:'數據自由流動，不設限制', summary:'完全開放跨境數據流動，不設任何審查機制。', quote:'「數據自由流動，方能促進區域協同。」', delta:{fa:-5,guo:-5,min:3,wen:2}, feedback:'數據流通雖便利，但國家安全與個人私隱皆缺乏保障，「安維」與「律維」受損。'},
+      {key:'B', speaker:'執政專員', label:'全面鎖閉，禁止數據跨境', summary:'禁止一切個人資料跨境傳輸。', quote:'「數據安全為重，寧可犧牲便利。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'安全雖獲保障，但區域數字經濟協同發展受阻，「富維」明顯受損。'},
+      {key:'C', speaker:'律令專員', label:'分類管理，合規跨境流動', summary:'依資料敏感程度分類管理，建立合規跨境流動機制。', quote:'「分類管理，合規流動，安全與發展兩不誤。」', delta:{fa:5,guo:3,min:3,wen:3}, feedback:'數據依法有序跨境流動，個人私隱與國家安全均獲保障——這正是當代治理「發展與安全並重」的具體實踐。'}
     ]},
     { label:'完善選舉制度', situation:'完善選舉制度、落實「愛國者治港」原則，是鞏固「一國兩制」行穩致遠的重要一環。執政專員須向公眾解說改革的意義。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'一概不作解說，強硬推行', summary:'不作任何公眾解說，強硬推行制度改革。', quote:'「政策既定，何須多加解釋？」', delta:{fa:0,guo:5,min:0,wen:-20}, feedback:'制度雖已落實，但社會理解不足，「文維」明顯受損，不利於凝聚共識。'},
-      {key:'B', speaker:'度支專員', label:'一再拖延，議而不決', summary:'因顧慮爭議而一再拖延改革，議而不決。', quote:'「爭議未消，不如暫緩推行。」', delta:{fa:-15,guo:-15,min:0,wen:0}, feedback:'制度懸而未決，治理秩序持續存在不確定性，「律維」與「安維」下滑。'},
-      {key:'C', speaker:'文教與文化使者', label:'廣泛解說，凝聚社會共識', summary:'透過廣泛公眾解說與教育，闡明「愛國者治港」原則對「一國兩制」行穩致遠的意義。', quote:'「講清楚、說明白，方能凝聚社會共識。」', delta:{fa:15,guo:15,min:5,wen:15}, feedback:'社會對制度改革的理解漸增，治理秩序更趨穩固——這正是良好管治須「說之以理」的重要一課。'}
+      {key:'A', speaker:'執政專員', label:'一概不作解說，強硬推行', summary:'不作任何公眾解說，強硬推行制度改革。', quote:'「政策既定，何須多加解釋？」', delta:{fa:0,guo:2,min:0,wen:-6}, feedback:'制度雖已落實，但社會理解不足，「文維」明顯受損，不利於凝聚共識。'},
+      {key:'B', speaker:'度支專員', label:'一再拖延，議而不決', summary:'因顧慮爭議而一再拖延改革，議而不決。', quote:'「爭議未消，不如暫緩推行。」', delta:{fa:-5,guo:-5,min:0,wen:0}, feedback:'制度懸而未決，治理秩序持續存在不確定性，「律維」與「安維」下滑。'},
+      {key:'C', speaker:'文教與文化使者', label:'廣泛解說，凝聚社會共識', summary:'透過廣泛公眾解說與教育，闡明「愛國者治港」原則對「一國兩制」行穩致遠的意義。', quote:'「講清楚、說明白，方能凝聚社會共識。」', delta:{fa:5,guo:5,min:2,wen:5}, feedback:'社會對制度改革的理解漸增，治理秩序更趨穩固——這正是良好管治須「說之以理」的重要一課。'}
     ]},
     { label:'大灣區青年發展（終局考驗）', situation:'你即將完成最後一項提案——支持香港青年融入大灣區發展、深化國民身份認同的長遠政策。這是全程最後一道考驗，提案須讓四維指標同時維持在安全門檻（≥40）之上，方能蓋上最終的「憲法法理印」，為這段治世之旅畫上句點。', stampLabel:'蓋憲法法理印', gated:true, safetyThreshold:40, options:[
-      {key:'A', speaker:'度支專員', label:'口號宣傳，不設實質支援', summary:'僅以口號式宣傳鼓勵青年北上發展，不提供具體配套支援。', quote:'「多加宣傳，青年自會響應。」', delta:{fa:-10,guo:-10,min:-10,wen:-15}, feedback:'缺乏實質支援，青年參與度低，政策淪為空談。'},
-      {key:'B', speaker:'執政專員', label:'強制配額，行政指令主導', summary:'以行政指令強制安排青年名額到大灣區實習就業，不顧個人意願。', quote:'「以行政指令，強力推動青年北上。」', delta:{fa:-15,guo:5,min:-15,wen:-10}, feedback:'表面達標，但青年缺乏認同感，「法治值」與「民生經濟」皆受質疑。'},
-      {key:'C', speaker:'律令專員', label:'完善配套，雙向自願交流', summary:'完善實習就業、住房、稅務等配套支援，鼓勵青年自願雙向交流融入大灣區。', quote:'「完善配套，雙向自願，方能贏得青年真心認同。」', delta:{fa:15,guo:10,min:15,wen:20}, feedback:'香港青年積極參與大灣區發展，國民身份認同與家國情懷日漸深厚——傳承人的治世之旅，至此圓滿功成。'}
+      {key:'A', speaker:'度支專員', label:'口號宣傳，不設實質支援', summary:'僅以口號式宣傳鼓勵青年北上發展，不提供具體配套支援。', quote:'「多加宣傳，青年自會響應。」', delta:{fa:-3,guo:-3,min:-3,wen:-5}, feedback:'缺乏實質支援，青年參與度低，政策淪為空談。'},
+      {key:'B', speaker:'執政專員', label:'強制配額，行政指令主導', summary:'以行政指令強制安排青年名額到大灣區實習就業，不顧個人意願。', quote:'「以行政指令，強力推動青年北上。」', delta:{fa:-5,guo:2,min:-5,wen:-3}, feedback:'表面達標，但青年缺乏認同感，「法治值」與「民生經濟」皆受質疑。'},
+      {key:'C', speaker:'律令專員', label:'完善配套，雙向自願交流', summary:'完善實習就業、住房、稅務等配套支援，鼓勵青年自願雙向交流融入大灣區。', quote:'「完善配套，雙向自願，方能贏得青年真心認同。」', delta:{fa:5,guo:3,min:5,wen:6}, feedback:'香港青年積極參與大灣區發展，國民身份認同與家國情懷日漸深厚——傳承人的治世之旅，至此圓滿功成。'}
     ]}
   ]
 }
@@ -1508,7 +1508,7 @@ function selectOption(mid, key){
   if(round.gated){
     const failing = Object.keys(opt.delta).filter(k=>Math.max(0,Math.min(100,state.meters[k]+opt.delta[k])) < round.safetyThreshold);
     if(failing.length){
-      warnBox.textContent = `⚠ 未達安全門檻：${failing.map(k=>meterMeta[k].name).join('、')} 仍低於 ${round.safetyThreshold}。請重新审议方案，或回顧先前各卷的抉擇如何影響今日局面。`;
+      warnBox.textContent = `⚠ 未達安全門檻：${failing.map(k=>meterMeta[k].name).join('、')} 仍低於 ${round.safetyThreshold}。請重新審議方案，或回顧先前各卷的抉擇如何影響今日局面。`;
       warnBox.classList.add('show');
       stampBtn.disabled = true;
     } else {
@@ -1555,7 +1555,7 @@ function shakeScreen(){
 }
 /* ---------- 卷末結算 ---------- */
 function showSettlement(mid, m, missionIdx){
-  const start = state.missionStart[mid] || {fa:100,guo:100,min:100,wen:100};
+  const start = state.missionStart[mid] || {fa:50,guo:50,min:50,wen:50};
   const meritGain = state.merit - (state.missionMeritStart[mid] || 0);
   const rows = Object.keys(meterMeta).map(k=>{
     const diff = state.meters[k] - start[k];
@@ -1597,7 +1597,7 @@ function stampMission(mid){
   popMeterDeltas(opt.delta);
   const worst = Math.min(...Object.values(opt.delta));
   if(worst >= 0){ verdictFlash('上　策', true); }
-  else if(worst <= -15){ verdictFlash('失　策', false); shakeScreen(); }
+  else if(worst <= -5){ verdictFlash('失　策', false); shakeScreen(); }
   document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.remove('enabled'));
   document.getElementById('stampbtn-'+mid).disabled = true;
   document.getElementById('stampmark-'+mid).classList.add('show');
@@ -1708,7 +1708,7 @@ function genCert(){
 /* ---------- 重新開始 ---------- */
 function resetGame(){
   if(!confirm('確定要重新開始整段旅程嗎？目前的進度將會清空。')) return;
-  state.meters = {fa:100,guo:100,min:100,wen:100};
+  state.meters = {fa:50,guo:50,min:50,wen:50};
   state.charName=''; state.cls=null; state.merit=0; state.inventory=[];
   Object.keys(typeTimers).forEach(k=>clearInterval(typeTimers[k]));
   state.revealed = {}; state.chosen = {}; state.stamped = {}; state.roundIndex = {}; state.typing = {}; state.missionStart = {}; state.missionMeritStart = {};
