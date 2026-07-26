@@ -178,6 +178,13 @@
     backdrop-filter:blur(6px); font-size:0.75rem;
   }
   #dashboard.show{display:flex;}
+  .dash-zone{display:flex; align-items:center; gap:14px; padding:0 14px; position:relative;}
+  .dash-zone + .dash-zone::before{
+    content:''; position:absolute; left:0; top:50%; transform:translateY(-50%);
+    width:1px; height:20px; background:var(--line);
+  }
+  .dash-zone-id{padding-left:0;}
+  .dash-zone-actions{gap:8px;}
   #rankBadge{
     font-weight:700; color:var(--indigo-deep); border:1px solid var(--indigo); padding:4px 12px;
     border-radius:16px; background:var(--indigo-tint); white-space:nowrap; transition:transform .2s ease;
@@ -199,8 +206,11 @@
   #codexPanel{
     position:fixed; top:96px; right:16px; z-index:62; width:min(430px,92vw);
     max-height:74vh; overflow-y:auto;
-    background:var(--parchment); border:2px solid var(--vermillion-deep); box-shadow:0 12px 34px var(--shadow);
-    padding:20px; display:none; border-radius:2px;
+    background:var(--parchment); border:2px solid var(--vermillion-deep);
+    box-shadow:
+      inset 0 0 0 4px var(--parchment), inset 0 0 0 5px var(--line), inset 0 0 0 7px var(--parchment),
+      0 12px 34px var(--shadow);
+    padding:24px; display:none; border-radius:2px;
   }
   #codexPanel.show{display:block;}
   #codexPanel h4{font-size:1rem; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; color:var(--vermillion-deep);}
@@ -228,8 +238,11 @@
 
   #invPanel{
     position:fixed; top:96px; right:16px; z-index:60; width:min(320px,86vw);
-    background:var(--parchment); border:1px solid var(--line); box-shadow:0 10px 30px var(--shadow);
-    padding:18px; display:none; border-radius:2px;
+    background:var(--parchment); border:2px solid var(--indigo-deep);
+    box-shadow:
+      inset 0 0 0 4px var(--parchment), inset 0 0 0 5px var(--line), inset 0 0 0 7px var(--parchment),
+      0 10px 30px var(--shadow);
+    padding:22px; display:none; border-radius:2px;
   }
   #invPanel.show{display:block;}
   #invPanel h4{font-size:1rem; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;}
@@ -468,9 +481,9 @@
     80%{transform:translate(-2px,0);}
   }
   .settle-box{
-    margin-top:20px; border:2px solid var(--indigo-deep); background:var(--parchment);
-    padding:20px 22px; display:none;
-    box-shadow:inset 0 0 0 2px var(--parchment), inset 0 0 0 3px var(--line);
+    position:relative; margin-top:20px; border:2px solid var(--indigo-deep); background:var(--parchment);
+    padding:22px 24px; display:none;
+    box-shadow:inset 0 0 0 4px var(--parchment), inset 0 0 0 5px var(--line), inset 0 0 0 7px var(--parchment);
   }
   .settle-box.show{display:block;}
   .settle-title{font-weight:700; font-size:1.05rem; margin-bottom:14px; letter-spacing:0.08em; color:var(--indigo-deep); text-align:center;}
@@ -542,13 +555,50 @@
   }
   textarea:focus, input[type=text]:focus{outline:2px solid var(--jade);}
 
-  .cert{margin-top:30px; padding:40px; border:2px solid var(--indigo); position:relative; background:var(--parchment); text-align:center;}
-  .cert::before{content:""; position:absolute; inset:8px; border:1px solid var(--line);}
+  .cert{
+    margin-top:30px; padding:40px; border:2px solid var(--indigo); position:relative; background:var(--parchment); text-align:center;
+    box-shadow:inset 0 0 0 4px var(--parchment), inset 0 0 0 5px var(--line), inset 0 0 0 7px var(--parchment);
+  }
   .cert .tag{display:block; margin-bottom:8px;}
   .cert h3{font-size:1.5rem; margin-bottom:6px;}
   .cert .name{font-size:1.7rem; color:var(--vermillion-deep); margin:14px 0; font-weight:700;}
   .cert .inv-summary{font-size:0.85rem; color:var(--ink-soft); margin-top:10px;}
   .hidden{display:none !important;}
+
+  /* 統一面板窗框：行囊／國安圖鑑／結算／結業卷軸共用邊角飾紋 */
+  #invPanel::before, #invPanel::after,
+  #codexPanel::before, #codexPanel::after,
+  .settle-box::before, .settle-box::after,
+  .cert::before, .cert::after{
+    content:''; position:absolute; width:16px; height:16px; pointer-events:none;
+    border-color:var(--vermillion); opacity:0.7; z-index:1;
+  }
+  #invPanel::before, #codexPanel::before, .settle-box::before, .cert::before{
+    top:6px; left:6px; border-top:2px solid; border-left:2px solid;
+  }
+  #invPanel::after, #codexPanel::after, .settle-box::after, .cert::after{
+    bottom:6px; right:6px; border-bottom:2px solid; border-right:2px solid;
+  }
+
+  /* JRPG 選單游標：呼吸擺動 */
+  @media (prefers-reduced-motion: no-preference){
+    .opt.enabled:hover::before, .opt.selected::before{ animation:cursorBob 0.9s ease-in-out infinite; }
+  }
+  @keyframes cursorBob{0%,100%{transform:translateX(0);}50%{transform:translateX(3px);}}
+
+  /* 卷卷轉場：淡出→章名→淡入 */
+  #chapterTransition{
+    position:fixed; inset:0; z-index:200; background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity .35s ease;
+  }
+  #chapterTransition.show{opacity:1; pointer-events:auto;}
+  #chapterTransition .ct-text{
+    color:var(--parchment); font-size:1.6rem; letter-spacing:0.3em; text-align:center;
+    opacity:0; transform:translateY(10px); transition:opacity .4s ease .15s, transform .4s ease .15s;
+  }
+  #chapterTransition.show .ct-text{opacity:1; transform:translateY(0);}
+  #chapterTransition .ct-sub{display:block; font-size:0.85rem; letter-spacing:0.15em; margin-top:10px; color:var(--parchment); opacity:0.7;}
   .round-progress{font-size:0.78rem; color:var(--ink-soft); letter-spacing:0.05em; margin-bottom:10px;}
 
   /* 魔法森林：序卷背景 */
@@ -690,12 +740,20 @@
   <button id="resetLink" onclick="resetGame()">重新開始</button>
 </div>
 <div id="dashboard">
-  <span id="rankBadge">位階 · 見習司使</span>
-  <div id="meterRow" style="display:flex; gap:14px; flex-wrap:wrap;"></div>
-  <button id="invBtn" onclick="toggleInv()">行囊 (<span id="invCount">0</span>)</button>
-  <button id="codexBtn" onclick="toggleCodex()">國安圖鑑 (<span id="codexCount">0</span>/20)</button>
+  <span class="dash-zone dash-zone-id" id="rankBadge">位階 · 見習司使</span>
+  <div class="dash-zone" id="meterRow" style="display:flex; gap:14px; flex-wrap:wrap;"></div>
+  <div class="dash-zone dash-zone-actions">
+    <button id="invBtn" onclick="toggleInv()">行囊 (<span id="invCount">0</span>)</button>
+    <button id="codexBtn" onclick="toggleCodex()">國安圖鑑 (<span id="codexCount">0</span>/20)</button>
+  </div>
 </div>
 <div class="pop-layer" id="popLayer" aria-hidden="true"></div>
+<div id="chapterTransition" aria-hidden="true">
+  <div class="ct-text">
+    <span id="ctJuan"></span>：<span id="ctTitle"></span>
+    <span class="ct-sub" id="ctEra"></span>
+  </div>
+</div>
 <div id="invPanel">
   <h4>行囊 · 隨身信物 <button onclick="toggleInv()">✕</button></h4>
   <div id="invList"><div class="inv-empty">尚未收得任何信物。</div></div>
@@ -1915,6 +1973,24 @@ function unlockDot(n){
   if(dot) dot.classList.add('unlocked');
 }
 function goTo(n){
+  const mission = missionData[n-2];
+  const fromMissionSection = document.querySelector('section.active')?.dataset.stop;
+  const isChapterHop = mission && fromMissionSection !== undefined && Number(fromMissionSection) !== n;
+  if(isChapterHop && !REDUCED_MOTION){
+    const el = document.getElementById('chapterTransition');
+    document.getElementById('ctJuan').textContent = mission.juan;
+    document.getElementById('ctTitle').textContent = mission.title;
+    document.getElementById('ctEra').textContent = mission.loc;
+    el.classList.add('show');
+    setTimeout(()=>{
+      reallyGoTo(n);
+      setTimeout(()=>el.classList.remove('show'), 450);
+    }, 500);
+    return;
+  }
+  reallyGoTo(n);
+}
+function reallyGoTo(n){
   document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
   const target = document.querySelector(`section[data-stop="${n}"]`) || document.getElementById('hero');
   target.classList.add('active');
