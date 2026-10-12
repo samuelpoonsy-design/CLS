@@ -341,6 +341,134 @@
   @keyframes martDrift1{0%,100%{transform:translate(0,0); opacity:0.55;}50%{transform:translate(6px,-14px); opacity:0.95;}}
   @keyframes martDrift2{0%,100%{transform:translate(0,0); opacity:0.35;}50%{transform:translate(-10px,-8px); opacity:0.7;}}
   @keyframes martDrift3{0%,100%{transform:translate(0,0) scale(1); opacity:0.4;}50%{transform:translate(4px,6px) scale(1.25); opacity:0.85;}}
+  /* 場景前景動畫：竹搖、香煙、船浮、燈晃、炮煙、天秤 */
+  .mission-art [class*="anim-"]{transform-box:fill-box;}
+  .mart-smoke path{fill:none; stroke:var(--ink-soft); stroke-width:1.6; stroke-linecap:round; opacity:0;}
+  .anim-sway{transform-origin:50% 100%;}
+  .anim-swing{transform-origin:50% 0%;}
+  .anim-crane{transform-origin:59% 0%;}
+  .anim-balance{transform-origin:50% 0%;}
+  .anim-grow{transform-origin:50% 100%;}
+  .anim-flag{transform-origin:0% 50%;}
+  .anim-sail{transform-origin:0% 100%;}
+  .anim-puff, .anim-flash{opacity:0; transform-origin:50% 50%;}
+  @media (prefers-reduced-motion: no-preference){
+    .anim-sway{animation:sway 4.2s ease-in-out infinite;}
+    .anim-sway.d2{animation-duration:5s; animation-delay:-1.4s;}
+    .anim-sway.d3{animation-duration:4.6s; animation-delay:-2.6s;}
+    .anim-rise{animation:rise 3.6s ease-out infinite;}
+    .anim-rise.d2{animation-delay:1.2s;} .anim-rise.d3{animation-delay:2.4s;}
+    .anim-bob{animation:bob 3.4s ease-in-out infinite;}
+    .anim-wave{animation:wave 5s ease-in-out infinite;}
+    .anim-wave.d2{animation-duration:6.2s; animation-direction:reverse;}
+    .anim-flag{animation:flag 1.1s ease-in-out infinite;}
+    .anim-sail{animation:sail 3.4s ease-in-out infinite;}
+    .anim-float{animation:bob 4.5s ease-in-out infinite;}
+    .anim-swing{animation:swing 3s ease-in-out infinite;}
+    .anim-swing.d2{animation-delay:-1.5s;}
+    .lantern-glow{animation:glow 2.4s ease-in-out infinite;}
+    .anim-recoil{animation:recoil 3.2s ease-out infinite;}
+    .anim-flash{animation:flash 3.2s ease-out infinite;}
+    .anim-puff{animation:puff 3.2s ease-out infinite;}
+    .anim-puff.d2{animation-delay:.25s;} .anim-puff.d3{animation-delay:.5s;}
+    .anim-pulse{animation:pulseR 3s ease-in-out infinite; transform-origin:50% 50%;}
+    .anim-crane{animation:crane 6s ease-in-out infinite;}
+    .anim-grow{animation:grow .9s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(var(--i) * 90ms);}
+    .anim-balance{animation:balance 5s ease-in-out infinite;}
+  }
+  @keyframes sway{0%,100%{transform:rotate(-2.5deg);}50%{transform:rotate(2.5deg);}}
+  @keyframes rise{0%{opacity:0; transform:translateY(4px);}25%{opacity:.6;}100%{opacity:0; transform:translateY(-16px) scaleX(1.4);}}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg);}50%{transform:translateY(-4px) rotate(1deg);}}
+  @keyframes wave{0%,100%{transform:translateX(0);}50%{transform:translateX(-22px);}}
+  @keyframes flag{0%,100%{transform:scaleX(1) skewY(0);}50%{transform:scaleX(.8) skewY(-8deg);}}
+  @keyframes sail{0%,100%{transform:scaleX(1);}50%{transform:scaleX(1.06);}}
+  @keyframes swing{0%,100%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}}
+  @keyframes glow{0%,100%{opacity:.7;}50%{opacity:.95;}}
+  @keyframes recoil{0%,8%{transform:translateX(0);}12%{transform:translateX(-8px);}40%,100%{transform:translateX(0);}}
+  @keyframes flash{0%,8%{opacity:0; transform:scale(.4);}12%{opacity:.9; transform:scale(1.3);}24%,100%{opacity:0; transform:scale(1.6);}}
+  @keyframes puff{0%,10%{opacity:0; transform:translate(0,0) scale(.5);}25%{opacity:.55;}100%{opacity:0; transform:translate(22px,-26px) scale(2.2);}}
+  @keyframes pulseR{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
+  @keyframes crane{0%,100%{transform:rotate(-3deg);}50%{transform:rotate(3deg);}}
+  @keyframes grow{from{transform:scaleY(0);}to{transform:scaleY(1);}}
+  @keyframes balance{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);}}
+
+  /* 立繪：眨眼與說話口型 */
+  .dlg-portrait .eyes, .dlg-portrait .mouth{transform-box:fill-box; transform-origin:50% 50%;}
+  @media (prefers-reduced-motion: no-preference){
+    .dlg-portrait .eyes{animation:blink 4.2s infinite;}
+    .dlg-portrait.talking .mouth{animation:talk .16s ease-in-out infinite alternate;}
+  }
+  @keyframes blink{0%,94%,100%{transform:scaleY(1);}97%{transform:scaleY(.1);}}
+  @keyframes talk{from{transform:scaleY(1);}to{transform:scaleY(2.4) scaleX(.85);}}
+
+  /* 終卷：時空足跡 */
+  .journey-wrap{margin:10px 0 24px;}
+  .journey-svg{width:100%; height:auto; display:block;}
+  .jr-river{fill:none; stroke:var(--indigo); stroke-width:14; opacity:0.12; stroke-linecap:round;}
+  .jr-path{fill:none; stroke:var(--indigo-deep); stroke-width:2.5; stroke-dasharray:0.012 0.012; opacity:0.6;}
+  .jn-halo{fill:var(--paper); stroke:var(--line); stroke-width:1.5;}
+  .jn-seal{fill:none; stroke:var(--ink-soft); stroke-width:2.5;}
+  .jn-era{font-size:20px; font-weight:700; fill:var(--ink-soft); font-family:"Kaiti TC","STKaiti",serif;}
+  .jn-lbl{font-size:11px; fill:var(--ink-soft);}
+  .jn-good .jn-seal{stroke:var(--jade-deep); fill:rgba(63,109,90,0.12);} .jn-good .jn-era{fill:var(--jade-deep);}
+  .jn-mid .jn-seal{stroke:var(--indigo-deep); fill:var(--indigo-tint);} .jn-mid .jn-era{fill:var(--indigo-deep);}
+  .jn-low .jn-seal{stroke:var(--vermillion); fill:rgba(166,52,43,0.1);} .jn-low .jn-era{fill:var(--vermillion-deep);}
+  .journey-legend{font-size:0.75rem; color:var(--ink-soft); text-align:center; margin-top:4px;}
+  .journey-legend .lg{display:inline-block; width:10px; height:10px; border-radius:2px; margin:0 4px 0 10px; vertical-align:middle;}
+  .lg.good{background:var(--jade-deep);} .lg.mid{background:var(--indigo-deep);} .lg.low{background:var(--vermillion);}
+  .journey-note{font-size:0.83rem; color:var(--ink-soft); margin-top:8px;}
+  .jn{transform-box:fill-box;}
+  @media (prefers-reduced-motion: no-preference){
+    .jr-path{stroke-dasharray:1; stroke-dashoffset:1; animation:drawPath 2.4s ease-out .2s forwards;}
+    .jn{opacity:0; animation:nodeIn .5s cubic-bezier(.3,1.6,.5,1) forwards; animation-delay:calc(.4s + var(--i) * .35s);}
+  }
+  @keyframes drawPath{to{stroke-dashoffset:0;}}
+  @keyframes nodeIn{to{opacity:1;}}
+
+  /* 國安領域圖示 */
+  .dicon{width:15px; height:15px; vertical-align:-3px; margin-right:4px; flex-shrink:0;}
+  .domain-tag{display:inline-flex; align-items:center;}
+  @media (prefers-reduced-motion: no-preference){
+    .domain-tag{animation:optIn .4s ease-out both; animation-delay:calc(var(--i,0) * 110ms);}
+  }
+  .codex-item{display:flex; gap:10px; align-items:flex-start;}
+  .codex-ico{width:34px; height:34px; flex-shrink:0; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--ink-soft); background:var(--paper);}
+  .codex-ico .dicon{width:20px; height:20px; margin:0;}
+  .codex-item.found .codex-ico{color:var(--vermillion-deep); border-color:var(--vermillion); background:rgba(166,52,43,0.07);}
+  .codex-body{flex:1; min-width:0;}
+  #toastStack{position:fixed; right:16px; bottom:18px; z-index:90; display:flex; flex-direction:column; gap:8px; align-items:flex-end; pointer-events:none;}
+  .unlock-toast{display:flex; gap:10px; align-items:center; padding:9px 14px 9px 10px; background:var(--parchment); border:2px solid var(--vermillion-deep); box-shadow:0 8px 22px var(--shadow); color:var(--ink); font-size:0.85rem;}
+  .unlock-toast small{display:block; font-size:0.68rem; color:var(--vermillion-deep); letter-spacing:0.08em;}
+  .unlock-toast .ut-ico{width:32px; height:32px; border-radius:50%; background:rgba(166,52,43,0.1); color:var(--vermillion-deep); display:flex; align-items:center; justify-content:center;}
+  .unlock-toast .ut-ico .dicon{width:20px; height:20px; margin:0;}
+  @media (prefers-reduced-motion: no-preference){
+    .unlock-toast{animation:toastIn .45s cubic-bezier(.2,.9,.3,1.3) both;}
+    .unlock-toast .ut-ico{animation:icoSpin .8s ease-out .2s both;}
+  }
+  .unlock-toast.out{opacity:0; transform:translateX(30px); transition:all .35s ease;}
+  @keyframes toastIn{from{opacity:0; transform:translateX(60px);}to{opacity:1; transform:none;}}
+  @keyframes icoSpin{from{transform:rotate(-180deg) scale(.4);}to{transform:none;}}
+
+  /* 蓋印：落印 + 墨暈 */
+  .stamp-mark{position:relative;}
+  .stamp-mark::after{content:''; position:absolute; inset:-6px; border:2px solid var(--vermillion); border-radius:10px; opacity:0; pointer-events:none;}
+  @media (prefers-reduced-motion: no-preference){
+    .stamp-mark.show{animation:stampSlam .5s cubic-bezier(.3,1.6,.5,1) both;}
+    .stamp-mark.show::after{animation:inkRing .7s ease-out .18s both;}
+    .item-gained.show .inv-icon{animation:itemPop .8s cubic-bezier(.3,1.6,.5,1) both;}
+    .item-gained.show{animation:optIn .5s ease-out both;}
+    .settle-box.show .settle-row, .settle-box.show .settle-loot{animation:optIn .4s ease-out both;}
+    .settle-box.show .settle-row:nth-child(2){animation-delay:.1s;} .settle-box.show .settle-row:nth-child(3){animation-delay:.2s;}
+    .settle-box.show .settle-row:nth-child(4){animation-delay:.3s;} .settle-box.show .settle-row:nth-child(5){animation-delay:.4s;}
+    .settle-box.show .settle-row:nth-child(6){animation-delay:.5s;} .settle-box.show .settle-row:nth-child(7){animation-delay:.6s;}
+    .settle-box.show .settle-loot{animation-delay:.8s;}
+    .settle-box.show .settle-loot .inv-icon{animation:itemPop .8s cubic-bezier(.3,1.6,.5,1) 1s both;}
+    .helm svg{animation:helmSpin 40s linear infinite;}
+  }
+  @keyframes stampSlam{0%{opacity:0; transform:scale(2.4) rotate(-20deg);}60%{opacity:.95; transform:scale(.92) rotate(-5deg);}100%{opacity:.88; transform:scale(1) rotate(-6deg);}}
+  @keyframes inkRing{0%{opacity:.7; transform:scale(.8);}100%{opacity:0; transform:scale(1.7);}}
+  @keyframes itemPop{0%{transform:scale(0) rotate(-30deg);}100%{transform:none;}}
+  @keyframes helmSpin{to{transform:rotate(360deg);}}
 
   /* 對話框：JRPG 式框線 + 立繪 + 姓名牌 */
   .dialogue-box{
@@ -518,6 +646,45 @@
   .opt .ospeaker{font-size:0.74rem; color:var(--indigo-deep); font-weight:700; display:block; margin-bottom:3px;}
   .opt .olabel{font-weight:700; display:block; margin-bottom:4px;}
   .opt .osummary{font-size:0.85rem; color:var(--ink-soft); font-weight:400;}
+  /* 方案卡：進言者小立繪 + 文字 */
+  .opt{display:flex; gap:12px; align-items:flex-start;}
+  .opt-face{width:44px; height:44px; flex-shrink:0; border:1px solid var(--line); border-radius:50%; background:var(--paper); overflow:hidden; display:flex; align-items:flex-end; justify-content:center;}
+  .opt-face svg{width:100%; height:auto; display:block;}
+  .opt-text{flex:1; min-width:0; display:block;}
+  .opt.selected .opt-face{border-color:var(--vermillion); box-shadow:0 0 0 2px rgba(166,52,43,0.18);}
+  @media (prefers-reduced-motion: no-preference){
+    .opt.enabled{animation:optIn .4s ease-out both; animation-delay:calc(var(--i,0) * 90ms);}
+    .opt.selected .opt-face svg{animation:faceNod .5s ease-out;}
+  }
+  @keyframes optIn{from{opacity:0; transform:translateX(-10px);}to{opacity:1; transform:none;}}
+  @keyframes faceNod{0%{transform:translateY(0);}40%{transform:translateY(-4px);}100%{transform:translateY(0);}}
+  .opt-note{font-size:0.8rem; color:var(--ink-soft); font-style:italic; margin:2px 0 4px; padding-left:2px;}
+  .choice-pending{display:flex; gap:12px; align-items:center; padding:10px 14px; border:1px dashed var(--indigo); background:var(--indigo-tint); color:var(--ink);}
+  .choice-pending small{color:var(--ink-soft);}
+  .cp-seal{width:34px; height:34px; flex-shrink:0; border:2px solid var(--vermillion); color:var(--vermillion-deep); border-radius:4px; display:flex; align-items:center; justify-content:center; font-weight:700; font-family:"Kaiti TC","STKaiti",serif; transform:rotate(-6deg);}
+  /* 蓋印後揭曉的後果推演 */
+  .preview-box.result{padding:16px 18px; border:2px solid var(--indigo-deep); background:var(--parchment); position:relative;
+    box-shadow:inset 0 0 0 3px var(--parchment), inset 0 0 0 4px var(--line);}
+  .cq-rows{display:flex; flex-direction:column; gap:8px; margin:10px 0 12px;}
+  .cq-row{display:grid; grid-template-columns:7.5em 1fr 2.4em auto; gap:10px; align-items:center; font-size:0.85rem; color:var(--ink);}
+  .cq-track{height:9px; background:var(--paper-deep); border:1px solid var(--line); border-radius:5px; overflow:hidden;}
+  .cq-fill{display:block; height:100%; width:var(--to); background:var(--jade);}
+  .cq-fill.down{background:var(--vermillion);}
+  .cq-fill.flat{background:var(--ink-soft);}
+  .cq-val{font-weight:700; font-variant-numeric:tabular-nums; text-align:right;}
+  .cq-feedback{padding-top:10px; border-top:1px dashed var(--line); color:var(--ink);}
+  .cq-others{margin-top:12px; font-size:0.83rem;}
+  .cq-others summary{cursor:pointer; color:var(--indigo-deep); font-weight:700;}
+  .cq-other{margin-top:8px; padding:8px 10px; background:var(--paper); border-left:3px solid var(--line); color:var(--ink-soft); line-height:1.7;}
+  .cq-other b{color:var(--ink);}
+  @media (prefers-reduced-motion: no-preference){
+    .preview-box.result{animation:resultIn .45s ease-out;}
+    .cq-row{animation:optIn .35s ease-out both; animation-delay:calc(300ms + var(--i,0) * 120ms);}
+    .cq-fill{animation:fillTo .8s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(500ms + var(--i,0) * 120ms);}
+    .cq-feedback{animation:optIn .4s ease-out both; animation-delay:1s;}
+  }
+  @keyframes resultIn{from{opacity:0; transform:translateY(8px) scale(0.98);}to{opacity:1; transform:none;}}
+  @keyframes fillTo{from{width:var(--from);}to{width:var(--to);}}
   .preview-box{margin-top:14px; font-size:0.87rem; color:var(--ink-soft); display:none;}
   .preview-box.show{display:block;}
   .preview-box .deltas{margin:8px 0; display:flex; gap:10px; flex-wrap:wrap;}
@@ -648,6 +815,12 @@
     .dlg-controls{flex-wrap:wrap; gap:8px;}
     .settle-row{font-size:0.84rem; gap:10px;}
     .verdict-flash{font-size:1.5rem; letter-spacing:0.2em;}
+    /* 足跡地圖縮放後字太細：放大 SVG 內字級 */
+    .jn-lbl{font-size:21px;}
+    #toastStack{right:8px; bottom:10px;}
+    .unlock-toast{font-size:0.78rem; padding:6px 10px 6px 7px;}
+    .unlock-toast .ut-ico{width:26px; height:26px;}
+    .cq-row{grid-template-columns:6.6em 1fr 2.2em auto; gap:7px; font-size:0.8rem;}
     .pop-num{font-size:0.9rem;}
   }
 </style>
@@ -887,6 +1060,11 @@
       <line x1="230" y1="118" x2="530" y2="118" stroke="var(--vermillion-deep)" stroke-width="1.2"/>
       <line x1="230" y1="124" x2="530" y2="124" stroke="var(--vermillion-deep)" stroke-width="1.2"/>
     </svg>
+    <div class="journey-wrap">
+      <div class="section-label first">🗺️ 你的時空足跡</div>
+      <div id="journeyMap"></div>
+      <p class="journey-note">每一枚印記代表一卷。印記顏色顯示你在該卷四個回合中，有多少次選中「上策」——可與同學比較：你們在哪一卷分歧最大？為甚麼？</p>
+    </div>
     <div class="day-title" style="margin-top:8px;"><h2>三階反思：所見？所思？所行？</h2></div>
 
     <div class="reflect-stage">
@@ -958,8 +1136,27 @@ const state = {
   meters:{fa:50,guo:50,min:50,wen:50},
   charName:'', cls:null,
   merit:0, inventory:[],
-  revealed:{}, chosen:{}, stamped:{}, dlgIndex:{}, roundIndex:{}, typing:{}, missionStart:{}, missionMeritStart:{}, domainsFound:{}
+  revealed:{}, chosen:{}, stamped:{}, dlgIndex:{}, roundIndex:{}, typing:{}, missionStart:{}, missionMeritStart:{}, domainsFound:{},
+  order:{}, bestCount:{}
 };
+/* 每回合的方案顯示次序隨機打亂：資料中最佳方案固定排在最後，若照原序顯示，學生很快會摸出「揀最後一個就啱」 */
+function optionOrder(rkey, options){
+  if(!state.order[rkey]){
+    const keys = options.map(o=>o.key);
+    for(let i=keys.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [keys[i],keys[j]]=[keys[j],keys[i]]; }
+    state.order[rkey] = keys;
+  }
+  return state.order[rkey].map(k=>options.find(o=>o.key===k));
+}
+function displayLetter(rkey, key){
+  return '甲乙丙'[(state.order[rkey]||[]).indexOf(key)] || key;
+}
+/* 方案優劣按淨效果排序，用於德望計算，不再依賴固定字母 */
+function isBestOption(round, key){
+  const score = o => Object.values(o.delta).reduce((a,b)=>a+b,0);
+  const best = Math.max(...round.options.map(score));
+  return score(round.options.find(o=>o.key===key)) === best;
+}
 
 /* ---------- 資料：四種職司 ---------- */
 const classData = [
@@ -1029,23 +1226,23 @@ const missionData = [
   item:{name:'秦篆量衡令牌', flavor:'刻著統一文字與度量衡的木牘，見證嶺南初定。', icon:'tablet'},
   rounds:[
     { label:'法制推行方式', domains:['zhengzhi', 'guotu'], stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'嚴刑峻法，強制推行', summary:'全面移植秦律，不作在地調適，並徵發勞役開鑿道路運河。', quote:'「亂世用重典，唯有嚴法方能鎮服四方。」', delta:{fa:2,guo:5,min:-3,wen:-5}, feedback:'秩序雖立，但越人風俗遭強行壓制，民怨積聚，「文維」與「富維」明顯受損。'},
-      {key:'B', speaker:'文教與文化使者', label:'放任自治，不加干預', summary:'暫緩推行秦律與度量衡統一，尊重越人原有習俗。', quote:'「風俗不可強改，且容其自安。」', delta:{fa:-5,guo:-5,min:0,wen:3}, feedback:'地方自主雖獲一時安穩，但中央法制未能落地，「律維」與「安維」雙雙下滑。'},
+      {key:'A', speaker:'執政專員', label:'嚴刑峻法，強制推行', summary:'全面移植秦律，不作在地調適，並徵發勞役開鑿道路運河。', quote:'「亂世用重典，唯有嚴法方能鎮服四方。」', delta:{fa:2,guo:5,min:-3,wen:-5}, feedback:'秩序雖立，但越人風俗遭強行壓制，民怨積聚，「文化凝聚」與「民生經濟」明顯受損。'},
+      {key:'B', speaker:'文教與文化使者', label:'放任自治，不加干預', summary:'暫緩推行秦律與度量衡統一，尊重越人原有習俗。', quote:'「風俗不可強改，且容其自安。」', delta:{fa:-5,guo:-5,min:0,wen:3}, feedback:'地方自主雖獲一時安穩，但中央法制未能落地，「法治值」與「國安穩定」雙雙下滑。'},
       {key:'C', speaker:'律令專員', label:'禮法並用，因地制宜', summary:'推行秦律基本框架，保留若干因地制宜條款；派文教官推廣文字度量衡，同時尊重越人風俗。', quote:'「禮法並用，方能法立而人心歸附。」', delta:{fa:5,guo:3,min:0,wen:5}, feedback:'法制得以確立，風俗亦獲尊重——這正是「禮法並用」的治理智慧，為嶺南長治久安奠定基礎。'}
     ]},
     { label:'徵役與交通建設', domains:['shehui', 'ziyuan'], situation:'為連通中原與嶺南，秦廷徵發民伕開鑿靈渠、修築馳道，工程浩大，民伕死傷枕藉，沿途郡縣糧秣轉運壓力沉重。度支專員憂心民力難以為繼，執政專員則堅持工程不可中斷。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'暫緩工程，休養民力', summary:'立即停止靈渠與馳道工程，讓民伕返鄉休息，日後再議。', quote:'「民力已竭，若不休養，恐生民變。」', delta:{fa:0,guo:-3,min:3,wen:2}, feedback:'民力稍緩，但南北交通遲遲未通，中央對嶺南的掌控力，「安維」持續受限。'},
-      {key:'B', speaker:'執政專員', label:'嚴令趕工，不恤民力', summary:'不顧民伕死傷，嚴令限期完工，違者連坐。', quote:'「工程一日不成，南疆一日不穩，敢有懈怠者斬！」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'交通雖提前打通，但民伕死傷慘重，民怨沸騰，「富維」與「文維」大幅受損。'},
+      {key:'A', speaker:'度支專員', label:'暫緩工程，休養民力', summary:'立即停止靈渠與馳道工程，讓民伕返鄉休息，日後再議。', quote:'「民力已竭，若不休養，恐生民變。」', delta:{fa:0,guo:-3,min:3,wen:2}, feedback:'民力稍緩，但南北交通遲遲未通，中央對嶺南的掌控力，「國安穩定」持續受限。'},
+      {key:'B', speaker:'執政專員', label:'嚴令趕工，不恤民力', summary:'不顧民伕死傷，嚴令限期完工，違者連坐。', quote:'「工程一日不成，南疆一日不穩，敢有懈怠者斬！」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'交通雖提前打通，但民伕死傷慘重，民怨沸騰，「民生經濟」與「文化凝聚」大幅受損。'},
       {key:'C', speaker:'度支專員', label:'分段施工，以工代賑', summary:'將工程分段推進，並發放糧餉「以工代賑」，兼顧交通建設與民力恢復。', quote:'「工程可緩，民心不可失；以工代賑，兩全其美。」', delta:{fa:2,guo:3,min:3,wen:2}, feedback:'靈渠、馳道次第完工，民伕亦得溫飽——「以工代賑」的智慧，讓建設與民生並行不悖。'}
     ]},
     { label:'移民實邊政策', domains:['guotu', 'shehui', 'wenhua'], situation:'秦廷議決遷徙中原罪犯、商人與貧民南下嶺南「與越雜處」，充實邊地人口。文教與文化使者關注移民與百越原居民能否和睦共處，律令專員則須確立移民與原居民的法律地位。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'律令專員', label:'移民凌駕，越人為役', summary:'規定移民享有優先土地與法律地位，百越原居民淪為附庸勞役。', quote:'「移民乃我族之本，越人自當為其所用。」', delta:{fa:3,guo:2,min:2,wen:-6}, feedback:'移民雖迅速站穩腳跟，但百越原居民淪為次等，「文維」嚴重受損，埋下長期民族矛盾。'},
-      {key:'B', speaker:'文教與文化使者', label:'禁止通婚，隔離而治', summary:'嚴禁移民與越人通婚往來，兩族分居而治，互不干涉。', quote:'「兩族風俗迥異，不如分居而治，各安其份。」', delta:{fa:-2,guo:-3,min:-2,wen:0}, feedback:'表面相安無事，實則兩族長期隔閡，難以真正融合，「安維」與「富維」皆未見起色。'},
+      {key:'A', speaker:'律令專員', label:'移民凌駕，越人為役', summary:'規定移民享有優先土地與法律地位，百越原居民淪為附庸勞役。', quote:'「移民乃我族之本，越人自當為其所用。」', delta:{fa:3,guo:2,min:2,wen:-6}, feedback:'移民雖迅速站穩腳跟，但百越原居民淪為次等，「文化凝聚」嚴重受損，埋下長期民族矛盾。'},
+      {key:'B', speaker:'文教與文化使者', label:'禁止通婚，隔離而治', summary:'嚴禁移民與越人通婚往來，兩族分居而治，互不干涉。', quote:'「兩族風俗迥異，不如分居而治，各安其份。」', delta:{fa:-2,guo:-3,min:-2,wen:0}, feedback:'表面相安無事，實則兩族長期隔閡，難以真正融合，「國安穩定」與「民生經濟」皆未見起色。'},
       {key:'C', speaker:'執政專員', label:'雜居通婚，一視同仁', summary:'鼓勵移民與越人雜居通婚，法律上一視同仁，共享土地與資源。', quote:'「與越雜處，一視同仁，方能化異為同。」', delta:{fa:3,guo:3,min:3,wen:5}, feedback:'移民與百越逐漸融合，嶺南人口日增，經濟漸興——這正是後世嶺南族群融合的歷史根源。'}
     ]},
     { label:'羈縻部族首領', domains:['zhengzhi', 'junshi'], situation:'深山中仍有百越部族首領未完全臣服，時而反抗秦吏。執政專員須決定如何處置這些「化外」勢力，以穩定嶺南全局。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'派兵清剿，斬草除根', summary:'派遣重兵深入山林，武力鎮壓所有未臣服部族。', quote:'「不服王化者，唯有兵戈以服之。」', delta:{fa:-2,guo:3,min:-5,wen:-6}, feedback:'部分部族雖被鎮壓，但山林游擊不斷，秦軍疲於奔命，「富維」與「文維」持續流失。'},
-      {key:'B', speaker:'度支專員', label:'置之不理，任其自生自滅', summary:'對深山部族不聞不問，任由其自治自理。', quote:'「山高路遠，何必勞師遠征？」', delta:{fa:-3,guo:-5,min:0,wen:2}, feedback:'表面無事，但邊防隱患未除，中央權威在深山地帶形同虛設，「律維」與「安維」下滑。'},
+      {key:'A', speaker:'執政專員', label:'派兵清剿，斬草除根', summary:'派遣重兵深入山林，武力鎮壓所有未臣服部族。', quote:'「不服王化者，唯有兵戈以服之。」', delta:{fa:-2,guo:3,min:-5,wen:-6}, feedback:'部分部族雖被鎮壓，但山林游擊不斷，秦軍疲於奔命，「民生經濟」與「文化凝聚」持續流失。'},
+      {key:'B', speaker:'度支專員', label:'置之不理，任其自生自滅', summary:'對深山部族不聞不問，任由其自治自理。', quote:'「山高路遠，何必勞師遠征？」', delta:{fa:-3,guo:-5,min:0,wen:2}, feedback:'表面無事，但邊防隱患未除，中央權威在深山地帶形同虛設，「法治值」與「國安穩定」下滑。'},
       {key:'C', speaker:'律令專員', label:'冊封首領，以夷制夷', summary:'冊封歸順的部族首領為地方吏員，賦予有限自治權，以夷制夷、以撫代剿。', quote:'「冊封其酋，以夷制夷，不戰而屈人之兵，方為上策。」', delta:{fa:3,guo:5,min:2,wen:5}, feedback:'羈縻政策奏效，部族首領歸心，嶺南終告底定——這正是後世歷代治理邊疆民族的重要智慧源頭。'}
     ]}
   ]
@@ -1071,23 +1268,23 @@ const missionData = [
   item:{name:'番坊敕令拓本', flavor:'屯門市舶敕令的拓印，記錄開放與治安並重的智慧。', icon:'stamp'},
   rounds:[
     { label:'番坊管理體制', domains:['shehui', 'wenhua'], stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'全面開放，不設監管', summary:'任由番坊自治，不設市舶司稅收與治安監管。', quote:'「開放通商，利莫大焉，何必自縛？」', delta:{fa:-3,guo:-5,min:3,wen:5}, feedback:'商貿與文化交流蓬勃，但走私與治安風險上升，「安維」明顯下滑。'},
-      {key:'B', speaker:'執政專員', label:'嚴格鎖港，重兵戒備', summary:'限制外商往來，屯門重兵駐守，大幅收緊貿易。', quote:'「海防為重，寧可少些商賈，不可讓宵小可乘之機。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'海防雖固，但貿易萎縮、番坊生計受挫，「富維」與「文維」大幅受損。'},
+      {key:'A', speaker:'度支專員', label:'全面開放，不設監管', summary:'任由番坊自治，不設市舶司稅收與治安監管。', quote:'「開放通商，利莫大焉，何必自縛？」', delta:{fa:-3,guo:-5,min:3,wen:5}, feedback:'商貿與文化交流蓬勃，但走私與治安風險上升，「國安穩定」明顯下滑。'},
+      {key:'B', speaker:'執政專員', label:'嚴格鎖港，重兵戒備', summary:'限制外商往來，屯門重兵駐守，大幅收緊貿易。', quote:'「海防為重，寧可少些商賈，不可讓宵小可乘之機。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'海防雖固，但貿易萎縮、番坊生計受挫，「民生經濟」與「文化凝聚」大幅受損。'},
       {key:'C', speaker:'律令專員', label:'訂立《番坊管理敕令》', summary:'設市舶司統一徵稅與管理，屯門駐軍護航貿易，同時容許番坊依本俗自理內部事務。', quote:'「立敕令以定規矩，開海路以通有無，二者可並行不悖。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'秩序、稅收、文化交流三者兼顧——這正是唐代「兼收並蓄」大國氣度的體現。'}
     ]},
     { label:'屯門鎮駐軍規模', domains:['junshi', 'guotu'], situation:'屯門鎮地當要衝，朝廷須決定駐軍規模。兵力過少恐難禦海寇，兵力過多則耗費軍餉、擾民生。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'重兵長駐，不計軍費', summary:'大興屯門駐軍，不惜耗費國庫。', quote:'「海防重於一切，軍費在所不惜。」', delta:{fa:0,guo:6,min:-6,wen:-2}, feedback:'海防固若金湯，但軍費耗費過巨，「富維」重挫。'},
-      {key:'B', speaker:'度支專員', label:'裁減駐軍，節省軍費', summary:'大幅裁減屯門駐軍，以節省開支。', quote:'「軍費浩繁，不如裁軍節流。」', delta:{fa:0,guo:-6,min:3,wen:0}, feedback:'國庫暫緩壓力，但海防空虛，海寇趁虛而入的風險大增，「安維」下滑。'},
+      {key:'A', speaker:'執政專員', label:'重兵長駐，不計軍費', summary:'大興屯門駐軍，不惜耗費國庫。', quote:'「海防重於一切，軍費在所不惜。」', delta:{fa:0,guo:6,min:-6,wen:-2}, feedback:'海防固若金湯，但軍費耗費過巨，「民生經濟」重挫。'},
+      {key:'B', speaker:'度支專員', label:'裁減駐軍，節省軍費', summary:'大幅裁減屯門駐軍，以節省開支。', quote:'「軍費浩繁，不如裁軍節流。」', delta:{fa:0,guo:-6,min:3,wen:0}, feedback:'國庫暫緩壓力，但海防空虛，海寇趁虛而入的風險大增，「國安穩定」下滑。'},
       {key:'C', speaker:'執政專員', label:'寓兵於民，兵農合一', summary:'採府兵制，寓兵於農，平時屯田，戰時徵召。', quote:'「兵農合一，寓兵於民，既固海防，又省軍費。」', delta:{fa:3,guo:5,min:3,wen:0}, feedback:'屯門鎮兵力可持續維持，海防與財政得以兼顧——府兵制的智慧，正是唐代軍事制度的重要創舉。'}
     ]},
     { label:'市舶司關稅則例', domains:['jingji', 'haiwai'], situation:'市舶司統一徵稅後，關稅稅率該如何釐定？稅率過高恐令番商卻步，過低則國庫收益有限。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'輕稅招徠，不計庫收', summary:'大幅降低關稅，以招徠更多番商。', quote:'「稅輕則商聚，何必計較一時稅收？」', delta:{fa:-2,guo:0,min:2,wen:5}, feedback:'番商雲集，文化交流興盛，然而國庫關稅收入銳減，「富維」未如預期增長。'},
-      {key:'B', speaker:'執政專員', label:'重稅盤剝，充盈國庫', summary:'大幅提高關稅，榨取最大稅收。', quote:'「番商求利而來，重稅何妨？」', delta:{fa:0,guo:0,min:5,wen:-5}, feedback:'短期稅收大增，但番商紛紛轉往他港，長遠而言「文維」與商貿活力受損。'},
+      {key:'A', speaker:'度支專員', label:'輕稅招徠，不計庫收', summary:'大幅降低關稅，以招徠更多番商。', quote:'「稅輕則商聚，何必計較一時稅收？」', delta:{fa:-2,guo:0,min:2,wen:5}, feedback:'番商雲集，文化交流興盛，然而國庫關稅收入銳減，「民生經濟」未如預期增長。'},
+      {key:'B', speaker:'執政專員', label:'重稅盤剝，充盈國庫', summary:'大幅提高關稅，榨取最大稅收。', quote:'「番商求利而來，重稅何妨？」', delta:{fa:0,guo:0,min:5,wen:-5}, feedback:'短期稅收大增，但番商紛紛轉往他港，長遠而言「文化凝聚」與商貿活力受損。'},
       {key:'C', speaker:'律令專員', label:'則例分級，依貨論稅', summary:'依貨物種類與價值訂立分級稅則，量力而徵。', quote:'「則例分明，依貨論稅，商賈與國庫兩利。」', delta:{fa:5,guo:2,min:5,wen:2}, feedback:'稅則清晰公平，商賈樂於前來，國庫稅收亦穩步增長——這正是唐代市舶司制度化管理的智慧。'}
     ]},
     { label:'番商宗教與婚俗融入', domains:['wenhua', 'shehui'], situation:'番坊中信奉伊斯蘭教、祆教等異域宗教的商人日增，並有番商欲與本地人通婚定居。文教與文化使者須議定政策。', stampLabel:'蓋史料依據印', gated:false, options:[
       {key:'A', speaker:'文教與文化使者', label:'禁止異教，不准通婚', summary:'嚴禁番商在境內傳教，亦不准與本地人通婚。', quote:'「異教異俗，不可使其蔓延。」', delta:{fa:-2,guo:2,min:-3,wen:-5}, feedback:'表面維持「純正」，實則番商離心，貿易與文化交流雙雙受挫。'},
-      {key:'B', speaker:'度支專員', label:'全然放任，不加規範', summary:'對番坊宗教與婚俗全然不加干涉或登記管理。', quote:'「信仰婚俗，悉聽尊便，官府何必多管？」', delta:{fa:-5,guo:-2,min:3,wen:3}, feedback:'番坊自治雖獲好感，但缺乏管理令部分糾紛無從仲裁，「律維」下滑。'},
+      {key:'B', speaker:'度支專員', label:'全然放任，不加規範', summary:'對番坊宗教與婚俗全然不加干涉或登記管理。', quote:'「信仰婚俗，悉聽尊便，官府何必多管？」', delta:{fa:-5,guo:-2,min:3,wen:3}, feedback:'番坊自治雖獲好感，但缺乏管理令部分糾紛無從仲裁，「法治值」下滑。'},
       {key:'C', speaker:'文教與文化使者', label:'容教許婚，依法登記', summary:'容許番商保有信仰並與本地人通婚，但須向官府登記備案。', quote:'「兼容並蓄，依法備案，方顯大國氣度。」', delta:{fa:3,guo:2,min:3,wen:6}, feedback:'番坊安居樂業，中外通婚漸成風氣——這正是唐代「胡漢交融」盛世氣象的生動寫照。'}
     ]}
   ]
@@ -1113,23 +1310,23 @@ const missionData = [
   item:{name:'交子鈔本', flavor:'一枚保存完好的北宋紙鈔，信用未失。', icon:'note'},
   rounds:[
     { label:'交子準備金比例', domains:['jinrong', 'jingji'], stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'大量超發，應急軍費', summary:'不顧準備金比例，大量加印交子以應付開支。', quote:'「軍費告急，先印鈔應急，後患且待後論。」', delta:{fa:-3,guo:-3,min:-6,wen:0}, feedback:'交子迅速貶值，通貨膨脹侵蝕民生，「富維」與「安維」同步惡化——正是「不誠信商道」的教訓。'},
-      {key:'B', speaker:'文教與文化使者', label:'拒用紙幣，固守鐵錢', summary:'堅持笨重鐵錢，限制海外貿易規模，不予創新。', quote:'「祖宗成法不可輕廢，鐵錢雖重，穩妥為上。」', delta:{fa:0,guo:0,min:-5,wen:-3}, feedback:'雖無通脹之虞，但交易成本高昂、錯失海外貿易良機，「富維」與「文維」停滯不前。'},
+      {key:'A', speaker:'執政專員', label:'大量超發，應急軍費', summary:'不顧準備金比例，大量加印交子以應付開支。', quote:'「軍費告急，先印鈔應急，後患且待後論。」', delta:{fa:-3,guo:-3,min:-6,wen:0}, feedback:'交子迅速貶值，通貨膨脹侵蝕民生，「民生經濟」與「國安穩定」同步惡化——正是「不誠信商道」的教訓。'},
+      {key:'B', speaker:'文教與文化使者', label:'拒用紙幣，固守鐵錢', summary:'堅持笨重鐵錢，限制海外貿易規模，不予創新。', quote:'「祖宗成法不可輕廢，鐵錢雖重，穩妥為上。」', delta:{fa:0,guo:0,min:-5,wen:-3}, feedback:'雖無通脹之虞，但交易成本高昂、錯失海外貿易良機，「民生經濟」與「文化凝聚」停滯不前。'},
       {key:'C', speaker:'度支專員', label:'恪守準備金，規範瓷路貿易', summary:'依約三分之一準備金發行交子，並設市舶司規範茶絲瓷貿易與稅收。', quote:'「量入為出，鈔本三一，方能取信於民。」', delta:{fa:3,guo:2,min:6,wen:3}, feedback:'誠信立本，貿易暢旺——「義利之辨」的智慧，讓經濟繁榮與信用穩固並行不悖。'}
     ]},
     { label:'海外貿易船引配額', domains:['haiwai', 'jingji', 'shenhai'], situation:'市舶司對出海貿易商船發放「船引」（許可證），數量該如何管制？', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'船引不設限，自由出海', summary:'取消船引配額限制，任何商船皆可自由出海貿易。', quote:'「貿易自由，何必設限？」', delta:{fa:-5,guo:-3,min:5,wen:3}, feedback:'貿易蓬勃一時，但走私與海盜船隻混雜其中難以稽查，「安維」與「律維」受損。'},
-      {key:'B', speaker:'執政專員', label:'嚴格限額，寧缺勿濫', summary:'大幅削減船引發放數量，僅許少數官商出海。', quote:'「商船氾濫難管，不如嚴格限額。」', delta:{fa:2,guo:3,min:-6,wen:-3}, feedback:'管理雖見成效，但海外貿易萎縮，商賈怨聲載道，「富維」與「文維」下滑。'},
+      {key:'A', speaker:'度支專員', label:'船引不設限，自由出海', summary:'取消船引配額限制，任何商船皆可自由出海貿易。', quote:'「貿易自由，何必設限？」', delta:{fa:-5,guo:-3,min:5,wen:3}, feedback:'貿易蓬勃一時，但走私與海盜船隻混雜其中難以稽查，「國安穩定」與「法治值」受損。'},
+      {key:'B', speaker:'執政專員', label:'嚴格限額，寧缺勿濫', summary:'大幅削減船引發放數量，僅許少數官商出海。', quote:'「商船氾濫難管，不如嚴格限額。」', delta:{fa:2,guo:3,min:-6,wen:-3}, feedback:'管理雖見成效，但海外貿易萎縮，商賈怨聲載道，「民生經濟」與「文化凝聚」下滑。'},
       {key:'C', speaker:'律令專員', label:'船引登記，按額核發', summary:'建立船引登記制度，依港口容量與商船信譽核發配額。', quote:'「按額核發，有序管理，方能行之久遠。」', delta:{fa:5,guo:3,min:5,wen:2}, feedback:'海外貿易井然有序，港口秩序與商貿活力兼備——這正是宋代市舶制度成熟的體現。'}
     ]},
     { label:'汴京物價與囤積居奇', domains:['liangshi', 'shehui'], situation:'汴京米糧因富商囤積居奇，價格飛漲，民怨四起。度支專員須決定平抑物價之法。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'放任市場，不加干預', summary:'堅信市場自會調節，不設任何平抑措施。', quote:'「物價漲跌，市場自有其道。」', delta:{fa:0,guo:-5,min:-5,wen:-2}, feedback:'米價持續飛漲，民生困苦，民怨累積，「安維」與「富維」雙雙下滑。'},
-      {key:'B', speaker:'律令專員', label:'強制徵收，平價配售', summary:'強行徵收富商糧倉存糧，由官府平價配售。', quote:'「糧價失控，唯有強徵平糶。」', delta:{fa:-5,guo:2,min:2,wen:-3}, feedback:'米價暫時回穩，但強徵引發商界不滿與法治爭議，「律維」明顯受損。'},
+      {key:'A', speaker:'執政專員', label:'放任市場，不加干預', summary:'堅信市場自會調節，不設任何平抑措施。', quote:'「物價漲跌，市場自有其道。」', delta:{fa:0,guo:-5,min:-5,wen:-2}, feedback:'米價持續飛漲，民生困苦，民怨累積，「國安穩定」與「民生經濟」雙雙下滑。'},
+      {key:'B', speaker:'律令專員', label:'強制徵收，平價配售', summary:'強行徵收富商糧倉存糧，由官府平價配售。', quote:'「糧價失控，唯有強徵平糶。」', delta:{fa:-5,guo:2,min:2,wen:-3}, feedback:'米價暫時回穩，但強徵引發商界不滿與法治爭議，「法治值」明顯受損。'},
       {key:'C', speaker:'度支專員', label:'設常平倉，豐年儲糧', summary:'設立常平倉制度，豐年購入儲糧、荒年平價拋售，調節供需。', quote:'「常平倉制，豐儲歉糶，方是長治久安之道。」', delta:{fa:3,guo:3,min:5,wen:2}, feedback:'米價漸趨平穩，民生獲得保障——常平倉制度正是中國古代「調節供需、以豐補歉」治理智慧的典範。'}
     ]},
     { label:'香港採珠製鹽稅收', domains:['ziyuan', 'jingji'], situation:'香港地區的大埔採珠業與屯門一帶製鹽業日漸興旺，朝廷須決定如何徵稅與管理這些地方產業。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'律令專員', label:'官營壟斷，重稅徵榷', summary:'將採珠、製鹽收歸官營壟斷，課以重稅。', quote:'「山海之利，豈可假手於民？」', delta:{fa:0,guo:2,min:3,wen:-5}, feedback:'國庫稅收增加，但漁民鹽戶生計大受打擊，「文維」與地方民心受損。'},
-      {key:'B', speaker:'文教與文化使者', label:'放任自產自銷，不加課稅', summary:'對採珠製鹽業完全不加管理課稅。', quote:'「民生小利，何必徵稅擾民？」', delta:{fa:-3,guo:0,min:-3,wen:2}, feedback:'民間雖獲喘息，但官府坐失財源，長遠而言難以支持地方建設，「富維」停滯。'},
+      {key:'A', speaker:'律令專員', label:'官營壟斷，重稅徵榷', summary:'將採珠、製鹽收歸官營壟斷，課以重稅。', quote:'「山海之利，豈可假手於民？」', delta:{fa:0,guo:2,min:3,wen:-5}, feedback:'國庫稅收增加，但漁民鹽戶生計大受打擊，「文化凝聚」與地方民心受損。'},
+      {key:'B', speaker:'文教與文化使者', label:'放任自產自銷，不加課稅', summary:'對採珠製鹽業完全不加管理課稅。', quote:'「民生小利，何必徵稅擾民？」', delta:{fa:-3,guo:0,min:-3,wen:2}, feedback:'民間雖獲喘息，但官府坐失財源，長遠而言難以支持地方建設，「民生經濟」停滯。'},
       {key:'C', speaker:'度支專員', label:'官督民營，合理抽稅', summary:'採「官督民營」模式，容許民間經營，依比例合理抽稅。', quote:'「官督民營，稅賦合理，民生與國用兩不誤。」', delta:{fa:3,guo:2,min:5,wen:3}, feedback:'採珠製鹽業穩步發展，稅收亦見增長——香港地區的海洋經濟基礎，正由此奠定。'}
     ]}
   ]
@@ -1155,23 +1352,23 @@ const missionData = [
   item:{name:'林公奏摺抄本', flavor:'抄錄林則徐奏摺的片段，銘記氣節與教訓。', icon:'memo'},
   rounds:[
     { label:'禁煙立場的歷史反思', domains:['zhengzhi', 'shehui', 'shengwu'], stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'歸咎禁煙，主張妥協求和', summary:'認為戰爭全因禁煙操之過急，主張及早屈辱求和以避戰禍。', quote:'「戰事糜費甚巨，及早求和，保全元氣。」', delta:{fa:-3,guo:-5,min:2,wen:-6}, feedback:'求和雖暫緩戰事，卻抹煞禁煙的正當性，「文維」與「安維」大受打擊——這並非歷史應有的教訓。'},
-      {key:'B', speaker:'執政專員', label:'不顧國力，力主死戰到底', summary:'無視雙方國力與軍備的巨大差距，主張不惜一切代價強硬對抗。', quote:'「縱使玉石俱焚，亦不能屈膝求和！」', delta:{fa:0,guo:-6,min:-5,wen:2}, feedback:'氣節可嘉，但盲目輕敵導致更慘重損失，「安維」與「富維」進一步惡化。'},
+      {key:'A', speaker:'度支專員', label:'歸咎禁煙，主張妥協求和', summary:'認為戰爭全因禁煙操之過急，主張及早屈辱求和以避戰禍。', quote:'「戰事糜費甚巨，及早求和，保全元氣。」', delta:{fa:-3,guo:-5,min:2,wen:-6}, feedback:'求和雖暫緩戰事，卻抹煞禁煙的正當性，「文化凝聚」與「國安穩定」大受打擊——這並非歷史應有的教訓。'},
+      {key:'B', speaker:'執政專員', label:'不顧國力，力主死戰到底', summary:'無視雙方國力與軍備的巨大差距，主張不惜一切代價強硬對抗。', quote:'「縱使玉石俱焚，亦不能屈膝求和！」', delta:{fa:0,guo:-6,min:-5,wen:2}, feedback:'氣節可嘉，但盲目輕敵導致更慘重損失，「國安穩定」與「民生經濟」進一步惡化。'},
       {key:'C', speaker:'文教與文化使者', label:'肯定禁煙，正視差距，以史為鑑', summary:'肯定林則徐禁煙的正當性與民族氣節，同時正視國力落後的根源，將此役視為近代改革與捍衛主權的歷史轉捩點。', quote:'「禁煙無罪，國弱受欺——當銘記此恥，發憤圖強。」', delta:{fa:3,guo:2,min:0,wen:6}, feedback:'銘記屈辱，不忘自強——這段歷史正是探討「國家恢復對香港行使主權」必然性的重要根基。'}
     ]},
     { label:'廣州十三行貿易體制', domains:['jingji', 'haiwai'], situation:'鴉片戰爭前，廣州十三行壟斷對外貿易，外商屢屢抱怨體制僵化。度支專員須評估是否改革這套「一口通商」體制。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'固守十三行，拒絕改革', summary:'堅持十三行壟斷體制，不作任何開放。', quote:'「祖宗成法，豈可輕言更張？」', delta:{fa:0,guo:2,min:-5,wen:-3}, feedback:'體制僵化引發外商積怨，埋下日後衝突的種子，「富維」與「文維」受損。'},
-      {key:'B', speaker:'度支專員', label:'全面開放，廢除十三行', summary:'立即廢除十三行制度，全面開放通商口岸。', quote:'「不如順應潮流，全面開埠通商。」', delta:{fa:-5,guo:-5,min:3,wen:0}, feedback:'雖然一時貿易活絡，但朝廷倉促失去管控，「律維」與「安維」大幅下滑。'},
+      {key:'A', speaker:'執政專員', label:'固守十三行，拒絕改革', summary:'堅持十三行壟斷體制，不作任何開放。', quote:'「祖宗成法，豈可輕言更張？」', delta:{fa:0,guo:2,min:-5,wen:-3}, feedback:'體制僵化引發外商積怨，埋下日後衝突的種子，「民生經濟」與「文化凝聚」受損。'},
+      {key:'B', speaker:'度支專員', label:'全面開放，廢除十三行', summary:'立即廢除十三行制度，全面開放通商口岸。', quote:'「不如順應潮流，全面開埠通商。」', delta:{fa:-5,guo:-5,min:3,wen:0}, feedback:'雖然一時貿易活絡，但朝廷倉促失去管控，「法治值」與「國安穩定」大幅下滑。'},
       {key:'C', speaker:'律令專員', label:'漸進改良，擴大監管', summary:'保留基本管理架構，但逐步改良行商制度、增設監督機制。', quote:'「循序漸進，擴大監管，方能穩中求變。」', delta:{fa:3,guo:3,min:3,wen:2}, feedback:'貿易體制逐步現代化，惜為時已晚未能扭轉戰爭大勢——但這段歷史仍值得後世借鏡「穩中求變」的道理。'}
     ]},
     { label:'三元里民眾抗英', domains:['junshi', 'zhengzhi'], situation:'英軍進犯廣州城郊，三元里一帶民眾自發組織團練抗擊英軍。執政專員須決定官府對民間抗英力量的態度。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'嚴禁民團，恐生民變', summary:'擔心民間武裝坐大失控，嚴令解散三元里團練。', quote:'「民間擁兵，恐生尾大不掉之患。」', delta:{fa:-2,guo:-3,min:0,wen:-6}, feedback:'民心大失，錯失團結民力抗敵的良機，「文維」重挫。'},
-      {key:'B', speaker:'度支專員', label:'放任自行其是，官府置身事外', summary:'對民團抗英不聞不問，亦不予支援協調。', quote:'「民自為戰，官府何必插手？」', delta:{fa:-3,guo:-5,min:-2,wen:2}, feedback:'民團孤軍作戰，缺乏官方支援協調，抗敵成效有限，「安維」持續下滑。'},
+      {key:'A', speaker:'執政專員', label:'嚴禁民團，恐生民變', summary:'擔心民間武裝坐大失控，嚴令解散三元里團練。', quote:'「民間擁兵，恐生尾大不掉之患。」', delta:{fa:-2,guo:-3,min:0,wen:-6}, feedback:'民心大失，錯失團結民力抗敵的良機，「文化凝聚」重挫。'},
+      {key:'B', speaker:'度支專員', label:'放任自行其是，官府置身事外', summary:'對民團抗英不聞不問，亦不予支援協調。', quote:'「民自為戰，官府何必插手？」', delta:{fa:-3,guo:-5,min:-2,wen:2}, feedback:'民團孤軍作戰，缺乏官方支援協調，抗敵成效有限，「國安穩定」持續下滑。'},
       {key:'C', speaker:'文教與文化使者', label:'官民協同，因勢利導', summary:'官府因勢利導，協調民團與正規軍配合作戰，凝聚全民抗敵力量。', quote:'「軍民同心，協力抗敵，方顯民族氣節。」', delta:{fa:2,guo:3,min:0,wen:6}, feedback:'三元里軍民同仇敵愾的事蹟，成為近代中國民族氣節與愛國精神的重要象徵。'}
     ]},
     { label:'五口通商善後應對', domains:['guotu', 'keji'], situation:'《南京條約》既簽，五口通商已成定局。清廷須議定如何因應這場劇變，為日後自強圖存奠定基礎。', stampLabel:'蓋史料依據印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'諱敗為勝，粉飾太平', summary:'對外宣稱議和乃「恩准通商」，對內掩蓋戰敗真相。', quote:'「對外宜言撫恤遠人，不必張揚戰事。」', delta:{fa:-5,guo:-3,min:0,wen:-6}, feedback:'粉飾太平無助於真正改革，錯失反省變革的契機，「文維」與「律維」持續受損。'},
-      {key:'B', speaker:'文教與文化使者', label:'全盤西化，盡棄舊制', summary:'主張立即全盤仿效西方制度，盡棄中國傳統體制。', quote:'「舊制已然無用，不如全盤仿效泰西。」', delta:{fa:-3,guo:-5,min:2,wen:-3}, feedback:'操之過急引發朝野強烈反彈，改革難以落實，「安維」與「文維」皆受衝擊。'},
+      {key:'A', speaker:'執政專員', label:'諱敗為勝，粉飾太平', summary:'對外宣稱議和乃「恩准通商」，對內掩蓋戰敗真相。', quote:'「對外宜言撫恤遠人，不必張揚戰事。」', delta:{fa:-5,guo:-3,min:0,wen:-6}, feedback:'粉飾太平無助於真正改革，錯失反省變革的契機，「文化凝聚」與「法治值」持續受損。'},
+      {key:'B', speaker:'文教與文化使者', label:'全盤西化，盡棄舊制', summary:'主張立即全盤仿效西方制度，盡棄中國傳統體制。', quote:'「舊制已然無用，不如全盤仿效泰西。」', delta:{fa:-3,guo:-5,min:2,wen:-3}, feedback:'操之過急引發朝野強烈反彈，改革難以落實，「國安穩定」與「文化凝聚」皆受衝擊。'},
       {key:'C', speaker:'律令專員', label:'正視差距，師夷長技', summary:'正視戰敗根源，主張「師夷長技以制夷」，務實學習西方軍事科技以圖自強。', quote:'「知恥而後勇，師夷長技以制夷，方為自強之道。」', delta:{fa:3,guo:3,min:2,wen:5}, feedback:'「師夷長技以制夷」的主張，成為日後洋務運動自強圖存的重要思想先聲。'}
     ]}
   ]
@@ -1197,23 +1394,23 @@ const missionData = [
   item:{name:'特區地契圖卷', flavor:'深圳經濟特區的規劃圖卷，見證改革開放的起點。', icon:'map'},
   rounds:[
     { label:'大灣區四類籌碼配置', domains:['jingji', 'shengtai', 'ziyuan'], stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'全力衝刺產業轉型，不顧環保監管', summary:'大舉引進外資與工廠，暫緩生態保護與資源安全審查。', quote:'「機不可失，先求發展，環保之事，來日方長。」', delta:{fa:-5,guo:-3,min:6,wen:0}, feedback:'經濟一時高速增長，卻埋下監管缺失與資源安全的隱患，「律維」與「安維」雙雙下滑。'},
-      {key:'B', speaker:'執政專員', label:'保守觀望，拒絕深化開放', summary:'固守原有模式，不參與大灣區產業協同與科技合作。', quote:'「外資湧入，恐生變數，不如按兵不動。」', delta:{fa:0,guo:2,min:-5,wen:-3}, feedback:'雖然穩妥，卻錯失發展機遇，「富維」與「文維」停滯不前。'},
+      {key:'A', speaker:'度支專員', label:'全力衝刺產業轉型，不顧環保監管', summary:'大舉引進外資與工廠，暫緩生態保護與資源安全審查。', quote:'「機不可失，先求發展，環保之事，來日方長。」', delta:{fa:-5,guo:-3,min:6,wen:0}, feedback:'經濟一時高速增長，卻埋下監管缺失與資源安全的隱患，「法治值」與「國安穩定」雙雙下滑。'},
+      {key:'B', speaker:'執政專員', label:'保守觀望，拒絕深化開放', summary:'固守原有模式，不參與大灣區產業協同與科技合作。', quote:'「外資湧入，恐生變數，不如按兵不動。」', delta:{fa:0,guo:2,min:-5,wen:-3}, feedback:'雖然穩妥，卻錯失發展機遇，「民生經濟」與「文化凝聚」停滯不前。'},
       {key:'C', speaker:'律令專員', label:'均衡配置，依法規管外資', summary:'在產業轉型、科技創新、生態保護、文化交流四方面均衡配置籌碼，並依法規管外資。', quote:'「依法規管，產業、科創、生態、文化四者並重，方為長久之計。」', delta:{fa:3,guo:3,min:5,wen:5}, feedback:'發展與規範並重——香港正是憑藉「一國兩制」下的獨特優勢，融入國家發展大局。'}
     ]},
     { label:'前店後廠勞工權益', domains:['shehui', 'jingji'], situation:'「前店後廠」模式下，大量內地勞工湧入珠三角工廠，勞動條件與權益保障備受關注。度支專員須權衡生產成本與勞工福祉。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'壓低成本，不顧勞權', summary:'壓低工資與福利以維持產業競爭力，不設勞工權益保障。', quote:'「成本才是競爭力的根本，勞權暫且擱置。」', delta:{fa:-5,guo:-2,min:5,wen:-5}, feedback:'短期成本優勢明顯，但勞資糾紛頻生，「文維」與「律維」雙雙受損。'},
-      {key:'B', speaker:'律令專員', label:'嚴格管制，增加企業負擔', summary:'立即實施最嚴格的勞工保障法規，大幅增加企業經營成本。', quote:'「勞工權益優先，企業成本其次。」', delta:{fa:3,guo:0,min:-6,wen:2}, feedback:'勞工權益雖獲保障，但企業成本驟增，部分工廠外移，「富維」明顯下滑。'},
+      {key:'A', speaker:'度支專員', label:'壓低成本，不顧勞權', summary:'壓低工資與福利以維持產業競爭力，不設勞工權益保障。', quote:'「成本才是競爭力的根本，勞權暫且擱置。」', delta:{fa:-5,guo:-2,min:5,wen:-5}, feedback:'短期成本優勢明顯，但勞資糾紛頻生，「文化凝聚」與「法治值」雙雙受損。'},
+      {key:'B', speaker:'律令專員', label:'嚴格管制，增加企業負擔', summary:'立即實施最嚴格的勞工保障法規，大幅增加企業經營成本。', quote:'「勞工權益優先，企業成本其次。」', delta:{fa:3,guo:0,min:-6,wen:2}, feedback:'勞工權益雖獲保障，但企業成本驟增，部分工廠外移，「民生經濟」明顯下滑。'},
       {key:'C', speaker:'執政專員', label:'循序完善，勞資共贏', summary:'循序漸進完善勞動法規與社會保障，同時維持產業競爭力。', quote:'「勞資共贏，循序完善，方能行穩致遠。」', delta:{fa:5,guo:2,min:3,wen:5}, feedback:'勞工權益逐步改善，產業競爭力亦未受損——這正是改革開放「摸著石頭過河」漸進務實精神的體現。'}
     ]},
     { label:'深港跨境基建協同', domains:['ziyuan', 'guotu', 'he'], situation:'港深兩地醞釀興建跨境鐵路與口岸基建，以強化雙城協同，但涉及龐大的土地、財政與規劃協調問題。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'各自為政，互不協調', summary:'港深各自按自身規劃推進，不作聯合協調。', quote:'「各有各的規劃，何必事事協調？」', delta:{fa:0,guo:0,min:-5,wen:-5}, feedback:'基建重複浪費、銜接不暢，錯失協同發展的效益，「富維」與「文維」受損。'},
-      {key:'B', speaker:'度支專員', label:'倉促上馬，不計成本', summary:'為求盡快建成，倉促上馬，不作充分規劃評估。', quote:'「宜早不宜遲，先建了再說。」', delta:{fa:-5,guo:0,min:-3,wen:0}, feedback:'工程雖快速推進，但規劃粗疏引發後續爭議與超支，「律維」明顯受損。'},
+      {key:'A', speaker:'執政專員', label:'各自為政，互不協調', summary:'港深各自按自身規劃推進，不作聯合協調。', quote:'「各有各的規劃，何必事事協調？」', delta:{fa:0,guo:0,min:-5,wen:-5}, feedback:'基建重複浪費、銜接不暢，錯失協同發展的效益，「民生經濟」與「文化凝聚」受損。'},
+      {key:'B', speaker:'度支專員', label:'倉促上馬，不計成本', summary:'為求盡快建成，倉促上馬，不作充分規劃評估。', quote:'「宜早不宜遲，先建了再說。」', delta:{fa:-5,guo:0,min:-3,wen:0}, feedback:'工程雖快速推進，但規劃粗疏引發後續爭議與超支，「法治值」明顯受損。'},
       {key:'C', speaker:'律令專員', label:'聯合規劃，分階段推進', summary:'港深成立聯合規劃小組，分階段、按實際需求推進跨境基建。', quote:'「聯合規劃，分階段推進，方是務實之道。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'跨境基建有序推進，港深「一小時生活圈」逐步成形——區域協同發展的效益日益彰顯。'}
     ]},
     { label:'金融開放與資本監管', domains:['jinrong', 'jingji'], situation:'香港作為國際金融中心，面對內地資本市場開放的呼聲，須決定金融互聯互通的開放步伐與監管配套。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'全面開放，資本自由進出', summary:'立即全面開放資本帳戶，不設任何限制。', quote:'「金融全面開放，方能盡顯自由港優勢。」', delta:{fa:-5,guo:-6,min:5,wen:0}, feedback:'短期資金流入暢旺，但監管缺位使系統性金融風險大增，「安維」與「律維」重挫。'},
-      {key:'B', speaker:'執政專員', label:'嚴格管制，拒絕互聯互通', summary:'拒絕任何跨境金融互聯互通機制，維持高度管制。', quote:'「金融安全為重，互聯互通暫緩為宜。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'金融體系雖穩健，但錯失國際資本樞紐的發展機遇，「富維」明顯受限。'},
+      {key:'A', speaker:'度支專員', label:'全面開放，資本自由進出', summary:'立即全面開放資本帳戶，不設任何限制。', quote:'「金融全面開放，方能盡顯自由港優勢。」', delta:{fa:-5,guo:-6,min:5,wen:0}, feedback:'短期資金流入暢旺，但監管缺位使系統性金融風險大增，「國安穩定」與「法治值」重挫。'},
+      {key:'B', speaker:'執政專員', label:'嚴格管制，拒絕互聯互通', summary:'拒絕任何跨境金融互聯互通機制，維持高度管制。', quote:'「金融安全為重，互聯互通暫緩為宜。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'金融體系雖穩健，但錯失國際資本樞紐的發展機遇，「民生經濟」明顯受限。'},
       {key:'C', speaker:'律令專員', label:'漸進試點，風險可控互聯', summary:'透過「滬深港通」等機制漸進試點，在風險可控下推進互聯互通。', quote:'「漸進試點，風險可控，方能行穩致遠。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'金融市場穩步對外開放，香港「國際金融中心」與「國家金融安全屏障」角色相得益彰。'}
     ]}
   ]
@@ -1244,13 +1441,13 @@ const missionData = [
       {key:'C', speaker:'律令專員', label:'依憲依法，兼顧國安與發展', summary:'依據《憲法》第三十一條與《基本法》第五、二十三條等條文，對科技合作作國安審查，同時完成非遺立法保護與綠色能源合作。', quote:'「依《憲法》第三十一條、《基本法》第五、二十三條而行，國安與發展本可並行。」', delta:{fa:5,guo:5,min:3,wen:5}, feedback:'法治、國安、民生、文化四者兼顧——正是「一國兩制」行穩致遠的憲制智慧。'}
     ]},
     { label:'跨境數據與私隱保護', domains:['shuju', 'wangluo'], situation:'大灣區數據跨境流動日益頻繁，個人資料保護與國家數據安全的平衡引發關注。律令專員須提出規管方案。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'數據自由流動，不設限制', summary:'完全開放跨境數據流動，不設任何審查機制。', quote:'「數據自由流動，方能促進區域協同。」', delta:{fa:-5,guo:-5,min:3,wen:2}, feedback:'數據流通雖便利，但國家安全與個人私隱皆缺乏保障，「安維」與「律維」受損。'},
-      {key:'B', speaker:'執政專員', label:'全面鎖閉，禁止數據跨境', summary:'禁止一切個人資料跨境傳輸。', quote:'「數據安全為重，寧可犧牲便利。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'安全雖獲保障，但區域數字經濟協同發展受阻，「富維」明顯受損。'},
+      {key:'A', speaker:'度支專員', label:'數據自由流動，不設限制', summary:'完全開放跨境數據流動，不設任何審查機制。', quote:'「數據自由流動，方能促進區域協同。」', delta:{fa:-5,guo:-5,min:3,wen:2}, feedback:'數據流通雖便利，但國家安全與個人私隱皆缺乏保障，「國安穩定」與「法治值」受損。'},
+      {key:'B', speaker:'執政專員', label:'全面鎖閉，禁止數據跨境', summary:'禁止一切個人資料跨境傳輸。', quote:'「數據安全為重，寧可犧牲便利。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'安全雖獲保障，但區域數字經濟協同發展受阻，「民生經濟」明顯受損。'},
       {key:'C', speaker:'律令專員', label:'分類管理，合規跨境流動', summary:'依資料敏感程度分類管理，建立合規跨境流動機制。', quote:'「分類管理，合規流動，安全與發展兩不誤。」', delta:{fa:5,guo:3,min:3,wen:3}, feedback:'數據依法有序跨境流動，個人私隱與國家安全均獲保障——這正是當代治理「發展與安全並重」的具體實踐。'}
     ]},
     { label:'完善選舉制度', domains:['zhengzhi'], situation:'完善選舉制度、落實「愛國者治港」原則，是鞏固「一國兩制」行穩致遠的重要一環。執政專員須向公眾解說改革的意義。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'一概不作解說，強硬推行', summary:'不作任何公眾解說，強硬推行制度改革。', quote:'「政策既定，何須多加解釋？」', delta:{fa:0,guo:2,min:0,wen:-6}, feedback:'制度雖已落實，但社會理解不足，「文維」明顯受損，不利於凝聚共識。'},
-      {key:'B', speaker:'度支專員', label:'一再拖延，議而不決', summary:'因顧慮爭議而一再拖延改革，議而不決。', quote:'「爭議未消，不如暫緩推行。」', delta:{fa:-5,guo:-5,min:0,wen:0}, feedback:'制度懸而未決，治理秩序持續存在不確定性，「律維」與「安維」下滑。'},
+      {key:'A', speaker:'執政專員', label:'一概不作解說，強硬推行', summary:'不作任何公眾解說，強硬推行制度改革。', quote:'「政策既定，何須多加解釋？」', delta:{fa:0,guo:2,min:0,wen:-6}, feedback:'制度雖已落實，但社會理解不足，「文化凝聚」明顯受損，不利於凝聚共識。'},
+      {key:'B', speaker:'度支專員', label:'一再拖延，議而不決', summary:'因顧慮爭議而一再拖延改革，議而不決。', quote:'「爭議未消，不如暫緩推行。」', delta:{fa:-5,guo:-5,min:0,wen:0}, feedback:'制度懸而未決，治理秩序持續存在不確定性，「法治值」與「國安穩定」下滑。'},
       {key:'C', speaker:'文教與文化使者', label:'廣泛解說，凝聚社會共識', summary:'透過廣泛公眾解說與教育，闡明「愛國者治港」原則對「一國兩制」行穩致遠的意義。', quote:'「講清楚、說明白，方能凝聚社會共識。」', delta:{fa:5,guo:5,min:2,wen:5}, feedback:'社會對制度改革的理解漸增，治理秩序更趨穩固——這正是良好管治須「說之以理」的重要一課。'}
     ]},
     { label:'大灣區青年發展（終局考驗）', domains:['wenhua', 'zhengzhi'], situation:'你即將完成最後一項提案——支持香港青年融入大灣區發展、深化國民身份認同的長遠政策。這是全程最後一道考驗，提案須讓四維指標同時維持在安全門檻（≥40）之上，方能蓋上最終的「憲法法理印」，為這段治世之旅畫上句點。', stampLabel:'蓋憲法法理印', gated:true, safetyThreshold:40, options:[
@@ -1309,14 +1506,43 @@ function toggleInv(){
 
 /* ---------- 渲染：總體國家安全觀圖鑑 ---------- */
 function domainName(k){ const d = securityDomains.find(x=>x.k===k); return d ? d.n : k; }
+/* 二十領域圖示（24×24 線描），用於回合標籤、圖鑑與解鎖提示 */
+const domainIconPaths = {
+  zhengzhi:'<path d="M3 9 L12 4 L21 9 Z"/><path d="M5 9v9M9.5 9v9M14.5 9v9M19 9v9M3 20h18"/>',
+  guotu:'<path d="M5 21V4"/><path d="M5 4h11l-2 3.5 2 3.5H5"/><path d="M3 21h6"/>',
+  junshi:'<path d="M12 3l7 3v5c0 5-3.2 8.3-7 10-3.8-1.7-7-5-7-10V6z"/><path d="M12 8l1.3 2.7 3 .4-2.2 2 .6 3-2.7-1.5-2.7 1.5.6-3-2.2-2 3-.4z"/>',
+  jingji:'<path d="M4 20V10M10 20V6M16 20v-8M3 20h18"/><path d="M4 8l6-4 6 5 5-3"/>',
+  jinrong:'<circle cx="12" cy="12" r="8.5"/><rect x="9.5" y="9.5" width="5" height="5"/>',
+  wenhua:'<path d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2z"/><path d="M6 18a2 2 0 0 1 2-2h10"/><path d="M10 8h5M10 11h4"/>',
+  shehui:'<circle cx="12" cy="7" r="2.6"/><circle cx="5.5" cy="9.5" r="2.1"/><circle cx="18.5" cy="9.5" r="2.1"/><path d="M7.5 20c0-3 2-5 4.5-5s4.5 2 4.5 5M2 19c0-2.4 1.5-4 3.5-4M22 19c0-2.4-1.5-4-3.5-4"/>',
+  keji:'<circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>',
+  wangluo:'<circle cx="12" cy="5" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><circle cx="12" cy="12.5" r="2"/><path d="M12 7v3.5M10.4 13.8 6.5 16.7M13.6 13.8l3.9 2.9M7 18h10"/>',
+  liangshi:'<path d="M12 21V8"/><path d="M12 8c-2.5 0-3.5-2-3.5-4 2.5 0 3.5 2 3.5 4zM12 8c2.5 0 3.5-2 3.5-4-2.5 0-3.5 2-3.5 4zM12 13c-2.5 0-4-1.8-4-3.8 2.5 0 4 1.8 4 3.8zM12 13c2.5 0 4-1.8 4-3.8-2.5 0-4 1.8-4 3.8zM12 18c-2.5 0-4-1.8-4-3.8 2.5 0 4 1.8 4 3.8zM12 18c2.5 0 4-1.8 4-3.8-2.5 0-4 1.8-4 3.8z"/>',
+  shengtai:'<path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15"/><path d="M5 19l8-8"/>',
+  ziyuan:'<path d="M12 3c3.5 4.5 6 7.6 6 11a6 6 0 0 1-12 0c0-3.4 2.5-6.5 6-11z"/><path d="M9.5 15a2.5 2.5 0 0 0 2.5 2.5"/>',
+  he:'<circle cx="12" cy="12" r="1.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(-60 12 12)"/>',
+  haiwai:'<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.3 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.3-3.8-8.5s1.2-6.1 3.8-8.5z"/>',
+  shengwu:'<path d="M8 3c0 6 8 6 8 12s-8 3-8 6"/><path d="M16 3c0 6-8 6-8 12s8 3 8 6"/><path d="M9.5 7h5M9.5 17h5"/>',
+  taikong:'<path d="M12 3c3 2.5 4.5 6 4.5 10L12 17l-4.5-4C7.5 9 9 5.5 12 3z"/><circle cx="12" cy="9.5" r="1.6"/><path d="M7.5 13 5 17l3.5-.5M16.5 13 19 17l-3.5-.5M10.5 18.5 12 21l1.5-2.5"/>',
+  jidi:'<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9"/><path d="M10 4.5 12 6l2-1.5M10 19.5 12 18l2 1.5"/>',
+  shenhai:'<path d="M3 6c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0"/><path d="M12 9v9"/><path d="M8 15a4 4 0 0 0 8 0"/><path d="M10 10.5h4"/>',
+  ai:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/><path d="M9.5 14.5 11 9.5h1l1.5 5M10 13h3M15 9.5v5"/>',
+  shuju:'<ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13"/><path d="M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/>'
+};
+function domainIcon(k){
+  return `<svg class="dicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${domainIconPaths[k]||''}</svg>`;
+}
 function renderCodex(){
   document.getElementById('codexMeters').innerHTML = Object.keys(meterMeta).map(k=>
     `<div class="codex-meter"><b>${meterMeta[k].name}</b>${meterSecurityMap[k]}</div>`).join('');
   document.getElementById('codexList').innerHTML = securityDomains.map(d=>{
     const found = !!state.domainsFound[d.k];
     return `<div class="codex-item${found?' found':''}">
-      <div class="cn"><span>${d.n}</span><span class="cmark">${found?'✦ 已於情境中遇見':'尚未遇見'}</span></div>
-      <div class="cd">${d.d}</div>
+      <div class="codex-ico">${domainIcon(d.k)}</div>
+      <div class="codex-body">
+        <div class="cn"><span>${d.n}</span><span class="cmark">${found?'✦ 已於情境中遇見':'尚未遇見'}</span></div>
+        <div class="cd">${d.d}</div>
+      </div>
     </div>`;
   }).join('');
   document.getElementById('codexCount').textContent = Object.keys(state.domainsFound).length;
@@ -1352,9 +1578,11 @@ function faceSvg(mood, cx){
   };
   return `<g fill="none" stroke="var(--ink)" stroke-width="1.1" stroke-linecap="round">
     ${brows[mood]||brows.neutral}
-    <ellipse cx="${ex1}" cy="31" rx="1.6" ry="2" fill="var(--paper)" stroke="var(--ink)" stroke-width="0.8"/>
-    <ellipse cx="${ex2}" cy="31" rx="1.6" ry="2" fill="var(--paper)" stroke="var(--ink)" stroke-width="0.8"/>
-    ${mouth[mood]||mouth.neutral}
+    <g class="eyes">
+      <ellipse cx="${ex1}" cy="31" rx="1.6" ry="2" fill="var(--paper)" stroke="var(--ink)" stroke-width="0.8"/>
+      <ellipse cx="${ex2}" cy="31" rx="1.6" ry="2" fill="var(--paper)" stroke="var(--ink)" stroke-width="0.8"/>
+    </g>
+    <g class="mouth">${mouth[mood]||mouth.neutral}</g>
   </g>`;
 }
 function classPortraitSvg(c, mood){
@@ -1438,7 +1666,7 @@ function skylineBars(){
   let x = 44, out = '';
   heights.forEach((h,i)=>{
     const w = 34;
-    out += `<rect class="${i%2===0?'mart-a':'mart-b'}" x="${x}" y="${120-h}" width="${w}" height="${h}"/>`;
+    out += `<rect class="${i%2===0?'mart-a':'mart-b'} anim-grow" style="--i:${i}" x="${x}" y="${120-h}" width="${w}" height="${h}"/>`;
     x += w + 8;
   });
   return out;
@@ -1463,7 +1691,7 @@ const backdropMeta = {
     particles: `<circle class="mart-accent mart-p2" cx="600" cy="34" r="34" opacity="0.16"/>` +
       [0,1,2].map(i=>`<path class="mart-line mart-p${(i%3)+1}" d="M${120+i*210},${44+i*10} q8,-6 16,0 q8,6 16,0" stroke-width="2"/>`).join('') },
   m3: { tint:'indigo-deep', op:.5, mtn:true, seed:1.6,
-    particles: [0,1,2,3].map(i=>`<g class="mart-p${(i%3)+1}" transform="translate(${80+i*190},${30+((i*29)%40)})"><circle class="mart-accent" r="9" opacity="0.18"/><circle class="mart-accent" r="4" opacity="0.6"/></g>`).join('') },
+    particles: [0,1,2,3].map(i=>`<g transform="translate(${80+i*190},${30+((i*29)%40)})"><g class="mart-p${(i%3)+1}"><circle class="mart-accent" r="9" opacity="0.18"/><circle class="mart-accent" r="4" opacity="0.6"/></g></g>`).join('') },
   m4: { tint:'vermillion-deep', op:.4, mtn:true, seed:0.8,
     particles: [0,1,2,3].map(i=>`<circle class="mart-b mart-p${(i%3)+1}" cx="${140+i*160}" cy="${50-((i*13)%20)}" r="${5+i}" opacity="0.22"/>`).join('') },
   m5: { tint:'indigo', op:.16, mtn:true, seed:2.1,
@@ -1488,39 +1716,38 @@ const missionArt = {
   m1: `<svg class="mission-art" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
     ${sceneBackdrop('m1')}
     <g transform="translate(0,130)">
-    ${bambooStalk(70)}${bambooStalk(105)}
+    <g class="anim-sway">${bambooStalk(70)}</g><g class="anim-sway d2">${bambooStalk(105)}</g>
+    <g class="mart-smoke"><path class="anim-rise" d="M372,26 q-6,-8 0,-14 q6,-7 0,-14"/><path class="anim-rise d2" d="M388,26 q6,-8 0,-14 q-6,-7 0,-14"/><path class="anim-rise d3" d="M380,24 q-5,-9 0,-16 q5,-8 0,-15"/></g>
     <rect class="mart-a" x="330" y="45" width="100" height="55" rx="12"/>
     <rect class="mart-b" x="336" y="30" width="10" height="18" rx="4"/>
     <rect class="mart-b" x="414" y="30" width="10" height="18" rx="4"/>
     <path class="mart-b" d="M345,100 L338,126 L358,126 L360,100 Z"/>
     <path class="mart-b" d="M370,100 L365,130 L395,130 L390,100 Z"/>
     <path class="mart-b" d="M400,100 L402,126 L422,126 L415,100 Z"/>
-    ${bambooStalk(655)}${bambooStalk(690)}
+    <g class="anim-sway d3">${bambooStalk(655)}</g><g class="anim-sway">${bambooStalk(690)}</g>
     </g>
   </svg>`,
   m2: `<svg class="mission-art" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
     ${sceneBackdrop('m2')}
     <g transform="translate(0,130)">
-    <path class="mart-line" d="M20,106 Q60,98 100,106 T180,106 T260,106 T340,106 T420,106 T500,106 T580,106 T660,106 T740,106"/>
-    <path class="mart-line" d="M20,118 Q60,112 100,118 T180,118 T260,118 T340,118 T420,118 T500,118 T580,118 T660,118 T740,118"/>
+    <g class="anim-wave"><path class="mart-line" d="M-20,106 Q20,98 60,106 T140,106 T220,106 T300,106 T380,106 T460,106 T540,106 T620,106 T700,106 T780,106"/></g>
+    <g class="anim-bob">
     <path class="mart-a" d="M300,88 Q380,112 460,88 L448,100 Q380,120 312,100 Z"/>
     <line class="mart-line" x1="380" y1="26" x2="380" y2="88"/>
-    <path class="mart-b" d="M383,28 L383,84 L432,78 Z"/>
-    <path class="mart-accent" d="M383,26 L383,15 L400,20 Z"/>
+    <path class="mart-b anim-sail" d="M383,28 L383,84 L432,78 Z"/>
+    <path class="mart-accent anim-flag" d="M383,26 L383,15 L400,20 Z"/>
+    </g>
+    <g class="anim-wave d2"><path class="mart-line" d="M-20,118 Q20,112 60,118 T140,118 T220,118 T300,118 T380,118 T460,118 T540,118 T620,118 T700,118 T780,118"/></g>
     </g>
   </svg>`,
   m3: `<svg class="mission-art" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
     ${sceneBackdrop('m3')}
     <g transform="translate(0,130)">
-    <g transform="rotate(-10 380 110)"><rect class="mart-a" x="335" y="52" width="92" height="56" rx="6"/><line class="mart-line" x1="350" y1="70" x2="410" y2="70" stroke-width="2"/><line class="mart-line" x1="350" y1="86" x2="410" y2="86" stroke-width="2"/></g>
+    <g class="anim-float"><g transform="rotate(-10 380 110)"><rect class="mart-a" x="335" y="52" width="92" height="56" rx="6"/><line class="mart-line" x1="350" y1="70" x2="410" y2="70" stroke-width="2"/><line class="mart-line" x1="350" y1="86" x2="410" y2="86" stroke-width="2"/></g>
     <g transform="rotate(2 380 110)"><rect class="mart-b" x="340" y="48" width="92" height="56" rx="6"/><line class="mart-line" x1="355" y1="66" x2="415" y2="66" stroke-width="2"/><line class="mart-line" x1="355" y1="82" x2="415" y2="82" stroke-width="2"/></g>
-    <g transform="rotate(11 380 110)"><rect class="mart-a" x="345" y="53" width="92" height="56" rx="6"/><line class="mart-line" x1="360" y1="71" x2="420" y2="71" stroke-width="2"/><line class="mart-line" x1="360" y1="87" x2="420" y2="87" stroke-width="2"/></g>
-    <ellipse class="mart-accent" cx="630" cy="68" rx="22" ry="30"/>
-    <rect class="mart-b" x="626" y="32" width="8" height="8"/>
-    <line class="mart-line" x1="630" y1="98" x2="630" y2="118"/>
-    <ellipse class="mart-accent" cx="130" cy="68" rx="22" ry="30"/>
-    <rect class="mart-b" x="126" y="32" width="8" height="8"/>
-    <line class="mart-line" x1="130" y1="98" x2="130" y2="118"/>
+    <g transform="rotate(11 380 110)"><rect class="mart-a" x="345" y="53" width="92" height="56" rx="6"/><line class="mart-line" x1="360" y1="71" x2="420" y2="71" stroke-width="2"/><line class="mart-line" x1="360" y1="87" x2="420" y2="87" stroke-width="2"/></g></g>
+    <g class="anim-swing"><rect class="mart-b" x="626" y="32" width="8" height="8"/><ellipse class="mart-accent lantern-glow" cx="630" cy="68" rx="22" ry="30"/><line class="mart-line" x1="630" y1="98" x2="630" y2="118"/></g>
+    <g class="anim-swing d2"><rect class="mart-b" x="126" y="32" width="8" height="8"/><ellipse class="mart-accent lantern-glow" cx="130" cy="68" rx="22" ry="30"/><line class="mart-line" x1="130" y1="98" x2="130" y2="118"/></g>
     </g>
   </svg>`,
   m4: `<svg class="mission-art" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
@@ -1528,23 +1755,24 @@ const missionArt = {
     <g transform="translate(0,130)">
     <rect class="mart-a" x="20" y="96" width="720" height="24"/>
     <rect class="mart-a" x="40" y="82" width="20" height="14"/><rect class="mart-a" x="90" y="82" width="20" height="14"/><rect class="mart-a" x="140" y="82" width="20" height="14"/><rect class="mart-a" x="190" y="82" width="20" height="14"/><rect class="mart-a" x="240" y="82" width="20" height="14"/><rect class="mart-a" x="290" y="82" width="20" height="14"/><rect class="mart-a" x="470" y="82" width="20" height="14"/><rect class="mart-a" x="520" y="82" width="20" height="14"/><rect class="mart-a" x="570" y="82" width="20" height="14"/><rect class="mart-a" x="620" y="82" width="20" height="14"/><rect class="mart-a" x="670" y="82" width="20" height="14"/><rect class="mart-a" x="710" y="82" width="20" height="14"/>
-    <rect class="mart-b" x="330" y="60" width="100" height="22" rx="10" transform="rotate(-6 380 71)"/>
+    <g class="anim-recoil"><rect class="mart-b" x="330" y="60" width="100" height="22" rx="10" transform="rotate(-6 380 71)"/></g>
     <circle class="mart-b" cx="400" cy="96" r="14"/>
-    <circle class="mart-accent" cx="448" cy="54" r="10" opacity="0.5"/>
-    <circle class="mart-accent" cx="464" cy="42" r="7" opacity="0.35"/>
-    <circle class="mart-accent" cx="478" cy="34" r="5" opacity="0.25"/>
+    <circle class="mart-accent anim-flash" cx="440" cy="60" r="9"/>
+    <circle class="mart-accent anim-puff" cx="448" cy="54" r="10"/>
+    <circle class="mart-accent anim-puff d2" cx="464" cy="42" r="7"/>
+    <circle class="mart-accent anim-puff d3" cx="478" cy="34" r="5"/>
     </g>
   </svg>`,
   m5: `<svg class="mission-art" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
     ${sceneBackdrop('m5')}
     <g transform="translate(0,130)">
-    <circle class="mart-accent" cx="670" cy="42" r="40" opacity="0.18"/>
+    <circle class="mart-accent anim-pulse" cx="670" cy="42" r="40" opacity="0.18"/>
     <circle class="mart-accent" cx="670" cy="42" r="22"/>
     ${skylineBars()}
     <line class="mart-line" x1="600" y1="20" x2="600" y2="118"/>
-    <line class="mart-line" x1="548" y1="26" x2="638" y2="26"/>
+    <g class="anim-crane"><line class="mart-line" x1="548" y1="26" x2="638" y2="26"/>
     <line class="mart-line" x1="600" y1="20" x2="568" y2="48"/>
-    <line class="mart-line" x1="552" y1="26" x2="552" y2="58"/>
+    <line class="mart-line" x1="552" y1="26" x2="552" y2="58"/><rect class="mart-accent" x="545" y="58" width="14" height="9"/></g>
     </g>
   </svg>`,
   m6: `<svg class="mission-art" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
@@ -1553,11 +1781,13 @@ const missionArt = {
     <line class="mart-line" x1="380" y1="22" x2="380" y2="88"/>
     <circle class="mart-b" cx="380" cy="16" r="6"/>
     <path class="mart-b" d="M362,88 L398,88 L380,106 Z"/>
+    <g class="anim-balance">
     <line class="mart-line" x1="328" y1="36" x2="432" y2="36"/>
     <line class="mart-line" x1="328" y1="36" x2="328" y2="56"/>
     <path class="mart-a" d="M310,56 Q310,72 328,72 Q346,72 346,56 Z"/>
     <line class="mart-line" x1="432" y1="36" x2="432" y2="56"/>
     <path class="mart-a" d="M414,56 Q414,72 432,72 Q450,72 450,56 Z"/>
+    </g>
     <path class="mart-b" d="M300,98 Q380,88 460,98 L460,116 Q380,106 300,116 Z"/>
     <line class="mart-line" x1="315" y1="104" x2="445" y2="104" stroke-width="1.5"/>
     <line class="mart-line" x1="315" y1="110" x2="445" y2="110" stroke-width="1.5"/>
@@ -1660,18 +1890,22 @@ function renderRound(mid, missionIdx){
   document.getElementById('roundBody-'+mid).innerHTML = `
     <div class="round-progress">回合 ${ridx+1} / ${m.rounds.length}${round.label ? '　· ' + round.label : ''}</div>
     ${round.situation ? `<p class="day-text">${round.situation}</p>` : ''}
-    ${round.domains ? `<div class="domain-row"><span class="dlabel">🛡️ 本回合牽涉的國家安全領域：</span>${round.domains.map(k=>`<span class="domain-tag">${domainName(k)}</span>`).join('')}</div>
+    ${round.domains ? `<div class="domain-row"><span class="dlabel">🛡️ 本回合牽涉的國家安全領域：</span>${round.domains.map((k,i)=>`<span class="domain-tag" style="--i:${i}">${domainIcon(k)}${domainName(k)}</span>`).join('')}</div>
     <div class="domain-note">總體國家安全觀強調各領域環環相扣——此處的抉擇，不只是一時得失。</div>` : ''}
     <div class="decision-box scroll-panel">
       <div class="decision-q">🧭 治理抉擇方案</div>
       <div id="opts-${mid}">
-        ${round.options.map(o=>`
-          <button class="opt${enabledClass}" data-key="${o.key}" onclick="selectOption('${mid}','${o.key}')">
-            <span class="ospeaker">${o.speaker}進言：${o.quote}</span>
-            <span class="olabel">${o.key}．${o.label}</span>
-            <span class="osummary">${o.summary}</span>
+        ${optionOrder(mid+'#'+ridx, round.options).map((o,i)=>`
+          <button class="opt${enabledClass}" data-key="${o.key}" style="--i:${i}" onclick="selectOption('${mid}','${o.key}')">
+            <span class="opt-face" aria-hidden="true">${speakerMiniPortrait(o.speaker)}</span>
+            <span class="opt-text">
+              <span class="ospeaker">${o.speaker}進言：${o.quote}</span>
+              <span class="olabel">${'甲乙丙'[i]}．${o.label}</span>
+              <span class="osummary">${o.summary}</span>
+            </span>
           </button>`).join('')}
       </div>
+      <div class="opt-note">⚖️ 每個方案的後果，要待你蓋印之後才會揭曉——請根據史料與四司審議，自行判斷。</div>
       <div class="preview-box" id="preview-${mid}"></div>
       <div class="threshold-warn" id="warn-${mid}"></div>
       <div class="stamp-row">
@@ -1734,15 +1968,18 @@ function typeLine(mid, text, instant){
   clearInterval(typeTimers[mid]);
   const lineEl = document.getElementById('dlgLine-'+mid);
   const caret = document.getElementById('dlgCaret-'+mid);
+  const portrait = document.getElementById('dlgPortrait-'+mid);
   if(instant || REDUCED_MOTION){
     lineEl.textContent = text;
     state.typing = state.typing || {};
     state.typing[mid] = false;
     caret.classList.add('show');
+    portrait && portrait.classList.remove('talking');
     return;
   }
   state.typing = state.typing || {};
   state.typing[mid] = true;
+  portrait && portrait.classList.add('talking');
   caret.classList.remove('show');
   lineEl.textContent = '';
   let i = 0;
@@ -1752,6 +1989,7 @@ function typeLine(mid, text, instant){
       clearInterval(typeTimers[mid]);
       state.typing[mid] = false;
       caret.classList.add('show');
+      portrait && portrait.classList.remove('talking');
     }
   }, 38);
 }
@@ -1784,6 +2022,7 @@ function completeDialogue(mid){
   clearInterval(typeTimers[mid]);
   const box = document.getElementById('dlgBox-'+mid);
   if(box){ box.onclick = null; box.style.cursor = 'default'; box.removeAttribute('tabindex'); }
+  document.getElementById('dlgPortrait-'+mid).classList.remove('talking');
   document.getElementById('dlgCaret-'+mid).classList.remove('show');
   document.getElementById('dlgControls-'+mid).style.display = 'none';
   document.getElementById('scene-'+mid).classList.add('show');
@@ -1808,15 +2047,13 @@ function selectOption(mid, key){
   document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.toggle('selected', b.dataset.key===key));
 
   const opt = round.options.find(o=>o.key===key);
+  /* 蓋印前只確認選擇，不透露任何數值後果，避免學生逐一試按後揀最佳答案 */
   const preview = document.getElementById('preview-'+mid);
-  const chips = Object.keys(opt.delta).map(k=>{
-    const d = opt.delta[k];
-    const projected = Math.max(0,Math.min(100, state.meters[k]+d));
-    const cls = d>0?'up':(d<0?'down':'flat');
-    const sign = d>0?'+':'';
-    return `<span class="delta-chip ${cls}">${meterMeta[k].name} ${sign}${d} → ${projected}</span>`;
-  }).join('');
-  preview.innerHTML = `<div class="preview-header">💥 治理演算與連鎖反應</div><div class="deltas">${chips}</div><div class="feedback-text">${opt.feedback}</div>`;
+  preview.classList.remove('result');
+  preview.innerHTML = `<div class="choice-pending">
+      <span class="cp-seal">${displayLetter(rkey,key)}</span>
+      <span>你傾向採納「<b>${opt.label}</b>」。<br><small>尚未蓋印，仍可改選；後果將於蓋印後揭曉。</small></span>
+    </div>`;
   preview.classList.add('show');
 
   const stampBtn = document.getElementById('stampbtn-'+mid);
@@ -1824,7 +2061,7 @@ function selectOption(mid, key){
   if(round.gated){
     const failing = Object.keys(opt.delta).filter(k=>Math.max(0,Math.min(100,state.meters[k]+opt.delta[k])) < round.safetyThreshold);
     if(failing.length){
-      warnBox.textContent = `⚠ 未達安全門檻：${failing.map(k=>meterMeta[k].name).join('、')} 仍低於 ${round.safetyThreshold}。請重新審議方案，或回顧先前各卷的抉擇如何影響今日局面。`;
+      warnBox.textContent = `⚠ 合憲性與安全審查未獲通過：以你目前的治理基礎，此方案會令國家安全底線失守。請重新審議，或回顧先前各卷的抉擇如何影響今日局面。`;
       warnBox.classList.add('show');
       stampBtn.disabled = true;
     } else {
@@ -1837,6 +2074,87 @@ function selectOption(mid, key){
 }
 
 /* ---------- 互動：蓋印確認 → 生效 ---------- */
+function speakerMiniPortrait(speakerName){
+  const c = classData.find(x=>x.name===speakerName);
+  return c ? classPortraitSvg(c).replace('class="portrait-svg" ','') : '';
+}
+/* 蓋印後才揭曉：逐項推演四維變化，並讓學生回看其他方案的推演，作課堂討論 */
+function revealConsequence(mid, opt, before){
+  const ridx = state.roundIndex[mid] || 0;
+  const round = missionData.find(x=>x.id===mid).rounds[ridx];
+  const rkey = mid+'#'+ridx;
+  const rows = Object.keys(meterMeta).map((k,i)=>{
+    const d = opt.delta[k] || 0;
+    const cls = d>0?'up':(d<0?'down':'flat');
+    return `<div class="cq-row" style="--i:${i}">
+      <span class="cq-name">${meterMeta[k].name}</span>
+      <span class="cq-track"><span class="cq-fill ${cls}" style="--from:${before[k]}%; --to:${state.meters[k]}%"></span></span>
+      <span class="cq-val"><span class="cq-count" data-from="${before[k]}" data-to="${state.meters[k]}">${before[k]}</span></span>
+      <span class="delta-chip ${cls}">${d>0?'+':''}${d}</span>
+    </div>`;
+  }).join('');
+  const others = optionOrder(rkey, round.options).filter(o=>o.key!==opt.key).map(o=>
+    `<div class="cq-other"><b>${displayLetter(rkey,o.key)}．${o.label}</b>　${o.feedback}</div>`).join('');
+  const preview = document.getElementById('preview-'+mid);
+  preview.classList.add('show','result');
+  preview.innerHTML = `
+    <div class="preview-header">💥 治理演算與連鎖反應</div>
+    <div class="cq-rows">${rows}</div>
+    <div class="feedback-text cq-feedback">${opt.feedback}</div>
+    <details class="cq-others"><summary>🔍 回看其他方案的推演（課堂討論用）</summary>${others}</details>`;
+  preview.querySelectorAll('.cq-count').forEach((el,i)=>countUp(el, +el.dataset.from, +el.dataset.to, 500 + i*120));
+}
+/* 終卷：時空足跡地圖——六卷印記沿長河排開，按上策次數著色 */
+function renderJourney(){
+  const el = document.getElementById('journeyMap');
+  if(!el) return;
+  const pts = [[70,110],[195,60],[320,112],[445,58],[570,110],[690,62]];
+  const river = 'M10,120 C60,120 70,60 130,60 S250,118 320,112 S400,52 445,58 S530,118 570,110 S650,56 750,62';
+  const nodes = missionData.map((m,i)=>{
+    const [x,y] = pts[i];
+    const n = state.bestCount[m.id] || 0;
+    const done = !!state.stamped[m.id+'#'+(m.rounds.length-1)];
+    const tone = !done ? 'none' : (n>=3 ? 'good' : (n>=2 ? 'mid' : 'low'));
+    return `<g class="jn jn-${tone}" style="--i:${i}" transform="translate(${x},${y})">
+      <circle class="jn-halo" r="27"/>
+      <rect class="jn-seal" x="-19" y="-19" width="38" height="38" rx="5" transform="rotate(-6)"/>
+      <text class="jn-era" y="7" text-anchor="middle">${m.era}</text>
+      <text class="jn-lbl" y="46" text-anchor="middle">${done ? `上策 ${n}/${m.rounds.length}` : '未完成'}</text>
+    </g>`;
+  }).join('');
+  el.innerHTML = `<svg class="journey-svg" viewBox="0 0 760 170" xmlns="http://www.w3.org/2000/svg">
+      <path class="jr-river" d="${river}"/>
+      <path class="jr-path" d="${river}" pathLength="1"/>
+      ${nodes}
+    </svg>
+    <div class="journey-legend"><span class="lg good"></span>3–4 次上策　<span class="lg mid"></span>2 次　<span class="lg low"></span>0–1 次</div>`;
+}
+/* 圖鑑解鎖提示：右下角依次滑入 */
+let toastQueue = 0;
+function unlockToast(k){
+  const t = document.createElement('div');
+  t.className = 'unlock-toast';
+  t.innerHTML = `<span class="ut-ico">${domainIcon(k)}</span><span><small>國安圖鑑 · 新領域</small><b>${domainName(k)}</b></span>`;
+  const delay = 900 + (toastQueue++) * 450;
+  let stack = document.getElementById('toastStack');
+  if(!stack){ stack = document.createElement('div'); stack.id = 'toastStack'; document.body.appendChild(stack); }
+  setTimeout(()=>{
+    stack.appendChild(t);
+    setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(), 400); toastQueue = Math.max(0, toastQueue-1); }, 2600);
+  }, delay);
+}
+function countUp(el, from, to, delay){
+  if(REDUCED_MOTION || from===to){ el.textContent = to; return; }
+  setTimeout(()=>{
+    const t0 = performance.now(), dur = 700;
+    const step = now=>{
+      const p = Math.min(1, (now-t0)/dur);
+      el.textContent = Math.round(from + (to-from)*(1-Math.pow(1-p,3)));
+      if(p<1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, delay);
+}
 /* ---------- 視覺回饋：跳字／判定／震動 ---------- */
 function popMeterDeltas(delta){
   const layer = document.getElementById('popLayer');
@@ -1904,15 +2222,19 @@ function stampMission(mid){
     state.missionStart[mid] = Object.assign({}, state.meters);
     state.missionMeritStart[mid] = state.merit;
   }
+  const before = Object.assign({}, state.meters);
   Object.keys(opt.delta).forEach(k=>{
     state.meters[k] = Math.max(0,Math.min(100, state.meters[k]+opt.delta[k]));
   });
-  state.merit += (key==='C' ? 30 : 15);
+  const wasBest = isBestOption(round, key);
+  state.merit += wasBest ? 30 : 15;
+  state.bestCount[mid] = (state.bestCount[mid] || 0) + (wasBest ? 1 : 0);
+  revealConsequence(mid, opt, before);
   state.stamped[rkey] = true;
   /* 解鎖本回合牽涉的國家安全領域 */
   let newDomains = [];
   (round.domains || []).forEach(k=>{
-    if(!state.domainsFound[k]){ state.domainsFound[k] = true; newDomains.push(domainName(k)); }
+    if(!state.domainsFound[k]){ state.domainsFound[k] = true; newDomains.push(domainName(k)); unlockToast(k); }
   });
   /* 視覺回饋 */
   popMeterDeltas(opt.delta);
@@ -2004,6 +2326,7 @@ function reallyGoTo(n){
   const inForest = n===1;
   document.getElementById('forestArt').classList.toggle('show', inForest);
   document.getElementById('bgArt').style.display = inForest ? 'none' : '';
+  if(n === totalStops) renderJourney();
   /* 進入某一卷時才啟動該卷的打字機，避免六卷同時跑 */
   const mission = missionData[n-2];
   if(mission){
@@ -2054,10 +2377,11 @@ function resetGame(){
   state.meters = {fa:50,guo:50,min:50,wen:50};
   state.charName=''; state.cls=null; state.merit=0; state.inventory=[];
   Object.keys(typeTimers).forEach(k=>clearInterval(typeTimers[k]));
-  state.revealed = {}; state.chosen = {}; state.stamped = {}; state.roundIndex = {}; state.typing = {}; state.missionStart = {}; state.missionMeritStart = {}; state.domainsFound = {};
+  state.revealed = {}; state.chosen = {}; state.stamped = {}; state.roundIndex = {}; state.typing = {}; state.missionStart = {}; state.missionMeritStart = {}; state.domainsFound = {}; state.order = {}; state.bestCount = {};
   document.getElementById('charName').value='';
   renderDashboard();
   renderInventory();
+  renderCodex();
   renderClassGrid();
   document.getElementById('idScroll').classList.remove('show');
   document.getElementById('rosterNext').disabled = true;
