@@ -685,6 +685,85 @@
   }
   @keyframes resultIn{from{opacity:0; transform:translateY(8px) scale(0.98);}to{opacity:1; transform:none;}}
   @keyframes fillTo{from{width:var(--from);}to{width:var(--to);}}
+  /* 兩難回合標示 */
+  .dilemma-badge{display:flex; gap:12px; align-items:flex-start; margin:4px 0 12px; padding:12px 14px; border:2px dashed var(--vermillion); background:rgba(166,52,43,0.06); font-size:0.85rem; color:var(--ink); line-height:1.7;}
+  .dilemma-badge b{color:var(--vermillion-deep);}
+  .db-ico{font-size:1.5rem; line-height:1;}
+  @media (prefers-reduced-motion: no-preference){ .db-ico{display:inline-block; animation:balance 3s ease-in-out infinite;} }
+  /* 史料判斷 */
+  .quiz-box{display:none; margin-top:14px; padding:14px 16px; border:2px solid var(--indigo-deep); background:var(--parchment); position:relative;
+    box-shadow:inset 0 0 0 3px var(--parchment), inset 0 0 0 4px var(--line);}
+  .quiz-box.show{display:block;}
+  @media (prefers-reduced-motion: no-preference){ .quiz-box.show{animation:resultIn .4s ease-out;} }
+  .quiz-head{font-weight:700; color:var(--indigo-deep); margin-bottom:6px;}
+  .quiz-head small{font-weight:400; color:var(--vermillion-deep); font-size:0.75rem;}
+  .quiz-q{font-size:0.9rem; color:var(--ink); margin-bottom:10px;}
+  .quiz-opts{display:flex; flex-direction:column; gap:7px;}
+  .quiz-opt{display:flex; gap:10px; align-items:center; text-align:left; width:100%; padding:9px 12px; border:1px solid var(--line); background:var(--paper); color:var(--ink); font-family:inherit; font-size:0.86rem; cursor:pointer; border-radius:2px; transition:all .15s ease;}
+  .quiz-opt:hover:not([disabled]){border-color:var(--jade); background:var(--indigo-tint);}
+  .quiz-opt[disabled]{cursor:default;}
+  .qo-mark{width:24px; height:24px; flex-shrink:0; border:1.5px solid var(--indigo); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.78rem; color:var(--indigo-deep);}
+  .quiz-opt.right{border-color:var(--jade); background:rgba(63,109,90,0.12);}
+  .quiz-opt.right .qo-mark{background:var(--jade); color:#fff; border-color:var(--jade);}
+  .quiz-opt.wrong{border-color:var(--vermillion); background:rgba(166,52,43,0.08);}
+  .quiz-opt.wrong .qo-mark{background:var(--vermillion); color:#fff; border-color:var(--vermillion);}
+  .quiz-why{margin-top:10px; padding:9px 12px; font-size:0.84rem; line-height:1.75; color:var(--ink); border-left:3px solid var(--jade); background:rgba(63,109,90,0.08);}
+  .quiz-why.no{border-left-color:var(--vermillion); background:rgba(166,52,43,0.06);}
+  @media (prefers-reduced-motion: no-preference){ .quiz-why{animation:optIn .4s ease-out;} .quiz-opt.right .qo-mark{animation:itemPop .5s cubic-bezier(.3,1.6,.5,1);} }
+  /* 時空回響 */
+  .echo-card{display:none; gap:14px; align-items:flex-start; margin:0 0 20px; padding:14px 16px; border:2px solid var(--indigo-deep); background:var(--parchment); position:relative;}
+  .echo-card.show{display:flex;}
+  .echo-card.good{border-color:var(--jade-deep);} .echo-card.bad{border-color:var(--vermillion);}
+  .echo-ico{width:44px; height:44px; flex-shrink:0; color:var(--indigo-deep);}
+  .echo-card.good .echo-ico{color:var(--jade-deep);} .echo-card.bad .echo-ico{color:var(--vermillion-deep);}
+  .echo-ico svg{width:100%; height:100%;}
+  .echo-title{font-weight:700; color:var(--indigo-deep); font-size:0.9rem;}
+  .echo-text{font-size:0.88rem; color:var(--ink); margin:4px 0 6px; line-height:1.75;}
+  .echo-card .deltas{display:flex; gap:8px; flex-wrap:wrap;}
+  .echo-card .delta-chip{font-weight:700; padding:3px 9px; border-radius:10px; font-size:0.78rem; border:1px solid var(--line);}
+  .echo-note{font-size:0.72rem; color:var(--ink-soft); font-style:italic; margin-top:6px;}
+  @media (prefers-reduced-motion: no-preference){
+    .echo-card.show{animation:resultIn .6s ease-out;}
+    .echo-ico svg{animation:hourglass 2.4s ease-in-out infinite; transform-origin:50% 50%;}
+  }
+  @keyframes hourglass{0%,40%{transform:rotate(0);}50%,90%{transform:rotate(180deg);}100%{transform:rotate(360deg);}}
+  /* 職司視角／兩難判準 */
+  .cq-row.mine .cq-name{font-weight:700; color:var(--indigo-deep);}
+  .cq-mine{font-style:normal; font-size:0.66rem; margin-left:5px; padding:1px 6px; border-radius:8px; background:var(--indigo-deep); color:var(--parchment); vertical-align:1px; white-space:nowrap;}
+  .cq-lens, .cq-dilemma{margin-top:10px; padding:9px 12px; font-size:0.84rem; line-height:1.75; color:var(--ink);}
+  .cq-lens{background:var(--indigo-tint); border-left:3px solid var(--indigo);}
+  .cq-dilemma{background:rgba(166,52,43,0.06); border-left:3px solid var(--vermillion);}
+  .role-row{background:var(--indigo-tint); padding-left:8px !important; padding-right:8px !important;}
+  .grade-甲等{color:var(--jade-deep);} .grade-乙等{color:var(--indigo-deep);} .grade-丙等{color:var(--vermillion);}
+  .rescue-row{margin-top:10px; display:flex; flex-direction:column; gap:8px; align-items:flex-start; color:var(--ink);}
+  .rescue-row small{color:var(--ink-soft);}
+  /* 交給老師 */
+  .code-box{margin-top:18px; padding:14px 16px; border:1px dashed var(--indigo); background:var(--indigo-tint);}
+  .code-head{font-weight:700; color:var(--indigo-deep);}
+  .code-tip{font-size:0.82rem; color:var(--ink-soft); margin:4px 0 8px;}
+  .code-box textarea{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:0.72rem; word-break:break-all;}
+  .code-copied{font-size:0.8rem; color:var(--jade-deep); margin-left:6px;}
+  #teacherPanel{position:fixed; inset:0; z-index:150; display:none; background:rgba(0,0,0,0.45); padding:24px 16px; overflow-y:auto;}
+  #teacherPanel.show{display:block;}
+  .teacher-inner{max-width:780px; margin:40px auto; background:var(--parchment); border:2px solid var(--indigo-deep); padding:24px; position:relative;
+    box-shadow:inset 0 0 0 4px var(--parchment), inset 0 0 0 5px var(--line), inset 0 0 0 7px var(--parchment), 0 18px 50px var(--shadow);}
+  .teacher-inner h4{font-size:1.05rem; margin:0 0 10px; display:flex; justify-content:space-between; align-items:center; color:var(--indigo-deep);}
+  .teacher-inner h4 button{background:none; border:none; font-size:1.1rem; cursor:pointer; color:var(--ink-soft);}
+  #teacherIn{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:0.75rem;}
+  .tr-summary{margin:16px 0; padding:12px 14px; background:var(--paper); border-left:3px solid var(--indigo); font-size:0.86rem; line-height:1.9;}
+  .tr-div{color:var(--vermillion-deep); font-weight:700;}
+  .tr-mission{margin-bottom:10px; border:1px solid var(--line); background:var(--paper); padding:8px 12px;}
+  .tr-mission summary{cursor:pointer; font-weight:700; color:var(--ink); font-size:0.9rem;}
+  .tr-mission summary small{font-weight:400; color:var(--ink-soft); margin-left:6px;}
+  .tr-round{margin:10px 0 4px;}
+  .tr-label{font-size:0.82rem; color:var(--indigo-deep); font-weight:700; margin-bottom:4px;}
+  .tr-dil{font-size:0.68rem; padding:1px 6px; border-radius:8px; background:var(--vermillion); color:#fff; font-weight:400;}
+  .tr-bar{display:grid; grid-template-columns:minmax(0,1.4fr) 1fr 5.5em; gap:8px; align-items:center; font-size:0.78rem; color:var(--ink-soft); margin:3px 0;}
+  .tr-opt{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .tr-best{color:var(--jade-deep); font-size:0.68rem;}
+  .tr-track{height:8px; background:var(--paper-deep); border-radius:4px; overflow:hidden; border:1px solid var(--line);}
+  .tr-track span{display:block; height:100%; background:var(--indigo);}
+  .tr-pct{text-align:right; font-variant-numeric:tabular-nums;}
   .preview-box{margin-top:14px; font-size:0.87rem; color:var(--ink-soft); display:none;}
   .preview-box.show{display:block;}
   .preview-box .deltas{margin:8px 0; display:flex; gap:10px; flex-wrap:wrap;}
@@ -818,8 +897,12 @@
     /* 足跡地圖縮放後字太細：放大 SVG 內字級 */
     .jn-lbl{font-size:21px;}
     #toastStack{right:8px; bottom:10px;}
-    .unlock-toast{font-size:0.78rem; padding:6px 10px 6px 7px;}
-    .unlock-toast .ut-ico{width:26px; height:26px;}
+    .unlock-toast{font-size:0.74rem; padding:4px 9px 4px 5px; gap:6px; border-width:1.5px; opacity:.96;}
+    .unlock-toast small{display:none;}
+    .unlock-toast b::before{content:'解鎖 ';font-weight:400;color:var(--vermillion-deep);}
+    .unlock-toast .ut-ico{width:22px; height:22px;}
+    .unlock-toast .ut-ico .dicon{width:15px; height:15px;}
+    #toastStack{gap:4px;}
     .cq-row{grid-template-columns:6.6em 1fr 2.2em auto; gap:7px; font-size:0.8rem;}
     .pop-num{font-size:0.9rem;}
   }
@@ -932,6 +1015,16 @@
   <div id="invList"><div class="inv-empty">尚未收得任何信物。</div></div>
 </div>
 
+<div id="teacherPanel" role="dialog" aria-label="教師專區">
+  <div class="teacher-inner">
+    <h4>👩‍🏫 教師專區 · 全班抉擇彙整 <button onclick="closeTeacher()">✕</button></h4>
+    <p class="codex-intro">請學生完成旅程後，在終卷「領取結業卷軸」取得以 <b>TS1-</b> 開頭的代碼，交到 Google Classroom 或表單。把全班代碼貼到下方（每行一個，或以空格分隔），即可看到每個回合的選擇分佈、史料判斷正確率，以及分歧最大的回合。所有運算都在本機進行，不會上傳任何資料。</p>
+    <textarea id="teacherIn" rows="5" placeholder="TS1-……&#10;TS1-……"></textarea>
+    <div style="margin-top:10px; text-align:right;"><button class="btn ember" onclick="summarizeClass()">彙整</button></div>
+    <div id="teacherOut"></div>
+  </div>
+</div>
+
 <div id="codexPanel">
   <h4>總體國家安全觀 · 二十領域 <button onclick="toggleCodex()">✕</button></h4>
   <p class="codex-intro">
@@ -1010,6 +1103,7 @@
     </p>
     <div style="margin-top:36px;">
       <button class="btn" onclick="goTo(1)">承接傳承人之責 →</button>
+      <div style="margin-top:14px;"><button class="scroll-toggle" onclick="openTeacher()">👩‍🏫 教師專區</button></div>
     </div>
     <div class="edu-credit">路德會協同中學公民與社會發展科 x 歷史科</div>
   </div>
@@ -1063,7 +1157,7 @@
     <div class="journey-wrap">
       <div class="section-label first">🗺️ 你的時空足跡</div>
       <div id="journeyMap"></div>
-      <p class="journey-note">每一枚印記代表一卷。印記顏色顯示你在該卷四個回合中，有多少次選中「上策」——可與同學比較：你們在哪一卷分歧最大？為甚麼？</p>
+      <p class="journey-note">每一枚印記代表一卷。印記顏色顯示你在該卷五個回合中，有多少次選中「上策」——可與同學比較：你們在哪一卷分歧最大？為甚麼？</p>
     </div>
     <div class="day-title" style="margin-top:8px;"><h2>三階反思：所見？所思？所行？</h2></div>
 
@@ -1118,8 +1212,16 @@
         <p style="font-size:0.9rem; color:var(--ink-soft); margin-top:2px;" id="certMeters"></p>
         <p style="font-size:1.05rem; color:var(--indigo-deep); margin-top:10px; font-weight:700;" id="certTier"></p>
         <p class="inv-summary" id="certInv"></p>
+        <p class="inv-summary" id="certRole"></p>
+      </div>
+      <div class="code-box hidden" id="codeBox">
+        <div class="code-head">📋 交給老師：你的旅程代碼</div>
+        <p class="code-tip">請把以下代碼複製，貼到老師指定的地方（例如 Google Classroom 或表單）。老師可用「教師專區」彙整全班的抉擇分佈。</p>
+        <textarea id="codeOut" rows="3" readonly onclick="this.select()"></textarea>
+        <div style="margin-top:8px; text-align:right;"><button class="btn" onclick="copyCode()">複製代碼</button> <span class="code-copied" id="codeCopied"></span></div>
       </div>
     </div>
+    <div style="text-align:center; margin:18px 0 0;"><button class="scroll-toggle" onclick="openTeacher()">👩‍🏫 教師專區：彙整全班結果</button></div>
     <div class="edu-credit">路德會協同中學公民與社會發展科 x 歷史科</div>
   </div>
 </section>
@@ -1137,7 +1239,7 @@ const state = {
   charName:'', cls:null,
   merit:0, inventory:[],
   revealed:{}, chosen:{}, stamped:{}, dlgIndex:{}, roundIndex:{}, typing:{}, missionStart:{}, missionMeritStart:{}, domainsFound:{},
-  order:{}, bestCount:{}
+  order:{}, bestCount:{}, quiz:{}, echoDone:{}, rescued:false, roleGrades:{}
 };
 /* 每回合的方案顯示次序隨機打亂：資料中最佳方案固定排在最後，若照原序顯示，學生很快會摸出「揀最後一個就啱」 */
 function optionOrder(rkey, options){
@@ -1151,11 +1253,22 @@ function optionOrder(rkey, options){
 function displayLetter(rkey, key){
   return '甲乙丙'[(state.order[rkey]||[]).indexOf(key)] || key;
 }
-/* 方案優劣按淨效果排序，用於德望計算，不再依賴固定字母 */
-function isBestOption(round, key){
-  const score = o => Object.values(o.delta).reduce((a,b)=>a+b,0);
-  const best = Math.max(...round.options.map(score));
-  return score(round.options.find(o=>o.key===key)) === best;
+/* 方案優劣：一般回合按淨效果；兩難回合按「選後四維最低值」——守住最弱一環者為上策 */
+function afterMeters(base, opt){
+  const out = {};
+  Object.keys(base).forEach(k=>{ out[k] = Math.max(0, Math.min(100, base[k] + (opt.delta[k]||0))); });
+  return out;
+}
+function optionScore(round, opt, base){
+  if(round.dilemma) return Math.min(...Object.values(afterMeters(base || state.meters, opt)));
+  return Object.values(opt.delta).reduce((a,b)=>a+b,0);
+}
+function bestOptions(round, base){
+  const best = Math.max(...round.options.map(o=>optionScore(round, o, base)));
+  return round.options.filter(o=>optionScore(round, o, base) === best);
+}
+function isBestOption(round, key, base){
+  return bestOptions(round, base).some(o=>o.key===key);
 }
 
 /* ---------- 資料：四種職司 ---------- */
@@ -1459,6 +1572,102 @@ const missionData = [
 }
 ];
 
+/* ---------- 資料：兩難回合（每卷一個，插入第三回合） ----------
+   沒有完美方案：每個選項都有明顯得失。此類回合的「上策」不按淨效果，
+   而按「守住最弱一環」判定——總體國家安全觀強調短板決定整體安全。 */
+const dilemmaRounds = {
+  m1:{ label:'戍卒安置兩難', dilemma:true, domains:['junshi','shehui','guotu'], stampLabel:'蓋史料依據印', gated:false,
+    situation:'數十萬秦軍南下戍守嶺南，久戍思歸，軍心浮動。南海郡尉趙佗上書，請朝廷遣送中原無夫家女子南下，為戍卒縫補衣裳、成家定居（《史記》載秦始皇准其一萬五千人）。然而中原民力已疲，再徵人南遷，必有骨肉離散之苦。',
+    options:[
+      {key:'A', speaker:'執政專員', label:'准奏南遷，令戍卒落地生根', summary:'遣中原女子南下，戍卒成家定居，與越人雜處。', quote:'「軍心不安，邊防何以為繼？」', delta:{fa:0,guo:4,min:-4,wen:2}, feedback:'戍卒成家，軍心大定，中原人口南遷亦推動漢越交融；但中原民間再受徵發，骨肉離散，「民生經濟」受損。'},
+      {key:'B', speaker:'律令專員', label:'依律輪戍，戍卒定期北歸', summary:'嚴守戍期制度，分批輪換戍卒返鄉。', quote:'「戍期有定，依律而行，方可服眾。」', delta:{fa:3,guo:-3,min:-3,wen:1}, feedback:'戍卒得以依期返鄉，制度公信得以維持；但千里輪替耗費糧餉，換防之際邊防出現空檔，「國安穩定」與「民生經濟」雙雙受壓。'},
+      {key:'C', speaker:'度支專員', label:'招募越人，以越守越', summary:'減少中原戍卒，改募越人子弟入伍戍守本地。', quote:'「以本地之人守本地之土，可省轉運之勞。」', delta:{fa:-2,guo:-4,min:4,wen:3}, feedback:'中原轉運負擔大減，越人亦因參與守土而增加認同；但新附之地的軍隊忠誠未穩，法令推行亦須遷就，「國安穩定」承受風險。'}
+    ]},
+  m2:{ label:'海寇來襲的抉擇', dilemma:true, domains:['junshi','haiwai','jingji'], stampLabel:'蓋史料依據印', gated:false,
+    situation:'有海寇劫掠往來屯門的番舶，番商聯名請求官府派船護航。然而屯門鎮兵力有限：若分兵護航，海岸防守便出現空隙；若不護航，番商或會轉往他港，廣州海路貿易恐將冷落。',
+    options:[
+      {key:'A', speaker:'度支專員', label:'分兵護航番舶', summary:'抽調鎮兵戰船，護送番舶往返屯門與廣州。', quote:'「商路一斷，市舶之利盡失。」', delta:{fa:0,guo:-4,min:4,wen:2}, feedback:'番舶安全抵港，番商對唐廷信任大增，貿易更盛；但鎮兵分散，海岸防守空虛，「國安穩定」下滑。'},
+      {key:'B', speaker:'執政專員', label:'集中兵力，固守海岸', summary:'鎮兵不出海，專守屯門與沿岸要地。', quote:'「先保疆土，再論商利。」', delta:{fa:1,guo:4,min:-4,wen:-1}, feedback:'海岸固若金湯，海寇不敢登岸；但番舶在海上屢遭劫掠，部分番商轉往他港，「民生經濟」受創。'},
+      {key:'C', speaker:'度支專員', label:'徵「護航錢」，番商募船自衛', summary:'向番商徵收護航費用，由其自行招募船隻武裝護航。', quote:'「取之於商，用之於商，國庫不費分文。」', delta:{fa:-4,guo:-1,min:3,wen:2}, feedback:'不耗國庫亦保住商路；但開了民間武裝自行護航的先例，海上執法權旁落，「法治值」明顯受損。'}
+    ]},
+  m3:{ label:'窯火與山林', dilemma:true, domains:['shengtai','jingji','ziyuan'], stampLabel:'蓋史料依據印', gated:false,
+    situation:'宋瓷沿海路遠銷海外，訂單日增。窯場大量伐木燒窯，附近山林日漸光禿，雨季水土流失，下游農田屢受沖刷。窯主要求擴窯增產，鄉民則請求封山育林。',
+    options:[
+      {key:'A', speaker:'度支專員', label:'擴窯增產，搶佔海外市場', summary:'准許新開窯口，放寬伐木限制。', quote:'「海外訂單如潮，豈可坐失良機？」', delta:{fa:-1,guo:-3,min:5,wen:0}, feedback:'瓷器外銷大增，窯工收入豐厚；但山林濫伐、水土流失加劇——生態安全受損，終會反噬農業與民生。'},
+      {key:'B', speaker:'律令專員', label:'封山育林，限額燒窯', summary:'劃定禁伐山林，按窯口核定燒窯數量。', quote:'「山林乃百年之計，不可竭澤而漁。」', delta:{fa:3,guo:2,min:-5,wen:-1}, feedback:'山林得以休養，水患減少；但窯口減產，大批窯工失業，海外訂單流失，「民生經濟」重挫。'},
+      {key:'C', speaker:'執政專員', label:'改用石炭，遷窯近礦', summary:'推廣以石炭（煤）燒窯，將部分窯場遷往產煤之地。', quote:'「汴京百萬家已用石炭，窯火何不效之？」', delta:{fa:2,guo:3,min:-2,wen:-3}, feedback:'以煤代柴，山林壓力大減（北宋汴京確已普遍以石炭為燃料）；但遷窯成本高昂，傳統窯口與匠人社群離散，「文化凝聚」受損。'}
+    ]},
+  m4:{ label:'具結與斷市', dilemma:true, domains:['jingji','zhengzhi','haiwai'], stampLabel:'蓋史料依據印', gated:false,
+    situation:'林則徐要求外商具結：「永不夾帶鴉片，如有帶來，一經查出，貨盡沒官，人即正法。」英國商務監督義律拒絕具結，並禁止英商入港。正當的茶葉、絲綢貿易亦因而停頓，十三行與沿海茶農損失日增。',
+    options:[
+      {key:'A', speaker:'律令專員', label:'不具結者，一律斷絕貿易', summary:'堅持具結原則，拒不具結的英商一概停止通商。', quote:'「法令既出，豈能因利而廢？」', delta:{fa:4,guo:-2,min:-5,wen:2}, feedback:'禁煙立場堅定，法令威信得以維持；但茶絲貿易全面停頓，沿海生計受創，衝突亦隨之升級。'},
+      {key:'B', speaker:'度支專員', label:'只禁鴉片，正當貿易照常', summary:'加強查緝鴉片，但容許已具結或願意受檢的商船照常通商。', quote:'「禁其毒，不禁其利，方能分化外商。」', delta:{fa:-3,guo:1,min:4,wen:0}, feedback:'正當貿易得以延續（史實上部分英、美商船確曾具結入港）；但查緝存在漏洞，鴉片夾帶難以根絕，「法治值」受損。'},
+      {key:'C', speaker:'執政專員', label:'整備海防，同時探究夷情', summary:'加固虎門炮台，並組織翻譯外國書報，了解英國國情。', quote:'「知己知彼，方能百戰不殆。」', delta:{fa:0,guo:3,min:-4,wen:2}, feedback:'海防與對外認識均有增進（林則徐曾組織編譯《四洲志》）；但軍費浩大，眼前僵局未解，「民生經濟」承受壓力。'}
+    ]},
+  m5:{ label:'工廠北移的代價', dilemma:true, domains:['jingji','shehui'], stampLabel:'蓋史料依據印', gated:false,
+    situation:'隨著「前店後廠」模式興起，大量港資工廠遷往珠三角，內地就業大增，香港亦逐步轉型為服務業與金融中心。然而，大批本地製造業工人面臨失業，需要重新學習技能。',
+    options:[
+      {key:'A', speaker:'度支專員', label:'鼓勵工廠全速北移', summary:'不設限制，讓市場決定工廠去留，香港全力轉型服務業。', quote:'「分工協作，兩地皆贏。」', delta:{fa:0,guo:-3,min:5,wen:-1}, feedback:'兩地分工效益迅速顯現；但中年工人大量失業，社會不安情緒上升，「國安穩定」受壓。'},
+      {key:'B', speaker:'執政專員', label:'限制北移，保障本地就業', summary:'以政策誘因挽留本地工廠，延緩產業轉移。', quote:'「先顧好自家工友的飯碗。」', delta:{fa:1,guo:3,min:-5,wen:0}, feedback:'本地就業暫時穩住；但生產成本高昂，企業競爭力下滑，錯失協同發展的時機，「民生經濟」重挫。'},
+      {key:'C', speaker:'文教與文化使者', label:'撥款再培訓，放緩轉型步伐', summary:'設立工人再培訓計劃，協助轉職，同時有序推進產業轉移。', quote:'「轉型不能只算經濟賬。」', delta:{fa:3,guo:2,min:-3,wen:-1}, feedback:'工人得到轉職支援，社會較為平穩；但公帑負擔沉重，轉型速度放緩，「民生經濟」受壓。'}
+    ]},
+  m6:{ label:'疫情下的口岸抉擇', dilemma:true, domains:['shengwu','shehui','jingji'], stampLabel:'蓋憲法法理印', gated:false,
+    situation:'大灣區突發傳染病，專家建議收緊口岸。然而港深兩地每日有大量人次往來，涉及跨境家庭、學童、物流與生計。無論怎樣做，都會有人付出代價。',
+    options:[
+      {key:'A', speaker:'執政專員', label:'全面封關，嚴防輸入', summary:'暫停所有非緊急跨境往來。', quote:'「生命至上，寧嚴勿鬆。」', delta:{fa:2,guo:4,min:-5,wen:-2}, feedback:'生物安全防線最為穩固；但跨境家庭被迫分隔，物流受阻，生計大受影響，「民生經濟」重挫。'},
+      {key:'B', speaker:'度支專員', label:'維持通關，加強檢測', summary:'口岸照常開放，所有旅客須接受檢測。', quote:'「經濟停擺，同樣傷及民生。」', delta:{fa:0,guo:-4,min:4,wen:1}, feedback:'民生與物流得以維持；但防疫風險偏高，社會憂慮加劇，「國安穩定」受壓。'},
+      {key:'C', speaker:'律令專員', label:'分類通關，保障必要往來', summary:'保留貨運及必要人員往來，其餘暫停，並按疫情調整。', quote:'「依法分類，寬嚴有據。」', delta:{fa:-3,guo:2,min:2,wen:-1}, feedback:'兼顧防疫與必要往來；但規則繁複且頻繁調整，「誰屬必要」爭議不斷，執行與公信受考驗，「法治值」下滑。'}
+    ]}
+};
+missionData.forEach(m=>{ if(dilemmaRounds[m.id]) m.rounds.splice(2, 0, dilemmaRounds[m.id]); });
+
+/* ---------- 資料：史料判斷題（展開史料卷軸後作答，答畢方可議決） ---------- */
+const scrollQuiz = {
+  m1:{ q:'根據秦簡「什伍連坐，度量衡、文字皆依秦制，不得自為」，以下哪項推論最恰當？',
+    opts:['秦代以統一法制與制度強化中央集權','秦代容許各郡自訂度量衡，以照顧地方特色','秦代以禮樂教化取代刑罰'], ans:0,
+    why:'「不得自為」即各地不得自行其是，度量衡、文字一律依秦制——這是以統一制度鞏固中央集權的明證。' },
+  m2:{ q:'依《唐律疏議》「同類自相犯者，各依本俗法；異類相犯者，以法律論」，一名大食商人與一名波斯商人在廣州番坊發生糾紛，應如何處理？',
+    opts:['依大食的本俗法處理','依唐律論處','交由兩國使節自行協商'], ans:1,
+    why:'大食人與波斯人屬「異類相犯」，故須「以法律論」，即依唐律處理；只有同一族群內部的糾紛，才可依其本俗法。' },
+  m3:{ q:'北宋規定交子須備約三分之一的鈔本（準備金）方可流通，主要目的是甚麼？',
+    opts:['讓政府可以無限量發行紙幣','確保交子可兌換，維持信用與幣值穩定','把準備金撥作軍餉'], ans:1,
+    why:'準備金保證持有人隨時可兌換，紙幣才有信用；一旦濫發而準備不足，幣值便會崩跌——這正是金融安全最早的一課。' },
+  m4:{ q:'根據史料，1842 年《南京條約》對香港有何影響？',
+    opts:['九龍半島界限街以南被割讓予英國','新界被租借予英國九十九年','香港島被割讓予英國'], ans:2,
+    why:'《南京條約》（1842）割讓香港島；九龍半島界限街以南於《北京條約》（1860）割讓；新界則於《展拓香港界址專條》（1898）租借。' },
+  m5:{ q:'改革開放後的「前店後廠」模式，指的是甚麼？',
+    opts:['香港負責資金、技術、接單與銷售，珠三角負責生產','香港設廠生產，內地負責開店銷售','港深兩地合資開設連鎖商店'], ans:0,
+    why:'「店」指香港的接單、設計、融資與銷售，「廠」指珠三角的工廠生產——兩地優勢互補，令珠三角崛起為「世界工廠」。' },
+  m6:{ q:'以下哪一條文，為國家設立特別行政區提供了憲制依據？',
+    opts:['《基本法》第二十三條','《憲法》第三十一條','《基本法》第五條'], ans:1,
+    why:'《憲法》第三十一條授權全國人大按具體情況以法律規定特別行政區的制度，《基本法》即據此制定；第五條保障原有制度五十年不變，第二十三條規定特區自行立法維護國家安全。' }
+};
+
+/* ---------- 資料：時空回響（較早的抉擇在後來的卷中產生影響） ----------
+   遊戲推演，用以說明政策影響的延續性，並非史實因果。 */
+const echoData = {
+  m2:{ from:'m1', label:'移民實邊政策', text:{
+      A:{t:'你在秦代令移民凌駕越人。數百年後，嶺南族群隔閡仍未消弭，番坊管理更須處處提防衝突。', d:{wen:-3,guo:-1}},
+      B:{t:'你在秦代隔離而治。漢越長期分隔，唐代廣州面對番商時，社會缺乏與「異類」共處的經驗。', d:{wen:-2,fa:-1}},
+      C:{t:'你在秦代讓移民與越人雜居通婚。嶺南漢越交融，唐代廣州已是華洋輻輳之地，番坊管理有深厚的共處基礎。', d:{wen:3,guo:1}} }},
+  m3:{ from:'m2', label:'市舶司關稅則例', text:{
+      A:{t:'你在唐代輕稅招徠、不計庫收。宋承唐制設市舶司，卻缺乏可依循的稅則，市舶收入難以支撐海防。', d:{min:-2,fa:-1}},
+      B:{t:'你在唐代重稅盤剝。番商對中國港口心存戒懼，宋初海路一度冷落。', d:{min:-2,wen:-1}},
+      C:{t:'你在唐代訂立分級稅則。宋代市舶制度得以在你的則例上完善，海外貿易有法可依。', d:{fa:2,min:2}} }},
+  m4:{ from:'m2', label:'屯門鎮駐軍規模', text:{
+      A:{t:'你在唐代以重兵長駐、不計軍費。海防長期依賴官兵，民間缺乏自衛的組織與經驗。', d:{guo:1,min:-1}},
+      B:{t:'你在唐代裁減屯門駐軍。海防積弱的教訓，在千年後的鴉片戰爭中再次浮現。', d:{guo:-3}},
+      C:{t:'你在唐代寓兵於民。兵農合一的傳統延續於民間，三元里團練得以迅速集結。', d:{guo:2,wen:1}} }},
+  m5:{ from:'m4', label:'五口通商善後應對', text:{
+      A:{t:'你在清代諱敗為勝。封閉保守的思維延續，令改革開放之初阻力重重。', d:{min:-2,wen:-1}},
+      B:{t:'你在清代全盤西化、盡棄舊制。文化失根之下，開放時更易迷失方向。', d:{wen:-3}},
+      C:{t:'你在清代正視差距、師夷長技。自強求變的傳統，令改革開放更易凝聚共識。', d:{wen:2,min:1}} }},
+  m6:{ from:'m5', label:'金融開放與資本監管', text:{
+      A:{t:'你在改革開放時期讓資本自由進出。金融風險悄然累積，今日審查跨國合作時更顯被動。', d:{guo:-3}},
+      B:{t:'你在改革開放時期嚴格管制資本。香港錯失互聯互通的機遇，今日發展動力略遜。', d:{min:-2}},
+      C:{t:'你在改革開放時期漸進試點、風險可控。累積的監管經驗，令今日依法審查更有底氣。', d:{fa:2,guo:1}} }}
+};
+
 /* ---------- 渲染：儀表 ---------- */
 function renderDashboard(){
   document.getElementById('meterRow').innerHTML = Object.keys(meterMeta).map(k=>{
@@ -1470,10 +1679,10 @@ function renderDashboard(){
   document.getElementById('invCount').textContent = state.inventory.length;
 }
 function rankTitle(merit){
-  if(merit>=600) return '太傅';
-  if(merit>=480) return '上卿';
-  if(merit>=360) return '卿';
-  if(merit>=240) return '令使';
+  if(merit>=780) return '太傅';
+  if(merit>=600) return '上卿';
+  if(merit>=450) return '卿';
+  if(merit>=300) return '令使';
   return '見習司使';
 }
 function pulseRank(){
@@ -1841,6 +2050,7 @@ function renderMissions(){
         </div>
 
         <div class="scene-wrap" id="scene-${m.id}">
+          <div class="echo-card" id="echo-${m.id}"></div>
           <div class="section-label first">📖 時空卷軸：情境呈現與史料</div>
           <p class="day-text">${m.context}</p>
 
@@ -1850,6 +2060,7 @@ function renderMissions(){
               <span class="stitle">${m.scrollTitle}</span>
               <blockquote>${m.scrollText}</blockquote>
             </div>
+            <div class="quiz-box" id="quiz-${m.id}"></div>
           </div>
 
           <div class="section-label">⚖️ 四司審議議題</div>
@@ -1886,9 +2097,10 @@ function renderRound(mid, missionIdx){
   const round = m.rounds[ridx];
   const isLastRound = ridx === m.rounds.length-1;
   const isLastMission = missionIdx === missionData.length-1;
-  const enabledClass = state.revealed[mid] ? ' enabled' : '';
+  const enabledClass = optionsUnlocked(mid) ? ' enabled' : '';
   document.getElementById('roundBody-'+mid).innerHTML = `
     <div class="round-progress">回合 ${ridx+1} / ${m.rounds.length}${round.label ? '　· ' + round.label : ''}</div>
+    ${round.dilemma ? `<div class="dilemma-badge"><span class="db-ico">⚖️</span><span><b>兩難回合 · 沒有完美方案</b><br>每個方案都有得有失。本回合的「上策」以<b>守住四維中最弱的一環</b>為準——總體國家安全觀強調：短板決定整體安全。先看清自己目前哪一項最弱，再作取捨。</span></div>` : ''}
     ${round.situation ? `<p class="day-text">${round.situation}</p>` : ''}
     ${round.domains ? `<div class="domain-row"><span class="dlabel">🛡️ 本回合牽涉的國家安全領域：</span>${round.domains.map((k,i)=>`<span class="domain-tag" style="--i:${i}">${domainIcon(k)}${domainName(k)}</span>`).join('')}</div>
     <div class="domain-note">總體國家安全觀強調各領域環環相扣——此處的抉擇，不只是一時得失。</div>` : ''}
@@ -2026,18 +2238,76 @@ function completeDialogue(mid){
   document.getElementById('dlgCaret-'+mid).classList.remove('show');
   document.getElementById('dlgControls-'+mid).style.display = 'none';
   document.getElementById('scene-'+mid).classList.add('show');
+  applyEcho(mid);
+}
+/* 時空回響：進入本卷情境時，較早一卷的抉擇浮現影響（只生效一次） */
+function applyEcho(mid){
+  const e = echoData[mid];
+  if(!e || state.echoDone[mid]) return;
+  const src = missionData.find(x=>x.id===e.from);
+  const ridx = src.rounds.findIndex(r=>r.label===e.label);
+  const rkey = e.from+'#'+ridx;
+  const key = state.stamped[rkey] && state.chosen[rkey];
+  const hit = key && e.text[key];
+  if(!hit) return;
+  state.echoDone[mid] = true;
+  Object.keys(hit.d).forEach(k=>{ state.meters[k] = Math.max(0, Math.min(100, state.meters[k] + hit.d[k])); });
+  const chips = Object.keys(hit.d).map(k=>{
+    const d = hit.d[k];
+    return `<span class="delta-chip ${d>0?'up':'down'}">${meterMeta[k].name} ${d>0?'+':''}${d}</span>`;
+  }).join('');
+  const good = Object.values(hit.d).reduce((a,b)=>a+b,0) > 0;
+  const card = document.getElementById('echo-'+mid);
+  card.className = 'echo-card show ' + (good ? 'good' : 'bad');
+  card.innerHTML = `
+    <div class="echo-ico" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M12 6h16M12 34h16M14 6c0 8 12 10 12 14S14 26 14 34M26 6c0 8-12 10-12 14s12 6 12 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path class="echo-sand" d="M17 30h6l-3-4z" fill="currentColor"/></svg></div>
+    <div class="echo-body">
+      <div class="echo-title">⏳ 時空回響 · 來自${src.juan}「${e.label}」</div>
+      <div class="echo-text">${hit.t}</div>
+      <div class="deltas">${chips}</div>
+      <div class="echo-note">遊戲推演：用以說明政策影響的延續性，並非史實因果。</div>
+    </div>`;
+  setTimeout(()=>{ renderDashboard(); popMeterDeltas(hit.d); }, 600);
 }
 
 /* ---------- 互動：展開史料卷軸 ---------- */
+function optionsUnlocked(mid){
+  return !!state.revealed[mid] && (!scrollQuiz[mid] || !!state.quiz[mid]);
+}
 function revealScroll(mid){
   state.revealed[mid] = true;
   document.getElementById('scrollbox-'+mid).classList.add('show');
+  renderQuiz(mid);
+  if(optionsUnlocked(mid)) document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.add('enabled'));
+}
+/* 史料判斷：先讀史料作答，答畢（無論對錯）方可議決 */
+function renderQuiz(mid){
+  const qz = scrollQuiz[mid], box = document.getElementById('quiz-'+mid);
+  if(!qz || !box) return;
+  const done = state.quiz[mid];
+  box.innerHTML = `
+    <div class="quiz-head">📜 史料判斷${done ? '' : '　<small>答題後方可議決本卷方案</small>'}</div>
+    <div class="quiz-q">${qz.q}</div>
+    <div class="quiz-opts">${qz.opts.map((o,i)=>{
+      let cls = '';
+      if(done){ if(i===qz.ans) cls=' right'; else if(i===done.pick) cls=' wrong'; }
+      return `<button class="quiz-opt${cls}" ${done?'disabled':''} onclick="answerQuiz('${mid}',${i})"><span class="qo-mark">${'甲乙丙'[i]}</span>${o}</button>`;
+    }).join('')}</div>
+    ${done ? `<div class="quiz-why ${done.ok?'ok':'no'}">${done.ok ? '✔ 判斷正確！德望 +10。' : '✘ 未中。'}${qz.why}</div>` : ''}`;
+  box.classList.add('show');
+}
+function answerQuiz(mid, i){
+  if(state.quiz[mid]) return;
+  const ok = i === scrollQuiz[mid].ans;
+  state.quiz[mid] = {pick:i, ok};
+  if(ok){ state.merit += 10; renderDashboard(); pulseRank(); verdictFlash('明　察', true); }
+  renderQuiz(mid);
   document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.add('enabled'));
 }
 
 /* ---------- 互動：揀選方案（預覽，尚未生效） ---------- */
 function selectOption(mid, key){
-  if(!state.revealed[mid]) return;
+  if(!optionsUnlocked(mid)) return;
   const m = missionData.find(x=>x.id===mid);
   const ridx = state.roundIndex[mid] || 0;
   const round = m.rounds[ridx];
@@ -2061,7 +2331,10 @@ function selectOption(mid, key){
   if(round.gated){
     const failing = Object.keys(opt.delta).filter(k=>Math.max(0,Math.min(100,state.meters[k]+opt.delta[k])) < round.safetyThreshold);
     if(failing.length){
-      warnBox.textContent = `⚠ 合憲性與安全審查未獲通過：以你目前的治理基礎，此方案會令國家安全底線失守。請重新審議，或回顧先前各卷的抉擇如何影響今日局面。`;
+      const passes = o => Object.keys(o.delta).every(k=>Math.max(0,Math.min(100,state.meters[k]+o.delta[k])) >= round.safetyThreshold);
+      const noneWork = !round.options.some(passes);
+      warnBox.innerHTML = `⚠ 合憲性與安全審查未獲通過：以你目前的治理基礎，此方案會令國家安全底線失守。請重新審議，或回顧先前各卷的抉擇如何影響今日局面。` +
+        (noneWork ? `<div class="rescue-row">你目前的局面下，三個方案都無法通過審查。<button class="btn ember" onclick="rescueGate('${mid}')">🆘 召開緊急補救會議（德望 −60）</button><small>補救可讓你完成旅程，但結業卷軸會註明「經緊急補救」——底線一旦失守，代價高昂。</small></div>` : '');
       warnBox.classList.add('show');
       stampBtn.disabled = true;
     } else {
@@ -2073,21 +2346,38 @@ function selectOption(mid, key){
   }
 }
 
+/* 終局安全門檻的補救：避免同學因前期抉擇而永遠無法完成旅程 */
+function rescueGate(mid){
+  const ridx = state.roundIndex[mid] || 0;
+  const round = missionData.find(x=>x.id===mid).rounds[ridx];
+  const top = round.options.slice().sort((a,b)=>optionScore(round,b)-optionScore(round,a))[0];
+  Object.keys(state.meters).forEach(k=>{
+    state.meters[k] = Math.max(state.meters[k], round.safetyThreshold - Math.min(0, top.delta[k]||0));
+  });
+  state.merit = Math.max(0, state.merit - 60);
+  state.rescued = true;
+  renderDashboard();
+  verdictFlash('補　救', false);
+  const key = state.chosen[mid+'#'+ridx];
+  if(key) selectOption(mid, key);
+}
 /* ---------- 互動：蓋印確認 → 生效 ---------- */
 function speakerMiniPortrait(speakerName){
   const c = classData.find(x=>x.name===speakerName);
   return c ? classPortraitSvg(c).replace('class="portrait-svg" ','') : '';
 }
 /* 蓋印後才揭曉：逐項推演四維變化，並讓學生回看其他方案的推演，作課堂討論 */
-function revealConsequence(mid, opt, before){
+function revealConsequence(mid, opt, before, wasBest){
   const ridx = state.roundIndex[mid] || 0;
   const round = missionData.find(x=>x.id===mid).rounds[ridx];
   const rkey = mid+'#'+ridx;
+  const cls0 = classData.find(x=>x.key===state.cls);
+  const focus = cls0 ? cls0.focus : null;
   const rows = Object.keys(meterMeta).map((k,i)=>{
     const d = opt.delta[k] || 0;
     const cls = d>0?'up':(d<0?'down':'flat');
-    return `<div class="cq-row" style="--i:${i}">
-      <span class="cq-name">${meterMeta[k].name}</span>
+    return `<div class="cq-row${k===focus?' mine':''}" style="--i:${i}">
+      <span class="cq-name">${meterMeta[k].name}${k===focus?'<em class="cq-mine">你的職責</em>':''}</span>
       <span class="cq-track"><span class="cq-fill ${cls}" style="--from:${before[k]}%; --to:${state.meters[k]}%"></span></span>
       <span class="cq-val"><span class="cq-count" data-from="${before[k]}" data-to="${state.meters[k]}">${before[k]}</span></span>
       <span class="delta-chip ${cls}">${d>0?'+':''}${d}</span>
@@ -2095,12 +2385,32 @@ function revealConsequence(mid, opt, before){
   }).join('');
   const others = optionOrder(rkey, round.options).filter(o=>o.key!==opt.key).map(o=>
     `<div class="cq-other"><b>${displayLetter(rkey,o.key)}．${o.label}</b>　${o.feedback}</div>`).join('');
+  /* 職司視角：同一回合，不同職司眼中的「最有利」未必相同 */
+  let lens = '';
+  if(focus){
+    const topVal = Math.max(...round.options.map(o=>o.delta[focus]||0));
+    const tops = round.options.filter(o=>(o.delta[focus]||0)===topVal);
+    const mineTop = tops.some(o=>o.key===opt.key);
+    lens = `<div class="cq-lens">🎭 <b>${cls0.name}視角</b>：` + (mineTop
+      ? `此方案對你負責的「${meterMeta[focus].name}」最有利。`
+      : `若只看你負責的「${meterMeta[focus].name}」，「${tops.map(o=>displayLetter(rkey,o.key)+'．'+o.label).join('」或「')}」會更有利——但治理須兼顧全局。`) + `</div>`;
+  }
+  /* 兩難回合：說明「守住最弱一環」的判準 */
+  let dil = '';
+  if(round.dilemma){
+    const minAfter = Math.min(...Object.values(afterMeters(before, opt)));
+    const bests = bestOptions(round, before);
+    dil = `<div class="cq-dilemma">⚖️ <b>兩難回合判準</b>：選後你四維中最低的一項是 <b>${minAfter}</b>。` + (wasBest
+      ? `在三個方案中，你的選擇最能守住最弱一環，故為上策。`
+      : `以你蓋印前的局面，「${bests.map(o=>displayLetter(rkey,o.key)+'．'+o.label).join('」或「')}」最能守住最弱一環。不同同學的局面不同，上策亦可能不同——可在課堂上比較。`) + `</div>`;
+  }
   const preview = document.getElementById('preview-'+mid);
   preview.classList.add('show','result');
   preview.innerHTML = `
     <div class="preview-header">💥 治理演算與連鎖反應</div>
     <div class="cq-rows">${rows}</div>
     <div class="feedback-text cq-feedback">${opt.feedback}</div>
+    ${dil}${lens}
     <details class="cq-others"><summary>🔍 回看其他方案的推演（課堂討論用）</summary>${others}</details>`;
   preview.querySelectorAll('.cq-count').forEach((el,i)=>countUp(el, +el.dataset.from, +el.dataset.to, 500 + i*120));
 }
@@ -2114,7 +2424,7 @@ function renderJourney(){
     const [x,y] = pts[i];
     const n = state.bestCount[m.id] || 0;
     const done = !!state.stamped[m.id+'#'+(m.rounds.length-1)];
-    const tone = !done ? 'none' : (n>=3 ? 'good' : (n>=2 ? 'mid' : 'low'));
+    const tone = !done ? 'none' : (n>=4 ? 'good' : (n>=2 ? 'mid' : 'low'));
     return `<g class="jn jn-${tone}" style="--i:${i}" transform="translate(${x},${y})">
       <circle class="jn-halo" r="27"/>
       <rect class="jn-seal" x="-19" y="-19" width="38" height="38" rx="5" transform="rotate(-6)"/>
@@ -2127,7 +2437,7 @@ function renderJourney(){
       <path class="jr-path" d="${river}" pathLength="1"/>
       ${nodes}
     </svg>
-    <div class="journey-legend"><span class="lg good"></span>3–4 次上策　<span class="lg mid"></span>2 次　<span class="lg low"></span>0–1 次</div>`;
+    <div class="journey-legend"><span class="lg good"></span>4–5 次上策　<span class="lg mid"></span>2–3 次　<span class="lg low"></span>0–1 次</div>`;
 }
 /* 圖鑑解鎖提示：右下角依次滑入 */
 let toastQueue = 0;
@@ -2188,6 +2498,17 @@ function shakeScreen(){
   setTimeout(()=>el.classList.remove('shake'), 520);
 }
 /* ---------- 卷末結算 ---------- */
+/* 職司考評：只看自己負責的指標在本卷的升跌 */
+function roleGrade(diff){ return diff>=10 ? '甲等' : (diff>=4 ? '乙等' : '丙等'); }
+function roleGradeRow(mid, start){
+  const c = classData.find(x=>x.key===state.cls);
+  if(!c) return '';
+  const diff = state.meters[c.focus] - start[c.focus];
+  /* 已近滿值時升幅自然有限，不應因此被評為低等 */
+  const g = state.meters[c.focus] >= 95 ? '甲等' : roleGrade(diff);
+  state.roleGrades[mid] = g;
+  return `<div class="settle-row role-row"><span>🎭 ${c.name}考評（${meterMeta[c.focus].name} ${diff>=0?'+':''}${diff}）</span><span class="sv grade-${g}">${g}</span></div>`;
+}
 function showSettlement(mid, m, missionIdx){
   const start = state.missionStart[mid] || {fa:50,guo:50,min:50,wen:50};
   const meritGain = state.merit - (state.missionMeritStart[mid] || 0);
@@ -2203,6 +2524,8 @@ function showSettlement(mid, m, missionIdx){
   box.innerHTML = `
     <div class="settle-title">◆ ${m.juan}　卷末結算 ◆</div>
     ${rows}
+    ${roleGradeRow(mid, start)}
+    <div class="settle-row"><span>上策次數</span><span class="sv">${state.bestCount[mid]||0} / ${m.rounds.length}${state.quiz[mid] ? `　· 史料判斷${state.quiz[mid].ok?'✔':'✘'}` : ''}</span></div>
     <div class="settle-row"><span>德望</span><span class="sv up">+${meritGain}</span></div>
     <div class="settle-row"><span>位階</span><span class="sv">${rankTitle(state.merit)}</span></div>
     <div class="settle-loot">${itemIconSvg(m.item.icon)}戰利品：${m.item.name}</div>`;
@@ -2226,10 +2549,10 @@ function stampMission(mid){
   Object.keys(opt.delta).forEach(k=>{
     state.meters[k] = Math.max(0,Math.min(100, state.meters[k]+opt.delta[k]));
   });
-  const wasBest = isBestOption(round, key);
+  const wasBest = isBestOption(round, key, before);
   state.merit += wasBest ? 30 : 15;
   state.bestCount[mid] = (state.bestCount[mid] || 0) + (wasBest ? 1 : 0);
-  revealConsequence(mid, opt, before);
+  revealConsequence(mid, opt, before, wasBest);
   state.stamped[rkey] = true;
   /* 解鎖本回合牽涉的國家安全領域 */
   let newDomains = [];
@@ -2239,7 +2562,8 @@ function stampMission(mid){
   /* 視覺回饋 */
   popMeterDeltas(opt.delta);
   const worst = Math.min(...Object.values(opt.delta));
-  if(worst >= 0){ verdictFlash('上　策', true); }
+  if(wasBest){ verdictFlash('上　策', true); }
+  else if(round.dilemma){ verdictFlash('有得有失', false); }
   else if(worst <= -5){ verdictFlash('失　策', false); shakeScreen(); }
   document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.remove('enabled'));
   document.getElementById('stampbtn-'+mid).disabled = true;
@@ -2368,7 +2692,83 @@ function genCert(){
     `${meterMeta.fa.name} ${state.meters.fa}　${meterMeta.guo.name} ${state.meters.guo}　${meterMeta.min.name} ${state.meters.min}　${meterMeta.wen.name} ${state.meters.wen}`;
   document.getElementById('certTier').textContent = `位階：${rankTitle(state.merit)}（德望 ${state.merit}）`;
   document.getElementById('certInv').textContent = `行囊中珍藏了 ${state.inventory.length} 件信物，走過六卷山河長卷。`;
+  const c = classData.find(x=>x.key===state.cls);
+  const grades = Object.values(state.roleGrades);
+  const bestTotal = Object.values(state.bestCount).reduce((a,b)=>a+b,0);
+  const totalRounds = missionData.reduce((a,m)=>a+m.rounds.length,0);
+  const quizOk = Object.values(state.quiz).filter(q=>q.ok).length;
+  document.getElementById('certRole').innerHTML =
+    (c ? `🎭 ${c.name}考評：甲等 ${grades.filter(g=>g==='甲等').length} 卷、乙等 ${grades.filter(g=>g==='乙等').length} 卷、丙等 ${grades.filter(g=>g==='丙等').length} 卷<br>` : '') +
+    `上策 ${bestTotal} / ${totalRounds}　· 史料判斷 ${quizOk} / ${missionData.length}` +
+    (state.rescued ? '<br><span style="color:var(--vermillion-deep)">※ 終局經緊急補救方通過安全審查</span>' : '');
   document.getElementById('certBox').classList.remove('hidden');
+  document.getElementById('codeOut').value = makeCode(name);
+  document.getElementById('codeBox').classList.remove('hidden');
+}
+/* ---------- 教師彙整：學生代碼 ---------- */
+function makeCode(name){
+  const data = {v:1, n:name, c:state.cls,
+    ch: missionData.map(m=>m.rounds.map((r,i)=>{ const k=m.id+'#'+i; return state.stamped[k] ? state.chosen[k] : '-'; }).join('')),
+    q: missionData.map(m=>state.quiz[m.id] ? (state.quiz[m.id].ok?'1':'0') : '-').join(''),
+    m: [state.meters.fa, state.meters.guo, state.meters.min, state.meters.wen],
+    r: state.rescued ? 1 : 0};
+  const bytes = new TextEncoder().encode(JSON.stringify(data));
+  let bin = ''; bytes.forEach(b=>bin += String.fromCharCode(b));
+  return 'TS1-' + btoa(bin);
+}
+function readCode(code){
+  try{
+    const bin = atob(code.trim().replace(/^TS1-/, ''));
+    const bytes = Uint8Array.from(bin, ch=>ch.charCodeAt(0));
+    const d = JSON.parse(new TextDecoder().decode(bytes));
+    return d && d.v===1 && Array.isArray(d.ch) ? d : null;
+  }catch(e){ return null; }
+}
+function copyCode(){
+  const t = document.getElementById('codeOut');
+  t.select();
+  const done = ()=>{ document.getElementById('codeCopied').textContent = '已複製 ✔'; };
+  if(navigator.clipboard) navigator.clipboard.writeText(t.value).then(done, ()=>{ document.execCommand('copy'); done(); });
+  else { document.execCommand('copy'); done(); }
+}
+function openTeacher(){ document.getElementById('teacherPanel').classList.add('show'); }
+function closeTeacher(){ document.getElementById('teacherPanel').classList.remove('show'); }
+function summarizeClass(){
+  const lines = document.getElementById('teacherIn').value.split(/\s+/).filter(x=>x.startsWith('TS1-'));
+  const rows = lines.map(readCode).filter(Boolean);
+  const out = document.getElementById('teacherOut');
+  if(!rows.length){ out.innerHTML = '<p class="inv-empty">未讀到有效代碼。每位學生的代碼以「TS1-」開頭，可每行貼一個。</p>'; return; }
+  const N = rows.length;
+  const avg = i => Math.round(rows.reduce((a,r)=>a+r.m[i],0)/N);
+  const roles = classData.map(c=>`${c.name} ${rows.filter(r=>r.c===c.key).length}`).join('　');
+  const rescued = rows.filter(r=>r.r).length;
+  let divergent = [];
+  const missionHtml = missionData.map((m,mi)=>{
+    const qAns = rows.map(r=>r.q[mi]).filter(x=>x!=='-');
+    const qRate = qAns.length ? Math.round(100*qAns.filter(x=>x==='1').length/qAns.length) : 0;
+    const roundsHtml = m.rounds.map((rd,ri)=>{
+      const picks = rows.map(r=>(r.ch[mi]||'')[ri]).filter(x=>x && x!=='-');
+      const n = picks.length || 1;
+      const bestKey = rd.dilemma ? null : bestOptions(rd, {fa:50,guo:50,min:50,wen:50})[0].key;
+      const counts = rd.options.map(o=>picks.filter(x=>x===o.key).length);
+      const ent = counts.reduce((a,c)=>{ const p=c/n; return p>0 ? a - p*Math.log(p) : a; }, 0);
+      divergent.push({ent, name:`${m.juan}・${rd.label}`});
+      return `<div class="tr-round"><div class="tr-label">回合 ${ri+1}・${rd.label}${rd.dilemma?' <span class="tr-dil">兩難</span>':''}</div>` +
+        rd.options.map((o,oi)=>{ const pct = Math.round(100*counts[oi]/n);
+          return `<div class="tr-bar"><span class="tr-opt">${o.label}${o.key===bestKey?' <b class="tr-best">上策</b>':''}</span><span class="tr-track"><span style="width:${pct}%"></span></span><span class="tr-pct">${counts[oi]}人 ${pct}%</span></div>`;
+        }).join('') + `</div>`;
+    }).join('');
+    return `<details class="tr-mission"${mi===0?' open':''}><summary>${m.juan}・${m.era}　${m.title}　<small>史料判斷正確率 ${qRate}%</small></summary>${roundsHtml}</details>`;
+  }).join('');
+  divergent.sort((a,b)=>b.ent-a.ent);
+  out.innerHTML = `
+    <div class="tr-summary">
+      <div><b>${N}</b> 位學生</div>
+      <div>職司分佈：${roles}</div>
+      <div>平均四維：${meterMeta.fa.name} ${avg(0)}　${meterMeta.guo.name} ${avg(1)}　${meterMeta.min.name} ${avg(2)}　${meterMeta.wen.name} ${avg(3)}</div>
+      ${rescued ? `<div>需緊急補救：${rescued} 人</div>` : ''}
+      <div class="tr-div">🔥 分歧最大、最值得討論的回合：${divergent.slice(0,3).map(d=>d.name).join('、')}</div>
+    </div>${missionHtml}`;
 }
 
 /* ---------- 重新開始 ---------- */
@@ -2377,7 +2777,7 @@ function resetGame(){
   state.meters = {fa:50,guo:50,min:50,wen:50};
   state.charName=''; state.cls=null; state.merit=0; state.inventory=[];
   Object.keys(typeTimers).forEach(k=>clearInterval(typeTimers[k]));
-  state.revealed = {}; state.chosen = {}; state.stamped = {}; state.roundIndex = {}; state.typing = {}; state.missionStart = {}; state.missionMeritStart = {}; state.domainsFound = {}; state.order = {}; state.bestCount = {};
+  state.revealed = {}; state.chosen = {}; state.stamped = {}; state.roundIndex = {}; state.typing = {}; state.missionStart = {}; state.missionMeritStart = {}; state.domainsFound = {}; state.order = {}; state.bestCount = {}; state.quiz = {}; state.echoDone = {}; state.rescued = false; state.roleGrades = {};
   document.getElementById('charName').value='';
   renderDashboard();
   renderInventory();
