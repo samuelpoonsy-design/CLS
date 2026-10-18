@@ -1,0 +1,2804 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>時空掌舵人（經典版）</title>
+<style>
+  :root{
+    --paper:#F1ECDC;
+    --paper-deep:#E4DCC2;
+    --parchment:#FAF6EA;
+    --ink:#20242B;
+    --ink-soft:#525A63;
+    --indigo:#24506A;
+    --indigo-deep:#173A4E;
+    --jade:#3F6D5A;
+    --jade-deep:#2A4A3D;
+    --vermillion:#A6342B;
+    --vermillion-deep:#7E241C;
+    --line:#C7BC9A;
+    --lattice:rgba(36,80,106,0.035);
+    --surface:rgba(250,246,234,0.94);
+    --surface-solid:#FAF6EA;
+    --shadow:rgba(32,36,43,0.2);
+    --indigo-tint:rgba(36,80,106,0.08);
+    --moon:#F1E6C8;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#151B21;
+      --paper-deep:#0F1418;
+      --parchment:#1E262D;
+      --ink:#EAE2CC;
+      --ink-soft:#B4AC93;
+      --indigo:#7FB3D5;
+      --indigo-deep:#5A93B8;
+      --jade:#74B096;
+      --jade-deep:#4F8B72;
+      --vermillion:#DD7466;
+      --vermillion-deep:#C2564A;
+      --line:#454033;
+      --lattice:rgba(127,179,213,0.05);
+      --surface:rgba(21,27,33,0.9);
+      --surface-solid:#1E262D;
+      --shadow:rgba(0,0,0,0.45);
+      --indigo-tint:rgba(127,179,213,0.14);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#151B21;
+    --paper-deep:#0F1418;
+    --parchment:#1E262D;
+    --ink:#EAE2CC;
+    --ink-soft:#B4AC93;
+    --indigo:#7FB3D5;
+    --indigo-deep:#5A93B8;
+    --jade:#74B096;
+    --jade-deep:#4F8B72;
+    --vermillion:#DD7466;
+    --vermillion-deep:#C2564A;
+    --line:#454033;
+    --lattice:rgba(127,179,213,0.05);
+    --surface:rgba(21,27,33,0.9);
+    --surface-solid:#1E262D;
+    --shadow:rgba(0,0,0,0.45);
+    --indigo-tint:rgba(127,179,213,0.14);
+  }
+  :root[data-theme="light"]{
+    --paper:#F1ECDC;
+    --paper-deep:#E4DCC2;
+    --parchment:#FAF6EA;
+    --ink:#20242B;
+    --ink-soft:#525A63;
+    --indigo:#24506A;
+    --indigo-deep:#173A4E;
+    --jade:#3F6D5A;
+    --jade-deep:#2A4A3D;
+    --vermillion:#A6342B;
+    --vermillion-deep:#7E241C;
+    --line:#C7BC9A;
+    --lattice:rgba(36,80,106,0.035);
+    --surface:rgba(250,246,234,0.94);
+    --surface-solid:#FAF6EA;
+    --shadow:rgba(32,36,43,0.2);
+    --indigo-tint:rgba(36,80,106,0.08);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      repeating-linear-gradient(60deg, var(--lattice) 0px, var(--lattice) 1px, transparent 1px, transparent 26px),
+      repeating-linear-gradient(-60deg, var(--lattice) 0px, var(--lattice) 1px, transparent 1px, transparent 26px);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    transition:background-color .3s ease, color .3s ease;
+  }
+  h1,h2,h3{font-family:"Noto Serif TC","Kaiti TC","STKaiti",serif; margin:0; font-weight:700;}
+  .tag{font-size:0.72rem; letter-spacing:0.18em; color:var(--indigo);}
+
+  /* 遠山近水：固定背景 */
+  #bgArt{position:fixed; left:0; right:0; bottom:0; height:40vh; min-height:240px; z-index:0; pointer-events:none; overflow:hidden;}
+  #bgArt svg{width:100%; height:100%; display:block;}
+  .peak-far{fill:var(--indigo); opacity:0.12;}
+  .peak-mid{fill:var(--indigo); opacity:0.20;}
+  .peak-near{fill:var(--indigo-deep); opacity:0.30;}
+  .moon-disc{fill:var(--moon);}
+  .cloud-deco{position:absolute; z-index:0; opacity:0.5; pointer-events:none;}
+  .compass-deco{position:absolute; z-index:0; opacity:0.6; pointer-events:none;}
+  .seal-badge{position:relative; width:44px; height:44px; flex-shrink:0;}
+  .seal-badge svg{width:100%; height:100%;}
+  .seal-char{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:700; color:var(--vermillion-deep); font-size:1.15rem; font-family:"Kaiti TC","STKaiti",serif;}
+  .focus-badge{display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:10px; padding-top:10px; border-top:1px dashed var(--line);}
+  .focus-badge svg{width:26px; height:26px; color:var(--indigo);}
+  .focus-badge span{font-size:0.68rem; color:var(--ink-soft); letter-spacing:0.04em;}
+  .mission-seal{position:absolute; top:0; right:0; width:50px; height:50px;}
+  .final-banner{width:100%; height:auto; margin-bottom:8px;}
+  .stage-icon{display:inline-flex; width:26px; height:26px; vertical-align:middle; margin-right:6px; color:var(--indigo-deep);}
+  .cert-flourish{width:28px; height:28px; color:var(--jade); flex-shrink:0;}
+  .cert-name-row{display:flex; align-items:center; justify-content:center; gap:10px;}
+  .cloud-indigo path{stroke:var(--indigo);}
+  .cloud-jade path{stroke:var(--jade);}
+
+  /* 回紋飾帶 */
+  .fret{
+    height:8px; opacity:0.5; margin:0 auto;
+    background-image:
+      linear-gradient(45deg, var(--indigo) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--indigo) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--indigo) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--indigo) 75%);
+    background-size:10px 10px;
+  }
+
+  /* 角飾框 */
+  .scroll-panel{position:relative; padding:22px 24px; border:1px solid var(--line); background:var(--parchment); border-radius:2px;}
+  .scroll-panel::before,.scroll-panel::after{content:""; position:absolute; width:16px; height:16px; pointer-events:none;}
+  .scroll-panel::before{top:-1px;left:-1px; border-top:2px solid var(--indigo); border-left:2px solid var(--indigo);}
+  .scroll-panel::after{bottom:-1px; right:-1px; border-bottom:2px solid var(--indigo); border-right:2px solid var(--indigo);}
+
+  /* 頂部導覽 */
+  #rail{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:var(--surface);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    padding:9px 16px;
+    display:flex; align-items:center; justify-content:center; gap:16px;
+    flex-wrap:wrap;
+  }
+  #resetLink{
+    font-size:0.78rem; color:var(--ink-soft);
+    border:1px solid var(--line); padding:4px 10px; border-radius:14px; cursor:pointer; background:transparent;
+    font-family:inherit;
+  }
+  #resetLink:hover{border-color:var(--vermillion); color:var(--vermillion-deep);}
+  .dot-group{display:flex; align-items:center; gap:5px; flex-wrap:wrap; justify-content:center;}
+  .dot{
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.85rem; font-weight:700;
+    border:1.5px solid var(--line); color:var(--ink-soft); background:var(--parchment);
+    transition:all .3s ease; cursor:default;
+  }
+  .dot.unlocked{border-color:var(--jade); color:var(--jade-deep); cursor:pointer;}
+  .dot.current{background:var(--indigo); color:#fff; border-color:var(--indigo);}
+  .dot.done{background:var(--vermillion-deep); color:#fff; border-color:var(--vermillion-deep);}
+  .rail-sep{width:10px;height:1px;background:var(--line);}
+
+  /* 儀表：位階／德望／四維／行囊 */
+  #dashboard{
+    position:fixed; top:51px; left:0; right:0; z-index:45;
+    background:var(--surface); border-bottom:1px solid var(--line);
+    padding:8px 16px; display:none; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap;
+    backdrop-filter:blur(6px); font-size:0.75rem;
+  }
+  #dashboard.show{display:flex;}
+  .dash-zone{display:flex; align-items:center; gap:14px; padding:0 14px; position:relative;}
+  .dash-zone + .dash-zone::before{
+    content:''; position:absolute; left:0; top:50%; transform:translateY(-50%);
+    width:1px; height:20px; background:var(--line);
+  }
+  .dash-zone-id{padding-left:0;}
+  .dash-zone-actions{gap:8px;}
+  #rankBadge{
+    font-weight:700; color:var(--indigo-deep); border:1px solid var(--indigo); padding:4px 12px;
+    border-radius:16px; background:var(--indigo-tint); white-space:nowrap; transition:transform .2s ease;
+  }
+  #rankBadge.pulse{transform:scale(1.12);}
+  .meter{display:flex; align-items:center; gap:5px;}
+  .meter .mlabel{color:var(--ink-soft); white-space:nowrap;}
+  .meter .mtrack{width:52px; height:7px; background:var(--paper-deep); border-radius:4px; overflow:hidden; border:1px solid var(--line);}
+  .meter .mfill{height:100%; background:var(--jade); transition:width .5s ease, background .3s ease;}
+  .meter .mfill.warn{background:var(--vermillion);}
+  .meter .mval{font-weight:700; color:var(--ink); width:20px;}
+  #invBtn{border:1px solid var(--indigo); color:var(--indigo-deep); background:transparent; padding:4px 12px; border-radius:16px; cursor:pointer; font-family:inherit; font-size:0.75rem;}
+  #invBtn:hover{background:var(--indigo-tint);}
+
+  /* 行囊面板 */
+  /* 國安圖鑑 */
+  #codexBtn{border:1px solid var(--vermillion); color:var(--vermillion-deep); background:transparent; padding:4px 12px; border-radius:16px; cursor:pointer; font-family:inherit; font-size:0.75rem;}
+  #codexBtn:hover{background:rgba(166,52,43,0.1);}
+  #codexPanel{
+    position:fixed; top:96px; right:16px; z-index:62; width:min(430px,92vw);
+    max-height:74vh; overflow-y:auto;
+    background:var(--parchment); border:2px solid var(--vermillion-deep);
+    box-shadow:
+      inset 0 0 0 4px var(--parchment), inset 0 0 0 5px var(--line), inset 0 0 0 7px var(--parchment),
+      0 12px 34px var(--shadow);
+    padding:24px; display:none; border-radius:2px;
+  }
+  #codexPanel.show{display:block;}
+  #codexPanel h4{font-size:1rem; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; color:var(--vermillion-deep);}
+  #codexPanel h4 button{background:none;border:none;font-size:1rem;cursor:pointer;color:var(--ink-soft);}
+  .codex-intro{font-size:0.83rem; color:var(--ink-soft); line-height:1.75; margin:0 0 14px; padding-bottom:12px; border-bottom:1px solid var(--line);}
+  .codex-intro b{color:var(--vermillion-deep);}
+  .codex-meters{display:flex; flex-direction:column; gap:6px; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid var(--line);}
+  .codex-meter{font-size:0.79rem; color:var(--ink-soft); background:var(--indigo-tint); border-left:3px solid var(--indigo); padding:6px 9px;}
+  .codex-meter b{color:var(--indigo-deep); display:block;}
+  .codex-grid{display:flex; flex-direction:column; gap:7px;}
+  .codex-item{border:1px solid var(--line); border-left:3px solid var(--line); padding:8px 10px; font-size:0.8rem; opacity:0.45; background:var(--paper);}
+  .codex-item.found{opacity:1; border-left-color:var(--vermillion); background:var(--parchment);}
+  .codex-item .cn{font-weight:700; color:var(--ink); display:flex; justify-content:space-between; gap:8px;}
+  .codex-item .cmark{font-size:0.68rem; color:var(--ink-soft); font-weight:400; white-space:nowrap;}
+  .codex-item.found .cmark{color:var(--vermillion-deep);}
+  .codex-item .cd{color:var(--ink-soft); margin-top:3px; line-height:1.65;}
+  /* 回合中的國安領域標籤 */
+  .domain-row{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:10px 0 4px;}
+  .domain-row .dlabel{font-size:0.75rem; color:var(--ink-soft);}
+  .domain-tag{
+    font-size:0.73rem; padding:2px 9px; border-radius:11px;
+    border:1px solid var(--vermillion); color:var(--vermillion-deep); background:rgba(166,52,43,0.07);
+  }
+  .domain-note{font-size:0.8rem; color:var(--ink-soft); font-style:italic; margin-top:4px;}
+
+  #invPanel{
+    position:fixed; top:96px; right:16px; z-index:60; width:min(320px,86vw);
+    background:var(--parchment); border:2px solid var(--indigo-deep);
+    box-shadow:
+      inset 0 0 0 4px var(--parchment), inset 0 0 0 5px var(--line), inset 0 0 0 7px var(--parchment),
+      0 10px 30px var(--shadow);
+    padding:22px; display:none; border-radius:2px;
+  }
+  #invPanel.show{display:block;}
+  #invPanel h4{font-size:1rem; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;}
+  #invPanel h4 button{background:none;border:none;font-size:1rem;cursor:pointer;color:var(--ink-soft);}
+  .inv-item{border-left:3px solid var(--indigo); padding:8px 10px; margin-bottom:8px; background:var(--paper); font-size:0.85rem;}
+  .inv-icon{width:26px; height:26px; vertical-align:middle; margin-right:8px; color:var(--indigo-deep);}
+  .item-gained .inv-icon{width:22px; height:22px; margin-right:6px; color:var(--indigo-deep);}
+  .inv-item b{color:var(--indigo-deep);}
+  .inv-empty{font-size:0.85rem; color:var(--ink-soft); font-style:italic;}
+
+  section{
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:130px 24px 80px;
+    position:relative; z-index:1;
+    scroll-margin-top:60px;
+  }
+  section{display:none;}
+  section.active{display:flex;}
+
+  .frame{max-width:800px; width:100%;}
+
+  /* 開篇 */
+  #hero{padding-top:110px; position:relative;}
+  #hero.active{display:flex !important;}
+  #hero h1{font-size:clamp(2.2rem,6vw,3.4rem); letter-spacing:0.12em; line-height:1.4;}
+  #hero .subtitle{font-style:italic; color:var(--ink-soft); font-size:1.05rem; margin-top:12px; letter-spacing:0.06em;}
+  #hero p.desc{margin-top:30px; color:var(--ink-soft); font-size:1.02rem; text-align:left;}
+
+  .divider-ornament{display:flex; align-items:center; gap:14px; margin:28px 0;}
+  .divider-ornament .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--indigo),transparent);}
+  .helm{position:relative; width:88px; height:88px; flex-shrink:0;}
+  .helm svg{width:100%; height:100%;}
+  .helm .emblem{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:44px;height:44px;border-radius:50%;border:2px solid var(--vermillion);
+    display:flex;align-items:center;justify-content:center;color:var(--vermillion-deep);
+    font-weight:700;font-size:1.1rem;background:var(--parchment);
+  }
+  .helm-ring{fill:none; stroke:var(--vermillion); stroke-width:3; opacity:0.55;}
+  .helm-hub{fill:none; stroke:var(--vermillion); stroke-width:2.5; opacity:0.55;}
+  .helm-spoke{stroke:var(--vermillion); stroke-width:2.5; opacity:0.55;}
+  .helm-knob{fill:var(--vermillion); opacity:0.6;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--ink); color:var(--parchment); border:none;
+    padding:13px 28px; font-size:1rem; font-family:inherit; font-weight:700;
+    border-radius:2px; cursor:pointer; letter-spacing:0.05em;
+    transition:transform .15s ease, background .2s ease;
+  }
+  .btn:hover{background:var(--indigo-deep); transform:translateY(-1px);}
+  .btn:focus-visible{outline:3px solid var(--indigo); outline-offset:2px;}
+  .btn.ember{background:var(--vermillion);}
+  .btn.ember:hover{background:var(--vermillion-deep);}
+  .btn[disabled]{opacity:0.35; cursor:not-allowed; transform:none;}
+
+  /* 人物創設 */
+  .cc-row{display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap; margin-bottom:24px;}
+  .cc-row label{display:block; font-size:0.85rem; color:var(--ink-soft); margin-bottom:6px;}
+  .class-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; margin:20px 0 26px;}
+  .class-card{border:1px solid var(--line); background:var(--parchment); padding:18px; border-radius:2px; cursor:pointer; text-align:left; transition:all .2s;}
+  .class-card:hover{border-color:var(--jade);}
+  .class-card.chosen{border-color:var(--indigo); box-shadow:0 0 0 1px var(--indigo);}
+  .portrait-svg{width:64px; height:64px; display:block; margin:0 auto 10px;}
+  .class-card h4{margin:0 0 4px; font-size:1.15rem; color:var(--indigo-deep); text-align:center;}
+  .class-card .cc-tag{font-size:0.7rem; color:var(--indigo); letter-spacing:0.1em; display:block; text-align:center;}
+  .class-card p{margin:8px 0 0; font-size:0.83rem; color:var(--ink-soft);}
+  .class-card .skill{font-size:0.78rem; margin-top:8px; color:var(--jade-deep);}
+  .id-scroll{display:none; margin-top:6px;}
+  .id-scroll.show{display:block;}
+  .id-scroll .idname{font-size:1.2rem; font-weight:700; color:var(--indigo-deep); margin-bottom:4px;}
+  .id-scroll .idclass{font-size:0.9rem; color:var(--ink-soft); margin-bottom:14px;}
+
+  /* 任務卷 */
+  .juan-row{display:flex; gap:16px; align-items:flex-start;}
+  .juan-mark{
+    writing-mode:vertical-rl; font-size:0.92rem; letter-spacing:0.35em; color:var(--indigo-deep);
+    border-right:1px solid var(--line); padding:2px 12px 2px 0; flex-shrink:0;
+  }
+  .day-title h2{font-size:1.4rem;}
+  .day-loc{color:var(--indigo); font-size:0.88rem; margin:6px 0 4px;}
+  .mission-art{width:100%; height:auto; margin:14px 0 6px; display:block; border-radius:2px; overflow:hidden; box-shadow:0 2px 10px var(--shadow);}
+  .mart-a{fill:var(--indigo); opacity:0.82;}
+  .mart-b{fill:var(--indigo-deep); opacity:0.92;}
+  .mart-line{stroke:var(--indigo-deep); stroke-width:2.5; fill:none;}
+  .mart-accent{fill:var(--vermillion); opacity:0.75;}
+  .mart-mtn-far{fill:var(--indigo); opacity:0.16;}
+  .mart-mtn-near{fill:var(--indigo-deep); opacity:0.28;}
+  .mart-ground{fill:var(--parchment);}
+  @media (prefers-reduced-motion: no-preference){
+    .mart-p1{animation:martDrift1 9s ease-in-out infinite;}
+    .mart-p2{animation:martDrift2 12s ease-in-out infinite;}
+    .mart-p3{animation:martDrift3 7s ease-in-out infinite;}
+  }
+  @keyframes martDrift1{0%,100%{transform:translate(0,0); opacity:0.55;}50%{transform:translate(6px,-14px); opacity:0.95;}}
+  @keyframes martDrift2{0%,100%{transform:translate(0,0); opacity:0.35;}50%{transform:translate(-10px,-8px); opacity:0.7;}}
+  @keyframes martDrift3{0%,100%{transform:translate(0,0) scale(1); opacity:0.4;}50%{transform:translate(4px,6px) scale(1.25); opacity:0.85;}}
+  /* 場景前景動畫：竹搖、香煙、船浮、燈晃、炮煙、天秤 */
+  .mission-art [class*="anim-"]{transform-box:fill-box;}
+  .mart-smoke path{fill:none; stroke:var(--ink-soft); stroke-width:1.6; stroke-linecap:round; opacity:0;}
+  .anim-sway{transform-origin:50% 100%;}
+  .anim-swing{transform-origin:50% 0%;}
+  .anim-crane{transform-origin:59% 0%;}
+  .anim-balance{transform-origin:50% 0%;}
+  .anim-grow{transform-origin:50% 100%;}
+  .anim-flag{transform-origin:0% 50%;}
+  .anim-sail{transform-origin:0% 100%;}
+  .anim-puff, .anim-flash{opacity:0; transform-origin:50% 50%;}
+  @media (prefers-reduced-motion: no-preference){
+    .anim-sway{animation:sway 4.2s ease-in-out infinite;}
+    .anim-sway.d2{animation-duration:5s; animation-delay:-1.4s;}
+    .anim-sway.d3{animation-duration:4.6s; animation-delay:-2.6s;}
+    .anim-rise{animation:rise 3.6s ease-out infinite;}
+    .anim-rise.d2{animation-delay:1.2s;} .anim-rise.d3{animation-delay:2.4s;}
+    .anim-bob{animation:bob 3.4s ease-in-out infinite;}
+    .anim-wave{animation:wave 5s ease-in-out infinite;}
+    .anim-wave.d2{animation-duration:6.2s; animation-direction:reverse;}
+    .anim-flag{animation:flag 1.1s ease-in-out infinite;}
+    .anim-sail{animation:sail 3.4s ease-in-out infinite;}
+    .anim-float{animation:bob 4.5s ease-in-out infinite;}
+    .anim-swing{animation:swing 3s ease-in-out infinite;}
+    .anim-swing.d2{animation-delay:-1.5s;}
+    .lantern-glow{animation:glow 2.4s ease-in-out infinite;}
+    .anim-recoil{animation:recoil 3.2s ease-out infinite;}
+    .anim-flash{animation:flash 3.2s ease-out infinite;}
+    .anim-puff{animation:puff 3.2s ease-out infinite;}
+    .anim-puff.d2{animation-delay:.25s;} .anim-puff.d3{animation-delay:.5s;}
+    .anim-pulse{animation:pulseR 3s ease-in-out infinite; transform-origin:50% 50%;}
+    .anim-crane{animation:crane 6s ease-in-out infinite;}
+    .anim-grow{animation:grow .9s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(var(--i) * 90ms);}
+    .anim-balance{animation:balance 5s ease-in-out infinite;}
+  }
+  @keyframes sway{0%,100%{transform:rotate(-2.5deg);}50%{transform:rotate(2.5deg);}}
+  @keyframes rise{0%{opacity:0; transform:translateY(4px);}25%{opacity:.6;}100%{opacity:0; transform:translateY(-16px) scaleX(1.4);}}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg);}50%{transform:translateY(-4px) rotate(1deg);}}
+  @keyframes wave{0%,100%{transform:translateX(0);}50%{transform:translateX(-22px);}}
+  @keyframes flag{0%,100%{transform:scaleX(1) skewY(0);}50%{transform:scaleX(.8) skewY(-8deg);}}
+  @keyframes sail{0%,100%{transform:scaleX(1);}50%{transform:scaleX(1.06);}}
+  @keyframes swing{0%,100%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}}
+  @keyframes glow{0%,100%{opacity:.7;}50%{opacity:.95;}}
+  @keyframes recoil{0%,8%{transform:translateX(0);}12%{transform:translateX(-8px);}40%,100%{transform:translateX(0);}}
+  @keyframes flash{0%,8%{opacity:0; transform:scale(.4);}12%{opacity:.9; transform:scale(1.3);}24%,100%{opacity:0; transform:scale(1.6);}}
+  @keyframes puff{0%,10%{opacity:0; transform:translate(0,0) scale(.5);}25%{opacity:.55;}100%{opacity:0; transform:translate(22px,-26px) scale(2.2);}}
+  @keyframes pulseR{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
+  @keyframes crane{0%,100%{transform:rotate(-3deg);}50%{transform:rotate(3deg);}}
+  @keyframes grow{from{transform:scaleY(0);}to{transform:scaleY(1);}}
+  @keyframes balance{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);}}
+
+  /* 立繪：眨眼與說話口型 */
+  .dlg-portrait .eyes, .dlg-portrait .mouth{transform-box:fill-box; transform-origin:50% 50%;}
+  @media (prefers-reduced-motion: no-preference){
+    .dlg-portrait .eyes{animation:blink 4.2s infinite;}
+    .dlg-portrait.talking .mouth{animation:talk .16s ease-in-out infinite alternate;}
+  }
+  @keyframes blink{0%,94%,100%{transform:scaleY(1);}97%{transform:scaleY(.1);}}
+  @keyframes talk{from{transform:scaleY(1);}to{transform:scaleY(2.4) scaleX(.85);}}
+
+  /* 終卷：時空足跡 */
+  .journey-wrap{margin:10px 0 24px;}
+  .journey-svg{width:100%; height:auto; display:block;}
+  .jr-river{fill:none; stroke:var(--indigo); stroke-width:14; opacity:0.12; stroke-linecap:round;}
+  .jr-path{fill:none; stroke:var(--indigo-deep); stroke-width:2.5; stroke-dasharray:0.012 0.012; opacity:0.6;}
+  .jn-halo{fill:var(--paper); stroke:var(--line); stroke-width:1.5;}
+  .jn-seal{fill:none; stroke:var(--ink-soft); stroke-width:2.5;}
+  .jn-era{font-size:20px; font-weight:700; fill:var(--ink-soft); font-family:"Kaiti TC","STKaiti",serif;}
+  .jn-lbl{font-size:11px; fill:var(--ink-soft);}
+  .jn-good .jn-seal{stroke:var(--jade-deep); fill:rgba(63,109,90,0.12);} .jn-good .jn-era{fill:var(--jade-deep);}
+  .jn-mid .jn-seal{stroke:var(--indigo-deep); fill:var(--indigo-tint);} .jn-mid .jn-era{fill:var(--indigo-deep);}
+  .jn-low .jn-seal{stroke:var(--vermillion); fill:rgba(166,52,43,0.1);} .jn-low .jn-era{fill:var(--vermillion-deep);}
+  .journey-legend{font-size:0.75rem; color:var(--ink-soft); text-align:center; margin-top:4px;}
+  .journey-legend .lg{display:inline-block; width:10px; height:10px; border-radius:2px; margin:0 4px 0 10px; vertical-align:middle;}
+  .lg.good{background:var(--jade-deep);} .lg.mid{background:var(--indigo-deep);} .lg.low{background:var(--vermillion);}
+  .journey-note{font-size:0.83rem; color:var(--ink-soft); margin-top:8px;}
+  .jn{transform-box:fill-box;}
+  @media (prefers-reduced-motion: no-preference){
+    .jr-path{stroke-dasharray:1; stroke-dashoffset:1; animation:drawPath 2.4s ease-out .2s forwards;}
+    .jn{opacity:0; animation:nodeIn .5s cubic-bezier(.3,1.6,.5,1) forwards; animation-delay:calc(.4s + var(--i) * .35s);}
+  }
+  @keyframes drawPath{to{stroke-dashoffset:0;}}
+  @keyframes nodeIn{to{opacity:1;}}
+
+  /* 國安領域圖示 */
+  .dicon{width:15px; height:15px; vertical-align:-3px; margin-right:4px; flex-shrink:0;}
+  .domain-tag{display:inline-flex; align-items:center;}
+  @media (prefers-reduced-motion: no-preference){
+    .domain-tag{animation:optIn .4s ease-out both; animation-delay:calc(var(--i,0) * 110ms);}
+  }
+  .codex-item{display:flex; gap:10px; align-items:flex-start;}
+  .codex-ico{width:34px; height:34px; flex-shrink:0; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--ink-soft); background:var(--paper);}
+  .codex-ico .dicon{width:20px; height:20px; margin:0;}
+  .codex-item.found .codex-ico{color:var(--vermillion-deep); border-color:var(--vermillion); background:rgba(166,52,43,0.07);}
+  .codex-body{flex:1; min-width:0;}
+  #toastStack{position:fixed; right:16px; bottom:18px; z-index:90; display:flex; flex-direction:column; gap:8px; align-items:flex-end; pointer-events:none;}
+  .unlock-toast{display:flex; gap:10px; align-items:center; padding:9px 14px 9px 10px; background:var(--parchment); border:2px solid var(--vermillion-deep); box-shadow:0 8px 22px var(--shadow); color:var(--ink); font-size:0.85rem;}
+  .unlock-toast small{display:block; font-size:0.68rem; color:var(--vermillion-deep); letter-spacing:0.08em;}
+  .unlock-toast .ut-ico{width:32px; height:32px; border-radius:50%; background:rgba(166,52,43,0.1); color:var(--vermillion-deep); display:flex; align-items:center; justify-content:center;}
+  .unlock-toast .ut-ico .dicon{width:20px; height:20px; margin:0;}
+  @media (prefers-reduced-motion: no-preference){
+    .unlock-toast{animation:toastIn .45s cubic-bezier(.2,.9,.3,1.3) both;}
+    .unlock-toast .ut-ico{animation:icoSpin .8s ease-out .2s both;}
+  }
+  .unlock-toast.out{opacity:0; transform:translateX(30px); transition:all .35s ease;}
+  @keyframes toastIn{from{opacity:0; transform:translateX(60px);}to{opacity:1; transform:none;}}
+  @keyframes icoSpin{from{transform:rotate(-180deg) scale(.4);}to{transform:none;}}
+
+  /* 蓋印：落印 + 墨暈 */
+  .stamp-mark{position:relative;}
+  .stamp-mark::after{content:''; position:absolute; inset:-6px; border:2px solid var(--vermillion); border-radius:10px; opacity:0; pointer-events:none;}
+  @media (prefers-reduced-motion: no-preference){
+    .stamp-mark.show{animation:stampSlam .5s cubic-bezier(.3,1.6,.5,1) both;}
+    .stamp-mark.show::after{animation:inkRing .7s ease-out .18s both;}
+    .item-gained.show .inv-icon{animation:itemPop .8s cubic-bezier(.3,1.6,.5,1) both;}
+    .item-gained.show{animation:optIn .5s ease-out both;}
+    .settle-box.show .settle-row, .settle-box.show .settle-loot{animation:optIn .4s ease-out both;}
+    .settle-box.show .settle-row:nth-child(2){animation-delay:.1s;} .settle-box.show .settle-row:nth-child(3){animation-delay:.2s;}
+    .settle-box.show .settle-row:nth-child(4){animation-delay:.3s;} .settle-box.show .settle-row:nth-child(5){animation-delay:.4s;}
+    .settle-box.show .settle-row:nth-child(6){animation-delay:.5s;} .settle-box.show .settle-row:nth-child(7){animation-delay:.6s;}
+    .settle-box.show .settle-loot{animation-delay:.8s;}
+    .settle-box.show .settle-loot .inv-icon{animation:itemPop .8s cubic-bezier(.3,1.6,.5,1) 1s both;}
+    .helm svg{animation:helmSpin 40s linear infinite;}
+  }
+  @keyframes stampSlam{0%{opacity:0; transform:scale(2.4) rotate(-20deg);}60%{opacity:.95; transform:scale(.92) rotate(-5deg);}100%{opacity:.88; transform:scale(1) rotate(-6deg);}}
+  @keyframes inkRing{0%{opacity:.7; transform:scale(.8);}100%{opacity:0; transform:scale(1.7);}}
+  @keyframes itemPop{0%{transform:scale(0) rotate(-30deg);}100%{transform:none;}}
+  @keyframes helmSpin{to{transform:rotate(360deg);}}
+
+  /* 對話框：JRPG 式框線 + 立繪 + 姓名牌 */
+  .dialogue-box{
+    position:relative; display:flex; gap:18px; align-items:stretch;
+    margin:30px 0 4px; padding:22px 24px 20px 20px; min-height:150px;
+    background:
+      repeating-linear-gradient(115deg, var(--indigo-tint) 0 2px, transparent 2px 34px),
+      repeating-linear-gradient(25deg, rgba(0,0,0,0.02) 0 1px, transparent 1px 22px),
+      var(--parchment);
+    border:3px solid var(--indigo-deep); border-radius:2px;
+    box-shadow:
+      inset 0 0 0 5px var(--parchment),
+      inset 0 0 0 6px var(--line),
+      inset 0 0 0 8px var(--parchment),
+      0 6px 18px var(--shadow);
+    cursor:pointer; user-select:none;
+  }
+  .dialogue-box::before, .dialogue-box::after,
+  .dialogue-box .dlg-corner-l, .dialogue-box .dlg-corner-r{
+    content:''; position:absolute; width:20px; height:20px; pointer-events:none;
+    border-color:var(--vermillion); opacity:0.75;
+  }
+  .dialogue-box::before{ top:6px; left:6px; border-top:2.5px solid; border-left:2.5px solid; border-radius:3px 0 0 0; }
+  .dialogue-box::after{ top:6px; right:6px; border-top:2.5px solid; border-right:2.5px solid; border-radius:0 3px 0 0; }
+  .dialogue-box .dlg-corner-l{ bottom:6px; left:6px; border-bottom:2.5px solid; border-left:2.5px solid; border-radius:0 0 0 3px; }
+  .dialogue-box .dlg-corner-r{ bottom:6px; right:6px; border-bottom:2.5px solid; border-right:2.5px solid; border-radius:0 0 3px 0; }
+  .dialogue-box:focus-visible{outline:3px solid var(--vermillion); outline-offset:3px;}
+  .dlg-portrait{
+    width:150px; flex-shrink:0; position:relative; padding:5px;
+    border:1px solid var(--line); border-radius:2px;
+    background:var(--paper);
+    display:flex; align-items:flex-end; justify-content:center; overflow:hidden;
+  }
+  .dlg-portrait::before{
+    content:''; position:absolute; inset:5px; border:1px solid var(--indigo-tint); border-radius:1px; pointer-events:none;
+  }
+  .dlg-portrait svg{width:100%; height:auto; display:block; margin:0; position:relative;}
+  .dlg-portrait-pop svg{ transform-origin:bottom center; }
+  @media (prefers-reduced-motion: no-preference){
+    .dlg-portrait-pop svg{ animation:dlgPortraitPop 0.32s ease-out; }
+  }
+  @keyframes dlgPortraitPop{ 0%{ transform:translateY(6px) scale(0.96); opacity:0.5; filter:brightness(0.85); } 100%{ transform:translateY(0) scale(1); opacity:1; filter:brightness(1.06); } }
+  .dlg-nametag{
+    position:absolute; top:-16px; left:20px; padding:4px 20px 5px;
+    background:var(--indigo-deep); color:var(--parchment);
+    font-size:0.78rem; font-weight:700; letter-spacing:0.12em;
+    clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);
+    box-shadow:0 3px 8px var(--shadow);
+  }
+  .dlg-nametag::before{
+    content:''; position:absolute; top:-7px; left:50%; width:2px; height:8px;
+    background:var(--indigo-deep); transform:translateX(-50%);
+  }
+  .dlg-body{flex:1; padding-top:8px; min-width:0;}
+  .dlg-line{font-size:0.97rem; color:var(--ink); line-height:1.9;}
+  .dlg-caret{
+    display:inline-block; width:0; height:0; margin-left:6px; vertical-align:middle;
+    border-left:8px solid var(--vermillion); border-top:5.5px solid transparent; border-bottom:5.5px solid transparent;
+    opacity:0; transform-origin:left center;
+  }
+  .dlg-caret.show{opacity:1;}
+  @media (prefers-reduced-motion: no-preference){
+    .dlg-caret.show{animation:caretBreathe 1.1s ease-in-out infinite;}
+  }
+  @keyframes caretBreathe{0%,100%{opacity:1; transform:translateX(0) scale(1);}50%{opacity:0.45; transform:translateX(3px) scale(0.85);}}
+  .dlg-controls{display:flex; justify-content:space-between; align-items:center; margin:12px 0 22px;}
+  .dlg-progress{font-size:0.75rem; color:var(--ink-soft); letter-spacing:0.08em;}
+  .dlg-hint{font-size:0.72rem; color:var(--ink-soft); font-style:italic;}
+  .dlg-btns{display:flex; gap:8px; align-items:center;}
+  .scene-wrap{display:none;}
+  .scene-wrap.show{display:block;}
+
+  .day-text{color:var(--ink-soft); margin-bottom:18px;}
+  .role-hint{font-size:0.85rem; color:var(--jade-deep); background:rgba(47,93,80,0.08); border-left:3px solid var(--jade); padding:8px 12px; margin-bottom:20px; display:none;}
+  .role-hint.show{display:block;}
+
+  .scroll-wrap{margin-bottom:22px;}
+  .scroll-toggle{
+    background:transparent; border:1px dashed var(--indigo); color:var(--indigo);
+    padding:9px 16px; border-radius:2px; cursor:pointer; font-family:inherit; font-size:0.88rem;
+  }
+  .scroll-toggle:hover{background:rgba(36,80,106,0.08);}
+  .scroll-box{
+    margin-top:12px; padding:16px 18px; font-size:0.9rem; color:var(--ink-soft);
+    display:none; white-space:pre-line; border-left:4px solid var(--indigo);
+  }
+  .scroll-box.show{display:block;}
+  .scroll-box .stitle{font-weight:700; color:var(--ink); display:block; margin-bottom:8px; font-size:0.88rem;}
+  .scroll-box blockquote{margin:0; font-style:italic; color:var(--ink); border-left:2px solid var(--line); padding-left:12px;}
+
+  .decision-box{padding:22px 24px;}
+  .decision-q{font-weight:700; margin-bottom:16px;}
+  .section-label{font-weight:700; font-size:0.95rem; margin:22px 0 10px; color:var(--ink);}
+  .section-label.first{margin-top:0;}
+  .delib-list{display:flex; flex-direction:column; gap:8px; margin-bottom:22px;}
+  .delib-item{background:var(--parchment); border:1px solid var(--line); border-left:3px solid var(--jade); padding:10px 14px; font-size:0.88rem; color:var(--ink-soft);}
+  .delib-item b{color:var(--jade-deep); font-weight:700;}
+  /* 數值浮動跳字 / 判定閃字 / 震動 / 卷末結算 */
+  .pop-layer{position:fixed; inset:0; pointer-events:none; z-index:70;}
+  .pop-num{
+    position:absolute; font-weight:700; font-size:1.05rem; white-space:nowrap;
+    text-shadow:0 1px 3px var(--paper), 0 0 8px var(--paper);
+  }
+  .pop-num.up{color:var(--jade-deep);}
+  .pop-num.down{color:var(--vermillion);}
+  @media (prefers-reduced-motion: no-preference){
+    .pop-num{animation:popFloat 1.25s ease-out forwards;}
+  }
+  @keyframes popFloat{
+    0%{transform:translateY(6px) scale(0.85); opacity:0;}
+    18%{transform:translateY(0) scale(1.12); opacity:1;}
+    100%{transform:translateY(-42px) scale(1); opacity:0;}
+  }
+  .verdict-flash{
+    position:fixed; top:38%; left:50%; z-index:75; pointer-events:none;
+    font-size:2.4rem; font-weight:700; letter-spacing:0.3em; opacity:0;
+    font-family:"Noto Serif TC","Kaiti TC",serif;
+    text-shadow:0 2px 12px var(--shadow);
+  }
+  .verdict-flash.good{color:var(--jade-deep);}
+  .verdict-flash.bad{color:var(--vermillion);}
+  @media (prefers-reduced-motion: no-preference){
+    .verdict-flash{animation:verdictPop 1.15s ease-out forwards;}
+  }
+  @keyframes verdictPop{
+    0%{transform:translate(-50%,0) scale(0.5); opacity:0;}
+    22%{transform:translate(-50%,0) scale(1.15); opacity:1;}
+    72%{transform:translate(-50%,0) scale(1); opacity:1;}
+    100%{transform:translate(-50%,-18px) scale(1); opacity:0;}
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .shake{animation:shakeIt .42s ease-in-out;}
+  }
+  @keyframes shakeIt{
+    0%,100%{transform:translate(0,0);}
+    15%{transform:translate(-6px,2px);} 30%{transform:translate(5px,-2px);}
+    45%{transform:translate(-4px,1px);} 60%{transform:translate(4px,-1px);}
+    80%{transform:translate(-2px,0);}
+  }
+  .settle-box{
+    position:relative; margin-top:20px; border:2px solid var(--indigo-deep); background:var(--parchment);
+    padding:22px 24px; display:none;
+    box-shadow:inset 0 0 0 4px var(--parchment), inset 0 0 0 5px var(--line), inset 0 0 0 7px var(--parchment);
+  }
+  .settle-box.show{display:block;}
+  .settle-title{font-weight:700; font-size:1.05rem; margin-bottom:14px; letter-spacing:0.08em; color:var(--indigo-deep); text-align:center;}
+  .settle-row{display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px dashed var(--line); font-size:0.9rem;}
+  .settle-row:last-of-type{border-bottom:none;}
+  .settle-row .sv{font-weight:700; font-variant-numeric:tabular-nums;}
+  .settle-row .sv.up{color:var(--jade-deep);} .settle-row .sv.down{color:var(--vermillion);}
+  .settle-loot{margin-top:12px; padding-top:12px; border-top:2px solid var(--line); font-size:0.88rem; color:var(--indigo-deep);}
+
+  .stamp-confirm{margin-top:14px; padding:12px 14px; background:var(--indigo-tint); border-left:3px solid var(--indigo); font-size:0.88rem; color:var(--indigo-deep); font-weight:700; display:none;}
+  .stamp-confirm.show{display:block;}
+  .knowledge-box{margin-top:14px; padding:14px 16px; background:rgba(63,109,90,0.08); border-left:3px solid var(--jade); font-size:0.88rem; color:var(--ink-soft); display:none;}
+  .knowledge-box.show{display:block;}
+  .knowledge-box .klabel{font-weight:700; color:var(--jade-deep); display:block; margin-bottom:6px;}
+  .preview-header{font-weight:700; font-size:0.88rem; color:var(--ink); margin-bottom:6px;}
+  .opt{
+    position:relative;
+    display:block; width:100%; text-align:left; background:transparent; border:1px solid var(--line);
+    padding:13px 16px 13px 34px; margin-bottom:10px; border-radius:2px; cursor:pointer; font-family:inherit; color:var(--ink);
+    transition:all .15s ease; opacity:0.45; pointer-events:none;
+  }
+  /* JRPG 選單游標：懸停／選中時出現指標 */
+  .opt::before{
+    content:'☛'; position:absolute; left:10px; top:13px;
+    color:var(--vermillion); font-size:0.95rem; opacity:0;
+    transform:translateX(-5px); transition:opacity .15s ease, transform .15s ease;
+  }
+  .opt.enabled:hover::before, .opt.selected::before{opacity:1; transform:translateX(0);}
+  .opt.enabled{opacity:1; pointer-events:auto;}
+  .opt.enabled:hover{border-color:var(--jade); background:var(--indigo-tint);}
+  .opt.selected{border-color:var(--indigo-deep); box-shadow:0 0 0 1px var(--indigo-deep); background:var(--indigo-tint);}
+  .opt .ospeaker{font-size:0.74rem; color:var(--indigo-deep); font-weight:700; display:block; margin-bottom:3px;}
+  .opt .olabel{font-weight:700; display:block; margin-bottom:4px;}
+  .opt .osummary{font-size:0.85rem; color:var(--ink-soft); font-weight:400;}
+  /* 方案卡：進言者小立繪 + 文字 */
+  .opt{display:flex; gap:12px; align-items:flex-start;}
+  .opt-face{width:44px; height:44px; flex-shrink:0; border:1px solid var(--line); border-radius:50%; background:var(--paper); overflow:hidden; display:flex; align-items:flex-end; justify-content:center;}
+  .opt-face svg{width:100%; height:auto; display:block;}
+  .opt-text{flex:1; min-width:0; display:block;}
+  .opt.selected .opt-face{border-color:var(--vermillion); box-shadow:0 0 0 2px rgba(166,52,43,0.18);}
+  @media (prefers-reduced-motion: no-preference){
+    .opt.enabled{animation:optIn .4s ease-out both; animation-delay:calc(var(--i,0) * 90ms);}
+    .opt.selected .opt-face svg{animation:faceNod .5s ease-out;}
+  }
+  @keyframes optIn{from{opacity:0; transform:translateX(-10px);}to{opacity:1; transform:none;}}
+  @keyframes faceNod{0%{transform:translateY(0);}40%{transform:translateY(-4px);}100%{transform:translateY(0);}}
+  .opt-note{font-size:0.8rem; color:var(--ink-soft); font-style:italic; margin:2px 0 4px; padding-left:2px;}
+  .choice-pending{display:flex; gap:12px; align-items:center; padding:10px 14px; border:1px dashed var(--indigo); background:var(--indigo-tint); color:var(--ink);}
+  .choice-pending small{color:var(--ink-soft);}
+  .cp-seal{width:34px; height:34px; flex-shrink:0; border:2px solid var(--vermillion); color:var(--vermillion-deep); border-radius:4px; display:flex; align-items:center; justify-content:center; font-weight:700; font-family:"Kaiti TC","STKaiti",serif; transform:rotate(-6deg);}
+  /* 蓋印後揭曉的後果推演 */
+  .preview-box.result{padding:16px 18px; border:2px solid var(--indigo-deep); background:var(--parchment); position:relative;
+    box-shadow:inset 0 0 0 3px var(--parchment), inset 0 0 0 4px var(--line);}
+  .cq-rows{display:flex; flex-direction:column; gap:8px; margin:10px 0 12px;}
+  .cq-row{display:grid; grid-template-columns:7.5em 1fr 2.4em auto; gap:10px; align-items:center; font-size:0.85rem; color:var(--ink);}
+  .cq-track{height:9px; background:var(--paper-deep); border:1px solid var(--line); border-radius:5px; overflow:hidden;}
+  .cq-fill{display:block; height:100%; width:var(--to); background:var(--jade);}
+  .cq-fill.down{background:var(--vermillion);}
+  .cq-fill.flat{background:var(--ink-soft);}
+  .cq-val{font-weight:700; font-variant-numeric:tabular-nums; text-align:right;}
+  .cq-feedback{padding-top:10px; border-top:1px dashed var(--line); color:var(--ink);}
+  .cq-others{margin-top:12px; font-size:0.83rem;}
+  .cq-others summary{cursor:pointer; color:var(--indigo-deep); font-weight:700;}
+  .cq-other{margin-top:8px; padding:8px 10px; background:var(--paper); border-left:3px solid var(--line); color:var(--ink-soft); line-height:1.7;}
+  .cq-other b{color:var(--ink);}
+  @media (prefers-reduced-motion: no-preference){
+    .preview-box.result{animation:resultIn .45s ease-out;}
+    .cq-row{animation:optIn .35s ease-out both; animation-delay:calc(300ms + var(--i,0) * 120ms);}
+    .cq-fill{animation:fillTo .8s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(500ms + var(--i,0) * 120ms);}
+    .cq-feedback{animation:optIn .4s ease-out both; animation-delay:1s;}
+  }
+  @keyframes resultIn{from{opacity:0; transform:translateY(8px) scale(0.98);}to{opacity:1; transform:none;}}
+  @keyframes fillTo{from{width:var(--from);}to{width:var(--to);}}
+  /* 兩難回合標示 */
+  .dilemma-badge{display:flex; gap:12px; align-items:flex-start; margin:4px 0 12px; padding:12px 14px; border:2px dashed var(--vermillion); background:rgba(166,52,43,0.06); font-size:0.85rem; color:var(--ink); line-height:1.7;}
+  .dilemma-badge b{color:var(--vermillion-deep);}
+  .db-ico{font-size:1.5rem; line-height:1;}
+  @media (prefers-reduced-motion: no-preference){ .db-ico{display:inline-block; animation:balance 3s ease-in-out infinite;} }
+  /* 史料判斷 */
+  .quiz-box{display:none; margin-top:14px; padding:14px 16px; border:2px solid var(--indigo-deep); background:var(--parchment); position:relative;
+    box-shadow:inset 0 0 0 3px var(--parchment), inset 0 0 0 4px var(--line);}
+  .quiz-box.show{display:block;}
+  @media (prefers-reduced-motion: no-preference){ .quiz-box.show{animation:resultIn .4s ease-out;} }
+  .quiz-head{font-weight:700; color:var(--indigo-deep); margin-bottom:6px;}
+  .quiz-head small{font-weight:400; color:var(--vermillion-deep); font-size:0.75rem;}
+  .quiz-q{font-size:0.9rem; color:var(--ink); margin-bottom:10px;}
+  .quiz-opts{display:flex; flex-direction:column; gap:7px;}
+  .quiz-opt{display:flex; gap:10px; align-items:center; text-align:left; width:100%; padding:9px 12px; border:1px solid var(--line); background:var(--paper); color:var(--ink); font-family:inherit; font-size:0.86rem; cursor:pointer; border-radius:2px; transition:all .15s ease;}
+  .quiz-opt:hover:not([disabled]){border-color:var(--jade); background:var(--indigo-tint);}
+  .quiz-opt[disabled]{cursor:default;}
+  .qo-mark{width:24px; height:24px; flex-shrink:0; border:1.5px solid var(--indigo); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.78rem; color:var(--indigo-deep);}
+  .quiz-opt.right{border-color:var(--jade); background:rgba(63,109,90,0.12);}
+  .quiz-opt.right .qo-mark{background:var(--jade); color:#fff; border-color:var(--jade);}
+  .quiz-opt.wrong{border-color:var(--vermillion); background:rgba(166,52,43,0.08);}
+  .quiz-opt.wrong .qo-mark{background:var(--vermillion); color:#fff; border-color:var(--vermillion);}
+  .quiz-why{margin-top:10px; padding:9px 12px; font-size:0.84rem; line-height:1.75; color:var(--ink); border-left:3px solid var(--jade); background:rgba(63,109,90,0.08);}
+  .quiz-why.no{border-left-color:var(--vermillion); background:rgba(166,52,43,0.06);}
+  @media (prefers-reduced-motion: no-preference){ .quiz-why{animation:optIn .4s ease-out;} .quiz-opt.right .qo-mark{animation:itemPop .5s cubic-bezier(.3,1.6,.5,1);} }
+  /* 時空回響 */
+  .echo-card{display:none; gap:14px; align-items:flex-start; margin:0 0 20px; padding:14px 16px; border:2px solid var(--indigo-deep); background:var(--parchment); position:relative;}
+  .echo-card.show{display:flex;}
+  .echo-card.good{border-color:var(--jade-deep);} .echo-card.bad{border-color:var(--vermillion);}
+  .echo-ico{width:44px; height:44px; flex-shrink:0; color:var(--indigo-deep);}
+  .echo-card.good .echo-ico{color:var(--jade-deep);} .echo-card.bad .echo-ico{color:var(--vermillion-deep);}
+  .echo-ico svg{width:100%; height:100%;}
+  .echo-title{font-weight:700; color:var(--indigo-deep); font-size:0.9rem;}
+  .echo-text{font-size:0.88rem; color:var(--ink); margin:4px 0 6px; line-height:1.75;}
+  .echo-card .deltas{display:flex; gap:8px; flex-wrap:wrap;}
+  .echo-card .delta-chip{font-weight:700; padding:3px 9px; border-radius:10px; font-size:0.78rem; border:1px solid var(--line);}
+  .echo-note{font-size:0.72rem; color:var(--ink-soft); font-style:italic; margin-top:6px;}
+  @media (prefers-reduced-motion: no-preference){
+    .echo-card.show{animation:resultIn .6s ease-out;}
+    .echo-ico svg{animation:hourglass 2.4s ease-in-out infinite; transform-origin:50% 50%;}
+  }
+  @keyframes hourglass{0%,40%{transform:rotate(0);}50%,90%{transform:rotate(180deg);}100%{transform:rotate(360deg);}}
+  /* 職司視角／兩難判準 */
+  .cq-row.mine .cq-name{font-weight:700; color:var(--indigo-deep);}
+  .cq-mine{font-style:normal; font-size:0.66rem; margin-left:5px; padding:1px 6px; border-radius:8px; background:var(--indigo-deep); color:var(--parchment); vertical-align:1px; white-space:nowrap;}
+  .cq-lens, .cq-dilemma{margin-top:10px; padding:9px 12px; font-size:0.84rem; line-height:1.75; color:var(--ink);}
+  .cq-lens{background:var(--indigo-tint); border-left:3px solid var(--indigo);}
+  .cq-dilemma{background:rgba(166,52,43,0.06); border-left:3px solid var(--vermillion);}
+  .role-row{background:var(--indigo-tint); padding-left:8px !important; padding-right:8px !important;}
+  .grade-甲等{color:var(--jade-deep);} .grade-乙等{color:var(--indigo-deep);} .grade-丙等{color:var(--vermillion);}
+  .rescue-row{margin-top:10px; display:flex; flex-direction:column; gap:8px; align-items:flex-start; color:var(--ink);}
+  .rescue-row small{color:var(--ink-soft);}
+  /* 交給老師 */
+  .code-box{margin-top:18px; padding:14px 16px; border:1px dashed var(--indigo); background:var(--indigo-tint);}
+  .code-head{font-weight:700; color:var(--indigo-deep);}
+  .code-tip{font-size:0.82rem; color:var(--ink-soft); margin:4px 0 8px;}
+  .code-box textarea{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:0.72rem; word-break:break-all;}
+  .code-copied{font-size:0.8rem; color:var(--jade-deep); margin-left:6px;}
+  #teacherPanel{position:fixed; inset:0; z-index:150; display:none; background:rgba(0,0,0,0.45); padding:24px 16px; overflow-y:auto;}
+  #teacherPanel.show{display:block;}
+  .teacher-inner{max-width:780px; margin:40px auto; background:var(--parchment); border:2px solid var(--indigo-deep); padding:24px; position:relative;
+    box-shadow:inset 0 0 0 4px var(--parchment), inset 0 0 0 5px var(--line), inset 0 0 0 7px var(--parchment), 0 18px 50px var(--shadow);}
+  .teacher-inner h4{font-size:1.05rem; margin:0 0 10px; display:flex; justify-content:space-between; align-items:center; color:var(--indigo-deep);}
+  .teacher-inner h4 button{background:none; border:none; font-size:1.1rem; cursor:pointer; color:var(--ink-soft);}
+  #teacherIn{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:0.75rem;}
+  .tr-summary{margin:16px 0; padding:12px 14px; background:var(--paper); border-left:3px solid var(--indigo); font-size:0.86rem; line-height:1.9;}
+  .tr-div{color:var(--vermillion-deep); font-weight:700;}
+  .tr-mission{margin-bottom:10px; border:1px solid var(--line); background:var(--paper); padding:8px 12px;}
+  .tr-mission summary{cursor:pointer; font-weight:700; color:var(--ink); font-size:0.9rem;}
+  .tr-mission summary small{font-weight:400; color:var(--ink-soft); margin-left:6px;}
+  .tr-round{margin:10px 0 4px;}
+  .tr-label{font-size:0.82rem; color:var(--indigo-deep); font-weight:700; margin-bottom:4px;}
+  .tr-dil{font-size:0.68rem; padding:1px 6px; border-radius:8px; background:var(--vermillion); color:#fff; font-weight:400;}
+  .tr-bar{display:grid; grid-template-columns:minmax(0,1.4fr) 1fr 5.5em; gap:8px; align-items:center; font-size:0.78rem; color:var(--ink-soft); margin:3px 0;}
+  .tr-opt{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .tr-best{color:var(--jade-deep); font-size:0.68rem;}
+  .tr-track{height:8px; background:var(--paper-deep); border-radius:4px; overflow:hidden; border:1px solid var(--line);}
+  .tr-track span{display:block; height:100%; background:var(--indigo);}
+  .tr-pct{text-align:right; font-variant-numeric:tabular-nums;}
+  .preview-box{margin-top:14px; font-size:0.87rem; color:var(--ink-soft); display:none;}
+  .preview-box.show{display:block;}
+  .preview-box .deltas{margin:8px 0; display:flex; gap:10px; flex-wrap:wrap;}
+  .preview-box .delta-chip{font-weight:700; padding:3px 9px; border-radius:10px; font-size:0.78rem; border:1px solid var(--line);}
+  .delta-chip.up{color:var(--jade-deep); border-color:var(--jade);}
+  .delta-chip.down{color:var(--vermillion-deep); border-color:var(--vermillion);}
+  .delta-chip.flat{color:var(--ink-soft);}
+  .feedback-text{margin-top:6px; font-style:italic;}
+  .threshold-warn{background:rgba(166,52,43,0.1); border-left:3px solid var(--vermillion); padding:10px 14px; font-size:0.85rem; color:var(--vermillion-deep); margin-top:12px; display:none;}
+  .threshold-warn.show{display:block;}
+
+  .stamp-row{display:flex; align-items:center; gap:16px; margin-top:22px; flex-wrap:wrap;}
+  .stamp-mark{
+    width:56px;height:56px;border:2.5px solid var(--vermillion); border-radius:6px;
+    display:flex; align-items:center; justify-content:center; color:var(--vermillion-deep); font-weight:700;
+    font-size:1.4rem; opacity:0; transform:scale(0.5) rotate(-14deg); transition:all .35s ease; text-align:center;
+    font-family:"Kaiti TC","STKaiti",serif;
+  }
+  .stamp-mark.show{opacity:0.88; transform:scale(1) rotate(-6deg);}
+  .item-gained{margin-top:14px; font-size:0.86rem; color:var(--indigo-deep); display:none;}
+  .item-gained.show{display:block;}
+  .edu-credit{margin-top:32px; padding-top:14px; border-top:1px solid var(--line); font-size:0.72rem; color:var(--ink-soft); text-align:center; letter-spacing:0.05em;}
+  .next-wrap{margin-top:26px; text-align:right; width:100%;}
+
+  /* 反思 */
+  .reflect-stage{margin-bottom:30px; width:100%;}
+  .reflect-stage h3{font-size:1.1rem; margin-bottom:12px;}
+  .reflect-q{background:var(--parchment); border:1px solid var(--line); border-left:3px solid var(--indigo); padding:10px 14px; font-size:0.9rem; margin-bottom:8px; color:var(--ink-soft);}
+  .wall{display:flex; flex-direction:column; gap:12px; margin:16px 0; max-height:260px; overflow-y:auto; padding-right:4px;}
+  .wall .card{background:var(--parchment); border:1px solid var(--line); border-left:4px solid var(--jade); padding:14px 16px; font-size:0.92rem;}
+  .wall .card .who{font-size:0.75rem; color:var(--jade-deep); margin-top:6px; letter-spacing:0.05em;}
+  textarea, input[type=text]{
+    width:100%; font-family:inherit; font-size:0.95rem; padding:12px 14px; border:1px solid var(--line);
+    border-radius:2px; background:var(--parchment); color:var(--ink); resize:vertical;
+  }
+  textarea:focus, input[type=text]:focus{outline:2px solid var(--jade);}
+
+  .cert{
+    margin-top:30px; padding:40px; border:2px solid var(--indigo); position:relative; background:var(--parchment); text-align:center;
+    box-shadow:inset 0 0 0 4px var(--parchment), inset 0 0 0 5px var(--line), inset 0 0 0 7px var(--parchment);
+  }
+  .cert .tag{display:block; margin-bottom:8px;}
+  .cert h3{font-size:1.5rem; margin-bottom:6px;}
+  .cert .name{font-size:1.7rem; color:var(--vermillion-deep); margin:14px 0; font-weight:700;}
+  .cert .inv-summary{font-size:0.85rem; color:var(--ink-soft); margin-top:10px;}
+  .hidden{display:none !important;}
+
+  /* 統一面板窗框：行囊／國安圖鑑／結算／結業卷軸共用邊角飾紋 */
+  #invPanel::before, #invPanel::after,
+  #codexPanel::before, #codexPanel::after,
+  .settle-box::before, .settle-box::after,
+  .cert::before, .cert::after{
+    content:''; position:absolute; width:16px; height:16px; pointer-events:none;
+    border-color:var(--vermillion); opacity:0.7; z-index:1;
+  }
+  #invPanel::before, #codexPanel::before, .settle-box::before, .cert::before{
+    top:6px; left:6px; border-top:2px solid; border-left:2px solid;
+  }
+  #invPanel::after, #codexPanel::after, .settle-box::after, .cert::after{
+    bottom:6px; right:6px; border-bottom:2px solid; border-right:2px solid;
+  }
+
+  /* JRPG 選單游標：呼吸擺動 */
+  @media (prefers-reduced-motion: no-preference){
+    .opt.enabled:hover::before, .opt.selected::before{ animation:cursorBob 0.9s ease-in-out infinite; }
+  }
+  @keyframes cursorBob{0%,100%{transform:translateX(0);}50%{transform:translateX(3px);}}
+
+  /* 卷卷轉場：淡出→章名→淡入 */
+  #chapterTransition{
+    position:fixed; inset:0; z-index:200; background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity .35s ease;
+  }
+  #chapterTransition.show{opacity:1; pointer-events:auto;}
+  #chapterTransition .ct-text{
+    color:var(--parchment); font-size:1.6rem; letter-spacing:0.3em; text-align:center;
+    opacity:0; transform:translateY(10px); transition:opacity .4s ease .15s, transform .4s ease .15s;
+  }
+  #chapterTransition.show .ct-text{opacity:1; transform:translateY(0);}
+  #chapterTransition .ct-sub{display:block; font-size:0.85rem; letter-spacing:0.15em; margin-top:10px; color:var(--parchment); opacity:0.7;}
+  .round-progress{font-size:0.78rem; color:var(--ink-soft); letter-spacing:0.05em; margin-bottom:10px;}
+
+  /* 魔法森林：序卷背景 */
+  #forestArt{
+    position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; display:none;
+    background:linear-gradient(180deg,#0B2A24 0%,#0E3B30 35%,#123F2E 60%,#0A241C 100%);
+  }
+  #forestArt.show{display:block;}
+  #forestArt svg{width:100%; height:100%; display:block;}
+  .fa-ray{mix-blend-mode:screen;}
+  .fa-firefly{filter:blur(0.2px);}
+  @media (prefers-reduced-motion: no-preference){
+    .fa-firefly{animation:fireflyDrift 6s ease-in-out infinite;}
+    .fa-firefly:nth-child(odd){animation-duration:7.5s;}
+    .fa-ray{animation:rayPulse 5s ease-in-out infinite;}
+    .fa-blade{animation:bladeSway 4s ease-in-out infinite;}
+    .fa-blade:nth-child(even){animation-duration:4.6s;}
+  }
+  @keyframes fireflyDrift{
+    0%,100%{transform:translate(0,0); opacity:0.35;}
+    50%{transform:translate(6px,-14px); opacity:1;}
+  }
+  @keyframes rayPulse{
+    0%,100%{opacity:0.22;}
+    50%{opacity:0.4;}
+  }
+  @keyframes bladeSway{
+    0%,100%{transform:rotate(-3deg);}
+    50%{transform:rotate(3deg);}
+  }
+
+  @media(max-width:600px){
+    section{padding:210px 18px 60px;}
+    .juan-mark{display:none;}
+    #dashboard{gap:8px;}
+    #invPanel{right:8px; top:100px;}
+    #bgArt{height:26vh;}
+    /* 導覽點在窄螢幕會換行，故縮小並讓儀表跟著下移 */
+    .dot{width:26px; height:26px; font-size:0.78rem;}
+    .rail-sep{width:5px;}
+    #dashboard{top:86px;}
+    /* 立繪縮小，把寬度讓給對話文字 */
+    .dlg-portrait{width:74px; padding:3px;}
+    .dialogue-box{gap:11px; padding:18px 14px 14px 12px; margin-top:24px;}
+    .dlg-nametag{left:12px; padding:3px 14px 4px; font-size:0.72rem;}
+    .dlg-line{font-size:0.9rem; line-height:1.8;}
+    .dlg-controls{flex-wrap:wrap; gap:8px;}
+    .settle-row{font-size:0.84rem; gap:10px;}
+    .verdict-flash{font-size:1.5rem; letter-spacing:0.2em;}
+    /* 足跡地圖縮放後字太細：放大 SVG 內字級 */
+    .jn-lbl{font-size:21px;}
+    #toastStack{right:8px; bottom:10px;}
+    .unlock-toast{font-size:0.74rem; padding:4px 9px 4px 5px; gap:6px; border-width:1.5px; opacity:.96;}
+    .unlock-toast small{display:none;}
+    .unlock-toast b::before{content:'解鎖 ';font-weight:400;color:var(--vermillion-deep);}
+    .unlock-toast .ut-ico{width:22px; height:22px;}
+    .unlock-toast .ut-ico .dicon{width:15px; height:15px;}
+    #toastStack{gap:4px;}
+    .cq-row{grid-template-columns:6.6em 1fr 2.2em auto; gap:7px; font-size:0.8rem;}
+    .pop-num{font-size:0.9rem;}
+  }
+</style>
+</head>
+<body>
+
+<div id="bgArt" aria-hidden="true">
+  <svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#F6F1E2" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#F6F1E2" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="1180" cy="90" r="95" fill="url(#moonGlow)"/>
+    <circle cx="1180" cy="90" r="32" class="moon-disc" opacity="0.8"/>
+    <path d="M0,340 Q120,255 260,300 T520,285 T780,310 T1040,275 T1300,300 T1440,285 L1440,500 L0,500 Z" class="peak-far"/>
+    <path d="M0,385 Q180,300 380,340 T740,325 T1100,350 T1440,325 L1440,500 L0,500 Z" class="peak-mid"/>
+    <path d="M0,432 Q220,358 460,400 T900,388 T1440,400 L1440,500 L0,500 Z" class="peak-near"/>
+  </svg>
+</div>
+
+<div id="forestArt" aria-hidden="true">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="rayGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#FFE9B0" stop-opacity="0.55"/>
+        <stop offset="100%" stop-color="#FFE9B0" stop-opacity="0"/>
+      </linearGradient>
+      <radialGradient id="fireflyGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#EFFFEA" stop-opacity="0.95"/>
+        <stop offset="100%" stop-color="#7CF2C0" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="plantGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#B6FFEA" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#2FE3B0" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <g opacity="0.6" fill="#4A4880">
+      <path d="M560,190 L560,170 L580,170 L580,155 L600,155 L600,170 L620,170 L620,145 L640,145 L640,170 L660,170 L660,155 L680,155 L680,170 L700,170 L700,190 Z"/>
+      <rect x="555" y="190" width="150" height="80"/>
+      <path d="M540,190 L720,190 L700,170 L560,170 Z"/>
+    </g>
+
+    <polygon class="fa-ray" points="260,0 340,0 470,650 300,650" fill="url(#rayGrad)"/>
+    <polygon class="fa-ray" points="620,0 690,0 780,700 640,700" fill="url(#rayGrad)" style="animation-delay:1.2s"/>
+    <polygon class="fa-ray" points="980,0 1060,0 1180,680 960,680" fill="url(#rayGrad)" style="animation-delay:2.4s"/>
+
+    <path d="M0,480 Q80,420 160,470 Q240,410 320,460 Q400,405 480,455 Q560,400 640,460 Q720,410 800,465 Q880,405 960,460 Q1040,415 1120,465 Q1200,405 1280,460 Q1360,415 1440,455 L1440,900 L0,900 Z" fill="#123B2E" opacity="0.55"/>
+    <path d="M0,560 Q100,500 200,555 Q300,495 400,550 Q500,490 600,550 Q700,495 800,555 Q900,490 1000,550 Q1100,500 1200,555 Q1320,495 1440,545 L1440,900 L0,900 Z" fill="#0C2E23" opacity="0.75"/>
+    <path d="M0,660 Q120,600 240,650 Q360,590 480,645 Q600,585 720,645 Q840,590 960,645 Q1080,595 1200,650 Q1320,595 1440,640 L1440,900 L0,900 Z" fill="#081C15" opacity="0.92"/>
+
+    <circle class="fa-firefly" cx="220" cy="520" r="5" fill="url(#fireflyGlow)"/>
+    <circle class="fa-firefly" cx="360" cy="600" r="4" fill="url(#fireflyGlow)" style="animation-delay:.6s"/>
+    <circle class="fa-firefly" cx="500" cy="540" r="6" fill="url(#fireflyGlow)" style="animation-delay:1.1s"/>
+    <circle class="fa-firefly" cx="640" cy="620" r="4" fill="url(#fireflyGlow)" style="animation-delay:1.8s"/>
+    <circle class="fa-firefly" cx="760" cy="560" r="5" fill="url(#fireflyGlow)" style="animation-delay:.3s"/>
+    <circle class="fa-firefly" cx="880" cy="610" r="4" fill="url(#fireflyGlow)" style="animation-delay:2.2s"/>
+    <circle class="fa-firefly" cx="980" cy="540" r="6" fill="url(#fireflyGlow)" style="animation-delay:1.4s"/>
+    <circle class="fa-firefly" cx="1120" cy="600" r="4" fill="url(#fireflyGlow)" style="animation-delay:.9s"/>
+    <circle class="fa-firefly" cx="1240" cy="550" r="5" fill="url(#fireflyGlow)" style="animation-delay:2.6s"/>
+    <circle class="fa-firefly" cx="150" cy="680" r="4" fill="url(#fireflyGlow)" style="animation-delay:1.6s"/>
+    <circle class="fa-firefly" cx="1330" cy="670" r="5" fill="url(#fireflyGlow)" style="animation-delay:.2s"/>
+
+    <g fill="#0A2A20">
+      <path class="fa-blade" d="M40,900 L52,780 L64,900 Z" style="transform-origin:52px 900px;"/>
+      <path class="fa-blade" d="M100,900 L114,760 L128,900 Z" style="transform-origin:114px 900px; animation-delay:.4s;"/>
+      <path class="fa-blade" d="M180,900 L194,800 L208,900 Z" style="transform-origin:194px 900px; animation-delay:.9s;"/>
+      <path class="fa-blade" d="M300,900 L314,770 L328,900 Z" style="transform-origin:314px 900px; animation-delay:.2s;"/>
+      <path class="fa-blade" d="M420,900 L434,790 L448,900 Z" style="transform-origin:434px 900px; animation-delay:1.1s;"/>
+      <path class="fa-blade" d="M560,900 L574,760 L588,900 Z" style="transform-origin:574px 900px; animation-delay:.6s;"/>
+      <path class="fa-blade" d="M700,900 L714,800 L728,900 Z" style="transform-origin:714px 900px; animation-delay:1.4s;"/>
+      <path class="fa-blade" d="M840,900 L854,770 L868,900 Z" style="transform-origin:854px 900px; animation-delay:.3s;"/>
+      <path class="fa-blade" d="M980,900 L994,790 L1008,900 Z" style="transform-origin:994px 900px; animation-delay:1.7s;"/>
+      <path class="fa-blade" d="M1120,900 L1134,760 L1148,900 Z" style="transform-origin:1134px 900px; animation-delay:.8s;"/>
+      <path class="fa-blade" d="M1260,900 L1274,800 L1288,900 Z" style="transform-origin:1274px 900px; animation-delay:1.2s;"/>
+      <path class="fa-blade" d="M1380,900 L1394,770 L1408,900 Z" style="transform-origin:1394px 900px; animation-delay:.5s;"/>
+    </g>
+    <circle cx="114" cy="762" r="4" fill="url(#plantGlow)"/>
+    <circle cx="434" cy="792" r="4" fill="url(#plantGlow)"/>
+    <circle cx="714" cy="802" r="4" fill="url(#plantGlow)"/>
+    <circle cx="994" cy="792" r="4" fill="url(#plantGlow)"/>
+    <circle cx="1274" cy="802" r="4" fill="url(#plantGlow)"/>
+  </svg>
+</div>
+
+<div id="rail">
+  <div class="dot-group" id="dotGroup"></div>
+  <button id="resetLink" onclick="resetGame()">重新開始</button>
+</div>
+<div id="dashboard">
+  <span class="dash-zone dash-zone-id" id="rankBadge">位階 · 見習司使</span>
+  <div class="dash-zone" id="meterRow" style="display:flex; gap:14px; flex-wrap:wrap;"></div>
+  <div class="dash-zone dash-zone-actions">
+    <button id="invBtn" onclick="toggleInv()">行囊 (<span id="invCount">0</span>)</button>
+    <button id="codexBtn" onclick="toggleCodex()">國安圖鑑 (<span id="codexCount">0</span>/20)</button>
+  </div>
+</div>
+<div class="pop-layer" id="popLayer" aria-hidden="true"></div>
+<div id="chapterTransition" aria-hidden="true">
+  <div class="ct-text">
+    <span id="ctJuan"></span>：<span id="ctTitle"></span>
+    <span class="ct-sub" id="ctEra"></span>
+  </div>
+</div>
+<div id="invPanel">
+  <h4>行囊 · 隨身信物 <button onclick="toggleInv()">✕</button></h4>
+  <div id="invList"><div class="inv-empty">尚未收得任何信物。</div></div>
+</div>
+
+<div id="teacherPanel" role="dialog" aria-label="教師專區">
+  <div class="teacher-inner">
+    <h4>👩‍🏫 教師專區 · 全班抉擇彙整 <button onclick="closeTeacher()">✕</button></h4>
+    <p class="codex-intro">請學生完成旅程後，在終卷「領取結業卷軸」取得以 <b>TS1-</b> 開頭的代碼，交到 Google Classroom 或表單。把全班代碼貼到下方（每行一個，或以空格分隔），即可看到每個回合的選擇分佈、史料判斷正確率，以及分歧最大的回合。所有運算都在本機進行，不會上傳任何資料。</p>
+    <textarea id="teacherIn" rows="5" placeholder="TS1-……&#10;TS1-……"></textarea>
+    <div style="margin-top:10px; text-align:right;"><button class="btn ember" onclick="summarizeClass()">彙整</button></div>
+    <div id="teacherOut"></div>
+  </div>
+</div>
+
+<div id="codexPanel">
+  <h4>總體國家安全觀 · 二十領域 <button onclick="toggleCodex()">✕</button></h4>
+  <p class="codex-intro">
+    國家安全不只是軍事與國防。<b>總體國家安全觀</b>把安全視為一個整體：政治、經濟、文化、社會、生態⋯⋯彼此牽動，一環受損則全域動搖。
+    你在本遊戲中牽動的<b>四維指標，每一項都是國家安全的一個面向</b>——沒有任何一個抉擇與國家安全無關。
+  </p>
+  <div class="codex-meters" id="codexMeters"></div>
+  <div class="codex-grid" id="codexList"></div>
+</div>
+
+<!-- 開篇 -->
+<section id="hero" class="active" data-stop="0">
+  <svg class="cloud-deco cloud-indigo" style="top:120px; left:4%; width:110px; height:60px;" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10,45 Q5,25 25,25 Q28,10 48,15 Q55,5 68,15 Q85,10 88,28 Q105,28 100,45 Z" fill="none" stroke-width="2" opacity="0.4"/>
+  </svg>
+  <svg class="cloud-deco cloud-jade" style="top:150px; right:5%; width:130px; height:70px;" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10,45 Q5,25 25,25 Q28,10 48,15 Q55,5 68,15 Q85,10 88,28 Q105,28 100,45 Z" fill="none" stroke-width="2" opacity="0.35"/>
+  </svg>
+  <svg class="compass-deco" style="bottom:40px; left:6%; width:110px; height:110px;" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="60" r="50" fill="none" stroke="var(--jade)" stroke-width="2" opacity="0.4"/>
+    <circle cx="60" cy="60" r="36" fill="none" stroke="var(--jade)" stroke-width="1.5" opacity="0.35"/>
+    <g stroke="var(--jade)" stroke-width="1.5" opacity="0.35">
+      <line x1="60" y1="10" x2="60" y2="20"/><line x1="60" y1="100" x2="60" y2="110"/>
+      <line x1="10" y1="60" x2="20" y2="60"/><line x1="100" y1="60" x2="110" y2="60"/>
+      <line x1="25" y1="25" x2="32" y2="32"/><line x1="95" y1="25" x2="88" y2="32"/>
+      <line x1="25" y1="95" x2="32" y2="88"/><line x1="95" y1="95" x2="88" y2="88"/>
+    </g>
+    <path d="M60,30 L68,60 L60,52 L52,60 Z" fill="var(--vermillion)" opacity="0.55"/>
+    <path d="M60,90 L68,60 L60,68 L52,60 Z" fill="var(--jade)" opacity="0.55"/>
+    <circle cx="60" cy="60" r="5" fill="var(--ink)" opacity="0.5"/>
+  </svg>
+  <div class="frame" style="text-align:center;">
+    <h1>時 空 掌 舵 人</h1>
+    <div class="subtitle">華夏歷史與當代治理 AI 互動 RPG</div>
+    <div class="divider-ornament">
+      <div class="line"></div>
+      <div class="helm">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle class="helm-ring" cx="50" cy="50" r="46"/>
+          <circle class="helm-hub" cx="50" cy="50" r="16"/>
+          <line class="helm-spoke" x1="64" y1="50" x2="96" y2="50"/>
+          <line class="helm-spoke" x1="60" y1="60" x2="82.5" y2="82.5"/>
+          <line class="helm-spoke" x1="50" y1="64" x2="50" y2="96"/>
+          <line class="helm-spoke" x1="40" y1="60" x2="17.5" y2="82.5"/>
+          <line class="helm-spoke" x1="36" y1="50" x2="4" y2="50"/>
+          <line class="helm-spoke" x1="40" y1="40" x2="17.5" y2="17.5"/>
+          <line class="helm-spoke" x1="50" y1="36" x2="50" y2="4"/>
+          <line class="helm-spoke" x1="60" y1="40" x2="82.5" y2="17.5"/>
+          <circle class="helm-knob" cx="96" cy="50" r="3"/>
+          <circle class="helm-knob" cx="82.5" cy="82.5" r="3"/>
+          <circle class="helm-knob" cx="50" cy="96" r="3"/>
+          <circle class="helm-knob" cx="17.5" cy="82.5" r="3"/>
+          <circle class="helm-knob" cx="4" cy="50" r="3"/>
+          <circle class="helm-knob" cx="17.5" cy="17.5" r="3"/>
+          <circle class="helm-knob" cx="50" cy="4" r="3"/>
+          <circle class="helm-knob" cx="82.5" cy="17.5" r="3"/>
+        </svg>
+        <div class="emblem">鼎</div>
+      </div>
+      <div class="line"></div>
+    </div>
+    <p class="desc">
+      你將成為一名「中國歷史傳承人」，肩負治理之責，走過六段山河長卷——
+      嶺南初定、屯門開海、汴京交子、虎門烽煙、深圳蛇口、憲制終章。
+      每一步抉擇都必須先展讀史料典籍，再由你議定方案、蓋下印信方能生效。
+      你的抉擇將牽動「⚖️ 法治值、🛡️ 國安穩定、💰 民生經濟、🌸 文化凝聚」四維消長，
+      亦決定你作為傳承人的位階與行囊中積累的信物。
+    </p>
+    <p class="desc" style="margin-top:16px;">
+      <b style="color:var(--vermillion-deep);">請謹記：這四維沒有一項與國家安全無關。</b>
+      <b>總體國家安全觀</b>指出，國家安全是一個整體——政治、國土、軍事、經濟、金融、文化、社會、科技、生態⋯⋯
+      共二十個重點領域環環相扣，一環受損則全域動搖。法治是國家安全的制度保障，民生是國家安全的根基，
+      文化認同則是國家安全的精神屏障。遊戲中每一個回合，都會標示它所牽涉的國家安全領域，
+      並收錄進你的「國安圖鑑」。
+      願你以史為鑑，鼎故革新，走出一段真正屬於自己的治世之旅。
+    </p>
+    <div style="margin-top:36px;">
+      <button class="btn" onclick="goTo(1)">承接傳承人之責 →</button>
+      <div style="margin-top:14px;"><button class="scroll-toggle" onclick="openTeacher()">👩‍🏫 教師專區</button></div>
+    </div>
+    <div class="edu-credit">路德會協同中學公民與社會發展科 x 歷史科</div>
+  </div>
+</section>
+
+<!-- 人物創設 -->
+<section id="roster" data-stop="1">
+  <div class="frame scroll-panel">
+    <div class="tag">序卷 · 定名受命</div>
+    <div class="day-title" style="margin-top:8px;"><h2>為使者定名，選定職司</h2></div>
+    <p class="day-text">每位傳承人皆有姓名與職司。職司決定你起手的專長，往後每段情境也會提示你最需留意的一維——但方案終須由你權衡全局後定奪。</p>
+
+    <div class="cc-row">
+      <div style="flex:1; min-width:220px;">
+        <label>你的姓名</label>
+        <input type="text" id="charName" placeholder="請輸入你的姓名" oninput="updateIdScroll()">
+      </div>
+    </div>
+
+    <div class="class-grid" id="classGrid"></div>
+
+    <div class="id-scroll" id="idScroll">
+      <div class="tag">身份卷軸</div>
+      <div class="idname" id="idName">___</div>
+      <div class="idclass" id="idClass"></div>
+    </div>
+
+    <div class="next-wrap"><button class="btn ember" id="rosterNext" disabled onclick="goTo(2)">前往卷一：嶺南初定 →</button></div>
+    <div class="edu-credit">路德會協同中學公民與社會發展科 x 歷史科</div>
+  </div>
+</section>
+
+<div id="missionsRoot"></div>
+
+<!-- 終卷：反思與結業 -->
+<section id="final" data-stop="8">
+  <div class="frame">
+    <div class="tag">終卷 · 體驗式反思</div>
+    <svg class="final-banner" viewBox="0 0 760 140" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="380" cy="34" r="30" fill="var(--vermillion)" opacity="0.18"/>
+      <circle cx="380" cy="34" r="18" fill="var(--vermillion)" opacity="0.55"/>
+      <path d="M0,90 Q120,60 240,88 Q360,55 480,88 Q600,58 760,86 L760,140 L0,140 Z" fill="var(--indigo)" opacity="0.35"/>
+      <path d="M0,110 Q140,85 280,108 Q420,82 560,108 Q660,90 760,106 L760,140 L0,140 Z" fill="var(--indigo-deep)" opacity="0.5"/>
+      <ellipse cx="200" cy="118" rx="4" ry="10" fill="none" stroke="var(--vermillion-deep)" stroke-width="2"/>
+      <rect x="200" y="108" width="360" height="20" fill="none" stroke="var(--vermillion-deep)" stroke-width="2"/>
+      <ellipse cx="560" cy="118" rx="4" ry="10" fill="none" stroke="var(--vermillion-deep)" stroke-width="2"/>
+      <line x1="230" y1="112" x2="530" y2="112" stroke="var(--vermillion-deep)" stroke-width="1.2"/>
+      <line x1="230" y1="118" x2="530" y2="118" stroke="var(--vermillion-deep)" stroke-width="1.2"/>
+      <line x1="230" y1="124" x2="530" y2="124" stroke="var(--vermillion-deep)" stroke-width="1.2"/>
+    </svg>
+    <div class="journey-wrap">
+      <div class="section-label first">🗺️ 你的時空足跡</div>
+      <div id="journeyMap"></div>
+      <p class="journey-note">每一枚印記代表一卷。印記顏色顯示你在該卷五個回合中，有多少次選中「上策」——可與同學比較：你們在哪一卷分歧最大？為甚麼？</p>
+    </div>
+    <div class="day-title" style="margin-top:8px;"><h2>三階反思：所見？所思？所行？</h2></div>
+
+    <div class="reflect-stage">
+      <h3><svg class="stage-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><circle cx="13" cy="13" r="9" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="19" y1="19" x2="27" y2="27" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>🔍 第一階段 · 所見（經驗描述）</h3>
+      <div class="reflect-q">在虎門烽煙一卷中，你面臨了什麼樣的資源匱乏與主權危機？</div>
+      <div class="reflect-q">在憲制終章的審議中，你引述了《憲法》或《基本法》哪一條文，才成功兼顧國安與經濟？</div>
+      <div class="reflect-q">在整段旅程中，哪一卷史料或哪一件行囊信物最讓你印象深刻？</div>
+      <div class="reflect-q">翻開你的「國安圖鑑」：你在情境中遇見了哪些國家安全領域？哪一個是你原本沒想過也算國家安全的？</div>
+    </div>
+
+    <div class="reflect-stage">
+      <h3><svg class="stage-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><ellipse cx="16" cy="18" rx="10" ry="12" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="12" y="4" width="8" height="5" fill="currentColor"/><line x1="16" y1="30" x2="16" y2="36" stroke="currentColor" stroke-width="2"/></svg>🤔 第二階段 · 所思（意義深化）</h3>
+      <div class="reflect-q">為何秦朝建立的郡縣制與嶺南開發，對後世中國的大一統版圖有如此深遠的影響？</div>
+      <div class="reflect-q">為何說《憲法》與《基本法》共同構成香港特別行政區的憲制基礎？「一國」與「兩制」有何辯證關係？</div>
+      <div class="reflect-q">中華文化中「民惟邦本」與「兼收並蓄」的思想，如何體現在當代國家治理與香港多元社會之中？</div>
+      <div class="reflect-q">為何說「總體國家安全觀」把安全視為一個整體？試以遊戲中某一次抉擇為例，說明它如何同時牽動多個安全領域。</div>
+      <div class="reflect-q">宋代交子超發引發通脹、清代國力落後招致戰敗——經濟安全與科技安全，如何最終演變成政治安全與國土安全的危機？</div>
+    </div>
+
+    <div class="reflect-stage">
+      <h3><svg class="stage-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M16,7 L20,19 L16,16 L12,19 Z" fill="currentColor"/></svg>🚀 第三階段 · 所行（生活應用與轉化）</h3>
+      <div class="reflect-q">認識到香港自古以來與國家不可分割的歷史後，你會如何增強個人的國民身份認同？</div>
+      <div class="reflect-q">作為具備世界視野的香港青年，你可以如何在日常生活與未來職業中，為國家與香港的發展作出貢獻？</div>
+      <div class="reflect-q">我們應如何透過創新科技與現代生活方式，保護並弘揚中華優秀傳統文化（如非遺傳承）？</div>
+      <div class="reflect-q">作為中學生，你在日常生活中（如網絡使用、資料保護、生態習慣）可以怎樣落實維護國家安全的責任？</div>
+    </div>
+
+    <div class="decision-box scroll-panel" style="margin-bottom:30px;">
+      <div class="decision-q">反思留言牆</div>
+      <p style="font-size:0.88rem; color:var(--ink-soft); margin-top:-8px;">揀選以上任何一題，寫下你的反思。</p>
+      <input type="text" id="wallName" placeholder="姓名 / 組別" style="margin-bottom:10px;">
+      <textarea id="wallMsg" rows="3" placeholder="請輸入你的感想……"></textarea>
+      <div style="margin-top:12px; text-align:right;"><button class="btn" onclick="postWall()">發佈留言</button></div>
+      <div class="wall" id="wallList"></div>
+    </div>
+
+    <div class="decision-box scroll-panel">
+      <div class="decision-q">領取結業卷軸</div>
+      <input type="text" id="certName" placeholder="請輸入你的姓名，領取結業卷軸">
+      <div style="margin-top:12px; text-align:right;"><button class="btn ember" onclick="genCert()">生成卷軸</button></div>
+      <div class="cert hidden" id="certBox">
+        <span class="tag">結業卷軸</span>
+        <h3>時空掌舵人 · 結業卷軸</h3>
+        <div class="cert-name-row">
+          <svg class="cert-flourish" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M4,28 Q4,14 16,6 M4,28 Q10,20 8,10 M4,28 Q12,24 14,14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <div class="name" id="certNameOut">___</div>
+          <svg class="cert-flourish" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1);"><path d="M4,28 Q4,14 16,6 M4,28 Q10,20 8,10 M4,28 Q12,24 14,14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <p style="font-size:0.9rem; color:var(--ink-soft);">已完成「時空掌舵人」全程情境審議 · 中國歷史傳承人</p>
+        <p style="font-size:1.2rem; color:var(--vermillion-deep); margin-top:10px; font-weight:700;" id="certTitle"></p>
+        <p style="font-size:0.9rem; color:var(--ink-soft); margin-top:2px;" id="certMeters"></p>
+        <p style="font-size:1.05rem; color:var(--indigo-deep); margin-top:10px; font-weight:700;" id="certTier"></p>
+        <p class="inv-summary" id="certInv"></p>
+        <p class="inv-summary" id="certRole"></p>
+      </div>
+      <div class="code-box hidden" id="codeBox">
+        <div class="code-head">📋 交給老師：你的旅程代碼</div>
+        <p class="code-tip">請把以下代碼複製，貼到老師指定的地方（例如 Google Classroom 或表單）。老師可用「教師專區」彙整全班的抉擇分佈。</p>
+        <textarea id="codeOut" rows="3" readonly onclick="this.select()"></textarea>
+        <div style="margin-top:8px; text-align:right;"><button class="btn" onclick="copyCode()">複製代碼</button> <span class="code-copied" id="codeCopied"></span></div>
+      </div>
+    </div>
+    <div style="text-align:center; margin:18px 0 0;"><button class="scroll-toggle" onclick="openTeacher()">👩‍🏫 教師專區：彙整全班結果</button></div>
+    <div class="edu-credit">路德會協同中學公民與社會發展科 x 歷史科</div>
+  </div>
+</section>
+
+<script>
+/* ---------- 資料：邦本四維 ---------- */
+const meterMeta = {
+  fa:{name:'⚖️ 法治值'},
+  guo:{name:'🛡️ 國安穩定'},
+  min:{name:'💰 民生經濟'},
+  wen:{name:'🌸 文化凝聚'}
+};
+const state = {
+  meters:{fa:50,guo:50,min:50,wen:50},
+  charName:'', cls:null,
+  merit:0, inventory:[],
+  revealed:{}, chosen:{}, stamped:{}, dlgIndex:{}, roundIndex:{}, typing:{}, missionStart:{}, missionMeritStart:{}, domainsFound:{},
+  order:{}, bestCount:{}, quiz:{}, echoDone:{}, rescued:false, roleGrades:{}
+};
+/* 每回合的方案顯示次序隨機打亂：資料中最佳方案固定排在最後，若照原序顯示，學生很快會摸出「揀最後一個就啱」 */
+function optionOrder(rkey, options){
+  if(!state.order[rkey]){
+    const keys = options.map(o=>o.key);
+    for(let i=keys.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [keys[i],keys[j]]=[keys[j],keys[i]]; }
+    state.order[rkey] = keys;
+  }
+  return state.order[rkey].map(k=>options.find(o=>o.key===k));
+}
+function displayLetter(rkey, key){
+  return '甲乙丙'[(state.order[rkey]||[]).indexOf(key)] || key;
+}
+/* 方案優劣：一般回合按淨效果；兩難回合按「選後四維最低值」——守住最弱一環者為上策 */
+function afterMeters(base, opt){
+  const out = {};
+  Object.keys(base).forEach(k=>{ out[k] = Math.max(0, Math.min(100, base[k] + (opt.delta[k]||0))); });
+  return out;
+}
+function optionScore(round, opt, base){
+  if(round.dilemma) return Math.min(...Object.values(afterMeters(base || state.meters, opt)));
+  return Object.values(opt.delta).reduce((a,b)=>a+b,0);
+}
+function bestOptions(round, base){
+  const best = Math.max(...round.options.map(o=>optionScore(round, o, base)));
+  return round.options.filter(o=>optionScore(round, o, base) === best);
+}
+function isBestOption(round, key, base){
+  return bestOptions(round, base).some(o=>o.key===key);
+}
+
+/* ---------- 資料：四種職司 ---------- */
+const classData = [
+  {key:'exec', name:'執政專員', tag:'大局協調', focus:'guo', desc:'負責整體決策協調與大局觀，統籌四方，權衡治理優次。', skill:'「坐鎮」：隨時掌握「🛡️ 國安穩定」的消長。', avatar:'政', color:'indigo'},
+  {key:'law',  name:'律令專員', tag:'合憲把關', focus:'fa',  desc:'負責查閱《秦律》、《憲法》與《基本法》，確認合憲合法性。', skill:'「引律」：隨時掌握「⚖️ 法治值」的消長。', avatar:'律', color:'indigo-deep'},
+  {key:'fis',  name:'度支專員', tag:'資源精算', focus:'min', desc:'負責資源精算、財政準備金與貿易經濟平衡。', skill:'「量入」：隨時掌握「💰 民生經濟」的消長。', avatar:'度', color:'ink-soft'},
+  {key:'cul',  name:'文教與文化使者', tag:'軟實力外交', focus:'wen', desc:'負責文化傳承、民族認同與軟實力外交。', skill:'「秉筆」：隨時掌握「🌸 文化凝聚」的消長。', avatar:'文', color:'jade-deep'}
+];
+const narratorMeta = {name:'鑑史先生', avatar:'鑑', color:'jade'};
+function speakerMeta(who){
+  if(who==='narrator') return narratorMeta;
+  const c = classData.find(x=>x.key===who);
+  return {name:c.name, avatar:c.avatar, color:c.color};
+}
+
+/* ---------- 資料：六卷情境 ---------- */
+/* ---------- 資料：總體國家安全觀 · 二十個重點領域 ---------- */
+const securityDomains = [
+  {k:'zhengzhi', n:'政治安全', d:'國家安全的根本。維護國家政權、制度與意識形態的穩固，是其餘一切安全的前提。'},
+  {k:'guotu',    n:'國土安全', d:'國家領土完整與邊防穩固，一寸不可分割——香港自秦代納入版圖，正是國土安全的歷史例證。'},
+  {k:'junshi',   n:'軍事安全', d:'國防力量足以懾止侵略、守護海疆。屯門設鎮駐軍、虎門炮台，皆屬此列。'},
+  {k:'jingji',   n:'經濟安全', d:'產業、貿易與供應鏈自主可控，不致受制於人。'},
+  {k:'jinrong',  n:'金融安全', d:'貨幣信用與金融體系穩健，防範系統性風險——宋代交子的準備金正是最早的一課。'},
+  {k:'wenhua',   n:'文化安全', d:'民族文化主體性與文化自信不受侵蝕，兼收並蓄而不失根本。'},
+  {k:'shehui',   n:'社會安全', d:'社會秩序穩定、公共安全有保障、民生訴求獲回應。'},
+  {k:'keji',     n:'科技安全', d:'核心技術自主可控，關鍵領域不受制於人——近代「師夷長技」之痛即源於此。'},
+  {k:'wangluo',  n:'網絡安全', d:'網絡空間主權、基礎設施與資訊系統的安全可控。'},
+  {k:'liangshi', n:'糧食安全', d:'糧食供給穩定、價格可控，倉廩實而知禮節。'},
+  {k:'shengtai', n:'生態安全', d:'生態環境與可持續發展，不以透支環境換取一時增長。'},
+  {k:'ziyuan',   n:'資源安全', d:'能源、水土與戰略資源的穩定供應。'},
+  {k:'he',       n:'核安全',   d:'核設施、核材料與核活動的安全管控，以及核能和平利用。'},
+  {k:'haiwai',   n:'海外利益安全', d:'海外公民、機構與投資的安全，海上通道暢通——海上絲路即其古代形態。'},
+  {k:'shengwu',  n:'生物安全', d:'防範重大傳染病、外來物種入侵與生物技術誤用風險。'},
+  {k:'taikong',  n:'太空安全', d:'空間資產、衛星系統與外空活動的安全與和平利用。'},
+  {k:'jidi',     n:'極地安全', d:'極地科考、航道與資源權益的維護。'},
+  {k:'shenhai',  n:'深海安全', d:'深海探測、資源開發與海底設施的安全。'},
+  {k:'ai',       n:'人工智能安全', d:'人工智能技術發展的可控、可信與倫理規範。'},
+  {k:'shuju',    n:'數據安全', d:'數據跨境流動、個人私隱與重要數據的分類管理與保護。'}
+];
+/* 四維指標本身即國家安全的不同面向 */
+const meterSecurityMap = {
+  fa:  '法治是國家安全的制度保障——依憲依法治理，對應「政治安全」的法治基石。',
+  guo: '直接對應「政治安全」「國土安全」「軍事安全」「社會安全」等核心領域。',
+  min: '對應「經濟安全」「金融安全」「糧食安全」「資源安全」——民生凋敝則國本動搖。',
+  wen: '對應「文化安全」——民族認同與文化自信，是國家安全的精神屏障。'
+};
+
+const missionData = [
+{
+  id:'m1', juan:'卷一', era:'秦', chapterTag:'第一章 · 大一統與文明融和',
+  title:'嶺南初定：郡縣與教化', loc:'秦代 · 南海郡番禺縣 · 中央集權與郡縣制',
+  dialogue:[
+    {who:'narrator', line:'南海之地，山高林密，俚越雜處。始皇新設郡縣，法度未行，人心未附——傳承人，且看你如何定分止爭。'},
+    {who:'exec', line:'新附之地，若不重典鎮之，恐生變亂！'},
+    {who:'cul', line:'越人風俗自有其理，一味強壓，只怕適得其反。'}
+  ],
+  context:'秦始皇統一六國後，派兵平定嶺南，於此設南海郡番禺縣——香港地區自此正式納入中國版圖。然而，中原法制與本地俚越風俗差異甚大，加上山林阻隔、交通不便，如何治理這片新附之地，成為你上任後的第一道難題。',
+  deliberation:{
+    exec:'嶺南甫定、人心未附，大局上該以「立威」還是「懷柔」為先？如何在鎮壓與安撫之間拿捏分寸？',
+    law:'秦律強調「不得自為」，但若全盤移植而不因地制宜，是否反而動搖法治根基？可有典籍先例可援引變通？',
+    fis:'徵發勞役開鑿新道、運糧戍邊，財政與民力負擔如何精算，才不致竭澤而漁？',
+    cul:'推行「書同文、車同軌」固然利於一統，但百越文化（斷髮文身、干欄建築、龍舟習俗）該如何安置，才不致激起文化對立？'
+  },
+  knowledge:'郡縣制取代分封制，是秦代中央集權的重要基石，也奠定了此後兩千年中國「大一統」政治格局的雛形——香港自秦代納入南海郡番禺縣起，便已是中國版圖不可分割的一部分，這正是高中公民科探討香港憲制基礎時的歷史起點。「禮法並用」的治理智慧，也呼應了中華文化兼容並蓄的天下觀。',
+  scrollTitle:'史料卷軸 · 雲夢睡虎地秦簡（節錄大意）',
+  scrollText:'「……什伍連坐，度量衡、文字皆依秦制，不得自為……」\n——秦簡所載的什伍連坐與統一制度，反映秦代以嚴密法制鞏固中央集權的治理邏輯。',
+  item:{name:'秦篆量衡令牌', flavor:'刻著統一文字與度量衡的木牘，見證嶺南初定。', icon:'tablet'},
+  rounds:[
+    { label:'法制推行方式', domains:['zhengzhi', 'guotu'], stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'執政專員', label:'嚴刑峻法，強制推行', summary:'全面移植秦律，不作在地調適，並徵發勞役開鑿道路運河。', quote:'「亂世用重典，唯有嚴法方能鎮服四方。」', delta:{fa:2,guo:5,min:-3,wen:-5}, feedback:'秩序雖立，但越人風俗遭強行壓制，民怨積聚，「文化凝聚」與「民生經濟」明顯受損。'},
+      {key:'B', speaker:'文教與文化使者', label:'放任自治，不加干預', summary:'暫緩推行秦律與度量衡統一，尊重越人原有習俗。', quote:'「風俗不可強改，且容其自安。」', delta:{fa:-5,guo:-5,min:0,wen:3}, feedback:'地方自主雖獲一時安穩，但中央法制未能落地，「法治值」與「國安穩定」雙雙下滑。'},
+      {key:'C', speaker:'律令專員', label:'禮法並用，因地制宜', summary:'推行秦律基本框架，保留若干因地制宜條款；派文教官推廣文字度量衡，同時尊重越人風俗。', quote:'「禮法並用，方能法立而人心歸附。」', delta:{fa:5,guo:3,min:0,wen:5}, feedback:'法制得以確立，風俗亦獲尊重——這正是「禮法並用」的治理智慧，為嶺南長治久安奠定基礎。'}
+    ]},
+    { label:'徵役與交通建設', domains:['shehui', 'ziyuan'], situation:'為連通中原與嶺南，秦廷徵發民伕開鑿靈渠、修築馳道，工程浩大，民伕死傷枕藉，沿途郡縣糧秣轉運壓力沉重。度支專員憂心民力難以為繼，執政專員則堅持工程不可中斷。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'度支專員', label:'暫緩工程，休養民力', summary:'立即停止靈渠與馳道工程，讓民伕返鄉休息，日後再議。', quote:'「民力已竭，若不休養，恐生民變。」', delta:{fa:0,guo:-3,min:3,wen:2}, feedback:'民力稍緩，但南北交通遲遲未通，中央對嶺南的掌控力，「國安穩定」持續受限。'},
+      {key:'B', speaker:'執政專員', label:'嚴令趕工，不恤民力', summary:'不顧民伕死傷，嚴令限期完工，違者連坐。', quote:'「工程一日不成，南疆一日不穩，敢有懈怠者斬！」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'交通雖提前打通，但民伕死傷慘重，民怨沸騰，「民生經濟」與「文化凝聚」大幅受損。'},
+      {key:'C', speaker:'度支專員', label:'分段施工，以工代賑', summary:'將工程分段推進，並發放糧餉「以工代賑」，兼顧交通建設與民力恢復。', quote:'「工程可緩，民心不可失；以工代賑，兩全其美。」', delta:{fa:2,guo:3,min:3,wen:2}, feedback:'靈渠、馳道次第完工，民伕亦得溫飽——「以工代賑」的智慧，讓建設與民生並行不悖。'}
+    ]},
+    { label:'移民實邊政策', domains:['guotu', 'shehui', 'wenhua'], situation:'秦廷議決遷徙中原罪犯、商人與貧民南下嶺南「與越雜處」，充實邊地人口。文教與文化使者關注移民與百越原居民能否和睦共處，律令專員則須確立移民與原居民的法律地位。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'律令專員', label:'移民凌駕，越人為役', summary:'規定移民享有優先土地與法律地位，百越原居民淪為附庸勞役。', quote:'「移民乃我族之本，越人自當為其所用。」', delta:{fa:3,guo:2,min:2,wen:-6}, feedback:'移民雖迅速站穩腳跟，但百越原居民淪為次等，「文化凝聚」嚴重受損，埋下長期民族矛盾。'},
+      {key:'B', speaker:'文教與文化使者', label:'禁止通婚，隔離而治', summary:'嚴禁移民與越人通婚往來，兩族分居而治，互不干涉。', quote:'「兩族風俗迥異，不如分居而治，各安其份。」', delta:{fa:-2,guo:-3,min:-2,wen:0}, feedback:'表面相安無事，實則兩族長期隔閡，難以真正融合，「國安穩定」與「民生經濟」皆未見起色。'},
+      {key:'C', speaker:'執政專員', label:'雜居通婚，一視同仁', summary:'鼓勵移民與越人雜居通婚，法律上一視同仁，共享土地與資源。', quote:'「與越雜處，一視同仁，方能化異為同。」', delta:{fa:3,guo:3,min:3,wen:5}, feedback:'移民與百越逐漸融合，嶺南人口日增，經濟漸興——這正是後世嶺南族群融合的歷史根源。'}
+    ]},
+    { label:'羈縻部族首領', domains:['zhengzhi', 'junshi'], situation:'深山中仍有百越部族首領未完全臣服，時而反抗秦吏。執政專員須決定如何處置這些「化外」勢力，以穩定嶺南全局。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'執政專員', label:'派兵清剿，斬草除根', summary:'派遣重兵深入山林，武力鎮壓所有未臣服部族。', quote:'「不服王化者，唯有兵戈以服之。」', delta:{fa:-2,guo:3,min:-5,wen:-6}, feedback:'部分部族雖被鎮壓，但山林游擊不斷，秦軍疲於奔命，「民生經濟」與「文化凝聚」持續流失。'},
+      {key:'B', speaker:'度支專員', label:'置之不理，任其自生自滅', summary:'對深山部族不聞不問，任由其自治自理。', quote:'「山高路遠，何必勞師遠征？」', delta:{fa:-3,guo:-5,min:0,wen:2}, feedback:'表面無事，但邊防隱患未除，中央權威在深山地帶形同虛設，「法治值」與「國安穩定」下滑。'},
+      {key:'C', speaker:'律令專員', label:'冊封首領，以夷制夷', summary:'冊封歸順的部族首領為地方吏員，賦予有限自治權，以夷制夷、以撫代剿。', quote:'「冊封其酋，以夷制夷，不戰而屈人之兵，方為上策。」', delta:{fa:3,guo:5,min:2,wen:5}, feedback:'羈縻政策奏效，部族首領歸心，嶺南終告底定——這正是後世歷代治理邊疆民族的重要智慧源頭。'}
+    ]}
+  ]
+},
+{
+  id:'m2', juan:'卷二', era:'唐', chapterTag:'第一章 · 大一統與文明融和',
+  title:'屯門開海：番坊與防務', loc:'唐代 · 廣州市舶司 · 屯門鎮 · 海路貿易與番坊管理',
+  dialogue:[
+    {who:'narrator', line:'大唐開廣運四海，屯門波濤日夜不息。番舶雲集，番坊喧鬧——開放與防範之間，分寸何在？'},
+    {who:'fis', line:'番商雲集，稅利可觀，何必自縛手腳？'},
+    {who:'exec', line:'利之所在，弊亦隨之，海防豈可鬆懈？'}
+  ],
+  context:'海上絲綢之路日益繁榮，廣州成為對外貿易重港，屯門因地理位置優越而設鎮駐軍，護衛海路安全。大批外商湧入，聚居「番坊」，帶來文化交流的機遇，也帶來治安與監管的挑戰。',
+  deliberation:{
+    exec:'番坊繁盛帶來稅收與威望，但也牽動海防安全，如何在開放格局中仍守住底線？',
+    law:'唐律「化外人有犯，各依本俗法」是否足以應付日益複雜的涉外案件？監管的法源何在？',
+    fis:'市舶司的稅收該如何設計，才能既充盈國庫，又不致嚇跑番商？',
+    cul:'番坊帶來的異域文化與中原禮俗如何交融共存，而不致喧賓奪主？'
+  },
+  knowledge:'唐代開放的對外政策與市舶司制度，是初中歷史科認識「盛唐氣象」的重要例證；屯門在唐代已是重要海防據點，說明香港自古以來便是中國海疆體系的一環，呼應高中公民科探討香港自古以來版圖演變的課題。「化外人有犯，各依本俗法」則體現中華文化兼收並蓄、禮法並用治理多元社會的智慧。',
+  scrollTitle:'史料卷軸 ·《唐律疏議・名例律》',
+  scrollText:'「諸化外人，同類自相犯者，各依本俗法；異類相犯者，以法律論。」\n——唐律容許外商依本俗自理內部糾紛，異族相犯則依唐律論處，體現開放與法治並存的氣度。',
+  item:{name:'番坊敕令拓本', flavor:'屯門市舶敕令的拓印，記錄開放與治安並重的智慧。', icon:'stamp'},
+  rounds:[
+    { label:'番坊管理體制', domains:['shehui', 'wenhua'], stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'度支專員', label:'全面開放，不設監管', summary:'任由番坊自治，不設市舶司稅收與治安監管。', quote:'「開放通商，利莫大焉，何必自縛？」', delta:{fa:-3,guo:-5,min:3,wen:5}, feedback:'商貿與文化交流蓬勃，但走私與治安風險上升，「國安穩定」明顯下滑。'},
+      {key:'B', speaker:'執政專員', label:'嚴格鎖港，重兵戒備', summary:'限制外商往來，屯門重兵駐守，大幅收緊貿易。', quote:'「海防為重，寧可少些商賈，不可讓宵小可乘之機。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'海防雖固，但貿易萎縮、番坊生計受挫，「民生經濟」與「文化凝聚」大幅受損。'},
+      {key:'C', speaker:'律令專員', label:'訂立《番坊管理敕令》', summary:'設市舶司統一徵稅與管理，屯門駐軍護航貿易，同時容許番坊依本俗自理內部事務。', quote:'「立敕令以定規矩，開海路以通有無，二者可並行不悖。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'秩序、稅收、文化交流三者兼顧——這正是唐代「兼收並蓄」大國氣度的體現。'}
+    ]},
+    { label:'屯門鎮駐軍規模', domains:['junshi', 'guotu'], situation:'屯門鎮地當要衝，朝廷須決定駐軍規模。兵力過少恐難禦海寇，兵力過多則耗費軍餉、擾民生。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'執政專員', label:'重兵長駐，不計軍費', summary:'大興屯門駐軍，不惜耗費國庫。', quote:'「海防重於一切，軍費在所不惜。」', delta:{fa:0,guo:6,min:-6,wen:-2}, feedback:'海防固若金湯，但軍費耗費過巨，「民生經濟」重挫。'},
+      {key:'B', speaker:'度支專員', label:'裁減駐軍，節省軍費', summary:'大幅裁減屯門駐軍，以節省開支。', quote:'「軍費浩繁，不如裁軍節流。」', delta:{fa:0,guo:-6,min:3,wen:0}, feedback:'國庫暫緩壓力，但海防空虛，海寇趁虛而入的風險大增，「國安穩定」下滑。'},
+      {key:'C', speaker:'執政專員', label:'寓兵於民，兵農合一', summary:'採府兵制，寓兵於農，平時屯田，戰時徵召。', quote:'「兵農合一，寓兵於民，既固海防，又省軍費。」', delta:{fa:3,guo:5,min:3,wen:0}, feedback:'屯門鎮兵力可持續維持，海防與財政得以兼顧——府兵制的智慧，正是唐代軍事制度的重要創舉。'}
+    ]},
+    { label:'市舶司關稅則例', domains:['jingji', 'haiwai'], situation:'市舶司統一徵稅後，關稅稅率該如何釐定？稅率過高恐令番商卻步，過低則國庫收益有限。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'度支專員', label:'輕稅招徠，不計庫收', summary:'大幅降低關稅，以招徠更多番商。', quote:'「稅輕則商聚，何必計較一時稅收？」', delta:{fa:-2,guo:0,min:2,wen:5}, feedback:'番商雲集，文化交流興盛，然而國庫關稅收入銳減，「民生經濟」未如預期增長。'},
+      {key:'B', speaker:'執政專員', label:'重稅盤剝，充盈國庫', summary:'大幅提高關稅，榨取最大稅收。', quote:'「番商求利而來，重稅何妨？」', delta:{fa:0,guo:0,min:5,wen:-5}, feedback:'短期稅收大增，但番商紛紛轉往他港，長遠而言「文化凝聚」與商貿活力受損。'},
+      {key:'C', speaker:'律令專員', label:'則例分級，依貨論稅', summary:'依貨物種類與價值訂立分級稅則，量力而徵。', quote:'「則例分明，依貨論稅，商賈與國庫兩利。」', delta:{fa:5,guo:2,min:5,wen:2}, feedback:'稅則清晰公平，商賈樂於前來，國庫稅收亦穩步增長——這正是唐代市舶司制度化管理的智慧。'}
+    ]},
+    { label:'番商宗教與婚俗融入', domains:['wenhua', 'shehui'], situation:'番坊中信奉伊斯蘭教、祆教等異域宗教的商人日增，並有番商欲與本地人通婚定居。文教與文化使者須議定政策。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'文教與文化使者', label:'禁止異教，不准通婚', summary:'嚴禁番商在境內傳教，亦不准與本地人通婚。', quote:'「異教異俗，不可使其蔓延。」', delta:{fa:-2,guo:2,min:-3,wen:-5}, feedback:'表面維持「純正」，實則番商離心，貿易與文化交流雙雙受挫。'},
+      {key:'B', speaker:'度支專員', label:'全然放任，不加規範', summary:'對番坊宗教與婚俗全然不加干涉或登記管理。', quote:'「信仰婚俗，悉聽尊便，官府何必多管？」', delta:{fa:-5,guo:-2,min:3,wen:3}, feedback:'番坊自治雖獲好感，但缺乏管理令部分糾紛無從仲裁，「法治值」下滑。'},
+      {key:'C', speaker:'文教與文化使者', label:'容教許婚，依法登記', summary:'容許番商保有信仰並與本地人通婚，但須向官府登記備案。', quote:'「兼容並蓄，依法備案，方顯大國氣度。」', delta:{fa:3,guo:2,min:3,wen:6}, feedback:'番坊安居樂業，中外通婚漸成風氣——這正是唐代「胡漢交融」盛世氣象的生動寫照。'}
+    ]}
+  ]
+},
+{
+  id:'m3', juan:'卷三', era:'宋', chapterTag:'第二章 · 海上絲路的繁榮與近現代轉向',
+  title:'汴京交子：誠信與瓷路', loc:'宋代 · 汴京夜市 · 交子 · 香港採珠製鹽業',
+  dialogue:[
+    {who:'narrator', line:'汴京夜市燈火如晝，交子輕薄卻繫著萬千商賈的信用。度支之道，不在多印，而在守信。'},
+    {who:'exec', line:'軍費周轉不靈，交子多印一些又有何妨？'},
+    {who:'fis', line:'輕重失衡，信用一失，禍患無窮！'}
+  ],
+  context:'汴京夜市燈火通明，商業高度繁榮；四川商人首創「交子」，成為世界最早的紙幣。香港地區的採珠業與製鹽業亦相當發達，茶葉、絲綢、陶瓷經海路遠銷四方。度支專員必須為交子的發行，以及海上貿易的稅收，做出精確判斷。',
+  deliberation:{
+    exec:'交子既關乎財政穩定，也牽動民心向背，發行規模該如何權衡？',
+    law:'交子發行若無明確法度規範準備金比例，日後恐生何種法律與治理風險？',
+    fis:'如何精算準備金與發行總額之間的比例，才能兼顧財政靈活與貨幣信用？',
+    cul:'誠信乃商道之本，交子的信用崩壞會如何影響社會風氣與文化凝聚？'
+  },
+  knowledge:'交子是世界最早的紙幣，反映宋代商品經濟高度發展，是初中歷史科認識宋代「商業革命」的重要例證；其興衰也說明「誠信」在經濟治理中的核心地位，呼應中華文化「義利之辨」的價值觀——義以生利、利以豐民，而非見利忘義。',
+  scrollTitle:'史料卷軸 · 交子發行史實摘要',
+  scrollText:'北宋政府接手交子發行後，規定須備有約三分之一的鈔本（準備金）方可流通，並限定發行總額，以維持交子的信用與幣值穩定。',
+  item:{name:'交子鈔本', flavor:'一枚保存完好的北宋紙鈔，信用未失。', icon:'note'},
+  rounds:[
+    { label:'交子準備金比例', domains:['jinrong', 'jingji'], stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'執政專員', label:'大量超發，應急軍費', summary:'不顧準備金比例，大量加印交子以應付開支。', quote:'「軍費告急，先印鈔應急，後患且待後論。」', delta:{fa:-3,guo:-3,min:-6,wen:0}, feedback:'交子迅速貶值，通貨膨脹侵蝕民生，「民生經濟」與「國安穩定」同步惡化——正是「不誠信商道」的教訓。'},
+      {key:'B', speaker:'文教與文化使者', label:'拒用紙幣，固守鐵錢', summary:'堅持笨重鐵錢，限制海外貿易規模，不予創新。', quote:'「祖宗成法不可輕廢，鐵錢雖重，穩妥為上。」', delta:{fa:0,guo:0,min:-5,wen:-3}, feedback:'雖無通脹之虞，但交易成本高昂、錯失海外貿易良機，「民生經濟」與「文化凝聚」停滯不前。'},
+      {key:'C', speaker:'度支專員', label:'恪守準備金，規範瓷路貿易', summary:'依約三分之一準備金發行交子，並設市舶司規範茶絲瓷貿易與稅收。', quote:'「量入為出，鈔本三一，方能取信於民。」', delta:{fa:3,guo:2,min:6,wen:3}, feedback:'誠信立本，貿易暢旺——「義利之辨」的智慧，讓經濟繁榮與信用穩固並行不悖。'}
+    ]},
+    { label:'海外貿易船引配額', domains:['haiwai', 'jingji', 'shenhai'], situation:'市舶司對出海貿易商船發放「船引」（許可證），數量該如何管制？', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'度支專員', label:'船引不設限，自由出海', summary:'取消船引配額限制，任何商船皆可自由出海貿易。', quote:'「貿易自由，何必設限？」', delta:{fa:-5,guo:-3,min:5,wen:3}, feedback:'貿易蓬勃一時，但走私與海盜船隻混雜其中難以稽查，「國安穩定」與「法治值」受損。'},
+      {key:'B', speaker:'執政專員', label:'嚴格限額，寧缺勿濫', summary:'大幅削減船引發放數量，僅許少數官商出海。', quote:'「商船氾濫難管，不如嚴格限額。」', delta:{fa:2,guo:3,min:-6,wen:-3}, feedback:'管理雖見成效，但海外貿易萎縮，商賈怨聲載道，「民生經濟」與「文化凝聚」下滑。'},
+      {key:'C', speaker:'律令專員', label:'船引登記，按額核發', summary:'建立船引登記制度，依港口容量與商船信譽核發配額。', quote:'「按額核發，有序管理，方能行之久遠。」', delta:{fa:5,guo:3,min:5,wen:2}, feedback:'海外貿易井然有序，港口秩序與商貿活力兼備——這正是宋代市舶制度成熟的體現。'}
+    ]},
+    { label:'汴京物價與囤積居奇', domains:['liangshi', 'shehui'], situation:'汴京米糧因富商囤積居奇，價格飛漲，民怨四起。度支專員須決定平抑物價之法。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'執政專員', label:'放任市場，不加干預', summary:'堅信市場自會調節，不設任何平抑措施。', quote:'「物價漲跌，市場自有其道。」', delta:{fa:0,guo:-5,min:-5,wen:-2}, feedback:'米價持續飛漲，民生困苦，民怨累積，「國安穩定」與「民生經濟」雙雙下滑。'},
+      {key:'B', speaker:'律令專員', label:'強制徵收，平價配售', summary:'強行徵收富商糧倉存糧，由官府平價配售。', quote:'「糧價失控，唯有強徵平糶。」', delta:{fa:-5,guo:2,min:2,wen:-3}, feedback:'米價暫時回穩，但強徵引發商界不滿與法治爭議，「法治值」明顯受損。'},
+      {key:'C', speaker:'度支專員', label:'設常平倉，豐年儲糧', summary:'設立常平倉制度，豐年購入儲糧、荒年平價拋售，調節供需。', quote:'「常平倉制，豐儲歉糶，方是長治久安之道。」', delta:{fa:3,guo:3,min:5,wen:2}, feedback:'米價漸趨平穩，民生獲得保障——常平倉制度正是中國古代「調節供需、以豐補歉」治理智慧的典範。'}
+    ]},
+    { label:'香港採珠製鹽稅收', domains:['ziyuan', 'jingji'], situation:'香港地區的大埔採珠業與屯門一帶製鹽業日漸興旺，朝廷須決定如何徵稅與管理這些地方產業。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'律令專員', label:'官營壟斷，重稅徵榷', summary:'將採珠、製鹽收歸官營壟斷，課以重稅。', quote:'「山海之利，豈可假手於民？」', delta:{fa:0,guo:2,min:3,wen:-5}, feedback:'國庫稅收增加，但漁民鹽戶生計大受打擊，「文化凝聚」與地方民心受損。'},
+      {key:'B', speaker:'文教與文化使者', label:'放任自產自銷，不加課稅', summary:'對採珠製鹽業完全不加管理課稅。', quote:'「民生小利，何必徵稅擾民？」', delta:{fa:-3,guo:0,min:-3,wen:2}, feedback:'民間雖獲喘息，但官府坐失財源，長遠而言難以支持地方建設，「民生經濟」停滯。'},
+      {key:'C', speaker:'度支專員', label:'官督民營，合理抽稅', summary:'採「官督民營」模式，容許民間經營，依比例合理抽稅。', quote:'「官督民營，稅賦合理，民生與國用兩不誤。」', delta:{fa:3,guo:2,min:5,wen:3}, feedback:'採珠製鹽業穩步發展，稅收亦見增長——香港地區的海洋經濟基礎，正由此奠定。'}
+    ]}
+  ]
+},
+{
+  id:'m4', juan:'卷四', era:'清', chapterTag:'第二章 · 海上絲路的繁榮與近現代轉向',
+  title:'虎門烽煙：存亡與氣節', loc:'清代 · 虎門銷煙 · 鴉片戰爭 ·《南京條約》',
+  dialogue:[
+    {who:'narrator', line:'虎門硝煙未散，炮火已至珠江口。國之存亡，繫於一念——是屈膝，是死戰，還是知恥而後勇？'},
+    {who:'fis', line:'兵連禍結，糜費無度，不如早日議和。'},
+    {who:'exec', line:'國恥當前，豈能不戰而降！'}
+  ],
+  context:'鴉片走私氾濫，白銀外流，國力日衰。林則徐奉命赴廣東禁煙，虎門銷煙震動中外，卻招致英國以武力發動鴉片戰爭。清政府戰敗，被迫簽訂《南京條約》，割讓香港島。你必須從這段沉痛歷史中，汲取對主權與國力的深刻反思。',
+  deliberation:{
+    exec:'戰爭已然爆發，議和與抗戰的抉擇如何影響日後國家的存續與尊嚴？',
+    law:'《南京條約》從國際法與國家主權角度而言，暴露了當時中國在國際體系中何種困境？',
+    fis:'戰爭與賠款耗費巨大國力，如何在存亡關頭仍顧及民生根基？',
+    cul:'這段屈辱歷史該如何轉化為凝聚民族氣節與愛國情懷的精神資源，而非一味悲情？'
+  },
+  knowledge:'鴉片戰爭與《南京條約》是初中中國歷史科的重要課題，標誌著中國近代史的開端與香港被英國佔領的起點；高中公民科則透過這段歷史，說明國家於1997年恢復對香港行使主權的歷史必然性與正當性。林則徐的氣節，正是中華文化「捨生取義」「知恥而後勇」精神的具體體現。',
+  scrollTitle:'史料卷軸 · 林則徐奏摺與《南京條約》節錄',
+  scrollText:'林則徐：「若鴉片一日未絕，本大臣一日不回，誓與此事相始終，斷無中止之理。」\n《南京條約》（1842）：中國割讓香港島予英國，開放五口通商，並賠款二千一百萬銀元。',
+  item:{name:'林公奏摺抄本', flavor:'抄錄林則徐奏摺的片段，銘記氣節與教訓。', icon:'memo'},
+  rounds:[
+    { label:'禁煙立場的歷史反思', domains:['zhengzhi', 'shehui', 'shengwu'], stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'度支專員', label:'歸咎禁煙，主張妥協求和', summary:'認為戰爭全因禁煙操之過急，主張及早屈辱求和以避戰禍。', quote:'「戰事糜費甚巨，及早求和，保全元氣。」', delta:{fa:-3,guo:-5,min:2,wen:-6}, feedback:'求和雖暫緩戰事，卻抹煞禁煙的正當性，「文化凝聚」與「國安穩定」大受打擊——這並非歷史應有的教訓。'},
+      {key:'B', speaker:'執政專員', label:'不顧國力，力主死戰到底', summary:'無視雙方國力與軍備的巨大差距，主張不惜一切代價強硬對抗。', quote:'「縱使玉石俱焚，亦不能屈膝求和！」', delta:{fa:0,guo:-6,min:-5,wen:2}, feedback:'氣節可嘉，但盲目輕敵導致更慘重損失，「國安穩定」與「民生經濟」進一步惡化。'},
+      {key:'C', speaker:'文教與文化使者', label:'肯定禁煙，正視差距，以史為鑑', summary:'肯定林則徐禁煙的正當性與民族氣節，同時正視國力落後的根源，將此役視為近代改革與捍衛主權的歷史轉捩點。', quote:'「禁煙無罪，國弱受欺——當銘記此恥，發憤圖強。」', delta:{fa:3,guo:2,min:0,wen:6}, feedback:'銘記屈辱，不忘自強——這段歷史正是探討「國家恢復對香港行使主權」必然性的重要根基。'}
+    ]},
+    { label:'廣州十三行貿易體制', domains:['jingji', 'haiwai'], situation:'鴉片戰爭前，廣州十三行壟斷對外貿易，外商屢屢抱怨體制僵化。度支專員須評估是否改革這套「一口通商」體制。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'執政專員', label:'固守十三行，拒絕改革', summary:'堅持十三行壟斷體制，不作任何開放。', quote:'「祖宗成法，豈可輕言更張？」', delta:{fa:0,guo:2,min:-5,wen:-3}, feedback:'體制僵化引發外商積怨，埋下日後衝突的種子，「民生經濟」與「文化凝聚」受損。'},
+      {key:'B', speaker:'度支專員', label:'全面開放，廢除十三行', summary:'立即廢除十三行制度，全面開放通商口岸。', quote:'「不如順應潮流，全面開埠通商。」', delta:{fa:-5,guo:-5,min:3,wen:0}, feedback:'雖然一時貿易活絡，但朝廷倉促失去管控，「法治值」與「國安穩定」大幅下滑。'},
+      {key:'C', speaker:'律令專員', label:'漸進改良，擴大監管', summary:'保留基本管理架構，但逐步改良行商制度、增設監督機制。', quote:'「循序漸進，擴大監管，方能穩中求變。」', delta:{fa:3,guo:3,min:3,wen:2}, feedback:'貿易體制逐步現代化，惜為時已晚未能扭轉戰爭大勢——但這段歷史仍值得後世借鏡「穩中求變」的道理。'}
+    ]},
+    { label:'三元里民眾抗英', domains:['junshi', 'zhengzhi'], situation:'英軍進犯廣州城郊，三元里一帶民眾自發組織團練抗擊英軍。執政專員須決定官府對民間抗英力量的態度。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'執政專員', label:'嚴禁民團，恐生民變', summary:'擔心民間武裝坐大失控，嚴令解散三元里團練。', quote:'「民間擁兵，恐生尾大不掉之患。」', delta:{fa:-2,guo:-3,min:0,wen:-6}, feedback:'民心大失，錯失團結民力抗敵的良機，「文化凝聚」重挫。'},
+      {key:'B', speaker:'度支專員', label:'放任自行其是，官府置身事外', summary:'對民團抗英不聞不問，亦不予支援協調。', quote:'「民自為戰，官府何必插手？」', delta:{fa:-3,guo:-5,min:-2,wen:2}, feedback:'民團孤軍作戰，缺乏官方支援協調，抗敵成效有限，「國安穩定」持續下滑。'},
+      {key:'C', speaker:'文教與文化使者', label:'官民協同，因勢利導', summary:'官府因勢利導，協調民團與正規軍配合作戰，凝聚全民抗敵力量。', quote:'「軍民同心，協力抗敵，方顯民族氣節。」', delta:{fa:2,guo:3,min:0,wen:6}, feedback:'三元里軍民同仇敵愾的事蹟，成為近代中國民族氣節與愛國精神的重要象徵。'}
+    ]},
+    { label:'五口通商善後應對', domains:['guotu', 'keji'], situation:'《南京條約》既簽，五口通商已成定局。清廷須議定如何因應這場劇變，為日後自強圖存奠定基礎。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'執政專員', label:'諱敗為勝，粉飾太平', summary:'對外宣稱議和乃「恩准通商」，對內掩蓋戰敗真相。', quote:'「對外宜言撫恤遠人，不必張揚戰事。」', delta:{fa:-5,guo:-3,min:0,wen:-6}, feedback:'粉飾太平無助於真正改革，錯失反省變革的契機，「文化凝聚」與「法治值」持續受損。'},
+      {key:'B', speaker:'文教與文化使者', label:'全盤西化，盡棄舊制', summary:'主張立即全盤仿效西方制度，盡棄中國傳統體制。', quote:'「舊制已然無用，不如全盤仿效泰西。」', delta:{fa:-3,guo:-5,min:2,wen:-3}, feedback:'操之過急引發朝野強烈反彈，改革難以落實，「國安穩定」與「文化凝聚」皆受衝擊。'},
+      {key:'C', speaker:'律令專員', label:'正視差距，師夷長技', summary:'正視戰敗根源，主張「師夷長技以制夷」，務實學習西方軍事科技以圖自強。', quote:'「知恥而後勇，師夷長技以制夷，方為自強之道。」', delta:{fa:3,guo:3,min:2,wen:5}, feedback:'「師夷長技以制夷」的主張，成為日後洋務運動自強圖存的重要思想先聲。'}
+    ]}
+  ]
+},
+{
+  id:'m5', juan:'卷五', era:'革', chapterTag:'第三章 · 當代治理、改革開放與全球互聯',
+  title:'蛇口潮聲：協同與轉型', loc:'當代 · 深圳經濟特區 · 大灣區產業協同',
+  dialogue:[
+    {who:'narrator', line:'深圳蛇口，推土機隆隆作響。香江之資，北望神州——這是一盤如何落子的大棋？'},
+    {who:'fis', line:'機不可失，先開閘引資再說！'},
+    {who:'exec', line:'外資湧入，變數難測，不如緩行。'}
+  ],
+  context:'國家實施改革開放，深圳設立經濟特區，香港則發揮資金、技術與管理優勢，協助內地發展，並轉型為國際金融中心。你須在大灣區地圖沙盤上，為「產業轉型」「科技創新」「生態保護」「文化交流」四類籌碼，作出配置。',
+  deliberation:{
+    exec:'大灣區協同發展牽涉多方利益，如何統籌香港與內地的角色分工？',
+    law:'外資與產業轉型的引進，需要哪些法規配套才能確保有序而非失控？',
+    fis:'產業轉型、科技創新、生態保護、文化交流四項籌碼，如何取得財政與資源上的平衡？',
+    cul:'香港的中西文化交流優勢，如何在大灣區協同發展中發揮軟實力作用？'
+  },
+  knowledge:'改革開放與大灣區建設是高中公民科「國情與國家發展」的核心課題；香港憑藉「一國兩制」下獨特的普通法制度與國際聯繫，在國家發展大局中擔當「引進來、走出去」的橋樑角色，體現中華文化「民惟邦本」以民生福祉為施政依歸的治理智慧。',
+  scrollTitle:'史料卷軸 · 改革開放史實摘要',
+  scrollText:'1978年，國家推行改革開放；1980年，深圳、珠海等地設立經濟特區。香港以「前店後廠」模式，結合內地土地勞力與香港資金技術，推動珠三角迅速崛起為「世界工廠」。',
+  item:{name:'特區地契圖卷', flavor:'深圳經濟特區的規劃圖卷，見證改革開放的起點。', icon:'map'},
+  rounds:[
+    { label:'大灣區四類籌碼配置', domains:['jingji', 'shengtai', 'ziyuan'], stampLabel:'蓋憲法法理印', gated:false, options:[
+      {key:'A', speaker:'度支專員', label:'全力衝刺產業轉型，不顧環保監管', summary:'大舉引進外資與工廠，暫緩生態保護與資源安全審查。', quote:'「機不可失，先求發展，環保之事，來日方長。」', delta:{fa:-5,guo:-3,min:6,wen:0}, feedback:'經濟一時高速增長，卻埋下監管缺失與資源安全的隱患，「法治值」與「國安穩定」雙雙下滑。'},
+      {key:'B', speaker:'執政專員', label:'保守觀望，拒絕深化開放', summary:'固守原有模式，不參與大灣區產業協同與科技合作。', quote:'「外資湧入，恐生變數，不如按兵不動。」', delta:{fa:0,guo:2,min:-5,wen:-3}, feedback:'雖然穩妥，卻錯失發展機遇，「民生經濟」與「文化凝聚」停滯不前。'},
+      {key:'C', speaker:'律令專員', label:'均衡配置，依法規管外資', summary:'在產業轉型、科技創新、生態保護、文化交流四方面均衡配置籌碼，並依法規管外資。', quote:'「依法規管，產業、科創、生態、文化四者並重，方為長久之計。」', delta:{fa:3,guo:3,min:5,wen:5}, feedback:'發展與規範並重——香港正是憑藉「一國兩制」下的獨特優勢，融入國家發展大局。'}
+    ]},
+    { label:'前店後廠勞工權益', domains:['shehui', 'jingji'], situation:'「前店後廠」模式下，大量內地勞工湧入珠三角工廠，勞動條件與權益保障備受關注。度支專員須權衡生產成本與勞工福祉。', stampLabel:'蓋憲法法理印', gated:false, options:[
+      {key:'A', speaker:'度支專員', label:'壓低成本，不顧勞權', summary:'壓低工資與福利以維持產業競爭力，不設勞工權益保障。', quote:'「成本才是競爭力的根本，勞權暫且擱置。」', delta:{fa:-5,guo:-2,min:5,wen:-5}, feedback:'短期成本優勢明顯，但勞資糾紛頻生，「文化凝聚」與「法治值」雙雙受損。'},
+      {key:'B', speaker:'律令專員', label:'嚴格管制，增加企業負擔', summary:'立即實施最嚴格的勞工保障法規，大幅增加企業經營成本。', quote:'「勞工權益優先，企業成本其次。」', delta:{fa:3,guo:0,min:-6,wen:2}, feedback:'勞工權益雖獲保障，但企業成本驟增，部分工廠外移，「民生經濟」明顯下滑。'},
+      {key:'C', speaker:'執政專員', label:'循序完善，勞資共贏', summary:'循序漸進完善勞動法規與社會保障，同時維持產業競爭力。', quote:'「勞資共贏，循序完善，方能行穩致遠。」', delta:{fa:5,guo:2,min:3,wen:5}, feedback:'勞工權益逐步改善，產業競爭力亦未受損——這正是改革開放「摸著石頭過河」漸進務實精神的體現。'}
+    ]},
+    { label:'深港跨境基建協同', domains:['ziyuan', 'guotu', 'he'], situation:'港深兩地醞釀興建跨境鐵路與口岸基建，以強化雙城協同，但涉及龐大的土地、財政與規劃協調問題。', stampLabel:'蓋憲法法理印', gated:false, options:[
+      {key:'A', speaker:'執政專員', label:'各自為政，互不協調', summary:'港深各自按自身規劃推進，不作聯合協調。', quote:'「各有各的規劃，何必事事協調？」', delta:{fa:0,guo:0,min:-5,wen:-5}, feedback:'基建重複浪費、銜接不暢，錯失協同發展的效益，「民生經濟」與「文化凝聚」受損。'},
+      {key:'B', speaker:'度支專員', label:'倉促上馬，不計成本', summary:'為求盡快建成，倉促上馬，不作充分規劃評估。', quote:'「宜早不宜遲，先建了再說。」', delta:{fa:-5,guo:0,min:-3,wen:0}, feedback:'工程雖快速推進，但規劃粗疏引發後續爭議與超支，「法治值」明顯受損。'},
+      {key:'C', speaker:'律令專員', label:'聯合規劃，分階段推進', summary:'港深成立聯合規劃小組，分階段、按實際需求推進跨境基建。', quote:'「聯合規劃，分階段推進，方是務實之道。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'跨境基建有序推進，港深「一小時生活圈」逐步成形——區域協同發展的效益日益彰顯。'}
+    ]},
+    { label:'金融開放與資本監管', domains:['jinrong', 'jingji'], situation:'香港作為國際金融中心，面對內地資本市場開放的呼聲，須決定金融互聯互通的開放步伐與監管配套。', stampLabel:'蓋憲法法理印', gated:false, options:[
+      {key:'A', speaker:'度支專員', label:'全面開放，資本自由進出', summary:'立即全面開放資本帳戶，不設任何限制。', quote:'「金融全面開放，方能盡顯自由港優勢。」', delta:{fa:-5,guo:-6,min:5,wen:0}, feedback:'短期資金流入暢旺，但監管缺位使系統性金融風險大增，「國安穩定」與「法治值」重挫。'},
+      {key:'B', speaker:'執政專員', label:'嚴格管制，拒絕互聯互通', summary:'拒絕任何跨境金融互聯互通機制，維持高度管制。', quote:'「金融安全為重，互聯互通暫緩為宜。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'金融體系雖穩健，但錯失國際資本樞紐的發展機遇，「民生經濟」明顯受限。'},
+      {key:'C', speaker:'律令專員', label:'漸進試點，風險可控互聯', summary:'透過「滬深港通」等機制漸進試點，在風險可控下推進互聯互通。', quote:'「漸進試點，風險可控，方能行穩致遠。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'金融市場穩步對外開放，香港「國際金融中心」與「國家金融安全屏障」角色相得益彰。'}
+    ]}
+  ]
+},
+{
+  id:'m6', juan:'卷六', era:'憲', chapterTag:'第三章 · 當代治理、改革開放與全球互聯',
+  title:'憲制終章：一國兩制', loc:'當代 ·《憲法》與《基本法》· 跨國科技合作審查 · 非遺保護立法',
+  dialogue:[
+    {who:'narrator', line:'《憲法》與《基本法》如車之兩輪，鳥之雙翼。今日的方案，能否經得起法理的最終檢驗？'},
+    {who:'fis', line:'審查費時，恐誤商機，不如從權。'},
+    {who:'exec', line:'國安大事，寧緊勿鬆，一律嚴辦！'}
+  ],
+  context:'你收到三項政策提案：跨國科技合作的國家安全審查、非物質文化遺產保護立法，以及綠色能源轉型合作。律令專員必須查閱《中華人民共和國憲法》與《香港特別行政區基本法》實體文本，準確引用相關條文。',
+  deliberation:{
+    exec:'跨國科技合作、非遺立法、綠色能源三項提案並行，執政大局上該如何排序優次？',
+    law:'《憲法》第三十一條與《基本法》相關條文如何具體適用於這些當代議題？',
+    fis:'國家安全審查會否影響香港作為自由港與國際金融中心的競爭力？',
+    cul:'非物質文化遺產保護立法，如何體現國家對文化多樣性與傳承的重視？'
+  },
+  knowledge:'《憲法》與《基本法》共同構成香港特別行政區的憲制基礎——這正是高中公民科「『一國兩制』下的香港」單元的核心概念：「一國」是「兩制」的前提與基礎，國家安全則是香港長期繁榮穩定的根本保障。這呼應中華文化「大同世界觀」與「人類命運共同體」的胸襟——在保障國家整體利益的同時，仍尊重多元差異。',
+  scrollTitle:'史料卷軸 ·《憲法》與《基本法》節錄',
+  scrollText:'《憲法》第三十一條：國家可以在特別行政區內實行的制度，按照具體情況由全國人民代表大會以法律規定。\n《基本法》第五條：香港特別行政區不實行社會主義的制度和政策，保持原有的資本主義制度和生活方式，五十年不變。\n《基本法》第二十三條：香港特別行政區應自行立法禁止危害國家安全的行為。',
+  item:{name:'憲法基本法合璧函', flavor:'載有《憲法》與《基本法》相關條文的合璧函，象徵「一國兩制」的憲制智慧。', icon:'book'},
+  rounds:[
+    { label:'跨國科技合作審查', domains:['keji', 'ai', 'zhengzhi'], stampLabel:'蓋憲法法理印', gated:false, options:[
+      {key:'A', speaker:'度支專員', label:'只顧經濟效益，擱置國安審查', summary:'優先批准跨國科技合作以促進經濟，暫緩國家安全審查。', quote:'「合作機遇稍縱即逝，審查之事，可以從緩。」', delta:{fa:-5,guo:-6,min:5,wen:0}, feedback:'國安審查缺位，潛在風險未除。'},
+      {key:'B', speaker:'執政專員', label:'全面收緊，窒礙交流', summary:'以國安為由，一律否決跨國合作與非遺立法，不予任何彈性。', quote:'「國安為先，寧緊勿鬆，一律從嚴。」', delta:{fa:2,guo:5,min:-6,wen:-5}, feedback:'安全雖獲短暫保障，卻窒礙經濟與文化交流。'},
+      {key:'C', speaker:'律令專員', label:'依憲依法，兼顧國安與發展', summary:'依據《憲法》第三十一條與《基本法》第五、二十三條等條文，對科技合作作國安審查，同時完成非遺立法保護與綠色能源合作。', quote:'「依《憲法》第三十一條、《基本法》第五、二十三條而行，國安與發展本可並行。」', delta:{fa:5,guo:5,min:3,wen:5}, feedback:'法治、國安、民生、文化四者兼顧——正是「一國兩制」行穩致遠的憲制智慧。'}
+    ]},
+    { label:'跨境數據與私隱保護', domains:['shuju', 'wangluo'], situation:'大灣區數據跨境流動日益頻繁，個人資料保護與國家數據安全的平衡引發關注。律令專員須提出規管方案。', stampLabel:'蓋憲法法理印', gated:false, options:[
+      {key:'A', speaker:'度支專員', label:'數據自由流動，不設限制', summary:'完全開放跨境數據流動，不設任何審查機制。', quote:'「數據自由流動，方能促進區域協同。」', delta:{fa:-5,guo:-5,min:3,wen:2}, feedback:'數據流通雖便利，但國家安全與個人私隱皆缺乏保障，「國安穩定」與「法治值」受損。'},
+      {key:'B', speaker:'執政專員', label:'全面鎖閉，禁止數據跨境', summary:'禁止一切個人資料跨境傳輸。', quote:'「數據安全為重，寧可犧牲便利。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'安全雖獲保障，但區域數字經濟協同發展受阻，「民生經濟」明顯受損。'},
+      {key:'C', speaker:'律令專員', label:'分類管理，合規跨境流動', summary:'依資料敏感程度分類管理，建立合規跨境流動機制。', quote:'「分類管理，合規流動，安全與發展兩不誤。」', delta:{fa:5,guo:3,min:3,wen:3}, feedback:'數據依法有序跨境流動，個人私隱與國家安全均獲保障——這正是當代治理「發展與安全並重」的具體實踐。'}
+    ]},
+    { label:'完善選舉制度', domains:['zhengzhi'], situation:'完善選舉制度、落實「愛國者治港」原則，是鞏固「一國兩制」行穩致遠的重要一環。執政專員須向公眾解說改革的意義。', stampLabel:'蓋憲法法理印', gated:false, options:[
+      {key:'A', speaker:'執政專員', label:'一概不作解說，強硬推行', summary:'不作任何公眾解說，強硬推行制度改革。', quote:'「政策既定，何須多加解釋？」', delta:{fa:0,guo:2,min:0,wen:-6}, feedback:'制度雖已落實，但社會理解不足，「文化凝聚」明顯受損，不利於凝聚共識。'},
+      {key:'B', speaker:'度支專員', label:'一再拖延，議而不決', summary:'因顧慮爭議而一再拖延改革，議而不決。', quote:'「爭議未消，不如暫緩推行。」', delta:{fa:-5,guo:-5,min:0,wen:0}, feedback:'制度懸而未決，治理秩序持續存在不確定性，「法治值」與「國安穩定」下滑。'},
+      {key:'C', speaker:'文教與文化使者', label:'廣泛解說，凝聚社會共識', summary:'透過廣泛公眾解說與教育，闡明「愛國者治港」原則對「一國兩制」行穩致遠的意義。', quote:'「講清楚、說明白，方能凝聚社會共識。」', delta:{fa:5,guo:5,min:2,wen:5}, feedback:'社會對制度改革的理解漸增，治理秩序更趨穩固——這正是良好管治須「說之以理」的重要一課。'}
+    ]},
+    { label:'大灣區青年發展（終局考驗）', domains:['wenhua', 'zhengzhi'], situation:'你即將完成最後一項提案——支持香港青年融入大灣區發展、深化國民身份認同的長遠政策。這是全程最後一道考驗，提案須讓四維指標同時維持在安全門檻（≥40）之上，方能蓋上最終的「憲法法理印」，為這段治世之旅畫上句點。', stampLabel:'蓋憲法法理印', gated:true, safetyThreshold:40, options:[
+      {key:'A', speaker:'度支專員', label:'口號宣傳，不設實質支援', summary:'僅以口號式宣傳鼓勵青年北上發展，不提供具體配套支援。', quote:'「多加宣傳，青年自會響應。」', delta:{fa:-3,guo:-3,min:-3,wen:-5}, feedback:'缺乏實質支援，青年參與度低，政策淪為空談。'},
+      {key:'B', speaker:'執政專員', label:'強制配額，行政指令主導', summary:'以行政指令強制安排青年名額到大灣區實習就業，不顧個人意願。', quote:'「以行政指令，強力推動青年北上。」', delta:{fa:-5,guo:2,min:-5,wen:-3}, feedback:'表面達標，但青年缺乏認同感，「法治值」與「民生經濟」皆受質疑。'},
+      {key:'C', speaker:'律令專員', label:'完善配套，雙向自願交流', summary:'完善實習就業、住房、稅務等配套支援，鼓勵青年自願雙向交流融入大灣區。', quote:'「完善配套，雙向自願，方能贏得青年真心認同。」', delta:{fa:5,guo:3,min:5,wen:6}, feedback:'香港青年積極參與大灣區發展，國民身份認同與家國情懷日漸深厚——傳承人的治世之旅，至此圓滿功成。'}
+    ]}
+  ]
+}
+];
+
+/* ---------- 資料：兩難回合（每卷一個，插入第三回合） ----------
+   沒有完美方案：每個選項都有明顯得失。此類回合的「上策」不按淨效果，
+   而按「守住最弱一環」判定——總體國家安全觀強調短板決定整體安全。 */
+const dilemmaRounds = {
+  m1:{ label:'戍卒安置兩難', dilemma:true, domains:['junshi','shehui','guotu'], stampLabel:'蓋史料依據印', gated:false,
+    situation:'數十萬秦軍南下戍守嶺南，久戍思歸，軍心浮動。南海郡尉趙佗上書，請朝廷遣送中原無夫家女子南下，為戍卒縫補衣裳、成家定居（《史記》載秦始皇准其一萬五千人）。然而中原民力已疲，再徵人南遷，必有骨肉離散之苦。',
+    options:[
+      {key:'A', speaker:'執政專員', label:'准奏南遷，令戍卒落地生根', summary:'遣中原女子南下，戍卒成家定居，與越人雜處。', quote:'「軍心不安，邊防何以為繼？」', delta:{fa:0,guo:4,min:-4,wen:2}, feedback:'戍卒成家，軍心大定，中原人口南遷亦推動漢越交融；但中原民間再受徵發，骨肉離散，「民生經濟」受損。'},
+      {key:'B', speaker:'律令專員', label:'依律輪戍，戍卒定期北歸', summary:'嚴守戍期制度，分批輪換戍卒返鄉。', quote:'「戍期有定，依律而行，方可服眾。」', delta:{fa:3,guo:-3,min:-3,wen:1}, feedback:'戍卒得以依期返鄉，制度公信得以維持；但千里輪替耗費糧餉，換防之際邊防出現空檔，「國安穩定」與「民生經濟」雙雙受壓。'},
+      {key:'C', speaker:'度支專員', label:'招募越人，以越守越', summary:'減少中原戍卒，改募越人子弟入伍戍守本地。', quote:'「以本地之人守本地之土，可省轉運之勞。」', delta:{fa:-2,guo:-4,min:4,wen:3}, feedback:'中原轉運負擔大減，越人亦因參與守土而增加認同；但新附之地的軍隊忠誠未穩，法令推行亦須遷就，「國安穩定」承受風險。'}
+    ]},
+  m2:{ label:'海寇來襲的抉擇', dilemma:true, domains:['junshi','haiwai','jingji'], stampLabel:'蓋史料依據印', gated:false,
+    situation:'有海寇劫掠往來屯門的番舶，番商聯名請求官府派船護航。然而屯門鎮兵力有限：若分兵護航，海岸防守便出現空隙；若不護航，番商或會轉往他港，廣州海路貿易恐將冷落。',
+    options:[
+      {key:'A', speaker:'度支專員', label:'分兵護航番舶', summary:'抽調鎮兵戰船，護送番舶往返屯門與廣州。', quote:'「商路一斷，市舶之利盡失。」', delta:{fa:0,guo:-4,min:4,wen:2}, feedback:'番舶安全抵港，番商對唐廷信任大增，貿易更盛；但鎮兵分散，海岸防守空虛，「國安穩定」下滑。'},
+      {key:'B', speaker:'執政專員', label:'集中兵力，固守海岸', summary:'鎮兵不出海，專守屯門與沿岸要地。', quote:'「先保疆土，再論商利。」', delta:{fa:1,guo:4,min:-4,wen:-1}, feedback:'海岸固若金湯，海寇不敢登岸；但番舶在海上屢遭劫掠，部分番商轉往他港，「民生經濟」受創。'},
+      {key:'C', speaker:'度支專員', label:'徵「護航錢」，番商募船自衛', summary:'向番商徵收護航費用，由其自行招募船隻武裝護航。', quote:'「取之於商，用之於商，國庫不費分文。」', delta:{fa:-4,guo:-1,min:3,wen:2}, feedback:'不耗國庫亦保住商路；但開了民間武裝自行護航的先例，海上執法權旁落，「法治值」明顯受損。'}
+    ]},
+  m3:{ label:'窯火與山林', dilemma:true, domains:['shengtai','jingji','ziyuan'], stampLabel:'蓋史料依據印', gated:false,
+    situation:'宋瓷沿海路遠銷海外，訂單日增。窯場大量伐木燒窯，附近山林日漸光禿，雨季水土流失，下游農田屢受沖刷。窯主要求擴窯增產，鄉民則請求封山育林。',
+    options:[
+      {key:'A', speaker:'度支專員', label:'擴窯增產，搶佔海外市場', summary:'准許新開窯口，放寬伐木限制。', quote:'「海外訂單如潮，豈可坐失良機？」', delta:{fa:-1,guo:-3,min:5,wen:0}, feedback:'瓷器外銷大增，窯工收入豐厚；但山林濫伐、水土流失加劇——生態安全受損，終會反噬農業與民生。'},
+      {key:'B', speaker:'律令專員', label:'封山育林，限額燒窯', summary:'劃定禁伐山林，按窯口核定燒窯數量。', quote:'「山林乃百年之計，不可竭澤而漁。」', delta:{fa:3,guo:2,min:-5,wen:-1}, feedback:'山林得以休養，水患減少；但窯口減產，大批窯工失業，海外訂單流失，「民生經濟」重挫。'},
+      {key:'C', speaker:'執政專員', label:'改用石炭，遷窯近礦', summary:'推廣以石炭（煤）燒窯，將部分窯場遷往產煤之地。', quote:'「汴京百萬家已用石炭，窯火何不效之？」', delta:{fa:2,guo:3,min:-2,wen:-3}, feedback:'以煤代柴，山林壓力大減（北宋汴京確已普遍以石炭為燃料）；但遷窯成本高昂，傳統窯口與匠人社群離散，「文化凝聚」受損。'}
+    ]},
+  m4:{ label:'具結與斷市', dilemma:true, domains:['jingji','zhengzhi','haiwai'], stampLabel:'蓋史料依據印', gated:false,
+    situation:'林則徐要求外商具結：「永不夾帶鴉片，如有帶來，一經查出，貨盡沒官，人即正法。」英國商務監督義律拒絕具結，並禁止英商入港。正當的茶葉、絲綢貿易亦因而停頓，十三行與沿海茶農損失日增。',
+    options:[
+      {key:'A', speaker:'律令專員', label:'不具結者，一律斷絕貿易', summary:'堅持具結原則，拒不具結的英商一概停止通商。', quote:'「法令既出，豈能因利而廢？」', delta:{fa:4,guo:-2,min:-5,wen:2}, feedback:'禁煙立場堅定，法令威信得以維持；但茶絲貿易全面停頓，沿海生計受創，衝突亦隨之升級。'},
+      {key:'B', speaker:'度支專員', label:'只禁鴉片，正當貿易照常', summary:'加強查緝鴉片，但容許已具結或願意受檢的商船照常通商。', quote:'「禁其毒，不禁其利，方能分化外商。」', delta:{fa:-3,guo:1,min:4,wen:0}, feedback:'正當貿易得以延續（史實上部分英、美商船確曾具結入港）；但查緝存在漏洞，鴉片夾帶難以根絕，「法治值」受損。'},
+      {key:'C', speaker:'執政專員', label:'整備海防，同時探究夷情', summary:'加固虎門炮台，並組織翻譯外國書報，了解英國國情。', quote:'「知己知彼，方能百戰不殆。」', delta:{fa:0,guo:3,min:-4,wen:2}, feedback:'海防與對外認識均有增進（林則徐曾組織編譯《四洲志》）；但軍費浩大，眼前僵局未解，「民生經濟」承受壓力。'}
+    ]},
+  m5:{ label:'工廠北移的代價', dilemma:true, domains:['jingji','shehui'], stampLabel:'蓋史料依據印', gated:false,
+    situation:'隨著「前店後廠」模式興起，大量港資工廠遷往珠三角，內地就業大增，香港亦逐步轉型為服務業與金融中心。然而，大批本地製造業工人面臨失業，需要重新學習技能。',
+    options:[
+      {key:'A', speaker:'度支專員', label:'鼓勵工廠全速北移', summary:'不設限制，讓市場決定工廠去留，香港全力轉型服務業。', quote:'「分工協作，兩地皆贏。」', delta:{fa:0,guo:-3,min:5,wen:-1}, feedback:'兩地分工效益迅速顯現；但中年工人大量失業，社會不安情緒上升，「國安穩定」受壓。'},
+      {key:'B', speaker:'執政專員', label:'限制北移，保障本地就業', summary:'以政策誘因挽留本地工廠，延緩產業轉移。', quote:'「先顧好自家工友的飯碗。」', delta:{fa:1,guo:3,min:-5,wen:0}, feedback:'本地就業暫時穩住；但生產成本高昂，企業競爭力下滑，錯失協同發展的時機，「民生經濟」重挫。'},
+      {key:'C', speaker:'文教與文化使者', label:'撥款再培訓，放緩轉型步伐', summary:'設立工人再培訓計劃，協助轉職，同時有序推進產業轉移。', quote:'「轉型不能只算經濟賬。」', delta:{fa:3,guo:2,min:-3,wen:-1}, feedback:'工人得到轉職支援，社會較為平穩；但公帑負擔沉重，轉型速度放緩，「民生經濟」受壓。'}
+    ]},
+  m6:{ label:'疫情下的口岸抉擇', dilemma:true, domains:['shengwu','shehui','jingji'], stampLabel:'蓋憲法法理印', gated:false,
+    situation:'大灣區突發傳染病，專家建議收緊口岸。然而港深兩地每日有大量人次往來，涉及跨境家庭、學童、物流與生計。無論怎樣做，都會有人付出代價。',
+    options:[
+      {key:'A', speaker:'執政專員', label:'全面封關，嚴防輸入', summary:'暫停所有非緊急跨境往來。', quote:'「生命至上，寧嚴勿鬆。」', delta:{fa:2,guo:4,min:-5,wen:-2}, feedback:'生物安全防線最為穩固；但跨境家庭被迫分隔，物流受阻，生計大受影響，「民生經濟」重挫。'},
+      {key:'B', speaker:'度支專員', label:'維持通關，加強檢測', summary:'口岸照常開放，所有旅客須接受檢測。', quote:'「經濟停擺，同樣傷及民生。」', delta:{fa:0,guo:-4,min:4,wen:1}, feedback:'民生與物流得以維持；但防疫風險偏高，社會憂慮加劇，「國安穩定」受壓。'},
+      {key:'C', speaker:'律令專員', label:'分類通關，保障必要往來', summary:'保留貨運及必要人員往來，其餘暫停，並按疫情調整。', quote:'「依法分類，寬嚴有據。」', delta:{fa:-3,guo:2,min:2,wen:-1}, feedback:'兼顧防疫與必要往來；但規則繁複且頻繁調整，「誰屬必要」爭議不斷，執行與公信受考驗，「法治值」下滑。'}
+    ]}
+};
+missionData.forEach(m=>{ if(dilemmaRounds[m.id]) m.rounds.splice(2, 0, dilemmaRounds[m.id]); });
+
+/* ---------- 資料：史料判斷題（展開史料卷軸後作答，答畢方可議決） ---------- */
+const scrollQuiz = {
+  m1:{ q:'根據秦簡「什伍連坐，度量衡、文字皆依秦制，不得自為」，以下哪項推論最恰當？',
+    opts:['秦代以統一法制與制度強化中央集權','秦代容許各郡自訂度量衡，以照顧地方特色','秦代以禮樂教化取代刑罰'], ans:0,
+    why:'「不得自為」即各地不得自行其是，度量衡、文字一律依秦制——這是以統一制度鞏固中央集權的明證。' },
+  m2:{ q:'依《唐律疏議》「同類自相犯者，各依本俗法；異類相犯者，以法律論」，一名大食商人與一名波斯商人在廣州番坊發生糾紛，應如何處理？',
+    opts:['依大食的本俗法處理','依唐律論處','交由兩國使節自行協商'], ans:1,
+    why:'大食人與波斯人屬「異類相犯」，故須「以法律論」，即依唐律處理；只有同一族群內部的糾紛，才可依其本俗法。' },
+  m3:{ q:'北宋規定交子須備約三分之一的鈔本（準備金）方可流通，主要目的是甚麼？',
+    opts:['讓政府可以無限量發行紙幣','確保交子可兌換，維持信用與幣值穩定','把準備金撥作軍餉'], ans:1,
+    why:'準備金保證持有人隨時可兌換，紙幣才有信用；一旦濫發而準備不足，幣值便會崩跌——這正是金融安全最早的一課。' },
+  m4:{ q:'根據史料，1842 年《南京條約》對香港有何影響？',
+    opts:['九龍半島界限街以南被割讓予英國','新界被租借予英國九十九年','香港島被割讓予英國'], ans:2,
+    why:'《南京條約》（1842）割讓香港島；九龍半島界限街以南於《北京條約》（1860）割讓；新界則於《展拓香港界址專條》（1898）租借。' },
+  m5:{ q:'改革開放後的「前店後廠」模式，指的是甚麼？',
+    opts:['香港負責資金、技術、接單與銷售，珠三角負責生產','香港設廠生產，內地負責開店銷售','港深兩地合資開設連鎖商店'], ans:0,
+    why:'「店」指香港的接單、設計、融資與銷售，「廠」指珠三角的工廠生產——兩地優勢互補，令珠三角崛起為「世界工廠」。' },
+  m6:{ q:'以下哪一條文，為國家設立特別行政區提供了憲制依據？',
+    opts:['《基本法》第二十三條','《憲法》第三十一條','《基本法》第五條'], ans:1,
+    why:'《憲法》第三十一條授權全國人大按具體情況以法律規定特別行政區的制度，《基本法》即據此制定；第五條保障原有制度五十年不變，第二十三條規定特區自行立法維護國家安全。' }
+};
+
+/* ---------- 資料：時空回響（較早的抉擇在後來的卷中產生影響） ----------
+   遊戲推演，用以說明政策影響的延續性，並非史實因果。 */
+const echoData = {
+  m2:{ from:'m1', label:'移民實邊政策', text:{
+      A:{t:'你在秦代令移民凌駕越人。數百年後，嶺南族群隔閡仍未消弭，番坊管理更須處處提防衝突。', d:{wen:-3,guo:-1}},
+      B:{t:'你在秦代隔離而治。漢越長期分隔，唐代廣州面對番商時，社會缺乏與「異類」共處的經驗。', d:{wen:-2,fa:-1}},
+      C:{t:'你在秦代讓移民與越人雜居通婚。嶺南漢越交融，唐代廣州已是華洋輻輳之地，番坊管理有深厚的共處基礎。', d:{wen:3,guo:1}} }},
+  m3:{ from:'m2', label:'市舶司關稅則例', text:{
+      A:{t:'你在唐代輕稅招徠、不計庫收。宋承唐制設市舶司，卻缺乏可依循的稅則，市舶收入難以支撐海防。', d:{min:-2,fa:-1}},
+      B:{t:'你在唐代重稅盤剝。番商對中國港口心存戒懼，宋初海路一度冷落。', d:{min:-2,wen:-1}},
+      C:{t:'你在唐代訂立分級稅則。宋代市舶制度得以在你的則例上完善，海外貿易有法可依。', d:{fa:2,min:2}} }},
+  m4:{ from:'m2', label:'屯門鎮駐軍規模', text:{
+      A:{t:'你在唐代以重兵長駐、不計軍費。海防長期依賴官兵，民間缺乏自衛的組織與經驗。', d:{guo:1,min:-1}},
+      B:{t:'你在唐代裁減屯門駐軍。海防積弱的教訓，在千年後的鴉片戰爭中再次浮現。', d:{guo:-3}},
+      C:{t:'你在唐代寓兵於民。兵農合一的傳統延續於民間，三元里團練得以迅速集結。', d:{guo:2,wen:1}} }},
+  m5:{ from:'m4', label:'五口通商善後應對', text:{
+      A:{t:'你在清代諱敗為勝。封閉保守的思維延續，令改革開放之初阻力重重。', d:{min:-2,wen:-1}},
+      B:{t:'你在清代全盤西化、盡棄舊制。文化失根之下，開放時更易迷失方向。', d:{wen:-3}},
+      C:{t:'你在清代正視差距、師夷長技。自強求變的傳統，令改革開放更易凝聚共識。', d:{wen:2,min:1}} }},
+  m6:{ from:'m5', label:'金融開放與資本監管', text:{
+      A:{t:'你在改革開放時期讓資本自由進出。金融風險悄然累積，今日審查跨國合作時更顯被動。', d:{guo:-3}},
+      B:{t:'你在改革開放時期嚴格管制資本。香港錯失互聯互通的機遇，今日發展動力略遜。', d:{min:-2}},
+      C:{t:'你在改革開放時期漸進試點、風險可控。累積的監管經驗，令今日依法審查更有底氣。', d:{fa:2,guo:1}} }}
+};
+
+/* ---------- 渲染：儀表 ---------- */
+function renderDashboard(){
+  document.getElementById('meterRow').innerHTML = Object.keys(meterMeta).map(k=>{
+    const v = Math.max(0,Math.min(100,state.meters[k]));
+    const warn = v<40 ? ' warn' : '';
+    return `<div class="meter"><span class="mlabel">${meterMeta[k].name}</span><div class="mtrack"><div class="mfill${warn}" style="width:${v}%"></div></div><span class="mval">${v}</span></div>`;
+  }).join('');
+  document.getElementById('rankBadge').textContent = '位階 · ' + rankTitle(state.merit);
+  document.getElementById('invCount').textContent = state.inventory.length;
+}
+function rankTitle(merit){
+  if(merit>=780) return '太傅';
+  if(merit>=600) return '上卿';
+  if(merit>=450) return '卿';
+  if(merit>=300) return '令使';
+  return '見習司使';
+}
+function pulseRank(){
+  const b = document.getElementById('rankBadge');
+  b.classList.add('pulse');
+  setTimeout(()=>b.classList.remove('pulse'),250);
+}
+
+/* ---------- 渲染：行囊 ---------- */
+const itemIconPaths = {
+  tablet:'<rect x="11" y="6" width="18" height="28" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><line x1="17" y1="10" x2="17" y2="30" stroke="currentColor" stroke-width="1.5"/><line x1="23" y1="10" x2="23" y2="30" stroke="currentColor" stroke-width="1.5"/>',
+  stamp:'<circle cx="8" cy="20" r="5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="8" y="15" width="24" height="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="20" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="20" r="4" fill="currentColor" opacity="0.55"/>',
+  note:'<rect x="6" y="12" width="28" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="20" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="16" x2="12" y2="16" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="24" x2="12" y2="24" stroke="currentColor" stroke-width="1.5"/><line x1="28" y1="16" x2="31" y2="16" stroke="currentColor" stroke-width="1.5"/><line x1="28" y1="24" x2="31" y2="24" stroke="currentColor" stroke-width="1.5"/>',
+  memo:'<rect x="14" y="8" width="12" height="24" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="20" cy="8" rx="6" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="20" cy="32" rx="6" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><line x1="16" y1="14" x2="24" y2="14" stroke="currentColor" stroke-width="1.2"/><line x1="16" y1="19" x2="24" y2="19" stroke="currentColor" stroke-width="1.2"/><line x1="16" y1="24" x2="24" y2="24" stroke="currentColor" stroke-width="1.2"/>',
+  map:'<ellipse cx="8" cy="20" rx="3" ry="7" fill="none" stroke="currentColor" stroke-width="2"/><rect x="8" y="13" width="24" height="14" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="32" cy="20" rx="3" ry="7" fill="none" stroke="currentColor" stroke-width="2"/><line x1="14" y1="13" x2="14" y2="27" stroke="currentColor" stroke-width="1"/><line x1="20" y1="13" x2="20" y2="27" stroke="currentColor" stroke-width="1"/><line x1="26" y1="13" x2="26" y2="27" stroke="currentColor" stroke-width="1"/><line x1="8" y1="20" x2="32" y2="20" stroke="currentColor" stroke-width="1"/>',
+  book:'<rect x="9" y="8" width="22" height="26" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><line x1="14" y1="8" x2="14" y2="34" stroke="currentColor" stroke-width="1.5"/><circle cx="24" cy="21" r="4" fill="currentColor" opacity="0.5"/>'
+};
+function itemIconSvg(key){
+  return `<svg class="inv-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">${itemIconPaths[key]||''}</svg>`;
+}
+function renderInventory(){
+  const list = document.getElementById('invList');
+  if(!state.inventory.length){ list.innerHTML = '<div class="inv-empty">尚未收得任何信物。</div>'; return; }
+  list.innerHTML = state.inventory.map(it=>`<div class="inv-item">${itemIconSvg(it.icon)}<b>${it.name}</b><br>${it.flavor}</div>`).join('');
+}
+function toggleInv(){
+  document.getElementById('invPanel').classList.toggle('show');
+  document.getElementById('codexPanel').classList.remove('show');
+}
+
+/* ---------- 渲染：總體國家安全觀圖鑑 ---------- */
+function domainName(k){ const d = securityDomains.find(x=>x.k===k); return d ? d.n : k; }
+/* 二十領域圖示（24×24 線描），用於回合標籤、圖鑑與解鎖提示 */
+const domainIconPaths = {
+  zhengzhi:'<path d="M3 9 L12 4 L21 9 Z"/><path d="M5 9v9M9.5 9v9M14.5 9v9M19 9v9M3 20h18"/>',
+  guotu:'<path d="M5 21V4"/><path d="M5 4h11l-2 3.5 2 3.5H5"/><path d="M3 21h6"/>',
+  junshi:'<path d="M12 3l7 3v5c0 5-3.2 8.3-7 10-3.8-1.7-7-5-7-10V6z"/><path d="M12 8l1.3 2.7 3 .4-2.2 2 .6 3-2.7-1.5-2.7 1.5.6-3-2.2-2 3-.4z"/>',
+  jingji:'<path d="M4 20V10M10 20V6M16 20v-8M3 20h18"/><path d="M4 8l6-4 6 5 5-3"/>',
+  jinrong:'<circle cx="12" cy="12" r="8.5"/><rect x="9.5" y="9.5" width="5" height="5"/>',
+  wenhua:'<path d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2z"/><path d="M6 18a2 2 0 0 1 2-2h10"/><path d="M10 8h5M10 11h4"/>',
+  shehui:'<circle cx="12" cy="7" r="2.6"/><circle cx="5.5" cy="9.5" r="2.1"/><circle cx="18.5" cy="9.5" r="2.1"/><path d="M7.5 20c0-3 2-5 4.5-5s4.5 2 4.5 5M2 19c0-2.4 1.5-4 3.5-4M22 19c0-2.4-1.5-4-3.5-4"/>',
+  keji:'<circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>',
+  wangluo:'<circle cx="12" cy="5" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><circle cx="12" cy="12.5" r="2"/><path d="M12 7v3.5M10.4 13.8 6.5 16.7M13.6 13.8l3.9 2.9M7 18h10"/>',
+  liangshi:'<path d="M12 21V8"/><path d="M12 8c-2.5 0-3.5-2-3.5-4 2.5 0 3.5 2 3.5 4zM12 8c2.5 0 3.5-2 3.5-4-2.5 0-3.5 2-3.5 4zM12 13c-2.5 0-4-1.8-4-3.8 2.5 0 4 1.8 4 3.8zM12 13c2.5 0 4-1.8 4-3.8-2.5 0-4 1.8-4 3.8zM12 18c-2.5 0-4-1.8-4-3.8 2.5 0 4 1.8 4 3.8zM12 18c2.5 0 4-1.8 4-3.8-2.5 0-4 1.8-4 3.8z"/>',
+  shengtai:'<path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15"/><path d="M5 19l8-8"/>',
+  ziyuan:'<path d="M12 3c3.5 4.5 6 7.6 6 11a6 6 0 0 1-12 0c0-3.4 2.5-6.5 6-11z"/><path d="M9.5 15a2.5 2.5 0 0 0 2.5 2.5"/>',
+  he:'<circle cx="12" cy="12" r="1.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(-60 12 12)"/>',
+  haiwai:'<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.3 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.3-3.8-8.5s1.2-6.1 3.8-8.5z"/>',
+  shengwu:'<path d="M8 3c0 6 8 6 8 12s-8 3-8 6"/><path d="M16 3c0 6-8 6-8 12s8 3 8 6"/><path d="M9.5 7h5M9.5 17h5"/>',
+  taikong:'<path d="M12 3c3 2.5 4.5 6 4.5 10L12 17l-4.5-4C7.5 9 9 5.5 12 3z"/><circle cx="12" cy="9.5" r="1.6"/><path d="M7.5 13 5 17l3.5-.5M16.5 13 19 17l-3.5-.5M10.5 18.5 12 21l1.5-2.5"/>',
+  jidi:'<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9"/><path d="M10 4.5 12 6l2-1.5M10 19.5 12 18l2 1.5"/>',
+  shenhai:'<path d="M3 6c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0"/><path d="M12 9v9"/><path d="M8 15a4 4 0 0 0 8 0"/><path d="M10 10.5h4"/>',
+  ai:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/><path d="M9.5 14.5 11 9.5h1l1.5 5M10 13h3M15 9.5v5"/>',
+  shuju:'<ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13"/><path d="M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/>'
+};
+function domainIcon(k){
+  return `<svg class="dicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${domainIconPaths[k]||''}</svg>`;
+}
+function renderCodex(){
+  document.getElementById('codexMeters').innerHTML = Object.keys(meterMeta).map(k=>
+    `<div class="codex-meter"><b>${meterMeta[k].name}</b>${meterSecurityMap[k]}</div>`).join('');
+  document.getElementById('codexList').innerHTML = securityDomains.map(d=>{
+    const found = !!state.domainsFound[d.k];
+    return `<div class="codex-item${found?' found':''}">
+      <div class="codex-ico">${domainIcon(d.k)}</div>
+      <div class="codex-body">
+        <div class="cn"><span>${d.n}</span><span class="cmark">${found?'✦ 已於情境中遇見':'尚未遇見'}</span></div>
+        <div class="cd">${d.d}</div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('codexCount').textContent = Object.keys(state.domainsFound).length;
+}
+function toggleCodex(){
+  const p = document.getElementById('codexPanel');
+  p.classList.toggle('show');
+  document.getElementById('invPanel').classList.remove('show');
+  if(p.classList.contains('show')) renderCodex();
+}
+
+/* ---------- 渲染：人物創設 ---------- */
+function inferMood(text){
+  if(!text) return 'neutral';
+  const glad = ['讚','佳','妥','善哉','上策','欣慰','安心','順利','感謝','值得','明智','穩妥','太好','喜','善用','妥當'];
+  const worry = ['憂','危','恐','慌','失策','錯','糟','麻煩','隱患','風險','警惕','擔心','嚴重','不安','動盪','衝突','禍','失衡','告急'];
+  if(glad.some(w=>text.includes(w))) return 'glad';
+  if(worry.some(w=>text.includes(w))) return 'worry';
+  return 'neutral';
+}
+function faceSvg(mood, cx){
+  cx = cx || 50;
+  const bx = cx - 8, ex1 = cx - 7, ex2 = cx + 7;
+  const brows = {
+    neutral: `<line x1="${bx}" y1="26" x2="${bx+8}" y2="25" /><line x1="${cx+2}" y1="25" x2="${cx+10}" y2="26" />`,
+    glad:    `<line x1="${bx}" y1="25" x2="${bx+8}" y2="24" /><line x1="${cx+2}" y1="24" x2="${cx+10}" y2="25" />`,
+    worry:   `<line x1="${bx}" y1="24" x2="${bx+8}" y2="27" /><line x1="${cx+2}" y1="27" x2="${cx+10}" y2="24" />`
+  };
+  const mouth = {
+    neutral: `<path d="M${cx-5},40 Q${cx},41.5 ${cx+5},40" />`,
+    glad:    `<path d="M${cx-5},39 Q${cx},44 ${cx+5},39" />`,
+    worry:   `<path d="M${cx-5},41.5 Q${cx},38.5 ${cx+5},41.5" />`
+  };
+  return `<g fill="none" stroke="var(--ink)" stroke-width="1.1" stroke-linecap="round">
+    ${brows[mood]||brows.neutral}
+    <g class="eyes">
+      <ellipse cx="${ex1}" cy="31" rx="1.6" ry="2" fill="var(--paper)" stroke="var(--ink)" stroke-width="0.8"/>
+      <ellipse cx="${ex2}" cy="31" rx="1.6" ry="2" fill="var(--paper)" stroke="var(--ink)" stroke-width="0.8"/>
+    </g>
+    <g class="mouth">${mouth[mood]||mouth.neutral}</g>
+  </g>`;
+}
+function classPortraitSvg(c, mood){
+  mood = mood || 'neutral';
+  const propMap = {
+    exec: '<rect x="32" y="9" width="36" height="9" rx="2"/><ellipse cx="21" cy="16" rx="12" ry="3"/><ellipse cx="79" cy="16" rx="12" ry="3"/><rect x="30" y="16" width="4" height="6" opacity="0.7"/><rect x="66" y="16" width="4" height="6" opacity="0.7"/>',
+    law: '<g fill="none" stroke="currentColor" stroke-width="2.5"><line x1="78" y1="58" x2="78" y2="78"/><line x1="68" y1="62" x2="88" y2="62"/><path d="M68,62 Q68,70 74,70 Q68,70 68,62"/><path d="M88,62 Q88,70 82,70 Q88,70 88,62"/></g>',
+    fis: '<g fill="none" stroke="currentColor" stroke-width="2"><rect x="64" y="58" width="28" height="18" rx="2"/><line x1="64" y1="67" x2="92" y2="67"/></g><g fill="currentColor"><circle cx="71" cy="62" r="2.2"/><circle cx="78" cy="62" r="2.2"/><circle cx="85" cy="62" r="2.2"/><circle cx="71" cy="72" r="2.2"/><circle cx="78" cy="72" r="2.2"/><circle cx="85" cy="72" r="2.2"/></g>',
+    cul: '<g stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="66" y1="82" x2="88" y2="60"/></g><circle cx="90" cy="58" r="5" fill="currentColor"/>'
+  };
+  return `<svg class="portrait-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="color:var(--${c.color})">
+    <path d="M15,97 Q17,56 51,57 Q84,59 85,97 Z" fill="#000" opacity="0.12"/>
+    <ellipse cx="52" cy="33" rx="16.5" ry="17" fill="#000" opacity="0.1"/>
+    <path d="M18,96 Q18,58 50,58 Q82,58 82,96 Z" fill="currentColor" opacity="0.88"/>
+    <circle cx="49" cy="33" r="17" fill="currentColor" opacity="0.9"/>
+    <path d="M32,86 Q50,80 68,86 L68,96 L32,96 Z" fill="#fff" opacity="0.1"/>
+    <line x1="49" y1="58" x2="49" y2="80" stroke="#000" stroke-opacity="0.14" stroke-width="2"/>
+    ${faceSvg(mood, 48)}
+    <g opacity="0.9">${propMap[c.key]}</g>
+  </svg>`;
+}
+function classBadgeSvg(c){
+  const badgeMap = {
+    guo: '<path d="M16,4 L28,9 L28,17 Q28,26 16,30 Q4,26 4,17 L4,9 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>',
+    fa: '<rect x="9" y="6" width="14" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><line x1="13" y1="11" x2="19" y2="11" stroke="currentColor" stroke-width="1.5"/><line x1="13" y1="16" x2="19" y2="16" stroke="currentColor" stroke-width="1.5"/><line x1="13" y1="21" x2="19" y2="21" stroke="currentColor" stroke-width="1.5"/>',
+    min: '<ellipse cx="16" cy="24" rx="11" ry="4" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="16" cy="18" rx="11" ry="4" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="16" cy="12" rx="11" ry="4" fill="none" stroke="currentColor" stroke-width="2"/>',
+    wen: '<circle cx="16" cy="8" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="13" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="21" cy="22" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="11" cy="22" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="13" r="5" fill="none" stroke="currentColor" stroke-width="2"/>'
+  };
+  return `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">${badgeMap[c.focus]}</svg>`;
+}
+function renderClassGrid(){
+  document.getElementById('classGrid').innerHTML = classData.map(c=>
+    `<div class="class-card" data-class="${c.key}" onclick="selectClass('${c.key}')">
+      ${classPortraitSvg(c)}
+      <h4>${c.name}</h4>
+      <span class="cc-tag">${c.tag}</span>
+      <p>${c.desc}</p>
+      <div class="skill">${c.skill}</div>
+      <div class="focus-badge">${classBadgeSvg(c)}<span>焦點：${meterMeta[c.focus].name}</span></div>
+    </div>`).join('');
+}
+function selectClass(key){
+  state.cls = key;
+  document.querySelectorAll('.class-card').forEach(c=>c.classList.toggle('chosen', c.dataset.class===key));
+  updateIdScroll();
+}
+function updateIdScroll(){
+  state.charName = document.getElementById('charName').value.trim();
+  const ok = state.charName && state.cls;
+  document.getElementById('rosterNext').disabled = !ok;
+  if(!ok){ document.getElementById('idScroll').classList.remove('show'); return; }
+  const c = classData.find(x=>x.key===state.cls);
+  document.getElementById('idName').textContent = state.charName;
+  document.getElementById('idClass').textContent = `職司：${c.name}（${c.tag}） · ${c.skill}`;
+  document.getElementById('idScroll').classList.add('show');
+  updateRoleHints();
+}
+function updateRoleHints(){
+  if(!state.cls) return;
+  const c = classData.find(x=>x.key===state.cls);
+  missionData.forEach(m=>{
+    const el = document.getElementById('rolehint-'+m.id);
+    if(el){ el.textContent = `身為${c.name}，這一刻你最需要留意「${meterMeta[c.focus].name}」的變化。`; el.classList.add('show'); }
+  });
+}
+
+/* ---------- 渲染：六卷情境 ---------- */
+/* ---------- 資料：六卷場景插圖 ---------- */
+function bambooStalk(x){
+  return `<g class="mart-b">
+    <rect x="${x-3}" y="18" width="6" height="102" rx="3"/>
+    <rect x="${x-7}" y="42" width="14" height="4"/>
+    <rect x="${x-7}" y="70" width="14" height="4"/>
+    <rect x="${x-7}" y="96" width="14" height="4"/>
+    <path d="M${x},22 L${x-16},10 L${x-2},26 Z"/>
+    <path d="M${x},22 L${x+18},8 L${x+4},26 Z"/>
+  </g>`;
+}
+function skylineBars(){
+  const heights = [42,68,50,88,60,98,46,78,54,64];
+  let x = 44, out = '';
+  heights.forEach((h,i)=>{
+    const w = 34;
+    out += `<rect class="${i%2===0?'mart-a':'mart-b'} anim-grow" style="--i:${i}" x="${x}" y="${120-h}" width="${w}" height="${h}"/>`;
+    x += w + 8;
+  });
+  return out;
+}
+function mountainRange(cls, base, amp, seed){
+  let d = `M0,${base+amp}`;
+  const n = 9;
+  for(let i=0;i<=n;i++){
+    const x = i * (760/n);
+    const wobble = Math.sin(i*seed) * amp;
+    d += ` L${x.toFixed(0)},${(base+wobble).toFixed(0)}`;
+  }
+  d += ` L760,${base+amp+30} L0,${base+amp+30} Z`;
+  return `<path class="${cls}" d="${d}"/>`;
+}
+/* 每卷依時代設定天光、遠山與環境粒子，統一置於 0..150 的天幕區，
+   舊有前景圖案透過 translate(0,130) 保持不變，銜接於下方 */
+const backdropMeta = {
+  m1: { tint:'indigo', op:.32, mtn:true, seed:1.1,
+    particles: [0,1,2,3,4].map(i=>`<circle class="mart-accent mart-p${(i%3)+1}" cx="${90+i*140}" cy="${40+((i*37)%70)}" r="${2.4+(i%3)}" opacity="0.5"/>`).join('') },
+  m2: { tint:'vermillion', op:.22, mtn:false, seed:0,
+    particles: `<circle class="mart-accent mart-p2" cx="600" cy="34" r="34" opacity="0.16"/>` +
+      [0,1,2].map(i=>`<path class="mart-line mart-p${(i%3)+1}" d="M${120+i*210},${44+i*10} q8,-6 16,0 q8,6 16,0" stroke-width="2"/>`).join('') },
+  m3: { tint:'indigo-deep', op:.5, mtn:true, seed:1.6,
+    particles: [0,1,2,3].map(i=>`<g transform="translate(${80+i*190},${30+((i*29)%40)})"><g class="mart-p${(i%3)+1}"><circle class="mart-accent" r="9" opacity="0.18"/><circle class="mart-accent" r="4" opacity="0.6"/></g></g>`).join('') },
+  m4: { tint:'vermillion-deep', op:.4, mtn:true, seed:0.8,
+    particles: [0,1,2,3].map(i=>`<circle class="mart-b mart-p${(i%3)+1}" cx="${140+i*160}" cy="${50-((i*13)%20)}" r="${5+i}" opacity="0.22"/>`).join('') },
+  m5: { tint:'indigo', op:.16, mtn:true, seed:2.1,
+    particles: [0,1,2,3,4,5].map(i=>`<circle class="mart-accent mart-p${(i%3)+1}" cx="${60+i*120}" cy="${20+((i*41)%90)}" r="${1.6+(i%2)}" opacity="0.7"/>`).join('') },
+  m6: { tint:'vermillion', op:.24, mtn:false, seed:0,
+    particles: [0,1,2].map(i=>`<path class="mart-line mart-p${(i%3)+1}" d="M${230+i*150},${100} Q${260+i*150},${20} ${290+i*150},${100}" stroke-width="1.5" opacity="0.4"/>`).join('') }
+};
+function sceneBackdrop(mid){
+  const bm = backdropMeta[mid];
+  const mtn = bm.mtn ? mountainRange('mart-mtn-far', 70, 20, bm.seed) + mountainRange('mart-mtn-near', 100, 14, bm.seed*1.7) : '';
+  return `<defs>
+      <linearGradient id="sky-${mid}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="var(--${bm.tint})" stop-opacity="${bm.op}"/>
+        <stop offset="100%" stop-color="var(--${bm.tint})" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="0" width="760" height="150" fill="url(#sky-${mid})"/>
+    ${mtn}
+    ${bm.particles}`;
+}
+const missionArt = {
+  m1: `<svg class="mission-art" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
+    ${sceneBackdrop('m1')}
+    <g transform="translate(0,130)">
+    <g class="anim-sway">${bambooStalk(70)}</g><g class="anim-sway d2">${bambooStalk(105)}</g>
+    <g class="mart-smoke"><path class="anim-rise" d="M372,26 q-6,-8 0,-14 q6,-7 0,-14"/><path class="anim-rise d2" d="M388,26 q6,-8 0,-14 q-6,-7 0,-14"/><path class="anim-rise d3" d="M380,24 q-5,-9 0,-16 q5,-8 0,-15"/></g>
+    <rect class="mart-a" x="330" y="45" width="100" height="55" rx="12"/>
+    <rect class="mart-b" x="336" y="30" width="10" height="18" rx="4"/>
+    <rect class="mart-b" x="414" y="30" width="10" height="18" rx="4"/>
+    <path class="mart-b" d="M345,100 L338,126 L358,126 L360,100 Z"/>
+    <path class="mart-b" d="M370,100 L365,130 L395,130 L390,100 Z"/>
+    <path class="mart-b" d="M400,100 L402,126 L422,126 L415,100 Z"/>
+    <g class="anim-sway d3">${bambooStalk(655)}</g><g class="anim-sway">${bambooStalk(690)}</g>
+    </g>
+  </svg>`,
+  m2: `<svg class="mission-art" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
+    ${sceneBackdrop('m2')}
+    <g transform="translate(0,130)">
+    <g class="anim-wave"><path class="mart-line" d="M-20,106 Q20,98 60,106 T140,106 T220,106 T300,106 T380,106 T460,106 T540,106 T620,106 T700,106 T780,106"/></g>
+    <g class="anim-bob">
+    <path class="mart-a" d="M300,88 Q380,112 460,88 L448,100 Q380,120 312,100 Z"/>
+    <line class="mart-line" x1="380" y1="26" x2="380" y2="88"/>
+    <path class="mart-b anim-sail" d="M383,28 L383,84 L432,78 Z"/>
+    <path class="mart-accent anim-flag" d="M383,26 L383,15 L400,20 Z"/>
+    </g>
+    <g class="anim-wave d2"><path class="mart-line" d="M-20,118 Q20,112 60,118 T140,118 T220,118 T300,118 T380,118 T460,118 T540,118 T620,118 T700,118 T780,118"/></g>
+    </g>
+  </svg>`,
+  m3: `<svg class="mission-art" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
+    ${sceneBackdrop('m3')}
+    <g transform="translate(0,130)">
+    <g class="anim-float"><g transform="rotate(-10 380 110)"><rect class="mart-a" x="335" y="52" width="92" height="56" rx="6"/><line class="mart-line" x1="350" y1="70" x2="410" y2="70" stroke-width="2"/><line class="mart-line" x1="350" y1="86" x2="410" y2="86" stroke-width="2"/></g>
+    <g transform="rotate(2 380 110)"><rect class="mart-b" x="340" y="48" width="92" height="56" rx="6"/><line class="mart-line" x1="355" y1="66" x2="415" y2="66" stroke-width="2"/><line class="mart-line" x1="355" y1="82" x2="415" y2="82" stroke-width="2"/></g>
+    <g transform="rotate(11 380 110)"><rect class="mart-a" x="345" y="53" width="92" height="56" rx="6"/><line class="mart-line" x1="360" y1="71" x2="420" y2="71" stroke-width="2"/><line class="mart-line" x1="360" y1="87" x2="420" y2="87" stroke-width="2"/></g></g>
+    <g class="anim-swing"><rect class="mart-b" x="626" y="32" width="8" height="8"/><ellipse class="mart-accent lantern-glow" cx="630" cy="68" rx="22" ry="30"/><line class="mart-line" x1="630" y1="98" x2="630" y2="118"/></g>
+    <g class="anim-swing d2"><rect class="mart-b" x="126" y="32" width="8" height="8"/><ellipse class="mart-accent lantern-glow" cx="130" cy="68" rx="22" ry="30"/><line class="mart-line" x1="130" y1="98" x2="130" y2="118"/></g>
+    </g>
+  </svg>`,
+  m4: `<svg class="mission-art" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
+    ${sceneBackdrop('m4')}
+    <g transform="translate(0,130)">
+    <rect class="mart-a" x="20" y="96" width="720" height="24"/>
+    <rect class="mart-a" x="40" y="82" width="20" height="14"/><rect class="mart-a" x="90" y="82" width="20" height="14"/><rect class="mart-a" x="140" y="82" width="20" height="14"/><rect class="mart-a" x="190" y="82" width="20" height="14"/><rect class="mart-a" x="240" y="82" width="20" height="14"/><rect class="mart-a" x="290" y="82" width="20" height="14"/><rect class="mart-a" x="470" y="82" width="20" height="14"/><rect class="mart-a" x="520" y="82" width="20" height="14"/><rect class="mart-a" x="570" y="82" width="20" height="14"/><rect class="mart-a" x="620" y="82" width="20" height="14"/><rect class="mart-a" x="670" y="82" width="20" height="14"/><rect class="mart-a" x="710" y="82" width="20" height="14"/>
+    <g class="anim-recoil"><rect class="mart-b" x="330" y="60" width="100" height="22" rx="10" transform="rotate(-6 380 71)"/></g>
+    <circle class="mart-b" cx="400" cy="96" r="14"/>
+    <circle class="mart-accent anim-flash" cx="440" cy="60" r="9"/>
+    <circle class="mart-accent anim-puff" cx="448" cy="54" r="10"/>
+    <circle class="mart-accent anim-puff d2" cx="464" cy="42" r="7"/>
+    <circle class="mart-accent anim-puff d3" cx="478" cy="34" r="5"/>
+    </g>
+  </svg>`,
+  m5: `<svg class="mission-art" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
+    ${sceneBackdrop('m5')}
+    <g transform="translate(0,130)">
+    <circle class="mart-accent anim-pulse" cx="670" cy="42" r="40" opacity="0.18"/>
+    <circle class="mart-accent" cx="670" cy="42" r="22"/>
+    ${skylineBars()}
+    <line class="mart-line" x1="600" y1="20" x2="600" y2="118"/>
+    <g class="anim-crane"><line class="mart-line" x1="548" y1="26" x2="638" y2="26"/>
+    <line class="mart-line" x1="600" y1="20" x2="568" y2="48"/>
+    <line class="mart-line" x1="552" y1="26" x2="552" y2="58"/><rect class="mart-accent" x="545" y="58" width="14" height="9"/></g>
+    </g>
+  </svg>`,
+  m6: `<svg class="mission-art" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
+    ${sceneBackdrop('m6')}
+    <g transform="translate(0,130)">
+    <line class="mart-line" x1="380" y1="22" x2="380" y2="88"/>
+    <circle class="mart-b" cx="380" cy="16" r="6"/>
+    <path class="mart-b" d="M362,88 L398,88 L380,106 Z"/>
+    <g class="anim-balance">
+    <line class="mart-line" x1="328" y1="36" x2="432" y2="36"/>
+    <line class="mart-line" x1="328" y1="36" x2="328" y2="56"/>
+    <path class="mart-a" d="M310,56 Q310,72 328,72 Q346,72 346,56 Z"/>
+    <line class="mart-line" x1="432" y1="36" x2="432" y2="56"/>
+    <path class="mart-a" d="M414,56 Q414,72 432,72 Q450,72 450,56 Z"/>
+    </g>
+    <path class="mart-b" d="M300,98 Q380,88 460,98 L460,116 Q380,106 300,116 Z"/>
+    <line class="mart-line" x1="315" y1="104" x2="445" y2="104" stroke-width="1.5"/>
+    <line class="mart-line" x1="315" y1="110" x2="445" y2="110" stroke-width="1.5"/>
+    </g>
+  </svg>`
+};
+
+function renderMissions(){
+  const root = document.getElementById('missionsRoot');
+  root.innerHTML = missionData.map((m,i)=>`
+    <section id="${m.id}" data-stop="${i+2}">
+      <div class="frame">
+        <div class="juan-row">
+          <div class="juan-mark">${m.juan}</div>
+          <div style="flex:1;">
+            <div class="tag">${m.chapterTag}</div>
+            <div class="day-title" style="margin-top:6px;"><h2>${m.title}</h2></div>
+            <div class="day-loc">${m.loc}</div>
+          </div>
+          <div class="seal-badge">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="30" cy="30" r="26" fill="none" stroke="var(--vermillion)" stroke-width="2" opacity="0.6"/>
+              <g stroke="var(--vermillion)" stroke-width="1.5" opacity="0.4">
+                <line x1="30" y1="2" x2="30" y2="8"/><line x1="30" y1="52" x2="30" y2="58"/>
+                <line x1="2" y1="30" x2="8" y2="30"/><line x1="52" y1="30" x2="58" y2="30"/>
+              </g>
+            </svg>
+            <div class="seal-char">${m.era}</div>
+          </div>
+        </div>
+
+        ${missionArt[m.id] || ''}
+
+        <div class="dialogue-box" id="dlgBox-${m.id}" tabindex="0" role="button"
+             aria-label="對話框，點擊或按空白鍵推進"
+             onclick="tapDialogue('${m.id}')"
+             onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();tapDialogue('${m.id}');}">
+          <div class="dlg-nametag" id="dlgWho-${m.id}"></div>
+          <span class="dlg-corner-l" aria-hidden="true"></span><span class="dlg-corner-r" aria-hidden="true"></span>
+          <div class="dlg-portrait" id="dlgPortrait-${m.id}"></div>
+          <div class="dlg-body">
+            <span class="dlg-line" id="dlgLine-${m.id}"></span><span class="dlg-caret" id="dlgCaret-${m.id}"></span>
+          </div>
+        </div>
+        <div class="dlg-controls" id="dlgControls-${m.id}">
+          <span class="dlg-progress" id="dlgProgress-${m.id}"></span>
+          <div class="dlg-btns">
+            <span class="dlg-hint">點對話框或按空白鍵推進</span>
+            <button class="scroll-toggle" onclick="event.stopPropagation();skipDialogue('${m.id}')">跳過對話</button>
+          </div>
+        </div>
+
+        <div class="scene-wrap" id="scene-${m.id}">
+          <div class="echo-card" id="echo-${m.id}"></div>
+          <div class="section-label first">📖 時空卷軸：情境呈現與史料</div>
+          <p class="day-text">${m.context}</p>
+
+          <div class="scroll-wrap">
+            <button class="scroll-toggle" id="scrolltoggle-${m.id}" onclick="revealScroll('${m.id}')">📜 展開${m.scrollTitle}</button>
+            <div class="scroll-box" id="scrollbox-${m.id}">
+              <span class="stitle">${m.scrollTitle}</span>
+              <blockquote>${m.scrollText}</blockquote>
+            </div>
+            <div class="quiz-box" id="quiz-${m.id}"></div>
+          </div>
+
+          <div class="section-label">⚖️ 四司審議議題</div>
+          <div class="delib-list">
+            <div class="delib-item"><b>【執政專員】</b>${m.deliberation.exec}</div>
+            <div class="delib-item"><b>【律令專員】</b>${m.deliberation.law}</div>
+            <div class="delib-item"><b>【度支專員】</b>${m.deliberation.fis}</div>
+            <div class="delib-item"><b>【文教與文化使者】</b>${m.deliberation.cul}</div>
+          </div>
+          <div class="role-hint" id="rolehint-${m.id}"></div>
+
+          <div id="roundBody-${m.id}"></div>
+          <div class="knowledge-box" id="knowledge-${m.id}"></div>
+          <div class="item-gained" id="itemgained-${m.id}"></div>
+          <div class="settle-box" id="settle-${m.id}"></div>
+          <div class="edu-credit">路德會協同中學公民與社會發展科 x 歷史科</div>
+        </div>
+      </div>
+    </section>
+  `).join('');
+  missionData.forEach((m,i)=>{
+    state.dlgIndex[m.id] = 0;
+    state.roundIndex[m.id] = 0;
+    renderDialogueLine(m.id, true);
+    renderRound(m.id, i);
+  });
+}
+
+/* ---------- 渲染：情境回合 ---------- */
+function renderRound(mid, missionIdx){
+  const m = missionData.find(x=>x.id===mid);
+  if(missionIdx===undefined) missionIdx = missionData.findIndex(x=>x.id===mid);
+  const ridx = state.roundIndex[mid] || 0;
+  const round = m.rounds[ridx];
+  const isLastRound = ridx === m.rounds.length-1;
+  const isLastMission = missionIdx === missionData.length-1;
+  const enabledClass = optionsUnlocked(mid) ? ' enabled' : '';
+  document.getElementById('roundBody-'+mid).innerHTML = `
+    <div class="round-progress">回合 ${ridx+1} / ${m.rounds.length}${round.label ? '　· ' + round.label : ''}</div>
+    ${round.dilemma ? `<div class="dilemma-badge"><span class="db-ico">⚖️</span><span><b>兩難回合 · 沒有完美方案</b><br>每個方案都有得有失。本回合的「上策」以<b>守住四維中最弱的一環</b>為準——總體國家安全觀強調：短板決定整體安全。先看清自己目前哪一項最弱，再作取捨。</span></div>` : ''}
+    ${round.situation ? `<p class="day-text">${round.situation}</p>` : ''}
+    ${round.domains ? `<div class="domain-row"><span class="dlabel">🛡️ 本回合牽涉的國家安全領域：</span>${round.domains.map((k,i)=>`<span class="domain-tag" style="--i:${i}">${domainIcon(k)}${domainName(k)}</span>`).join('')}</div>
+    <div class="domain-note">總體國家安全觀強調各領域環環相扣——此處的抉擇，不只是一時得失。</div>` : ''}
+    <div class="decision-box scroll-panel">
+      <div class="decision-q">🧭 治理抉擇方案</div>
+      <div id="opts-${mid}">
+        ${optionOrder(mid+'#'+ridx, round.options).map((o,i)=>`
+          <button class="opt${enabledClass}" data-key="${o.key}" style="--i:${i}" onclick="selectOption('${mid}','${o.key}')">
+            <span class="opt-face" aria-hidden="true">${speakerMiniPortrait(o.speaker)}</span>
+            <span class="opt-text">
+              <span class="ospeaker">${o.speaker}進言：${o.quote}</span>
+              <span class="olabel">${'甲乙丙'[i]}．${o.label}</span>
+              <span class="osummary">${o.summary}</span>
+            </span>
+          </button>`).join('')}
+      </div>
+      <div class="opt-note">⚖️ 每個方案的後果，要待你蓋印之後才會揭曉——請根據史料與四司審議，自行判斷。</div>
+      <div class="preview-box" id="preview-${mid}"></div>
+      <div class="threshold-warn" id="warn-${mid}"></div>
+      <div class="stamp-row">
+        <button class="btn ember" id="stampbtn-${mid}" disabled onclick="stampMission('${mid}')">${round.stampLabel}</button>
+        <div class="stamp-mark" id="stampmark-${mid}">${m.era}</div>
+      </div>
+      <div class="stamp-confirm" id="stampconfirm-${mid}"></div>
+    </div>
+    <div class="next-wrap">
+      <button class="btn" id="nextround-${mid}" disabled onclick="${isLastRound ? `goTo(${missionIdx+3})` : `advanceRound('${mid}')`}">${isLastRound ? (isLastMission ? '➡️ 前往終卷：反思與結業 →' : '➡️ 推進下一階段情境 →') : '➡️ 進入下一回合 →'}</button>
+    </div>
+  `;
+}
+function advanceRound(mid){
+  state.roundIndex[mid] = (state.roundIndex[mid]||0) + 1;
+  renderRound(mid);
+  window.scrollTo({top:document.getElementById(mid).offsetTop, behavior:'smooth'});
+}
+
+/* ---------- 互動：議事對話（打字機 + 立繪 + 姓名牌） ---------- */
+const typeTimers = {};
+const REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function speakerPortrait(who, text){
+  const mood = inferMood(text);
+  if(who === 'narrator'){
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="color:var(--jade)">
+      <path d="M17,101 Q19,60 51,61 Q81,63 83,101 Z" fill="#000" opacity="0.12"/>
+      <path d="M20,100 Q20,58 50,58 Q80,58 80,100 Z" fill="currentColor" opacity="0.9"/>
+      <circle cx="49" cy="30" r="16" fill="currentColor" opacity="0.9"/>
+      <path d="M34,88 Q50,83 66,88 L66,100 L34,100 Z" fill="#fff" opacity="0.1"/>
+      ${faceSvg(mood, 48)}
+      <g opacity="0.9" fill="none" stroke="currentColor" stroke-width="3">
+        <rect x="30" y="70" width="40" height="24" rx="2" fill="var(--paper)"/>
+        <line x1="50" y1="70" x2="50" y2="94"/>
+      </g>
+    </svg>`;
+  }
+  const c = classData.find(x=>x.key===who);
+  return classPortraitSvg(c, mood).replace('class="portrait-svg" ','');
+}
+function renderDialogueLine(mid, instant){
+  const m = missionData.find(x=>x.id===mid);
+  const idx = state.dlgIndex[mid] || 0;
+  const entry = m.dialogue[idx];
+  const meta = speakerMeta(entry.who);
+  const nameTag = document.getElementById('dlgWho-'+mid);
+  nameTag.textContent = meta.name;
+  nameTag.style.background = `var(--${meta.color})`;
+  const portraitEl = document.getElementById('dlgPortrait-'+mid);
+  portraitEl.innerHTML = speakerPortrait(entry.who, entry.line);
+  portraitEl.classList.remove('dlg-portrait-pop');
+  void portraitEl.offsetWidth;
+  portraitEl.classList.add('dlg-portrait-pop');
+  document.getElementById('dlgProgress-'+mid).textContent =
+    `${idx+1} / ${m.dialogue.length}` + (idx === m.dialogue.length-1 ? '　· 最後一句' : '');
+  typeLine(mid, `「${entry.line}」`, instant);
+}
+function typeLine(mid, text, instant){
+  clearInterval(typeTimers[mid]);
+  const lineEl = document.getElementById('dlgLine-'+mid);
+  const caret = document.getElementById('dlgCaret-'+mid);
+  const portrait = document.getElementById('dlgPortrait-'+mid);
+  if(instant || REDUCED_MOTION){
+    lineEl.textContent = text;
+    state.typing = state.typing || {};
+    state.typing[mid] = false;
+    caret.classList.add('show');
+    portrait && portrait.classList.remove('talking');
+    return;
+  }
+  state.typing = state.typing || {};
+  state.typing[mid] = true;
+  portrait && portrait.classList.add('talking');
+  caret.classList.remove('show');
+  lineEl.textContent = '';
+  let i = 0;
+  typeTimers[mid] = setInterval(()=>{
+    lineEl.textContent = text.slice(0, ++i);
+    if(i >= text.length){
+      clearInterval(typeTimers[mid]);
+      state.typing[mid] = false;
+      caret.classList.add('show');
+      portrait && portrait.classList.remove('talking');
+    }
+  }, 38);
+}
+/* 點對話框／空白鍵：打字中→立即補完；已完成→下一句 */
+function tapDialogue(mid){
+  if(state.typing && state.typing[mid]){
+    const m = missionData.find(x=>x.id===mid);
+    const entry = m.dialogue[state.dlgIndex[mid] || 0];
+    typeLine(mid, `「${entry.line}」`, true);
+    return;
+  }
+  advanceDialogue(mid);
+}
+function advanceDialogue(mid){
+  const m = missionData.find(x=>x.id===mid);
+  const idx = state.dlgIndex[mid] || 0;
+  if(idx < m.dialogue.length-1){
+    state.dlgIndex[mid] = idx+1;
+    renderDialogueLine(mid);
+  } else {
+    completeDialogue(mid);
+  }
+}
+function skipDialogue(mid){
+  clearInterval(typeTimers[mid]);
+  if(state.typing) state.typing[mid] = false;
+  completeDialogue(mid);
+}
+function completeDialogue(mid){
+  clearInterval(typeTimers[mid]);
+  const box = document.getElementById('dlgBox-'+mid);
+  if(box){ box.onclick = null; box.style.cursor = 'default'; box.removeAttribute('tabindex'); }
+  document.getElementById('dlgPortrait-'+mid).classList.remove('talking');
+  document.getElementById('dlgCaret-'+mid).classList.remove('show');
+  document.getElementById('dlgControls-'+mid).style.display = 'none';
+  document.getElementById('scene-'+mid).classList.add('show');
+  applyEcho(mid);
+}
+/* 時空回響：進入本卷情境時，較早一卷的抉擇浮現影響（只生效一次） */
+function applyEcho(mid){
+  const e = echoData[mid];
+  if(!e || state.echoDone[mid]) return;
+  const src = missionData.find(x=>x.id===e.from);
+  const ridx = src.rounds.findIndex(r=>r.label===e.label);
+  const rkey = e.from+'#'+ridx;
+  const key = state.stamped[rkey] && state.chosen[rkey];
+  const hit = key && e.text[key];
+  if(!hit) return;
+  state.echoDone[mid] = true;
+  Object.keys(hit.d).forEach(k=>{ state.meters[k] = Math.max(0, Math.min(100, state.meters[k] + hit.d[k])); });
+  const chips = Object.keys(hit.d).map(k=>{
+    const d = hit.d[k];
+    return `<span class="delta-chip ${d>0?'up':'down'}">${meterMeta[k].name} ${d>0?'+':''}${d}</span>`;
+  }).join('');
+  const good = Object.values(hit.d).reduce((a,b)=>a+b,0) > 0;
+  const card = document.getElementById('echo-'+mid);
+  card.className = 'echo-card show ' + (good ? 'good' : 'bad');
+  card.innerHTML = `
+    <div class="echo-ico" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M12 6h16M12 34h16M14 6c0 8 12 10 12 14S14 26 14 34M26 6c0 8-12 10-12 14s12 6 12 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path class="echo-sand" d="M17 30h6l-3-4z" fill="currentColor"/></svg></div>
+    <div class="echo-body">
+      <div class="echo-title">⏳ 時空回響 · 來自${src.juan}「${e.label}」</div>
+      <div class="echo-text">${hit.t}</div>
+      <div class="deltas">${chips}</div>
+      <div class="echo-note">遊戲推演：用以說明政策影響的延續性，並非史實因果。</div>
+    </div>`;
+  setTimeout(()=>{ renderDashboard(); popMeterDeltas(hit.d); }, 600);
+}
+
+/* ---------- 互動：展開史料卷軸 ---------- */
+function optionsUnlocked(mid){
+  return !!state.revealed[mid] && (!scrollQuiz[mid] || !!state.quiz[mid]);
+}
+function revealScroll(mid){
+  state.revealed[mid] = true;
+  document.getElementById('scrollbox-'+mid).classList.add('show');
+  renderQuiz(mid);
+  if(optionsUnlocked(mid)) document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.add('enabled'));
+}
+/* 史料判斷：先讀史料作答，答畢（無論對錯）方可議決 */
+function renderQuiz(mid){
+  const qz = scrollQuiz[mid], box = document.getElementById('quiz-'+mid);
+  if(!qz || !box) return;
+  const done = state.quiz[mid];
+  box.innerHTML = `
+    <div class="quiz-head">📜 史料判斷${done ? '' : '　<small>答題後方可議決本卷方案</small>'}</div>
+    <div class="quiz-q">${qz.q}</div>
+    <div class="quiz-opts">${qz.opts.map((o,i)=>{
+      let cls = '';
+      if(done){ if(i===qz.ans) cls=' right'; else if(i===done.pick) cls=' wrong'; }
+      return `<button class="quiz-opt${cls}" ${done?'disabled':''} onclick="answerQuiz('${mid}',${i})"><span class="qo-mark">${'甲乙丙'[i]}</span>${o}</button>`;
+    }).join('')}</div>
+    ${done ? `<div class="quiz-why ${done.ok?'ok':'no'}">${done.ok ? '✔ 判斷正確！德望 +10。' : '✘ 未中。'}${qz.why}</div>` : ''}`;
+  box.classList.add('show');
+}
+function answerQuiz(mid, i){
+  if(state.quiz[mid]) return;
+  const ok = i === scrollQuiz[mid].ans;
+  state.quiz[mid] = {pick:i, ok};
+  if(ok){ state.merit += 10; renderDashboard(); pulseRank(); verdictFlash('明　察', true); }
+  renderQuiz(mid);
+  document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.add('enabled'));
+}
+
+/* ---------- 互動：揀選方案（預覽，尚未生效） ---------- */
+function selectOption(mid, key){
+  if(!optionsUnlocked(mid)) return;
+  const m = missionData.find(x=>x.id===mid);
+  const ridx = state.roundIndex[mid] || 0;
+  const round = m.rounds[ridx];
+  const rkey = mid+'#'+ridx;
+  if(state.stamped[rkey]) return;
+  state.chosen[rkey] = key;
+  document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.toggle('selected', b.dataset.key===key));
+
+  const opt = round.options.find(o=>o.key===key);
+  /* 蓋印前只確認選擇，不透露任何數值後果，避免學生逐一試按後揀最佳答案 */
+  const preview = document.getElementById('preview-'+mid);
+  preview.classList.remove('result');
+  preview.innerHTML = `<div class="choice-pending">
+      <span class="cp-seal">${displayLetter(rkey,key)}</span>
+      <span>你傾向採納「<b>${opt.label}</b>」。<br><small>尚未蓋印，仍可改選；後果將於蓋印後揭曉。</small></span>
+    </div>`;
+  preview.classList.add('show');
+
+  const stampBtn = document.getElementById('stampbtn-'+mid);
+  const warnBox = document.getElementById('warn-'+mid);
+  if(round.gated){
+    const failing = Object.keys(opt.delta).filter(k=>Math.max(0,Math.min(100,state.meters[k]+opt.delta[k])) < round.safetyThreshold);
+    if(failing.length){
+      const passes = o => Object.keys(o.delta).every(k=>Math.max(0,Math.min(100,state.meters[k]+o.delta[k])) >= round.safetyThreshold);
+      const noneWork = !round.options.some(passes);
+      warnBox.innerHTML = `⚠ 合憲性與安全審查未獲通過：以你目前的治理基礎，此方案會令國家安全底線失守。請重新審議，或回顧先前各卷的抉擇如何影響今日局面。` +
+        (noneWork ? `<div class="rescue-row">你目前的局面下，三個方案都無法通過審查。<button class="btn ember" onclick="rescueGate('${mid}')">🆘 召開緊急補救會議（德望 −60）</button><small>補救可讓你完成旅程，但結業卷軸會註明「經緊急補救」——底線一旦失守，代價高昂。</small></div>` : '');
+      warnBox.classList.add('show');
+      stampBtn.disabled = true;
+    } else {
+      warnBox.classList.remove('show');
+      stampBtn.disabled = false;
+    }
+  } else {
+    stampBtn.disabled = false;
+  }
+}
+
+/* 終局安全門檻的補救：避免同學因前期抉擇而永遠無法完成旅程 */
+function rescueGate(mid){
+  const ridx = state.roundIndex[mid] || 0;
+  const round = missionData.find(x=>x.id===mid).rounds[ridx];
+  const top = round.options.slice().sort((a,b)=>optionScore(round,b)-optionScore(round,a))[0];
+  Object.keys(state.meters).forEach(k=>{
+    state.meters[k] = Math.max(state.meters[k], round.safetyThreshold - Math.min(0, top.delta[k]||0));
+  });
+  state.merit = Math.max(0, state.merit - 60);
+  state.rescued = true;
+  renderDashboard();
+  verdictFlash('補　救', false);
+  const key = state.chosen[mid+'#'+ridx];
+  if(key) selectOption(mid, key);
+}
+/* ---------- 互動：蓋印確認 → 生效 ---------- */
+function speakerMiniPortrait(speakerName){
+  const c = classData.find(x=>x.name===speakerName);
+  return c ? classPortraitSvg(c).replace('class="portrait-svg" ','') : '';
+}
+/* 蓋印後才揭曉：逐項推演四維變化，並讓學生回看其他方案的推演，作課堂討論 */
+function revealConsequence(mid, opt, before, wasBest){
+  const ridx = state.roundIndex[mid] || 0;
+  const round = missionData.find(x=>x.id===mid).rounds[ridx];
+  const rkey = mid+'#'+ridx;
+  const cls0 = classData.find(x=>x.key===state.cls);
+  const focus = cls0 ? cls0.focus : null;
+  const rows = Object.keys(meterMeta).map((k,i)=>{
+    const d = opt.delta[k] || 0;
+    const cls = d>0?'up':(d<0?'down':'flat');
+    return `<div class="cq-row${k===focus?' mine':''}" style="--i:${i}">
+      <span class="cq-name">${meterMeta[k].name}${k===focus?'<em class="cq-mine">你的職責</em>':''}</span>
+      <span class="cq-track"><span class="cq-fill ${cls}" style="--from:${before[k]}%; --to:${state.meters[k]}%"></span></span>
+      <span class="cq-val"><span class="cq-count" data-from="${before[k]}" data-to="${state.meters[k]}">${before[k]}</span></span>
+      <span class="delta-chip ${cls}">${d>0?'+':''}${d}</span>
+    </div>`;
+  }).join('');
+  const others = optionOrder(rkey, round.options).filter(o=>o.key!==opt.key).map(o=>
+    `<div class="cq-other"><b>${displayLetter(rkey,o.key)}．${o.label}</b>　${o.feedback}</div>`).join('');
+  /* 職司視角：同一回合，不同職司眼中的「最有利」未必相同 */
+  let lens = '';
+  if(focus){
+    const topVal = Math.max(...round.options.map(o=>o.delta[focus]||0));
+    const tops = round.options.filter(o=>(o.delta[focus]||0)===topVal);
+    const mineTop = tops.some(o=>o.key===opt.key);
+    lens = `<div class="cq-lens">🎭 <b>${cls0.name}視角</b>：` + (mineTop
+      ? `此方案對你負責的「${meterMeta[focus].name}」最有利。`
+      : `若只看你負責的「${meterMeta[focus].name}」，「${tops.map(o=>displayLetter(rkey,o.key)+'．'+o.label).join('」或「')}」會更有利——但治理須兼顧全局。`) + `</div>`;
+  }
+  /* 兩難回合：說明「守住最弱一環」的判準 */
+  let dil = '';
+  if(round.dilemma){
+    const minAfter = Math.min(...Object.values(afterMeters(before, opt)));
+    const bests = bestOptions(round, before);
+    dil = `<div class="cq-dilemma">⚖️ <b>兩難回合判準</b>：選後你四維中最低的一項是 <b>${minAfter}</b>。` + (wasBest
+      ? `在三個方案中，你的選擇最能守住最弱一環，故為上策。`
+      : `以你蓋印前的局面，「${bests.map(o=>displayLetter(rkey,o.key)+'．'+o.label).join('」或「')}」最能守住最弱一環。不同同學的局面不同，上策亦可能不同——可在課堂上比較。`) + `</div>`;
+  }
+  const preview = document.getElementById('preview-'+mid);
+  preview.classList.add('show','result');
+  preview.innerHTML = `
+    <div class="preview-header">💥 治理演算與連鎖反應</div>
+    <div class="cq-rows">${rows}</div>
+    <div class="feedback-text cq-feedback">${opt.feedback}</div>
+    ${dil}${lens}
+    <details class="cq-others"><summary>🔍 回看其他方案的推演（課堂討論用）</summary>${others}</details>`;
+  preview.querySelectorAll('.cq-count').forEach((el,i)=>countUp(el, +el.dataset.from, +el.dataset.to, 500 + i*120));
+}
+/* 終卷：時空足跡地圖——六卷印記沿長河排開，按上策次數著色 */
+function renderJourney(){
+  const el = document.getElementById('journeyMap');
+  if(!el) return;
+  const pts = [[70,110],[195,60],[320,112],[445,58],[570,110],[690,62]];
+  const river = 'M10,120 C60,120 70,60 130,60 S250,118 320,112 S400,52 445,58 S530,118 570,110 S650,56 750,62';
+  const nodes = missionData.map((m,i)=>{
+    const [x,y] = pts[i];
+    const n = state.bestCount[m.id] || 0;
+    const done = !!state.stamped[m.id+'#'+(m.rounds.length-1)];
+    const tone = !done ? 'none' : (n>=4 ? 'good' : (n>=2 ? 'mid' : 'low'));
+    return `<g class="jn jn-${tone}" style="--i:${i}" transform="translate(${x},${y})">
+      <circle class="jn-halo" r="27"/>
+      <rect class="jn-seal" x="-19" y="-19" width="38" height="38" rx="5" transform="rotate(-6)"/>
+      <text class="jn-era" y="7" text-anchor="middle">${m.era}</text>
+      <text class="jn-lbl" y="46" text-anchor="middle">${done ? `上策 ${n}/${m.rounds.length}` : '未完成'}</text>
+    </g>`;
+  }).join('');
+  el.innerHTML = `<svg class="journey-svg" viewBox="0 0 760 170" xmlns="http://www.w3.org/2000/svg">
+      <path class="jr-river" d="${river}"/>
+      <path class="jr-path" d="${river}" pathLength="1"/>
+      ${nodes}
+    </svg>
+    <div class="journey-legend"><span class="lg good"></span>4–5 次上策　<span class="lg mid"></span>2–3 次　<span class="lg low"></span>0–1 次</div>`;
+}
+/* 圖鑑解鎖提示：右下角依次滑入 */
+let toastQueue = 0;
+function unlockToast(k){
+  const t = document.createElement('div');
+  t.className = 'unlock-toast';
+  t.innerHTML = `<span class="ut-ico">${domainIcon(k)}</span><span><small>國安圖鑑 · 新領域</small><b>${domainName(k)}</b></span>`;
+  const delay = 900 + (toastQueue++) * 450;
+  let stack = document.getElementById('toastStack');
+  if(!stack){ stack = document.createElement('div'); stack.id = 'toastStack'; document.body.appendChild(stack); }
+  setTimeout(()=>{
+    stack.appendChild(t);
+    setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(), 400); toastQueue = Math.max(0, toastQueue-1); }, 2600);
+  }, delay);
+}
+function countUp(el, from, to, delay){
+  if(REDUCED_MOTION || from===to){ el.textContent = to; return; }
+  setTimeout(()=>{
+    const t0 = performance.now(), dur = 700;
+    const step = now=>{
+      const p = Math.min(1, (now-t0)/dur);
+      el.textContent = Math.round(from + (to-from)*(1-Math.pow(1-p,3)));
+      if(p<1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, delay);
+}
+/* ---------- 視覺回饋：跳字／判定／震動 ---------- */
+function popMeterDeltas(delta){
+  const layer = document.getElementById('popLayer');
+  const meters = document.querySelectorAll('#meterRow .meter');
+  Object.keys(meterMeta).forEach((k,i)=>{
+    const d = delta[k];
+    if(!d || !meters[i]) return;
+    const r = meters[i].getBoundingClientRect();
+    const s = document.createElement('div');
+    s.className = 'pop-num ' + (d>0 ? 'up' : 'down');
+    s.textContent = (d>0 ? '+' : '') + d;
+    s.style.left = (r.left + r.width/2 - 12) + 'px';
+    s.style.top = (r.bottom + 2) + 'px';
+    layer.appendChild(s);
+    setTimeout(()=>s.remove(), 1400);
+  });
+}
+function verdictFlash(text, good){
+  const el = document.createElement('div');
+  el.className = 'verdict-flash ' + (good ? 'good' : 'bad');
+  el.textContent = text;
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), 1300);
+}
+function shakeScreen(){
+  const el = document.querySelector('section.active');
+  if(!el) return;
+  el.classList.remove('shake');
+  void el.offsetWidth;
+  el.classList.add('shake');
+  setTimeout(()=>el.classList.remove('shake'), 520);
+}
+/* ---------- 卷末結算 ---------- */
+/* 職司考評：只看自己負責的指標在本卷的升跌 */
+function roleGrade(diff){ return diff>=10 ? '甲等' : (diff>=4 ? '乙等' : '丙等'); }
+function roleGradeRow(mid, start){
+  const c = classData.find(x=>x.key===state.cls);
+  if(!c) return '';
+  const diff = state.meters[c.focus] - start[c.focus];
+  /* 已近滿值時升幅自然有限，不應因此被評為低等 */
+  const g = state.meters[c.focus] >= 95 ? '甲等' : roleGrade(diff);
+  state.roleGrades[mid] = g;
+  return `<div class="settle-row role-row"><span>🎭 ${c.name}考評（${meterMeta[c.focus].name} ${diff>=0?'+':''}${diff}）</span><span class="sv grade-${g}">${g}</span></div>`;
+}
+function showSettlement(mid, m, missionIdx){
+  const start = state.missionStart[mid] || {fa:50,guo:50,min:50,wen:50};
+  const meritGain = state.merit - (state.missionMeritStart[mid] || 0);
+  const rows = Object.keys(meterMeta).map(k=>{
+    const diff = state.meters[k] - start[k];
+    const cls = diff>0 ? 'up' : (diff<0 ? 'down' : '');
+    const sign = diff>0 ? '+' : '';
+    /* 起跳即滿值時，增益會被上限截掉，標示「維持滿值」以免誤讀為毫無成效 */
+    const note = (diff===0 && state.meters[k]===100) ? '維持滿值' : `(${sign}${diff})`;
+    return `<div class="settle-row"><span>${meterMeta[k].name}</span><span class="sv ${cls}">${start[k]} → ${state.meters[k]}　${note}</span></div>`;
+  }).join('');
+  const box = document.getElementById('settle-'+mid);
+  box.innerHTML = `
+    <div class="settle-title">◆ ${m.juan}　卷末結算 ◆</div>
+    ${rows}
+    ${roleGradeRow(mid, start)}
+    <div class="settle-row"><span>上策次數</span><span class="sv">${state.bestCount[mid]||0} / ${m.rounds.length}${state.quiz[mid] ? `　· 史料判斷${state.quiz[mid].ok?'✔':'✘'}` : ''}</span></div>
+    <div class="settle-row"><span>德望</span><span class="sv up">+${meritGain}</span></div>
+    <div class="settle-row"><span>位階</span><span class="sv">${rankTitle(state.merit)}</span></div>
+    <div class="settle-loot">${itemIconSvg(m.item.icon)}戰利品：${m.item.name}</div>`;
+  box.classList.add('show');
+}
+
+function stampMission(mid){
+  const missionIdx = missionData.findIndex(x=>x.id===mid);
+  const m = missionData[missionIdx];
+  const ridx = state.roundIndex[mid] || 0;
+  const round = m.rounds[ridx];
+  const rkey = mid+'#'+ridx;
+  const key = state.chosen[rkey];
+  if(!key) return;
+  const opt = round.options.find(o=>o.key===key);
+  if(ridx === 0){
+    state.missionStart[mid] = Object.assign({}, state.meters);
+    state.missionMeritStart[mid] = state.merit;
+  }
+  const before = Object.assign({}, state.meters);
+  Object.keys(opt.delta).forEach(k=>{
+    state.meters[k] = Math.max(0,Math.min(100, state.meters[k]+opt.delta[k]));
+  });
+  const wasBest = isBestOption(round, key, before);
+  state.merit += wasBest ? 30 : 15;
+  state.bestCount[mid] = (state.bestCount[mid] || 0) + (wasBest ? 1 : 0);
+  revealConsequence(mid, opt, before, wasBest);
+  state.stamped[rkey] = true;
+  /* 解鎖本回合牽涉的國家安全領域 */
+  let newDomains = [];
+  (round.domains || []).forEach(k=>{
+    if(!state.domainsFound[k]){ state.domainsFound[k] = true; newDomains.push(domainName(k)); unlockToast(k); }
+  });
+  /* 視覺回饋 */
+  popMeterDeltas(opt.delta);
+  const worst = Math.min(...Object.values(opt.delta));
+  if(wasBest){ verdictFlash('上　策', true); }
+  else if(round.dilemma){ verdictFlash('有得有失', false); }
+  else if(worst <= -5){ verdictFlash('失　策', false); shakeScreen(); }
+  document.querySelectorAll('#opts-'+mid+' .opt').forEach(b=>b.classList.remove('enabled'));
+  document.getElementById('stampbtn-'+mid).disabled = true;
+  document.getElementById('stampmark-'+mid).classList.add('show');
+  const confirmBox = document.getElementById('stampconfirm-'+mid);
+  const stampTxt = round.stampLabel === '蓋憲法法理印'
+    ? '🏛️ 憲法法理印：已通過《憲法》與《基本法》合憲性審查'
+    : '🏷️ 史料依據印：已核驗歷史文獻';
+  confirmBox.innerHTML = stampTxt +
+    (newDomains.length ? `<div style="margin-top:8px;font-weight:400;color:var(--vermillion-deep);">🛡️ 國安圖鑑新增領域：${newDomains.join('、')}（已收錄，可於上方「國安圖鑑」查閱）</div>` : '');
+  confirmBox.classList.add('show');
+  renderCodex();
+
+  const isLastRound = ridx === m.rounds.length-1;
+  if(ridx===0){
+    const kb = document.getElementById('knowledge-'+mid);
+    kb.innerHTML = `<span class="klabel">💡 跨學科文化與法理小百科</span>${m.knowledge}`;
+    kb.classList.add('show');
+  }
+  if(isLastRound){
+    state.inventory.push(m.item);
+    renderInventory();
+    const ig = document.getElementById('itemgained-'+mid);
+    ig.innerHTML = `${itemIconSvg(m.item.icon)}獲得信物：${m.item.name} —— ${m.item.flavor}`;
+    ig.classList.add('show');
+    unlockDot(missionIdx+3);
+    document.querySelector(`.dot[data-d="${missionIdx+2}"]`)?.classList.add('done');
+  }
+  renderDashboard();
+  pulseRank();
+  if(isLastRound) showSettlement(mid, m, missionIdx);
+  document.getElementById('nextround-'+mid).disabled = false;
+}
+
+/* ---------- 導覽點與切換 ---------- */
+const totalStops = missionData.length + 2;
+const dotGroup = document.getElementById('dotGroup');
+const dotLabels = ['引','身'].concat(missionData.map(m=>m.era)).concat(['終']);
+function buildDots(){
+  dotGroup.innerHTML = '';
+  for(let i=0;i<=totalStops;i++){
+    if(i>0){const sep=document.createElement('div'); sep.className='rail-sep'; dotGroup.appendChild(sep);}
+    const d=document.createElement('div');
+    d.className='dot'+(i===0?' unlocked':'');
+    d.dataset.d=i;
+    d.textContent = dotLabels[i] || i;
+    d.onclick=()=>{ if(d.classList.contains('unlocked')||d.classList.contains('current')||d.classList.contains('done')) goTo(i); };
+    dotGroup.appendChild(d);
+  }
+}
+function unlockDot(n){
+  const dot=document.querySelector(`.dot[data-d="${n}"]`);
+  if(dot) dot.classList.add('unlocked');
+}
+function goTo(n){
+  const mission = missionData[n-2];
+  const fromMissionSection = document.querySelector('section.active')?.dataset.stop;
+  const isChapterHop = mission && fromMissionSection !== undefined && Number(fromMissionSection) !== n;
+  if(isChapterHop && !REDUCED_MOTION){
+    const el = document.getElementById('chapterTransition');
+    document.getElementById('ctJuan').textContent = mission.juan;
+    document.getElementById('ctTitle').textContent = mission.title;
+    document.getElementById('ctEra').textContent = mission.loc;
+    el.classList.add('show');
+    setTimeout(()=>{
+      reallyGoTo(n);
+      setTimeout(()=>el.classList.remove('show'), 450);
+    }, 500);
+    return;
+  }
+  reallyGoTo(n);
+}
+function reallyGoTo(n){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  const target = document.querySelector(`section[data-stop="${n}"]`) || document.getElementById('hero');
+  target.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.dot').forEach(d=>d.classList.remove('current'));
+  const dot=document.querySelector(`.dot[data-d="${n}"]`);
+  if(dot){ dot.classList.add('current'); dot.classList.add('unlocked'); }
+  document.getElementById('dashboard').classList.toggle('show', n>=2);
+  document.getElementById('invPanel').classList.remove('show');
+  document.getElementById('codexPanel').classList.remove('show');
+  const inForest = n===1;
+  document.getElementById('forestArt').classList.toggle('show', inForest);
+  document.getElementById('bgArt').style.display = inForest ? 'none' : '';
+  if(n === totalStops) renderJourney();
+  /* 進入某一卷時才啟動該卷的打字機，避免六卷同時跑 */
+  const mission = missionData[n-2];
+  if(mission){
+    const ctrls = document.getElementById('dlgControls-'+mission.id);
+    const unfinished = ctrls && ctrls.style.display !== 'none';
+    if(unfinished && (state.dlgIndex[mission.id]||0) === 0) renderDialogueLine(mission.id);
+  }
+}
+
+/* ---------- 反思留言牆 ---------- */
+function postWall(){
+  const name = document.getElementById('wallName').value.trim() || '匿名組別';
+  const msg = document.getElementById('wallMsg').value.trim();
+  if(!msg) return;
+  const wall = document.getElementById('wallList');
+  const card = document.createElement('div');
+  card.className='card';
+  card.innerHTML = `${msg}<div class="who">— ${name}</div>`;
+  wall.prepend(card);
+  document.getElementById('wallMsg').value='';
+}
+
+/* ---------- 結業卷軸 ---------- */
+function governanceTitle(){
+  const vals = Object.values(state.meters);
+  const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
+  const min = Math.min(...vals);
+  if(avg>=90 && min>=80) return '革故鼎新．一代傳承宗師';
+  if(avg>=75) return '大同永續．傳承良臣';
+  if(avg>=55) return '篳路藍縷．勤勉傳承人';
+  return '如履薄冰．見習傳承人';
+}
+function genCert(){
+  const name = document.getElementById('certName').value.trim();
+  if(!name) return;
+  document.getElementById('certNameOut').textContent = name;
+  document.getElementById('certTitle').textContent = `治理稱號：${governanceTitle()}`;
+  document.getElementById('certMeters').textContent =
+    `${meterMeta.fa.name} ${state.meters.fa}　${meterMeta.guo.name} ${state.meters.guo}　${meterMeta.min.name} ${state.meters.min}　${meterMeta.wen.name} ${state.meters.wen}`;
+  document.getElementById('certTier').textContent = `位階：${rankTitle(state.merit)}（德望 ${state.merit}）`;
+  document.getElementById('certInv').textContent = `行囊中珍藏了 ${state.inventory.length} 件信物，走過六卷山河長卷。`;
+  const c = classData.find(x=>x.key===state.cls);
+  const grades = Object.values(state.roleGrades);
+  const bestTotal = Object.values(state.bestCount).reduce((a,b)=>a+b,0);
+  const totalRounds = missionData.reduce((a,m)=>a+m.rounds.length,0);
+  const quizOk = Object.values(state.quiz).filter(q=>q.ok).length;
+  document.getElementById('certRole').innerHTML =
+    (c ? `🎭 ${c.name}考評：甲等 ${grades.filter(g=>g==='甲等').length} 卷、乙等 ${grades.filter(g=>g==='乙等').length} 卷、丙等 ${grades.filter(g=>g==='丙等').length} 卷<br>` : '') +
+    `上策 ${bestTotal} / ${totalRounds}　· 史料判斷 ${quizOk} / ${missionData.length}` +
+    (state.rescued ? '<br><span style="color:var(--vermillion-deep)">※ 終局經緊急補救方通過安全審查</span>' : '');
+  document.getElementById('certBox').classList.remove('hidden');
+  document.getElementById('codeOut').value = makeCode(name);
+  document.getElementById('codeBox').classList.remove('hidden');
+}
+/* ---------- 教師彙整：學生代碼 ---------- */
+function makeCode(name){
+  const data = {v:1, n:name, c:state.cls,
+    ch: missionData.map(m=>m.rounds.map((r,i)=>{ const k=m.id+'#'+i; return state.stamped[k] ? state.chosen[k] : '-'; }).join('')),
+    q: missionData.map(m=>state.quiz[m.id] ? (state.quiz[m.id].ok?'1':'0') : '-').join(''),
+    m: [state.meters.fa, state.meters.guo, state.meters.min, state.meters.wen],
+    r: state.rescued ? 1 : 0};
+  const bytes = new TextEncoder().encode(JSON.stringify(data));
+  let bin = ''; bytes.forEach(b=>bin += String.fromCharCode(b));
+  return 'TS1-' + btoa(bin);
+}
+function readCode(code){
+  try{
+    const bin = atob(code.trim().replace(/^TS1-/, ''));
+    const bytes = Uint8Array.from(bin, ch=>ch.charCodeAt(0));
+    const d = JSON.parse(new TextDecoder().decode(bytes));
+    return d && d.v===1 && Array.isArray(d.ch) ? d : null;
+  }catch(e){ return null; }
+}
+function copyCode(){
+  const t = document.getElementById('codeOut');
+  t.select();
+  const done = ()=>{ document.getElementById('codeCopied').textContent = '已複製 ✔'; };
+  if(navigator.clipboard) navigator.clipboard.writeText(t.value).then(done, ()=>{ document.execCommand('copy'); done(); });
+  else { document.execCommand('copy'); done(); }
+}
+function openTeacher(){ document.getElementById('teacherPanel').classList.add('show'); }
+function closeTeacher(){ document.getElementById('teacherPanel').classList.remove('show'); }
+function summarizeClass(){
+  const lines = document.getElementById('teacherIn').value.split(/\s+/).filter(x=>x.startsWith('TS1-'));
+  const rows = lines.map(readCode).filter(Boolean);
+  const out = document.getElementById('teacherOut');
+  if(!rows.length){ out.innerHTML = '<p class="inv-empty">未讀到有效代碼。每位學生的代碼以「TS1-」開頭，可每行貼一個。</p>'; return; }
+  const N = rows.length;
+  const avg = i => Math.round(rows.reduce((a,r)=>a+r.m[i],0)/N);
+  const roles = classData.map(c=>`${c.name} ${rows.filter(r=>r.c===c.key).length}`).join('　');
+  const rescued = rows.filter(r=>r.r).length;
+  let divergent = [];
+  const missionHtml = missionData.map((m,mi)=>{
+    const qAns = rows.map(r=>r.q[mi]).filter(x=>x!=='-');
+    const qRate = qAns.length ? Math.round(100*qAns.filter(x=>x==='1').length/qAns.length) : 0;
+    const roundsHtml = m.rounds.map((rd,ri)=>{
+      const picks = rows.map(r=>(r.ch[mi]||'')[ri]).filter(x=>x && x!=='-');
+      const n = picks.length || 1;
+      const bestKey = rd.dilemma ? null : bestOptions(rd, {fa:50,guo:50,min:50,wen:50})[0].key;
+      const counts = rd.options.map(o=>picks.filter(x=>x===o.key).length);
+      const ent = counts.reduce((a,c)=>{ const p=c/n; return p>0 ? a - p*Math.log(p) : a; }, 0);
+      divergent.push({ent, name:`${m.juan}・${rd.label}`});
+      return `<div class="tr-round"><div class="tr-label">回合 ${ri+1}・${rd.label}${rd.dilemma?' <span class="tr-dil">兩難</span>':''}</div>` +
+        rd.options.map((o,oi)=>{ const pct = Math.round(100*counts[oi]/n);
+          return `<div class="tr-bar"><span class="tr-opt">${o.label}${o.key===bestKey?' <b class="tr-best">上策</b>':''}</span><span class="tr-track"><span style="width:${pct}%"></span></span><span class="tr-pct">${counts[oi]}人 ${pct}%</span></div>`;
+        }).join('') + `</div>`;
+    }).join('');
+    return `<details class="tr-mission"${mi===0?' open':''}><summary>${m.juan}・${m.era}　${m.title}　<small>史料判斷正確率 ${qRate}%</small></summary>${roundsHtml}</details>`;
+  }).join('');
+  divergent.sort((a,b)=>b.ent-a.ent);
+  out.innerHTML = `
+    <div class="tr-summary">
+      <div><b>${N}</b> 位學生</div>
+      <div>職司分佈：${roles}</div>
+      <div>平均四維：${meterMeta.fa.name} ${avg(0)}　${meterMeta.guo.name} ${avg(1)}　${meterMeta.min.name} ${avg(2)}　${meterMeta.wen.name} ${avg(3)}</div>
+      ${rescued ? `<div>需緊急補救：${rescued} 人</div>` : ''}
+      <div class="tr-div">🔥 分歧最大、最值得討論的回合：${divergent.slice(0,3).map(d=>d.name).join('、')}</div>
+    </div>${missionHtml}`;
+}
+
+/* ---------- 重新開始 ---------- */
+function resetGame(){
+  if(!confirm('確定要重新開始整段旅程嗎？目前的進度將會清空。')) return;
+  state.meters = {fa:50,guo:50,min:50,wen:50};
+  state.charName=''; state.cls=null; state.merit=0; state.inventory=[];
+  Object.keys(typeTimers).forEach(k=>clearInterval(typeTimers[k]));
+  state.revealed = {}; state.chosen = {}; state.stamped = {}; state.roundIndex = {}; state.typing = {}; state.missionStart = {}; state.missionMeritStart = {}; state.domainsFound = {}; state.order = {}; state.bestCount = {}; state.quiz = {}; state.echoDone = {}; state.rescued = false; state.roleGrades = {};
+  document.getElementById('charName').value='';
+  renderDashboard();
+  renderInventory();
+  renderCodex();
+  renderClassGrid();
+  document.getElementById('idScroll').classList.remove('show');
+  document.getElementById('rosterNext').disabled = true;
+  renderMissions();
+  buildDots();
+  goTo(0);
+}
+
+/* ---------- 初始化 ---------- */
+buildDots();
+renderDashboard();
+document.getElementById('dashboard').classList.remove('show');
+renderInventory();
+renderCodex();
+renderClassGrid();
+renderMissions();
+goTo(0);
+</script>
+</body>
+</html>
