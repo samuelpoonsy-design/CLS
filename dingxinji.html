@@ -1163,6 +1163,10 @@
     .pxc-info{padding:8px 10px 10px;}
     .pxc-name{font-size:0.92rem;}
   }
+  .src-box{margin:6px 0 26px; padding:12px 16px; border:1px solid var(--line); background:var(--parchment); font-size:0.86rem; line-height:1.8;}
+  .src-box summary{cursor:pointer; font-weight:700; color:var(--indigo-deep);}
+  .src-box ul{padding-left:1.2em; margin:6px 0 0;}
+  .src-box li{margin-bottom:6px;}
 </style>
 </head>
 <body>
@@ -1446,6 +1450,18 @@
       <div class="section-label first">🕯️ 六世輪迴：你走過的眾生</div>
       <div id="lifeHall"></div>
     </div>
+    <details class="src-box">
+      <summary>📚 眾生篇大事年表 · 資料來源與說明</summary>
+      <p>眾生篇中的出身比例與壽數屬教學推估；人生事件屬遊戲推演，並非史實。各卷「時代大事」的主要依據如下，標示「約」或「據史家考訂」者，為後世史家的繫年，原始史料未有寫明確切年份。</p>
+      <ul>
+        <li><b>秦</b>：設三郡（前214）見《史記·秦始皇本紀》；趙佗封關、南越建國、陸賈出使（前196）、呂后禁鐵器、文帝再遣陸賈（前179）、趙佗去世（前137）見《史記·南越列傳》。男子名「黑夫」「驚」「衷」取材自雲夢睡虎地秦簡家書。</li>
+        <li><b>唐</b>：改元開元見《舊唐書·玄宗紀》；市舶使見《新唐書·柳澤傳》（設置地點與年份學界說法不一）；開大庾嶺路（716）見張九齡〈開大庾嶺路記〉；屯門鎮兵見《新唐書·地理志》，736 年設鎮之說據香港史家考訂；鑒真經廣州（750）見《唐大和上東征傳》；安史之亂見《資治通鑑》。</li>
+        <li><b>宋</b>：益州交子務（1023）及翌年發行官交子見《宋史·食貨志》、《續資治通鑑長編》；慶曆新政、州縣立學（1044）、熙寧變法見《宋史》。</li>
+        <li><b>清</b>：虎門銷煙、《南京條約》、《北京條約》、《展拓香港界址專條》見條約及中國歷史科通行史實；中央書院（1862）、東華醫院（1870 年立例、1872 年落成）、香港華人西醫書院（1887）、鼠疫（1894）可參考香港歷史博物館、東華三院及香港大學校史資料。</li>
+        <li><b>改革開放至當代</b>：免費教育（1971、1978）、廉政公署（1974）、蛇口工業區（1979）、深圳經濟特區（1980）、《中英聯合聲明》（1984）、《基本法》（1990）、僱員再培訓局（1992）、回歸（1997）、CEPA（2003）、高鐵及港珠澳大橋（2018）、大灣區綱要（2019）、《香港國安法》（2020）、全面通關（2023）均為官方公布日期；2046 年長者約佔 36% 據政府統計處《香港人口推算 2022–2046》；2050 年碳中和目標據《香港氣候行動藍圖 2050》。標示「推演」者為按現行規劃的推想。</li>
+      </ul>
+    </details>
+
     <div class="day-title" style="margin-top:8px;"><h2>三階反思：所見？所思？所行？</h2></div>
 
     <div class="reflect-stage">
@@ -1463,6 +1479,8 @@
       <div class="reflect-q">中華文化中「民惟邦本」與「兼收並蓄」的思想，如何體現在當代國家治理與香港多元社會之中？</div>
       <div class="reflect-q">為何說「總體國家安全觀」把安全視為一個整體？試以遊戲中某一次抉擇為例，說明它如何同時牽動多個安全領域。</div>
       <div class="reflect-q">宋代交子超發引發通脹、清代國力落後招致戰敗——經濟安全與科技安全，如何最終演變成政治安全與國土安全的危機？</div>
+      <div class="reflect-q">🕯️ 翻看你的「六世輪迴」：哪一世的出身令人生最艱難？那一世的國策，有沒有幫到像他／她這樣的普通人？</div>
+      <div class="reflect-q">🕯️ 在「三十而立」時，你認為人生差異主要來自出身、個人抉擇，還是時代與政策？走完六世之後，你的看法有沒有改變？</div>
     </div>
 
     <div class="reflect-stage">
@@ -1471,6 +1489,7 @@
       <div class="reflect-q">作為具備世界視野的香港青年，你可以如何在日常生活與未來職業中，為國家與香港的發展作出貢獻？</div>
       <div class="reflect-q">我們應如何透過創新科技與現代生活方式，保護並弘揚中華優秀傳統文化（如非遺傳承）？</div>
       <div class="reflect-q">作為中學生，你在日常生活中（如網絡使用、資料保護、生態習慣）可以怎樣落實維護國家安全的責任？</div>
+      <div class="reflect-q">🕯️ 卷六的「同代人」與你同年出生：如果你是政策制定者，你最想推行哪一項政策，令公屋家庭、新來港家庭的孩子有更多機會？</div>
     </div>
 
     <div class="decision-box scroll-panel" style="margin-bottom:30px;">
@@ -3148,9 +3167,9 @@ m1:{
   hist:[
     [-214, '秦平定嶺南，設南海、桂林、象郡三郡——你出生的這一年，嶺南正式納入郡縣體制。'],
     [-206, '秦朝滅亡。此前趙佗已接任南海郡尉，封鎖通往中原的關隘，嶺南得以避過中原的戰亂。'],
-    [-204, '趙佗建立南越國，自稱南越武王。'],
+    [-204, '約此時，趙佗建立南越國，自稱南越武王（年份據史家考訂）。'],
     [-196, '漢高祖派陸賈出使南越，趙佗接受漢朝冊封為南越王，雙方通使互市。'],
-    [-183, '呂后下令禁止向南越出售鐵器，嶺南的鐵農具一時難以添置。', {eff:{w:-3,j:-2}, flags:['farm']}],
+    [-183, '約此時，呂后下令禁止向南越出售鐵器（年份據史家考訂），嶺南的鐵農具一時難以添置。', {eff:{w:-3,j:-2}, flags:['farm']}],
     [-179, '漢文帝再派陸賈出使，趙佗去除帝號，與漢重修舊好，關市重開。', {eff:{w:3}, flags:['trade']}],
     [-137, '南越王趙佗去世。']
   ],
@@ -3207,9 +3226,9 @@ m2:{
   ],
   hist:[
     [713, '唐玄宗即位不久，改元開元，天下承平。'],
-    [714, '開元初年，史籍已見朝廷委派「市舶使」管理南海的海舶貿易。', {eff:{w:3}, flags:['trade']}],
+    [714, '約開元初年，史籍已見朝廷委派「市舶使」管理南海的海舶貿易。', {eff:{w:3}, flags:['trade']}],
     [716, '張九齡奉命開鑿大庾嶺新道，嶺南與中原往來更便捷。'],
-    [736, '朝廷在屯門設鎮駐兵，守護珠江口的海路。'],
+    [736, '據史家考訂，朝廷約於此年在屯門設鎮駐兵，守護珠江口的海路。'],
     [750, '鑒真和尚東渡途中經過廣州，見江中番舶雲集、香藥珍寶堆積如山。'],
     [755, '北方爆發安史之亂；嶺南遠離戰場，不少北方人南遷避亂。'],
     [763, '安史之亂平定。']
@@ -4355,12 +4374,20 @@ function castLot(mid){
   /* 輪盤式高亮：由快至慢，最後停在抽中的出身 */
   const steps = rows*3 + L.s + 1;
   let n = 0;
+  /* 中途重新開始時，舊的輪盤計時器不可再改動畫面 */
+  const R = state.lives[mid];
+  const alive = () => state.lives[mid] === R && document.getElementById(`lot-${mid}-0`);
   const spin = ()=>{
+    if(!alive()) return;
     document.querySelectorAll(`#lotList-${mid} .lot-row`).forEach(r=>r.classList.remove('hit'));
     document.getElementById(`lot-${mid}-${n % rows}`).classList.add('hit');
     n++;
     if(n < steps) setTimeout(spin, 50 + 260*Math.pow(n/steps, 3));
-    else setTimeout(()=>{ document.getElementById(`lot-${mid}-${L.s}`).classList.add('won'); setTimeout(()=>renderBirth(mid), 700); }, 300);
+    else setTimeout(()=>{
+      if(!alive()) return;
+      document.getElementById(`lot-${mid}-${L.s}`).classList.add('won');
+      setTimeout(()=>{ if(alive()) renderBirth(mid); }, 700);
+    }, 300);
   };
   spin();
 }
@@ -4501,7 +4528,7 @@ function lifeSchedule(mid, delay){
 }
 function lifeTick(mid){
   const R = state.lives[mid];
-  if(!R || R.phase !== 'living' || R.paused || R.waiting) return;
+  if(!R || R.phase !== 'living' || R.paused || R.waiting || !document.getElementById('llog-'+mid)) return;
   const before = R.L.log.length;
   const res = lifeStep(R.L, R.M, R.rng);
   renderLifeEvents(mid, R.L.log.slice(before));
@@ -4791,7 +4818,12 @@ function epitaphImage(mid){
     g.fillStyle = '#525A63'; g.font = `18px ${serif}`;
     g.fillText('時空掌舵人 · 眾生篇', 360, 1015);
     const url = c.toDataURL('image/png');
-    document.getElementById('imgOut').innerHTML = `<img src="${url}" alt="${L.name}的墓誌圖卡"><div style="margin-top:10px;"><a class="btn" href="${url}" download="墓誌-${L.name}.png">⬇️ 下載圖片</a></div><p class="code-tip">如按鈕沒有反應（例如在預覽視窗中），可長按或按右鍵另存圖片。</p>`;
+    epitaphFile = {name:`墓誌-${L.name}.png`, canvas:c};
+    /* 在 claude.ai 的 Artifact 內以平台下載功能儲存；獨立網頁（如 Netlify）則用一般下載連結 */
+    const btn = epitaphDownloads
+      ? `<button class="btn" onclick="saveEpitaph()">⬇️ 下載圖片</button>`
+      : `<a class="btn" href="${url}" download="墓誌-${L.name}.png">⬇️ 下載圖片</a>`;
+    document.getElementById('imgOut').innerHTML = `<img src="${url}" alt="${L.name}的墓誌圖卡"><div style="margin-top:10px;">${btn} <span class="code-copied" id="imgSaved"></span></div><p class="code-tip">如未能下載，可長按或按右鍵另存圖片。</p>`;
     document.getElementById('imgPanel').classList.add('show');
   };
   const svg = pxLifeScene(L, L.deathAge).replace('<svg ', '<svg width="640" height="192" ');
@@ -4799,6 +4831,19 @@ function epitaphImage(mid){
   img.onload = () => draw(img);
   img.onerror = () => draw(null);
   img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+let epitaphDownloads = null, epitaphFile = null;
+if(window.claude && typeof window.claude.use === 'function'){
+  window.claude.use('downloads').then(d=>{ epitaphDownloads = d; }, ()=>{});
+}
+function saveEpitaph(){
+  if(!epitaphDownloads || !epitaphFile) return;
+  const note = document.getElementById('imgSaved');
+  epitaphFile.canvas.toBlob(blob=>{
+    epitaphDownloads.save({filename:epitaphFile.name, data:blob})
+      .then(()=>{ note.textContent = '已儲存 ✔'; })
+      .catch(e=>{ note.textContent = e && e.code === 'declined' ? '' : '未能下載，請長按或按右鍵另存圖片'; });
+  }, 'image/png');
 }
 function closeImg(){ document.getElementById('imgPanel').classList.remove('show'); }
 /* 終卷：六世碑林 */
