@@ -927,7 +927,6 @@
   .lot-row.won .lot-bar span{background:#fff;}
   .birth-card{display:flex; gap:18px; align-items:center; margin-top:8px;}
   .bc-face{width:110px; flex:none;}
-  .bc-face svg, .lh-portrait svg, .pc-face svg, .ep-face svg, .hs-face svg{width:100%; height:auto; display:block;}
   .bc-year{font-size:0.8rem; color:var(--indigo); letter-spacing:0.06em;}
   .bc-name{font-size:1.9rem; font-weight:700; font-family:"Kaiti TC","STKaiti",serif; line-height:1.3;}
   .bc-name small, .lh-name small{font-size:0.8rem; font-weight:400; color:var(--ink-soft); margin-left:8px; font-family:"Noto Serif TC",serif;}
@@ -947,7 +946,6 @@
   .pc-bars i{font-style:normal; font-size:0.62rem; width:1.3em;}
   .pc-bars b{display:block; height:5px; background:var(--jade); border-radius:3px; transition:width .5s ease;}
   .pc-last{font-size:0.72rem; color:var(--ink-soft); margin-top:4px; line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
-  .life-face.gone{filter:grayscale(1); opacity:0.72;}
   .life-hud{margin-top:6px;}
   .lh-top{display:flex; gap:14px; align-items:center;}
   .lh-portrait{width:84px; flex:none;}
@@ -1057,16 +1055,9 @@
   #bookPanel.show, #imgPanel.show{display:block;}
   .book-item{display:flex; gap:10px; padding:10px 0; border-bottom:1px dashed var(--line);}
   .book-item small{color:var(--ink-soft);}
-  .bi-seal{width:34px; height:34px; flex:none; border:2px solid var(--vermillion); color:var(--vermillion); display:flex; align-items:center; justify-content:center; font-weight:700; font-family:"Kaiti TC","STKaiti",serif;}
   .bi-text{font-size:0.82rem; color:var(--ink-soft);}
   #imgOut{text-align:center;}
   #imgOut img{max-width:100%; height:auto; display:block; margin:0 auto; border:1px solid var(--line);}
-  .hall-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:10px;}
-  .hall-stone{text-align:center; padding:14px 6px 10px; border:1.5px solid var(--indigo-deep); border-radius:60px 60px 3px 3px; background:var(--parchment);}
-  .hs-era{font-weight:700; color:var(--vermillion-deep); font-family:"Kaiti TC","STKaiti",serif;}
-  .hs-face{width:54px; margin:4px auto;}
-  .hs-name{font-weight:700; font-size:0.92rem;}
-  .hs-meta{font-size:0.72rem; color:var(--ink-soft); line-height:1.5;}
   .tr-life{margin-top:18px; padding-top:12px; border-top:2px solid var(--line);}
   .tr-life h5{margin:0 0 8px; font-size:1rem; color:var(--indigo-deep);}
   .tr-stones{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
@@ -1082,11 +1073,9 @@
     .lh-log li:first-child{animation:optIn .35s ease-out;}
     .lg-cell.now{animation:cellNow 1s ease-in-out infinite;}
     .lc-opt{animation:optIn .35s ease-out both; animation-delay:calc(var(--i, 0) * 0.07s);}
-    .life-face .eyes{transform-box:fill-box; transform-origin:50% 50%; animation:blink 4.6s infinite;}
     .epitaph.lit .ep-flame{transform-box:fill-box; transform-origin:50% 100%; animation:flicker 1.3s ease-in-out infinite;}
     .sv-line{stroke-dasharray:1400; stroke-dashoffset:1400; animation:drawPath 1.8s ease-out forwards;}
-    .hall-stone{animation:resultIn .5s ease-out both; animation-delay:calc(var(--i) * 0.12s);}
-  }
+    }
   @keyframes wonPop{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
   @keyframes cellNow{0%,100%{box-shadow:0 0 0 2px var(--vermillion);}50%{box-shadow:0 0 0 4px transparent;}}
   @keyframes flicker{0%,100%{transform:scale(1) rotate(-2deg);}50%{transform:scale(1.08,0.94) rotate(2deg);}}
@@ -1099,10 +1088,80 @@
     .lh-grid{grid-template-columns:repeat(10,1fr);}
     .lh-portrait{width:64px;}
     .lh-age{font-size:2rem;}
-    .hall-grid{grid-template-columns:repeat(3,1fr);}
-    .epitaph{padding:48px 18px 26px;}
+      .epitaph{padding:48px 18px 26px;}
     .peer-table{font-size:0.76rem;}
     .peer-table th, .peer-table td{padding:5px 5px;}
+  }
+
+  /* ---------- 眾生篇：像素場景 ---------- */
+  .px-scene{display:block; width:100%; height:auto; aspect-ratio:160/48; image-rendering:pixelated;}
+  .px-wing2{opacity:0;}
+  .px-frame{position:relative; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#DDF0F7;}
+  .px-cap{position:absolute; left:8px; top:8px; background:rgba(250,246,234,0.9); color:#20242B; font-size:0.74rem; padding:2px 10px; border-radius:10px; box-shadow:0 1px 3px rgba(0,0,0,0.15); max-width:calc(100% - 16px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .lot-box .px-frame{margin:4px 0 12px;}
+  .birth-card{flex-wrap:wrap;}
+  .birth-scene{flex:1 1 100%;}
+  .lh-scene{margin-bottom:12px;}
+  .lh-portrait{width:52px; background:var(--paper); border-radius:8px; padding:2px;}
+  .px-solo{display:block; width:100%; height:auto;}
+  .px-solo.gone{filter:grayscale(1); opacity:0.75;}
+  .ep-face{width:64px; margin:6px auto;}
+  .px-card{border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--parchment); box-shadow:0 2px 8px var(--shadow);}
+  .px-card.me{border:2px solid var(--vermillion-deep);}
+  .pxc-info{padding:10px 14px 12px;}
+  .px-card.small .pxc-info{padding:7px 10px 9px;}
+  .pxc-name{font-weight:700; font-size:1.05rem; line-height:1.4;}
+  .px-card.small .pxc-name{font-size:0.92rem;}
+  .pxc-me{font-size:0.66rem; background:var(--vermillion); color:#fff; padding:1px 7px; border-radius:8px; margin-left:6px; vertical-align:2px; font-weight:400;}
+  .pxc-sub{font-size:0.8rem; color:var(--ink-soft);}
+  .px-card .pc-last{margin-top:4px;}
+  .peer-row{align-items:start;}
+  .px-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:6px 0 14px;}
+  .px-grid.hall{grid-template-columns:repeat(3,1fr);}
+  .book-grid{display:grid; grid-template-columns:1fr; gap:12px;}
+  .book-item{display:grid; grid-template-columns:200px 1fr; gap:12px; align-items:start; padding:0 0 12px; border-bottom:1px dashed var(--line);}
+  .book-item .bi-text{line-height:1.7;}
+  @media (prefers-reduced-motion: no-preference){
+    .px-bob, .px-rock{animation:pxBob 1.4s steps(1) infinite;}
+    .px-rock{animation-duration:2.2s;}
+    .px-cloud{animation:pxDrift 26s steps(16) infinite alternate;}
+    .px-wave{animation:pxWave 1.6s steps(1) infinite;}
+    .px-sway{animation:pxSway 1.8s steps(1) infinite;}
+    .px-sway2{animation:pxSway 2.6s steps(1) infinite;}
+    .px-flag{transform-box:fill-box; transform-origin:0 50%; animation:pxFlag 0.9s steps(1) infinite;}
+    .px-smoke{animation:pxSmoke 2.8s steps(7) infinite;}
+    .px-sun{animation:pxGlow 2.4s steps(1) infinite;}
+    .px-tw{animation:pxGlow 2.6s steps(1) infinite;}
+    .px-bird{animation:pxFly 24s linear infinite;}
+    .px-wing1{animation:pxW1 0.5s steps(1) infinite;}
+    .px-wing2{animation:pxW2 0.5s steps(1) infinite;}
+    .px-train{animation:pxTrain 7s linear infinite;}
+    .px-conf{animation:pxFall 2.4s linear infinite;}
+    .px-walk{animation:pxWalk 20s linear infinite;}
+    .px-walk.rev{animation-name:pxWalkR;}
+    .px-card{animation:resultIn 0.5s ease-out both; animation-delay:calc(var(--i, 0) * 0.1s);}
+  }
+  @keyframes pxBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-1px);}}
+  @keyframes pxDrift{from{transform:translateX(0);}to{transform:translateX(16px);}}
+  @keyframes pxWave{0%,100%{transform:translateX(0);}50%{transform:translateX(2px);}}
+  @keyframes pxSway{0%,100%{transform:translateX(0);}50%{transform:translateX(1px);}}
+  @keyframes pxFlag{0%,100%{transform:scaleX(1);}50%{transform:scaleX(0.75);}}
+  @keyframes pxSmoke{from{transform:translateY(0); opacity:1;}to{transform:translateY(-7px); opacity:0;}}
+  @keyframes pxGlow{0%,100%{opacity:1;}50%{opacity:0.35;}}
+  @keyframes pxFly{from{transform:translateX(-90px);}to{transform:translateX(120px);}}
+  @keyframes pxW1{0%,100%{opacity:1;}50%{opacity:0;}}
+  @keyframes pxW2{0%,100%{opacity:0;}50%{opacity:1;}}
+  @keyframes pxTrain{from{transform:translateX(0);}to{transform:translateX(280px);}}
+  @keyframes pxFall{from{transform:translateY(-6px); opacity:1;}to{transform:translateY(34px); opacity:0.2;}}
+  @keyframes pxWalk{from{transform:translateX(-100px);}to{transform:translateX(100px);}}
+  @keyframes pxWalkR{from{transform:translateX(100px);}to{transform:translateX(-100px);}}
+  @media(max-width:600px){
+    .px-grid{grid-template-columns:repeat(2,1fr); gap:8px;}
+    .px-grid.hall{grid-template-columns:repeat(2,1fr);}
+    .book-item{grid-template-columns:1fr;}
+    .px-cap{font-size:0.66rem; padding:1px 8px; left:6px; top:6px;}
+    .pxc-info{padding:8px 10px 10px;}
+    .pxc-name{font-size:0.92rem;}
   }
 </style>
 </head>
@@ -1300,7 +1359,7 @@
           <circle class="helm-knob" cx="50" cy="4" r="3"/>
           <circle class="helm-knob" cx="82.5" cy="17.5" r="3"/>
         </svg>
-        <div class="emblem">鼎</div>
+        <div class="emblem">舵</div>
       </div>
       <div class="line"></div>
     </div>
@@ -1317,7 +1376,7 @@
       共二十個重點領域環環相扣，一環受損則全域動搖。法治是國家安全的制度保障，民生是國家安全的根基，
       文化認同則是國家安全的精神屏障。遊戲中每一個回合，都會標示它所牽涉的國家安全領域，
       並收錄進你的「國安圖鑑」。
-      願你以史為鑑，鼎故革新，走出一段真正屬於自己的治世之旅。
+      願你以史為鑑，繼往開來，走出一段真正屬於自己的治世之旅。
     </p>
     <p class="desc" style="margin-top:16px;">
       <b style="color:var(--jade-deep);">🌏 眾生篇：</b>每卷議定國策之後，你會投胎成為那個時代的一個普通人——秦代越人農家、唐代番商之家、清代水上人家、改革開放時的香港工人家庭……
@@ -2909,7 +2968,7 @@ function governanceTitle(){
   const vals = Object.values(state.meters);
   const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
   const min = Math.min(...vals);
-  if(avg>=90 && min>=80) return '革故鼎新．一代傳承宗師';
+  if(avg>=90 && min>=80) return '繼往開來．一代傳承宗師';
   if(avg>=75) return '大同永續．傳承良臣';
   if(avg>=55) return '篳路藍縷．勤勉傳承人';
   return '如履薄冰．見習傳承人';
@@ -3088,7 +3147,7 @@ m1:{
   ],
   hist:[
     [-214, '秦平定嶺南，設南海、桂林、象郡三郡——你出生的這一年，嶺南正式納入郡縣體制。'],
-    [-206, '秦朝滅亡。南海郡尉趙佗下令封鎖北方關隘，嶺南得以避過中原的戰亂。'],
+    [-206, '秦朝滅亡。此前趙佗已接任南海郡尉，封鎖通往中原的關隘，嶺南得以避過中原的戰亂。'],
     [-204, '趙佗建立南越國，自稱南越武王。'],
     [-196, '漢高祖派陸賈出使南越，趙佗接受漢朝冊封為南越王，雙方通使互市。'],
     [-183, '呂后下令禁止向南越出售鐵器，嶺南的鐵農具一時難以添置。', {eff:{w:-3,j:-2}, flags:['farm']}],
@@ -3148,7 +3207,7 @@ m2:{
   ],
   hist:[
     [713, '唐玄宗即位不久，改元開元，天下承平。'],
-    [714, '開元初年，朝廷在廣州設市舶使，專責管理海舶貿易。', {eff:{w:3}, flags:['trade']}],
+    [714, '開元初年，史籍已見朝廷委派「市舶使」管理南海的海舶貿易。', {eff:{w:3}, flags:['trade']}],
     [716, '張九齡奉命開鑿大庾嶺新道，嶺南與中原往來更便捷。'],
     [736, '朝廷在屯門設鎮駐兵，守護珠江口的海路。'],
     [750, '鑒真和尚東渡途中經過廣州，見江中番舶雲集、香藥珍寶堆積如山。'],
@@ -3210,7 +3269,7 @@ m3:{
     {k:'scholar', n:'士人之家', w:6, flags:[], job:'讀書', place:'縣城的書香門第', base:{h:54,j:54,k:42,b:52,w:46}}
   ],
   hist:[
-    [1023, '朝廷在益州設「交子務」，由官府發行紙幣交子——這是世界上最早由政府發行的紙幣之一。'],
+    [1023, '朝廷在益州設「交子務」，翌年發行官交子——一般認為是世界上最早由政府發行的紙幣。'],
     [1043, '范仲淹推行「慶曆新政」，整頓吏治。'],
     [1044, '朝廷詔令州縣設立官學，讀書的機會多了。', {eff:{k:3}, maxAge:20}],
     [1069, '王安石推行變法，青苗法、市易法等相繼施行。']
@@ -3276,7 +3335,7 @@ m4:{
     [1843, '香港島上的維多利亞城大興土木，四處招聘工人。', {eff:{w:3}, flags:[], strata:['quarry']}],
     [1860, '《北京條約》簽訂，九龍半島界限街以南被割讓。'],
     [1862, '中央書院創立，華人子弟多了一個入讀新式學堂的機會。'],
-    [1872, '東華醫院落成，為華人提供中醫診治與各種善舉。'],
+    [1872, '東華醫院（1870 年立例成立）在上環落成啟用，為華人提供中醫診治與各種善舉。'],
     [1887, '香港華人西醫書院成立，孫中山其後入讀。'],
     [1894, '香港爆發鼠疫，港府與東華醫院合力防疫，街坊互相扶持。'],
     [1898, '英國強租新界，租期九十九年。']
@@ -3534,7 +3593,7 @@ function createLife(mid, rng, avoid){
     name = (surs ? surs[Math.floor(rng()*surs.length)] : '') + given[Math.floor(rng()*given.length)];
     if(!avoid.names.includes(name)) break;
   }
-  const L = {mid, s, sex, name, birth:era.start, age:0, mar:false, kids:0, job:null, alive:true, deathAge:null,
+  const L = {mid, s, sex, name, birth:era.start, age:0, mar:false, kids:0, kidBorn:[], job:null, alive:true, deathAge:null,
     picks:{}, tags:[], log:[], cells:[], counts:{}, lastEv:{}, links:{fa:{g:0,b:0}, guo:{g:0,b:0}, min:{g:0,b:0}, wen:{g:0,b:0}}, snaps:[]};
   Object.keys(st.base).forEach(k=>{ L[k] = lifeClamp(st.base[k] + (rng()-0.5)*10); });
   L.snaps[0] = lifeSnap(L);
@@ -3564,11 +3623,11 @@ function lifeResolveEvent(L, ev, M, rng){
   lifeApply(L, r.eff);
   L.counts[ev.id] = (L.counts[ev.id]||0) + 1;
   L.lastEv[ev.id] = L.age;
-  if(ev.kid) L.kids++;
+  if(ev.kid){ L.kids++; L.kidBorn.push(L.age); }
   if(ev.mar) L.mar = true;
   const tone = r.tone || ev.tone || 'mid';
   lifeLink(L, ev.link, tone);
-  return {t:r.t, tone, eff:r.eff, link:ev.link};
+  return {id:ev.id, t:r.t, tone, eff:r.eff, link:ev.link, mar:!!ev.mar};
 }
 /* 推進一年：自然變化 → 時代大事 → 隨機事件 → 壽數 → 是否到達抉擇年齡 */
 function lifeStep(L, M, rng){
@@ -3634,7 +3693,7 @@ function lifeApplyChoice(L, age, idx, M, rng){
   L.picks[age] = idx;
   L.tags.push(r.tag || o.tag);
   const text = (r !== o ? r.t : null) || o.r || `你承繼家業，以${lifeStratum(L).job}為生。`;
-  L.log.push({age, year:L.birth+age, t:`【抉擇】${o.t.replace('{job}', lifeStratum(L).job)}——${text}`, tone:'choice', link:o.link, eff:r.eff||o.eff});
+  L.log.push({age, year:L.birth+age, t:`【抉擇】${o.t.replace('{job}', lifeStratum(L).job)}——${text}`, tone:'choice', link:o.link, eff:r.eff||o.eff, mar:!!o.mar});
   L.cells[age] = 'choice';
   L.snaps[age] = lifeSnap(L);
   return {text, tone, link:o.link, eff:r.eff||o.eff};
@@ -3664,9 +3723,576 @@ function lifeEpitaph(L){
   return `${L.name}，生於${st.place}，${st.n}出身。${L.tags.join('；')}。一生${traits[top]}。`;
 }
 
+/* ---------- 眾生篇：像素人物與城市（風格參考「80億分之1」的人生卡片） ---------- */
+/* 場景以 160×48 的像素格繪成；顏色固定，猶如一幅畫，淺色深色模式皆同 */
+const PXW = 160, PXH = 48, PXF = 40;
+function pxHash(str){
+  let h = 2166136261;
+  for(const ch of String(str)){ h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+function pr(x, y, w, h, c, extra){ return `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c}"${extra || ''}/>`; }
+const PX_SKY = {
+  day:['#A9D8EE','#C4E5F3','#DDF0F7'], dawn:['#F3C6A8','#F7DABF','#FBEBDA'], dusk:['#E8956E','#F0B886','#F6D8A8'],
+  night:['#1B2640','#24345A','#2F4572'], room:['#EDE3D1','#F1E9DA','#F5EFE3']
+};
+const PX_GROUND = {
+  grass:{top:'#B5D58F', base:'#9DC27A', spk:'#86AC65'},
+  sand:{top:'#F0E0B5', base:'#E3CF9C', spk:'#CDB680'},
+  dirt:{top:'#C9A47A', base:'#B48D63', spk:'#9C7651'},
+  stone:{top:'#D9D7D0', base:'#C8C6BE', line:'#B3B1A9'},
+  wood:{top:'#9E8770', base:'#8C755F', line:'#77624F'},
+  pave:{top:'#D2D2D2', base:'#BEBEBE', line:'#AAAAAA'}
+};
+function pxSky(type, rng){
+  const c = PX_SKY[type];
+  let s = pr(0,0,PXW,14,c[0]) + pr(0,14,PXW,12,c[1]) + pr(0,26,PXW,PXF-26,c[2]);
+  for(let i=0; i<16; i++){
+    const x = Math.floor(rng()*PXW), y = Math.floor(rng()*28);
+    s += type === 'night'
+      ? pr(x, y, 1, 1, '#FFFFFF', ` class="px-tw" style="animation-delay:${(rng()*3).toFixed(1)}s"`)
+      : pr(x, y, 1, 1, type === 'room' ? '#DCCFB8' : '#FFFFFF', ' opacity="0.7"');
+  }
+  return s;
+}
+function pxGround(type, rng){
+  const g = PX_GROUND[type];
+  let s = pr(0, PXF, PXW, PXH-PXF, g.base) + pr(0, PXF, PXW, 1, g.top);
+  if(g.line){
+    for(let y=PXF+3; y<PXH; y+=3) s += pr(0, y, PXW, 1, g.line);
+    for(let y=PXF+1, r=0; y<PXH; y+=3, r++) for(let x=(r%2)*5; x<PXW; x+=10) s += pr(x, y, 1, 2, g.line);
+  } else {
+    for(let i=0; i<46; i++) s += pr(Math.floor(rng()*PXW), PXF+1+Math.floor(rng()*(PXH-PXF-1)), 1, 1, g.spk);
+  }
+  return s;
+}
+function pxSea(y0){
+  let s = pr(0, y0, PXW, PXF-y0, '#6CB4D4') + pr(0, y0, PXW, 1, '#A3D6EA');
+  s += '<g class="px-wave">';
+  for(let x=3; x<PXW; x+=11) s += pr(x, y0+3+(x%4), 4, 1, '#A9DCEE');
+  return s + '</g>';
+}
+function pxMount(cx, base, h, col, snow){
+  let s = '';
+  for(let i=0; i<h; i++){
+    const w = Math.max(2, Math.round((h-i)*1.7)*2);
+    s += pr(cx - w/2, base-i-1, w, 1, snow && i > h-4 ? '#F4F6F8' : col);
+  }
+  return s;
+}
+function pxSun(x, y, night){
+  const c = night ? '#F4F1DE' : '#F7D35A';
+  const halo = night ? 'rgba(244,241,222,0.22)' : 'rgba(255,236,150,0.5)';
+  return `<g class="px-sun">${pr(x-5,y-4,11,9,halo)}${pr(x-4,y-5,9,11,halo)}</g>` + pr(x-2,y-3,5,7,c) + pr(x-3,y-2,7,5,c);
+}
+function pxCloud(x, y, d){
+  return `<g class="px-cloud" style="animation-delay:-${d||0}s"><g transform="translate(${x} ${y})">${pr(3,0,6,2,'#FFFFFF')}${pr(0,2,13,2,'#FFFFFF')}${pr(1,4,10,1,'#E4F1F7')}</g></g>`;
+}
+function pxBirds(x, y){
+  const bird = (bx, by) => `<g class="px-wing1">${pr(bx,by,1,1,'#3A3F4A')}${pr(bx+1,by+1,1,1,'#3A3F4A')}${pr(bx+2,by,1,1,'#3A3F4A')}</g><g class="px-wing2">${pr(bx,by+1,1,1,'#3A3F4A')}${pr(bx+1,by+1,1,1,'#3A3F4A')}${pr(bx+2,by+1,1,1,'#3A3F4A')}</g>`;
+  return `<g class="px-bird"><g transform="translate(${x} ${y})">${bird(0,0)}${bird(6,3)}</g></g>`;
+}
+function pxTree(x, col, base){
+  base = base || PXF; col = col || '#5E9E58';
+  return pr(x+2,base-6,2,6,'#7A5A3A') + pr(x,base-13,6,7,col) + pr(x+1,base-14,4,1,col) + pr(x-1,base-11,8,3,col) + pr(x+1,base-12,2,1,'#7DB872');
+}
+function pxPalm(x){
+  let s = '';
+  for(let i=0; i<14; i++) s += pr(x + (i < 5 ? 1 : 0), PXF-14+i, 2, 1, '#8B6B4A');
+  return s + `<g class="px-sway2">${pr(x-5,PXF-16,5,1,'#4E8F4A')}${pr(x+2,PXF-16,6,1,'#4E8F4A')}${pr(x-7,PXF-15,2,1,'#4E8F4A')}${pr(x+7,PXF-15,2,1,'#4E8F4A')}${pr(x-1,PXF-18,4,2,'#5FA357')}</g>`;
+}
+function pxBamboo(x){
+  let s = '';
+  for(let k=0; k<3; k++){
+    const bx = x + k*3, h = 14 + k*4;
+    for(let i=0; i<h; i++) s += pr(bx, PXF-i-1, 1, 1, i%4 === 0 ? '#4F7F3F' : '#6FA357');
+    s += pr(bx+1, PXF-h+2, 3, 1, '#7FB866') + pr(bx-3, PXF-h+6, 3, 1, '#7FB866');
+  }
+  return s;
+}
+function pxHut(x){
+  return pr(x+1,PXF-5,1,5,'#7A5A3A') + pr(x+12,PXF-5,1,5,'#7A5A3A') + pr(x,PXF-6,14,1,'#8C6A45') + pr(x+1,PXF-13,12,7,'#C9A26B')
+    + pr(x+5,PXF-11,3,5,'#6B4E2E') + pr(x-2,PXF-15,18,2,'#B08A4A') + pr(x,PXF-17,14,2,'#B08A4A') + pr(x+3,PXF-19,8,2,'#9C7A3C');
+}
+function pxHouse(x, w, wall, roof){
+  w = w || 18; wall = wall || '#EFE8DA'; roof = roof || '#5B5F66';
+  return pr(x+1,PXF-10,w-2,10,wall) + pr(x+Math.floor(w/2)-2,PXF-6,4,6,'#6B4E2E') + pr(x+3,PXF-8,3,2,'#6B4E2E') + pr(x+w-6,PXF-8,3,2,'#6B4E2E')
+    + pr(x-1,PXF-12,w+2,2,roof) + pr(x+1,PXF-14,w-2,2,roof) + pr(x-2,PXF-13,1,1,roof) + pr(x+w+1,PXF-13,1,1,roof);
+}
+function pxWall(x, w, base){
+  base = base || PXF;
+  let s = pr(x,base-9,w,9,'#A89C86') + pr(x,base-9,w,1,'#C2B79F');
+  for(let i=x; i<x+w; i+=4) s += pr(i,base-11,2,2,'#A89C86');
+  for(let y=base-7, r=0; y<base; y+=3, r++) for(let i=x+(r%2)*2; i<x+w-2; i+=6) s += pr(i,y,3,1,'#968A74');
+  const gx = x + Math.floor(w/2) - 5;
+  return s + pr(gx+3,base-6,4,6,'#4A3B2C') + pr(gx,base-17,10,6,'#B5473A') + pr(gx+2,base-15,2,2,'#4A3B2C') + pr(gx+6,base-15,2,2,'#4A3B2C')
+    + pr(gx-2,base-19,14,2,'#4F535A') + pr(gx,base-21,10,2,'#4F535A');
+}
+function pxPagoda(x, base){
+  base = base || PXF;
+  let s = '';
+  for(let i=0; i<4; i++){
+    const y = base-6-i*6, w = 10-i*2;
+    s += pr(x-w/2+1, y, w-2, 6, '#E6DCC8') + pr(x, y+2, 1, 2, '#6B4E2E') + pr(x-w/2-1, y-1, w+2, 1, '#5B5F66');
+  }
+  return s + pr(x, base-31, 1, 6, '#5B5F66');
+}
+function pxBoat(x, y, d){
+  return `<g class="px-rock" style="animation-delay:-${d||0}s"><g transform="translate(${x} ${y})">${pr(0,3,16,2,'#7A5A3A')}${pr(1,5,14,1,'#5E4430')}${pr(4,0,8,3,'#C9A26B')}${pr(5,-1,6,1,'#B08A4A')}</g></g>`;
+}
+function pxShip(x, y, sail, d){
+  sail = sail || '#F1E8D6';
+  return `<g class="px-rock" style="animation-delay:-${d||0}s"><g transform="translate(${x} ${y})">${pr(0,10,26,3,'#6B4E2E')}${pr(2,13,22,1,'#4E3826')}${pr(22,8,4,2,'#6B4E2E')}
+    ${pr(9,-6,1,16,'#4E3826')}${pr(17,-3,1,13,'#4E3826')}${pr(3,-4,6,12,sail)}${pr(11,-1,6,9,sail)}${pr(4,0,4,1,'#C9BFAE')}${pr(4,4,4,1,'#C9BFAE')}
+    <g class="px-flag">${pr(10,-6,4,2,'#C8473A')}</g></g></g>`;
+}
+function pxLanterns(x1, x2, y){
+  let s = pr(x1, y, x2-x1, 1, '#6B4E2E');
+  for(let x=x1+4; x<x2-2; x+=10){
+    s += `<g class="px-sway" style="animation-delay:-${(x%7)/4}s">${pr(x,y+1,1,1,'#6B4E2E')}${pr(x-1,y+2,3,4,'#D9433A')}${pr(x,y+3,1,2,'#F2B24C')}${pr(x,y+6,1,1,'#F2B24C')}</g>`;
+  }
+  return s;
+}
+function pxStall(x, col){
+  col = col || '#C8473A';
+  let s = pr(x,PXF-6,16,6,'#8C6A45') + pr(x+1,PXF-14,1,8,'#6B4E2E') + pr(x+14,PXF-14,1,8,'#6B4E2E');
+  for(let i=0; i<18; i+=3) s += pr(x-1+i, PXF-16, 3, 3, (i/3)%2 ? '#F1E8D6' : col);
+  return s + pr(x+2,PXF-8,3,2,'#E2A23B') + pr(x+7,PXF-8,3,2,'#7FB069') + pr(x+11,PXF-8,3,2,'#D9433A');
+}
+function pxKiln(x){
+  return pr(x,PXF-8,18,8,'#A0603A') + pr(x+2,PXF-11,14,3,'#A0603A') + pr(x+5,PXF-13,8,2,'#A0603A') + pr(x+7,PXF-5,4,5,'#3A2A20') + pr(x+8,PXF-4,2,3,'#F2B24C')
+    + `<g class="px-smoke">${pr(x+8,PXF-17,3,2,'#D8D4CC')}${pr(x+9,PXF-20,3,2,'#E4E1DA')}</g>`
+    + pr(x+22,PXF-4,3,4,'#5A86B0') + pr(x+26,PXF-3,3,3,'#E6DCC8') + pr(x+30,PXF-5,3,5,'#5A86B0');
+}
+function pxYamen(x){
+  let s = pr(x,PXF-14,44,14,'#EFE8DA') + pr(x-3,PXF-17,50,3,'#4F535A') + pr(x,PXF-19,44,2,'#4F535A') + pr(x-4,PXF-18,1,1,'#4F535A') + pr(x+47,PXF-18,1,1,'#4F535A');
+  for(let i=0; i<5; i++) s += pr(x+3+i*9, PXF-14, 2, 14, '#B5473A');
+  return s + pr(x+17,PXF-13,10,3,'#2F3A4A') + pr(x+18,PXF-12,8,1,'#E2C044') + pr(x+19,PXF-8,6,8,'#6B4E2E');
+}
+function pxRoom(){
+  let s = pr(14,8,22,18,'#8C6A45') + pr(15,9,20,16,'#F6EFD9');
+  for(let i=0; i<4; i++) s += pr(15+i*5, 9, 1, 16, '#8C6A45');
+  for(let j=0; j<3; j++) s += pr(15, 13+j*4, 20, 1, '#8C6A45');
+  s += pr(118,8,28,32,'#7A5A3A');
+  const books = ['#B5473A','#3E7A8C','#C9A227','#5E6B4F','#7A4E8C','#D96C4F'];
+  for(let r=0; r<3; r++) for(let i=0; i<8; i++) s += pr(120+i*3, 10+r*10, 2, 8, books[(i+r)%books.length]);
+  return s + pr(96,PXF-7,18,2,'#6B4E2E') + pr(97,PXF-5,2,5,'#6B4E2E') + pr(111,PXF-5,2,5,'#6B4E2E') + pr(100,PXF-9,10,2,'#F6EFD9');
+}
+function pxTent(x){
+  let s = '';
+  for(let i=0; i<10; i++) s += pr(x+10-i, PXF-10+i, i*2+1, 1, i%3 ? '#C9B48A' : '#B5A077');
+  return s + pr(x+9,PXF-5,3,5,'#5E4430');
+}
+function pxBanner(x){
+  return pr(x,PXF-26,1,26,'#5E4430') + `<g class="px-flag">${pr(x+1,PXF-26,9,6,'#B5473A')}${pr(x+3,PXF-24,5,2,'#E2C044')}</g>`;
+}
+function pxCliff(x){
+  let s = '';
+  for(let i=0; i<22; i++) s += pr(x + Math.floor(i*0.6), PXF-22+i, PXW-x, 1, i%5 === 0 ? '#9A968E' : '#B1ADA4');
+  return s + pr(x+4,PXF-4,6,4,'#A7A39A') + pr(x-10,PXF-3,5,3,'#B1ADA4') + pr(x-18,PXF-2,4,2,'#9A968E');
+}
+function pxSaltpans(){
+  let s = '';
+  for(let i=0; i<6; i++) s += pr(4+i*26, PXF+2, 22, 4, '#F2F5F6') + pr(4+i*26, PXF+2, 22, 1, '#D7DEE2');
+  return s + pr(130,PXF-4,8,4,'#F4F6F8') + pr(132,PXF-6,4,2,'#F4F6F8') + pr(142,PXF-3,6,3,'#F4F6F8');
+}
+function pxPaddy(){
+  let s = '';
+  for(let r=0; r<3; r++) for(let x=(r%2)*3; x<PXW; x+=6) s += pr(x, PXF+2+r*2, 2, 1, '#6FA357');
+  return s;
+}
+function pxColonial(x, base){
+  let s = pr(x,base-12,36,12,'#F1EDE4') + pr(x-1,base-13,38,1,'#B7B0A2');
+  for(let i=0; i<6; i++) s += pr(x+2+i*6, base-10, 3, 4, '#8FA3B5') + pr(x+2+i*6, base-5, 3, 5, '#B7B0A2');
+  return s;
+}
+function pxBlock(x, w, h, col, win, base){
+  base = base || PXF; win = win || '#7E95A8';
+  let s = pr(x, base-h, w, h, col) + pr(x, base-h, w, 1, '#00000022');
+  for(let y=base-h+2; y<base-2; y+=3) for(let i=x+1; i<x+w-1; i+=3) s += pr(i, y, 2, 1, win);
+  return s;
+}
+function pxNightBlock(x, w, h, col, rng){
+  let s = pr(x, PXF-h, w, h, col);
+  for(let y=PXF-h+2; y<PXF-2; y+=3) for(let i=x+1; i<x+w-1; i+=3){
+    const lit = rng() < 0.55;
+    s += pr(i, y, 2, 1, lit ? '#F7D98B' : '#3A4A6A', lit && rng() < 0.25 ? ` class="px-tw" style="animation-delay:${(rng()*3).toFixed(1)}s"` : '');
+  }
+  return s;
+}
+function pxLaundry(x1, x2, y){
+  let s = pr(x1, y, x2-x1, 1, '#7A7A7A');
+  const cols = ['#E07A5F','#81B29A','#F2CC8F','#5FA8D3','#F4F1DE'];
+  for(let x=x1+2, i=0; x<x2-3; x+=5, i++) s += `<g class="px-sway" style="animation-delay:-${i*0.3}s">${pr(x, y+1, 3, 3, cols[i%cols.length])}</g>`;
+  return s;
+}
+function pxTenement(x, w, col){
+  let s = pr(x, PXF-24, w, 24, col);
+  for(let f=0; f<4; f++){
+    const y = PXF-22+f*6;
+    s += pr(x, y+3, w, 1, '#8A7F72');
+    for(let i=x+2; i<x+w-2; i+=5) s += pr(i, y, 3, 3, '#7E95A8');
+  }
+  return s + pr(x+2,PXF-26,w-4,2,'#8A7F72') + pr(x+w-6,PXF-20,4,8,'#C8473A') + pr(x+w-5,PXF-19,2,6,'#F2CC8F');
+}
+function pxFactory(x){
+  let s = pr(x,PXF-12,48,12,'#B8AFA2');
+  for(let i=0; i<4; i++) s += pr(x+i*12, PXF-15, 6, 3, '#8A8174') + pr(x+i*12+6, PXF-13, 6, 1, '#8A8174');
+  for(let i=0; i<6; i++) s += pr(x+3+i*8, PXF-9, 4, 3, '#7E95A8');
+  return s + pr(x+40,PXF-30,5,18,'#9C6B4E') + pr(x+40,PXF-27,5,1,'#F1EDE4')
+    + `<g class="px-smoke">${pr(x+40,PXF-34,5,3,'#CFCAC2')}${pr(x+42,PXF-38,6,3,'#DEDAD3')}${pr(x+44,PXF-42,5,2,'#E9E6E0')}</g>`;
+}
+function pxCrane(x){
+  let s = '';
+  for(let i=0; i<30; i++) s += pr(x, PXF-30+i, 2, 1, i%3 ? '#E2B33B' : '#B88F2A');
+  s += pr(x-12, PXF-30, 34, 2, '#E2B33B') + pr(x-12, PXF-28, 4, 3, '#6B6B6B');
+  return s + `<g class="px-sway">${pr(x+17, PXF-28, 1, 12, '#555555')}${pr(x+15, PXF-16, 5, 3, '#9C6B4E')}</g>`;
+}
+function pxSkyline(rng, night, base, maxH){
+  maxH = maxH || 38;
+  const cols = night ? ['#2E3B5A','#36456A','#283453'] : ['#8FB3C9','#A9C4D3','#7FA2BA','#C9D6DD'];
+  let s = '', x = 0;
+  while(x < PXW){
+    const w = 8 + Math.floor(rng()*10), h = Math.floor(maxH*0.4) + Math.floor(rng()*maxH*0.6);
+    s += night ? pxNightBlock(x, w, h, cols[Math.floor(rng()*cols.length)], rng) : pxBlock(x, w, h, cols[Math.floor(rng()*cols.length)], '#E9F2F6', base);
+    x += w + 1;
+  }
+  return s;
+}
+function pxEstate(x, w, h, palette){
+  let s = pr(x, PXF-h, w, h, '#F1EDE4');
+  for(let y=PXF-h+2, r=0; y<PXF-2; y+=3, r++) s += pr(x, y, w, 2, palette[r%palette.length]) + (r%2 ? pr(x+2, y, w-4, 1, '#7E95A8') : '');
+  return s;
+}
+function pxBridge(y){
+  let s = pr(0, y, PXW, 2, '#D2D6DA') + pr(0, y+2, PXW, 1, '#9AA3AB');
+  for(let x=20; x<PXW; x+=40) s += pr(x, y-12, 2, 12, '#C9CED3') + pr(x-10, y-11, 22, 1, '#C9CED3') + pr(x, y+3, 2, PXF-y-3, '#9AA3AB');
+  return s;
+}
+function pxTrain(y){
+  return `<g class="px-train"><g transform="translate(-60 ${y})">${pr(0,0,44,4,'#F4F6F8')}${pr(44,1,4,3,'#F4F6F8')}${pr(0,2,48,1,'#C8473A')}${pr(4,1,36,1,'#5A6E8A')}</g></g>`;
+}
+function pxArch(cx){
+  let s = '';
+  for(let a=0; a<=12; a++){
+    const t = a/12*Math.PI, x = Math.round(cx + Math.cos(t)*17), y = Math.round(PXF - 4 - Math.sin(t)*20);
+    s += pr(x, y, 2, 2, '#6FA357') + (a%2 ? pr(x, y-1, 1, 1, '#F2A7B8') : pr(x+1, y+2, 1, 1, '#FFFFFF'));
+  }
+  return s + pr(cx-20, PXF+1, 40, 3, '#F2B8C6');
+}
+function pxConfetti(rng){
+  const cols = ['#E07A5F','#F2CC8F','#81B29A','#5FA8D3','#D9433A','#F2A7B8'];
+  let s = '';
+  for(let i=0; i<22; i++){
+    const x = Math.floor(rng()*PXW), y = Math.floor(rng()*20);
+    s += `<g class="px-conf" style="animation-delay:-${(rng()*2.4).toFixed(2)}s">${pr(x, y, 1, 1, cols[i%cols.length])}</g>`;
+  }
+  return s;
+}
+
+/* 人物：成人 7×14、小孩 5×10、嬰孩 3×6 像素 */
+const PX_SKIN = ['#F3CDA6','#E8B88E','#D7A27A'];
+const PX_HAIR = ['#2A2420','#3B2A20','#1F1F24'];
+const PX_CLOTH = {
+  m1:['#6B5B45','#8C7A5B','#A0522D','#5E6B4F','#7D6A4E'], m2:['#B5523B','#3E7A8C','#C9A227','#7A4E8C','#4F7A6A'],
+  m3:['#4F7A6A','#8C6A4F','#5A6E9A','#A8875A','#7A5A7A'], m4:['#2F4F6F','#3D3D3D','#6B4F3A','#4A6B8A','#5A4A6A'],
+  m5:['#E2C044','#D96C4F','#4F86C6','#7FB069','#E07A5F'], m6:['#E07A5F','#3D405B','#81B29A','#F2CC8F','#5FA8D3','#C77DFF']
+};
+function pxPersonPal(seed, mid, sex){
+  const r = mulberry32(seed);
+  const cl = PX_CLOTH[mid];
+  return {sex, mid, skin:PX_SKIN[Math.floor(r()*3)], hair:PX_HAIR[Math.floor(r()*3)], cloth:cl[Math.floor(r()*cl.length)], cloth2:cl[Math.floor(r()*cl.length)]};
+}
+function pxPerson(x, p, kind){
+  const modern = p.mid === 'm5' || p.mid === 'm6';
+  const elder = kind === 'elder';
+  const hair = elder ? '#D9D9D9' : p.hair, sk = p.skin, eye = '#2B2B2B', shoe = '#3A3A3A';
+  const B = PXF + 2;
+  let s = '';
+  if(kind === 'baby'){
+    const t = B - 6;
+    return s + pr(x, t, 3, 1, hair) + pr(x, t+1, 3, 2, sk) + pr(x, t+1, 1, 1, eye) + pr(x+2, t+1, 1, 1, eye) + pr(x, t+3, 3, 2, p.cloth) + pr(x, t+5, 1, 1, shoe) + pr(x+2, t+5, 1, 1, shoe);
+  }
+  if(kind === 'child'){
+    const t = B - 10;
+    if(!modern) s += pr(x+2, t-1, 1, 1, hair);
+    s += pr(x, t, 5, 1, hair) + pr(x, t+1, 5, 3, sk) + pr(x, t+1, 1, 1, hair) + pr(x+4, t+1, 1, 1, hair);
+    if(p.sex === 'f' && modern) s += pr(x, t+2, 1, 2, hair) + pr(x+4, t+2, 1, 2, hair);
+    s += pr(x+1, t+2, 1, 1, eye) + pr(x+3, t+2, 1, 1, eye);
+    s += pr(x, t+4, 5, 3, p.cloth) + pr(x, t+7, 5, 1, modern ? p.cloth2 : p.cloth);
+    s += pr(x+1, t+8, 1, 1, modern ? p.cloth2 : p.cloth) + pr(x+3, t+8, 1, 1, modern ? p.cloth2 : p.cloth) + pr(x+1, t+9, 1, 1, shoe) + pr(x+3, t+9, 1, 1, shoe);
+    return s;
+  }
+  const t = B - 14;
+  if(!modern) s += pr(x+3, t-1, 1, 1, hair) + (p.sex === 'f' ? pr(x+2, t-1, 3, 1, hair) : '');
+  if(p.mid === 'm4' && p.sex === 'm') s += pr(x+6, t+2, 1, 7, hair);
+  s += pr(x+1, t, 5, 2, hair) + pr(x+1, t+2, 5, 4, sk) + pr(x+1, t+2, 1, 1, hair) + pr(x+5, t+2, 1, 1, hair);
+  if(p.sex === 'f') s += pr(x+1, t+3, 1, modern ? 4 : 2, hair) + pr(x+5, t+3, 1, modern ? 4 : 2, hair);
+  s += pr(x+2, t+3, 1, 1, eye) + pr(x+4, t+3, 1, 1, eye) + pr(x+2, t+4, 1, 1, '#F2A7A0') + pr(x+4, t+4, 1, 1, '#F2A7A0');
+  s += pr(x+1, t+6, 5, 5, p.cloth) + pr(x, t+6, 1, 4, p.cloth) + pr(x+6, t+6, 1, 4, p.cloth) + pr(x, t+10, 1, 1, sk) + pr(x+6, t+10, 1, 1, sk);
+  if(modern){
+    if(p.sex === 'f') s += pr(x, t+10, 7, 2, p.cloth2) + pr(x+2, t+12, 1, 1, sk) + pr(x+4, t+12, 1, 1, sk);
+    else s += pr(x+1, t+10, 5, 3, p.cloth2) + pr(x+3, t+12, 1, 1, '#00000033');
+  } else {
+    s += pr(x+1, t+9, 5, 1, p.cloth2) + pr(x+1, t+10, 5, 3, p.cloth);
+  }
+  s += pr(x+1, t+13, 2, 1, shoe) + pr(x+4, t+13, 2, 1, shoe);
+  if(elder) s += pr(x+7, t+8, 1, 6, '#8B6B4A') + pr(x+6, t+8, 1, 1, '#8B6B4A');
+  return s;
+}
+const pxKindOf = age => age < 3 ? 'baby' : age < 15 ? 'child' : age < 60 ? 'adult' : 'elder';
+const pxWidthOf = kind => kind === 'baby' ? 3 : kind === 'child' ? 5 : 8;
+/* 某人某歲時的「可見狀態」：職業、婚姻、子女，用來決定場景與家庭成員 */
+function pxViewOf(L, age){
+  const a = Math.min(age, L.deathAge || age);
+  const snap = L.snaps[a] || L.snaps[L.snaps.length-1] || {};
+  const ev = (L.log || []).filter(e=>e.age === a);
+  let overlay = '';
+  if(ev.some(e=>e.mar)) overlay = 'wedding';
+  else if(ev.some(e=>['festival','boat','clan','neighbour','heritage','xu'].includes(e.id))) overlay = 'festival';
+  return {mid:L.mid, s:L.s, sex:L.sex, name:L.name, age:a, job:snap.job, mar:snap.mar, kidBorn:(L.kidBorn||[]).filter(b=>b <= a), overlay, year:L.birth + a};
+}
+function pxFamily(v){
+  const base = pxHash(v.name + v.mid);
+  const opp = v.sex === 'm' ? 'f' : 'm';
+  const list = [];
+  const parentGone = (v.mid === 'm5' || v.mid === 'm6') ? 55 : 42;
+  if(v.age < parentGone){
+    const pk = pxKindOf(v.age + 26);
+    list.push({p:pxPersonPal(base+11, v.mid, 'm'), kind:pk});
+    list.push({p:pxPersonPal(base+12, v.mid, 'f'), kind:pk});
+  }
+  list.push({p:pxPersonPal(base, v.mid, v.sex), kind:pxKindOf(v.age), me:true});
+  if(v.mar) list.push({p:pxPersonPal(base+21, v.mid, opp), kind:pxKindOf(v.age)});
+  v.kidBorn.slice(0, 3).forEach((b,i)=>{
+    const r = mulberry32(base+31+i);
+    list.push({p:pxPersonPal(base+31+i, v.mid, r() < 0.5 ? 'm' : 'f'), kind:pxKindOf(v.age - b)});
+  });
+  if(v.age >= 58 && v.kidBorn.some(b=>v.age - b >= 24)){
+    list.push({p:pxPersonPal(base+41, v.mid, 'f'), kind:'child'});
+    if(v.age >= 64) list.push({p:pxPersonPal(base+42, v.mid, 'm'), kind:'baby'});
+  }
+  return list;
+}
+function pxPeople(list, cx){
+  const total = list.reduce((a,x)=>a + pxWidthOf(x.kind) + 1, 0);
+  let x = Math.round(cx - total/2), s = '';
+  list.forEach((m,i)=>{
+    s += `<g class="px-bob" style="animation-delay:-${(i*0.37).toFixed(2)}s">${pxPerson(x, m.p, m.kind)}</g>`;
+    x += pxWidthOf(m.kind) + 1;
+  });
+  return s;
+}
+function pxWalkers(mid, seed, n){
+  let s = '';
+  for(let i=0; i<n; i++){
+    const r = mulberry32(seed + i*97);
+    const p = pxPersonPal(seed + i*97, mid, r() < 0.5 ? 'm' : 'f');
+    const kind = r() < 0.3 ? 'child' : 'adult';
+    s += `<g class="px-walk${i%2 ? ' rev' : ''}" style="animation-duration:${(16+r()*10).toFixed(1)}s; animation-delay:-${(r()*20).toFixed(1)}s"><g transform="translate(${Math.floor(20 + r()*120)} 0)">${pxPerson(0, p, kind)}</g></g>`;
+  }
+  return s;
+}
+/* 出身 → 場景 */
+const pxStratumScene = {
+  'm1.yue':'village', 'm1.fisher':'fishing', 'm1.settler':'village', 'm1.craft':'port', 'm1.merchant':'market', 'm1.clerk':'yamen',
+  'm2.farmer':'village', 'm2.tanka':'fishing', 'm2.boat':'port', 'm2.shop':'market', 'm2.fanshang':'port', 'm2.soldier':'camp', 'm2.scholar':'study',
+  'm3.salt':'salt', 'm3.pearl':'fishing', 'm3.farmer':'village', 'm3.potter':'kiln', 'm3.shop':'market', 'm3.sailor':'port', 'm3.scholar':'study',
+  'm4.tanka':'fishing', 'm4.hakka':'village', 'm4.punti':'village', 'm4.quarry':'quarry', 'm4.shop':'market', 'm4.scholar':'study', 'm4.hong':'port',
+  'm5.baoan':'village', 'm5.shekou':'fishing', 'm5.factory':'resettle', 'm5.hawker':'tenement', 'm5.civil':'tenement', 'm5.boss':'skyline',
+  'm6.pub':'estate', 'm6.hos':'estate', 'm6.pri':'skyline', 'm6.new':'tenement', 'm6.pro':'skyline'
+};
+/* 職業 → 場景（長大後按職業轉換） */
+const pxJobScene = [
+  [/小吏|地方官/, 'yamen'], [/塾師|秀才/, 'study'], [/通譯/, 'port'], [/行商/, 'market'], [/瓷器商/, 'kiln'],
+  [/港島工人|洋行/, 'harbour'], [/金山客/, 'ship'], [/店主/, 'market'], [/北上管工|廠商|工廠|技術員|^工人$|師傅/, 'factory'],
+  [/專業人士|服務業|在港工作/, 'skyline'], [/個體戶|文員/, 'shenzhen'], [/大學生|文憑學生|職專學生|研究人員/, 'campus'],
+  [/大灣區/, 'gba'], [/公社會計/, 'village']
+];
+function pxSceneKey(v){
+  let key = pxStratumScene[`${v.mid}.${lifeEras[v.mid].strata[v.s].k}`] || 'village';
+  if(v.age >= 16 && v.job){ const hit = pxJobScene.find(([re])=>re.test(v.job)); if(hit) key = hit[1]; }
+  if(v.mid === 'm5' && key === 'village' && v.year >= 1985) key = 'shenzhen';
+  if(v.mid === 'm5' && key === 'resettle' && v.year >= 1990) key = 'estate';
+  return key;
+}
+const pxCityKey = {m1:'city', m2:'port', m3:'market', m4:'harbour', m5:'shenzhen', m6:'skyline'};
+const pxCityName = {m1:'秦 · 番禺城', m2:'唐 · 廣州港', m3:'宋 · 東莞墟市', m4:'清 · 香港開埠', m5:'改革開放 · 深圳特區', m6:'當代 · 維港兩岸'};
+function pxScene(key, o){
+  const rng = mulberry32(o.seed || 7);
+  const m = o.mid;
+  let sky = 'day', ground = 'grass', bg = '', mid = '', fg = '';
+  const clouds = () => pxCloud(18 + Math.floor(rng()*30), 4 + Math.floor(rng()*6), rng()*20) + pxCloud(96 + Math.floor(rng()*30), 2 + Math.floor(rng()*6), rng()*20);
+  switch(key){
+    case 'village':
+      bg = pxSun(138, 8) + clouds() + pxMount(40, 30, 16, '#A9C4C8') + pxMount(120, 30, 20, '#9BB8BE') + pxBirds(60, 8);
+      if(m === 'm1'){ mid = pxBamboo(8) + pxHut(116) + pxTree(140, '#4F8F4A'); }
+      else if(m === 'm4'){ mid = pxWall(100, 56) + pxTree(6) + pxTree(18, '#4F8F4A'); }
+      else if(m === 'm5'){ mid = pxHouse(118, 20, '#B5654A', '#4A3B34') + pxTree(8) + pxTree(140, '#4F8F4A'); }
+      else { mid = pxHouse(118, 18) + pxTree(10) + pxTree(142, '#4F8F4A'); }
+      mid += pxPaddy();
+      break;
+    case 'fishing':
+      ground = 'sand';
+      bg = pxSun(130, 9) + clouds() + pxMount(30, 28, 12, '#A9C4C8') + pxSea(28) + pxBoat(14, 30, 0) + pxBoat(120, 32, 1.1) + pxBirds(70, 6);
+      mid = (m === 'm5' || m === 'm6') ? pxHouse(132, 16, '#E6DCC8', '#7A7A7A') : pxPalm(146) + pxPalm(6);
+      if(m === 'm4') mid += pxHut(128);
+      break;
+    case 'port':
+      ground = 'wood'; sky = m === 'm2' ? 'dusk' : 'day';
+      bg = pxSun(24, 10) + clouds() + (m === 'm2' || m === 'm3' ? pxPagoda(146, 28) : pxMount(140, 28, 12, '#A9C4C8')) + pxSea(26)
+        + pxShip(8, 16, '#F1E8D6', 0) + pxShip(100, 18, m === 'm2' ? '#E2B07A' : '#F1E8D6', 1.2);
+      mid = pxLanterns(0, 70, 3);
+      break;
+    case 'market':
+      ground = 'stone'; sky = 'dusk';
+      bg = pxSun(140, 12) + clouds();
+      mid = pxHouse(2, 22) + pxHouse(132, 24) + pxStall(34) + pxStall(108, '#3E7A8C') + pxLanterns(0, PXW, 2);
+      break;
+    case 'city':
+      ground = 'dirt';
+      bg = pxSun(136, 9) + clouds() + pxMount(30, 31, 18, '#A9C4C8') + pxMount(130, 31, 14, '#9BB8BE') + pxBirds(90, 6);
+      mid = pxWall(14, 132) + pxBamboo(2) + pxBamboo(150);
+      break;
+    case 'kiln':
+      ground = 'dirt';
+      bg = pxSun(30, 9) + clouds() + pxMount(120, 30, 16, '#A9C4C8');
+      mid = pxKiln(112) + pxTree(6) + pxTree(20, '#4F8F4A');
+      break;
+    case 'salt':
+      ground = 'sand';
+      bg = pxSun(140, 8) + clouds() + pxSea(26) + pxBoat(30, 28, 0.6) + pxBirds(90, 5);
+      mid = pxSaltpans() + pxHut(4);
+      break;
+    case 'quarry':
+      ground = 'dirt';
+      bg = pxSun(20, 8) + clouds() + pxMount(50, 31, 14, '#A9C4C8');
+      mid = pxCliff(108) + pxTree(6);
+      break;
+    case 'yamen':
+      ground = 'stone';
+      bg = pxSun(140, 8) + clouds() + pxMount(20, 28, 10, '#A9C4C8');
+      mid = pxYamen(58) + pxTree(10) + pxTree(140, '#4F8F4A');
+      break;
+    case 'study':
+      ground = 'wood'; sky = 'room';
+      mid = pxRoom();
+      break;
+    case 'camp':
+      ground = 'dirt'; sky = 'dawn';
+      bg = pxSun(130, 12) + clouds() + pxMount(70, 30, 18, '#B9C2C0');
+      mid = pxTent(6) + pxTent(126) + pxBanner(40) + pxBanner(118);
+      break;
+    case 'harbour':
+      ground = 'wood';
+      bg = pxSun(146, 7) + clouds() + pxMount(40, 26, 14, '#8FB08A') + pxMount(110, 26, 18, '#7FA27A') + pxColonial(70, 26) + pxColonial(112, 26)
+        + pxSea(26) + pxShip(4, 18, '#F1E8D6', 0) + pxShip(122, 17, '#E8E2D4', 0.9) + pxBirds(40, 4);
+      break;
+    case 'ship':
+      ground = 'wood';
+      bg = pxSun(30, 9) + clouds() + pxSea(18) + pxShip(110, 10, '#F1E8D6', 0.4) + pxBirds(70, 4);
+      mid = pr(0, PXF-3, PXW, 3, '#6B4E2E') + pr(0, PXF-8, PXW, 1, '#6B4E2E');
+      for(let x=4; x<PXW; x+=12) mid += pr(x, PXF-8, 1, 5, '#6B4E2E');
+      break;
+    case 'resettle':
+      ground = 'pave';
+      bg = pxSun(80, 7) + clouds();
+      mid = pxBlock(0, 54, 32, '#C9C4BA', '#6E7F8E') + pxBlock(108, 52, 30, '#D2CDC3', '#6E7F8E') + pxLaundry(4, 50, 14) + pxLaundry(112, 156, 18);
+      break;
+    case 'tenement':
+      ground = 'pave';
+      bg = pxSun(80, 6) + clouds() + (m === 'm6' ? pxSkyline(rng, false, 32, 22) : '');
+      mid = pxTenement(0, 34, '#D8C7A8') + pxTenement(126, 34, '#C9B8A8') + pxLaundry(2, 32, 20);
+      break;
+    case 'factory':
+      ground = 'pave'; sky = 'dawn';
+      bg = pxSun(30, 10) + clouds();
+      mid = pxFactory(100) + pxBlock(4, 30, 20, '#C9C4BA', '#6E7F8E');
+      break;
+    case 'shenzhen':
+      ground = 'pave';
+      bg = pxSun(146, 7) + clouds() + pxMount(70, 30, 12, '#A9C4C8');
+      mid = pxBlock(0, 18, 30, '#D9E2E8', '#8FB3C9') + pxBlock(20, 14, 22, '#E6DCC8', '#8FB3C9') + pxBlock(118, 16, 34, '#D9E2E8', '#8FB3C9') + pxBlock(136, 22, 16, '#E6DCC8', '#8FB3C9') + pxCrane(56) + pxCrane(104);
+      break;
+    case 'skyline': {
+      const night = (o.seed || 0) % 2 === 0;
+      ground = 'pave'; sky = night ? 'night' : 'dusk';
+      bg = (night ? pxSun(140, 7, true) : pxSun(140, 10) + clouds()) + pxSkyline(rng, night) ;
+      bg += pr(0, PXF-6, PXW, 6, night ? '#2B3F66' : '#6CB4D4') + `<g class="px-wave">${pr(10, PXF-4, 6, 1, '#F7D98B')}${pr(60, PXF-3, 8, 1, '#F7D98B')}${pr(120, PXF-4, 5, 1, '#F7D98B')}</g>`;
+      break;
+    }
+    case 'estate':
+      ground = 'pave';
+      bg = pxSun(80, 7) + clouds() + pxBirds(70, 10);
+      mid = pxEstate(0, 46, 36, ['#E07A5F','#F2CC8F','#81B29A','#5FA8D3','#C77DFF']) + pxEstate(114, 46, 32, ['#F2CC8F','#5FA8D3','#E07A5F','#81B29A']) + pxTree(52) + pxTree(100, '#4F8F4A');
+      break;
+    case 'campus':
+      ground = 'grass';
+      bg = pxSun(20, 8) + clouds();
+      mid = pxBlock(48, 64, 22, '#E6DCC8', '#8FB3C9') + pr(74, PXF-34, 12, 12, '#E6DCC8') + pr(77, PXF-31, 6, 6, '#F4F6F8') + pr(79, PXF-30, 1, 3, '#3A3A3A') + pr(79, PXF-28, 3, 1, '#3A3A3A')
+        + pr(72, PXF-36, 16, 2, '#B5473A') + pxTree(8) + pxTree(24, '#4F8F4A') + pxTree(130) + pxTree(146, '#4F8F4A');
+      break;
+    case 'gba':
+      ground = 'pave';
+      bg = pxSun(146, 7) + clouds() + pxSkyline(rng, false, 26, 16).replace(/<rect /g, '<rect opacity="0.55" ') + pxSea(26) + pxBridge(24) + pxTrain(20);
+      break;
+  }
+  let over = '', top = '';
+  if(o.overlay === 'wedding'){ over = pxArch(o.cx || 80); top = pxConfetti(rng); }
+  else if(o.overlay === 'festival'){ over = pxLanterns(0, PXW, 1); top = pxConfetti(rng); }
+  const label = o.label ? `<text x="4" y="8" class="px-label">${o.label}</text>` : '';
+  return `<svg class="px-scene" viewBox="0 0 ${PXW} ${PXH}" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" preserveAspectRatio="xMidYMid slice"${o.aria ? ` role="img" aria-label="${o.aria}"` : ' aria-hidden="true"'}>`
+    + pxSky(sky, rng) + bg + pxGround(ground, rng) + mid + over + (o.walkers || '') + (o.people || '') + top + label + `</svg>`;
+}
+/* 某一世在某歲的場景（人物 + 家人 + 城市） */
+function pxLifeScene(L, age, opts){
+  const v = pxViewOf(L, age);
+  const key = pxSceneKey(v);
+  const people = pxPeople(pxFamily(v), 80);
+  return pxScene(key, Object.assign({mid:v.mid, seed:pxHash(L.name + L.mid + key), overlay:v.overlay, people, cx:80, aria:`${L.name}${v.age}歲的生活場景`}, opts || {}));
+}
+function pxLifeSig(L, age){
+  const v = pxViewOf(L, age);
+  return [pxSceneKey(v), pxKindOf(v.age), v.mar ? 1 : 0, v.kidBorn.map(b=>pxKindOf(v.age-b)).join(''), v.age < 42 ? 1 : 0, v.age < 55 ? 1 : 0, v.overlay, v.age >= 58 ? 1 : 0, v.age >= 64 ? 1 : 0].join('|');
+}
+function pxCityScene(mid){
+  const seed = pxHash('city' + mid);
+  return pxScene(pxCityKey[mid], {mid, seed, walkers:pxWalkers(mid, seed, 4), aria:pxCityName[mid]});
+}
+/* 單人立像（頭像位置用） */
+function pxSoloSvg(L, age){
+  const v = pxViewOf(L, age);
+  const kind = pxKindOf(v.age);
+  const p = pxPersonPal(pxHash(L.name + L.mid), L.mid, L.sex);
+  const w = pxWidthOf(kind);
+  return `<svg class="px-solo${L.alive === false && age >= L.deathAge ? ' gone' : ''}" viewBox="${-3} ${PXF-16} ${w+6} 20" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" aria-hidden="true">
+    ${pr(-3, PXF+1, w+6, 3, '#C9B48A')}${pr(-3, PXF+1, w+6, 1, '#DCCB9F')}<g class="px-bob">${pxPerson(0, p, kind)}</g></svg>`;
+}
+/* 1in8b 式人生卡片：上為場景，下為姓名與生卒 */
+function pxCard(L, age, opts){
+  opts = opts || {};
+  const st = lifeStratum(L);
+  const ended = L.deathAge && age >= L.deathAge;
+  const dates = ended ? `${lifeYearLabel(L.birth)} — ${lifeYearLabel(L.birth + L.deathAge)}` : `${lifeYearLabel(L.birth)}生`;
+  return `<div class="px-card${opts.me ? ' me' : ''}${opts.small ? ' small' : ''}" style="--i:${opts.i || 0}">
+    ${pxLifeScene(L, age)}
+    <div class="pxc-info">
+      <div class="pxc-name">${L.name}${opts.me ? '<span class="pxc-me">你</span>' : ''}</div>
+      <div class="pxc-sub">${dates} · ${st.n}</div>
+      ${opts.extra || ''}
+    </div>
+  </div>`;
+}
+
+const pxSceneName = {village:'鄉村', fishing:'漁村', port:'港口', market:'墟市', city:'城郭', kiln:'窯場', salt:'鹽場', quarry:'石礦場', yamen:'官署', study:'書齋',
+  camp:'兵營', harbour:'維多利亞港', ship:'遠洋船上', resettle:'徙置大廈', tenement:'唐樓街坊', factory:'工廠', shenzhen:'深圳特區', skyline:'都市', estate:'公共屋邨', campus:'校園', gba:'大灣區'};
+function pxPlaceName(L, age){
+  const v = pxViewOf(L, age), key = pxSceneKey(v);
+  return key === pxStratumScene[`${v.mid}.${lifeStratum(L).k}`] ? lifeStratum(L).place : pxSceneName[key];
+}
+
 /* ---------- 眾生篇：介面 ---------- */
 const lifeTimers = {};
-const lifeEraColor = {m1:'ink-soft', m2:'vermillion', m3:'jade', m4:'indigo', m5:'indigo-deep', m6:'jade-deep'};
 /* 卷末按鈕：開啟眾生篇，或（已關閉眾生篇時）直接前往下一卷 */
 function finishMission(mid){
   const missionIdx = missionData.findIndex(x=>x.id===mid);
@@ -3698,6 +4324,7 @@ function renderLottery(mid){
     <p class="day-text">你剛以掌舵人的身份議定了國策。現在，你將投胎成為這個時代的一個普通人——<b>出身由不得你揀</b>，但往後的路要靠你一步步走。你剛才的國策，會左右這一生遇上的機會與難關。</p>
     <div class="lot-box scroll-panel">
       <div class="decision-q">🎲 投胎：${lifeYearLabel(era.start)} · ${era.where}</div>
+      <div class="px-frame">${pxCityScene(mid)}<span class="px-cap">🏙️ ${pxCityName[mid]}</span></div>
       <p class="lot-note">按教學推估，同年出生的孩子之中，各種家庭所佔的比例大約如下：</p>
       <div class="lot-list" id="lotList-${mid}">${era.strata.map((s,i)=>`
         <div class="lot-row" id="lot-${mid}-${i}" style="--i:${i}"><span class="lot-n">${s.n}</span><span class="lot-bar"><span style="width:${s.w*2}%"></span></span><span class="lot-pct">${s.w}%</span></div>`).join('')}
@@ -3737,33 +4364,7 @@ function castLot(mid){
   };
   spin();
 }
-function lifePortraitSvg(L, P){
-  const s = P || L;
-  const a = s.age, era = L.mid;
-  const modern = era === 'm5' || era === 'm6';
-  const scale = a < 6 ? 0.62 : a < 16 ? 0.8 : 1;
-  const elder = a >= 60;
-  const hairCol = elder ? '#C9C4B8' : 'var(--ink)';
-  const mood = s.j >= 62 ? 'glad' : (s.j <= 35 ? 'worry' : 'neutral');
-  let hair;
-  if(s.sex === 'f') hair = modern
-    ? `<path d="M31,34 Q30,13 49,13 Q68,13 67,34 L67,46 Q62,36 62,26 Q49,20 36,26 Q36,36 31,46 Z" fill="${hairCol}"/>`
-    : `<circle cx="49" cy="12" r="7" fill="${hairCol}"/><path d="M32,30 Q33,14 49,14 Q65,14 66,30 Q58,20 49,20 Q40,20 32,30 Z" fill="${hairCol}"/>`;
-  else hair = modern
-    ? `<path d="M32,30 Q32,14 49,14 Q66,14 66,30 Q60,21 49,21 Q38,21 32,30 Z" fill="${hairCol}"/>`
-    : `<circle cx="49" cy="13" r="5" fill="${hairCol}"/><path d="M32,30 Q33,15 49,15 Q65,15 66,30 Q58,21 49,21 Q40,21 32,30 Z" fill="${hairCol}"/>`;
-  const gone = P ? !P.alive && P.age >= P.deathAge : !L.alive;
-  return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="life-face${gone?' gone':''}" style="color:var(--${lifeEraColor[era]})">
-    <g transform="translate(50 100) scale(${scale}) translate(-50 -100)">
-      <path d="M20,100 Q20,60 50,60 Q80,60 80,100 Z" fill="currentColor" opacity="0.9"/>
-      <path d="M40,60 L50,74 L60,60" fill="none" stroke="var(--paper)" stroke-width="2" opacity="0.6"/>
-      <circle cx="49" cy="33" r="17" fill="var(--paper-deep)" stroke="currentColor" stroke-width="2"/>
-      ${hair}
-      ${faceSvg(mood, 48)}
-      ${elder ? '<line x1="82" y1="64" x2="88" y2="100" stroke="var(--ink-soft)" stroke-width="3" stroke-linecap="round"/><path d="M78,64 Q82,58 86,64" fill="none" stroke="var(--ink-soft)" stroke-width="3" stroke-linecap="round"/>' : ''}
-    </g>
-  </svg>`;
-}
+
 /* 平行人生在某一歲時的狀態（只顯示到玩家當前年齡，保留懸念） */
 function peerView(P, age){
   const a = Math.min(age, P.deathAge);
@@ -3776,24 +4377,18 @@ function peerCardHtml(P, age, full){
   const st = lifeStratum(P);
   const status = v.alive ? `${v.age} 歲 · ${v.job || (v.age<16 ? '孩童' : st.job)}` : `卒於 ${P.deathAge} 歲`;
   const last = P.log.filter(e=>e.age <= (full ? 999 : age) && e.tone !== 'era').slice(-1)[0];
-  return `<div class="peer-card${v.alive ? '' : ' gone'}">
-    <div class="pc-face">${lifePortraitSvg(P, Object.assign({}, v, {alive:v.alive, age:v.age, deathAge:P.deathAge}))}</div>
-    <div class="pc-body">
-      <div class="pc-name">${P.name} <small>${P.sex==='m'?'男':'女'} · ${st.n}</small></div>
-      <div class="pc-status">${status}</div>
+  const extra = `<div class="pc-status">${status}</div>
       <div class="pc-bars">${['k','w','j'].map(k=>`<span title="${lifeStatMeta[k].n}"><i>${lifeStatMeta[k].ico}</i><b style="width:${v[k]}%"></b></span>`).join('')}</div>
-      ${last ? `<div class="pc-last">${last.t.replace(/^【抉擇】/,'').replace(/你/g, P.name)}</div>` : ''}
-    </div>
-  </div>`;
+      ${last ? `<div class="pc-last">${last.t.replace(/^【抉擇】/,'').replace(/你/g, P.name)}</div>` : ''}`;
+  return pxCard(P, v.age, {extra, small:true});
 }
 function renderBirth(mid){
   const R = state.lives[mid], L = R.L, era = lifeEras[mid], st = lifeStratum(L);
   const wrap = document.getElementById('life-'+mid);
   wrap.innerHTML = lifeHeadHtml(mid) + `
     <div class="birth-card scroll-panel">
-      <div class="bc-face">${lifePortraitSvg(L)}</div>
+      <div class="px-frame birth-scene">${pxLifeScene(L, 0)}<span class="px-cap">👶 ${lifeYearLabel(L.birth)} · ${st.place}</span></div>
       <div class="bc-body">
-        <div class="bc-year">${lifeYearLabel(L.birth)} · ${era.where}</div>
         <div class="bc-name">${L.name}<small>${L.sex==='m'?'男':'女'}</small></div>
         <div class="bc-origin">你生於<b>${st.place}</b>，<b>${st.n}</b>出身。</div>
         <div class="bc-odds">同年出生的每 100 個孩子之中，約有 <b>${st.w}</b> 個生於這樣的家庭。</div>
@@ -3810,8 +4405,9 @@ function beginLife(mid){
   const wrap = document.getElementById('life-'+mid);
   wrap.innerHTML = lifeHeadHtml(mid) + `
     <div class="life-hud scroll-panel">
+      <div class="px-frame lh-scene" id="lsc-${mid}"></div>
       <div class="lh-top">
-        <div class="lh-portrait" id="lp-${mid}">${lifePortraitSvg(L)}</div>
+        <div class="lh-portrait" id="lp-${mid}"></div>
         <div class="lh-id">
           <div class="lh-name">${L.name}<small>${L.sex==='m'?'男':'女'} · ${lifeStratum(L).n}</small></div>
           <div class="lh-meta" id="lmeta-${mid}"></div>
@@ -3829,7 +4425,7 @@ function beginLife(mid){
       <div class="lh-grid" id="lgrid-${mid}">${lifeGridHtml(mid)}</div>
       <div class="lh-cols">
         <div class="lh-log"><div class="lh-sub">📜 人生紀錄 <small>新 → 舊</small></div><ul id="llog-${mid}"></ul></div>
-        <div class="lh-peers"><div class="lh-sub">👥 同年出生的另外三人</div><div id="lpeers-${mid}"></div></div>
+        <div class="lh-peers"><div class="lh-sub">👥 同年出生的另外三人</div><div id="lpeers-${mid}">${R.peers.map((P,i)=>`<div id="lpeer-${mid}-${i}"></div>`).join('')}</div></div>
       </div>
       <div class="lh-links" id="llinks-${mid}"></div>
     </div>
@@ -3859,8 +4455,23 @@ function renderLifeHud(mid){
     const v = Math.round(L[k]);
     return `<div class="ls-row"><span class="ls-n">${lifeStatMeta[k].ico} ${lifeStatMeta[k].n}</span><span class="ls-track"><span class="ls-fill${v<30?' low':''}" style="width:${v}%"></span></span><span class="ls-v">${v}</span></div>`;
   }).join('');
-  document.getElementById('lp-'+mid).innerHTML = lifePortraitSvg(L);
-  document.getElementById('lpeers-'+mid).innerHTML = R.peers.map(P=>peerCardHtml(P, L.age)).join('');
+  /* 像素場景只在畫面內容有變時才重繪，免得動畫每年重頭開始 */
+  const sc = document.getElementById('lsc-'+mid), sig = pxLifeSig(L, L.age);
+  if(sc.dataset.sig !== sig){
+    sc.dataset.sig = sig;
+    sc.innerHTML = pxLifeScene(L, L.age) + `<span class="px-cap">📍 ${lifeYearLabel(L.birth + L.age)} · ${pxPlaceName(L, L.age)}</span>`;
+  } else {
+    const cap = sc.querySelector('.px-cap');
+    if(cap) cap.textContent = `📍 ${lifeYearLabel(L.birth + L.age)} · ${pxPlaceName(L, L.age)}`;
+  }
+  const lp = document.getElementById('lp-'+mid), kind = pxKindOf(L.age) + (L.alive ? '' : 'x');
+  if(lp.dataset.k !== kind){ lp.dataset.k = kind; lp.innerHTML = pxSoloSvg(L, L.age); }
+  R.peers.forEach((P,i)=>{
+    const el = document.getElementById(`lpeer-${mid}-${i}`);
+    const html = peerCardHtml(P, L.age);
+    const key = pxLifeSig(P, Math.min(L.age, P.deathAge)) + '|' + html.replace(/<svg[\s\S]*?<\/svg>/, '').length + '|' + Math.min(L.age, P.deathAge);
+    if(el && el.dataset.key !== key){ el.dataset.key = key; el.innerHTML = html; }
+  });
   const g = Object.keys(L.links).reduce((a,k)=>a+L.links[k].g, 0);
   const b = Object.keys(L.links).reduce((a,k)=>a+L.links[k].b, 0);
   document.getElementById('llinks-'+mid).innerHTML = `🔗 這一生中受你國策影響的事：<b class="up">順境 ${g}</b>　<b class="down">難關 ${b}</b>`;
@@ -4030,7 +4641,7 @@ function endLife(mid){
       <div class="epitaph" id="epitaph-${mid}">
         <div class="ep-candle" aria-hidden="true"><svg viewBox="0 0 30 60"><g class="ep-flame"><path d="M15,6 Q21,16 15,24 Q9,16 15,6 Z" fill="#F2B24C"/><path d="M15,12 Q18,18 15,22 Q12,18 15,12 Z" fill="#FFE6A8"/></g><rect x="10" y="24" width="10" height="30" rx="2" fill="var(--parchment)" stroke="var(--line)"/></svg></div>
         <div class="ep-head">墓　誌</div>
-        <div class="ep-face">${lifePortraitSvg(L)}</div>
+        <div class="ep-face">${pxSoloSvg(Object.assign({}, L, {alive:true}), L.deathAge)}</div>
         <div class="ep-name">${L.name}</div>
         <div class="ep-dates">${lifeYearLabel(L.birth)} — ${lifeYearLabel(L.birth + L.deathAge)}　·　享年 ${L.deathAge} 歲</div>
         <p class="ep-text">${lifeEpitaph(L)}</p>
@@ -4053,6 +4664,7 @@ function endLife(mid){
       <p class="lot-note small">曲線為按史料推估的同代成年人（二十歲起）仍在世比例，成年人平均壽數約 ${avgAge} 歲。為免沉重，遊戲角色不會在 ${LIFE_MIN_DEATH} 歲前辭世。</p>
 
       <div class="section-label">👥 四個同年出生的人，四段不同的人生</div>
+      <div class="px-grid">${people.map((P,i)=>pxCard(P, P.deathAge, {me:i===0, i, extra:`<div class="pxc-sub">享年 ${P.deathAge} 歲 · 福祉 <b>${lifeWelfare(P)}</b></div>`})).join('')}</div>
       <div class="table-wrap"><table class="peer-table"><thead><tr><th>姓名</th><th>出身</th><th>享年</th><th>📚</th><th>🪙</th><th>😊</th><th>福祉</th></tr></thead><tbody>
         ${people.map((P,i)=>`<tr class="${i===0?'me':''}"><td>${P.name}${i===0?'（你）':''}</td><td>${lifeStratum(P).n}</td><td>${P.deathAge}</td><td>${Math.round(P.k)}</td><td>${Math.round(P.w)}</td><td>${Math.round(P.j)}</td><td><b>${lifeWelfare(P)}</b></td></tr>`).join('')}
       </tbody></table></div>
@@ -4107,7 +4719,9 @@ function lifeBookRead(){
 function saveLifeBook(mid){
   const R = state.lives[mid], L = R.L, m = missionData.find(x=>x.id===mid);
   const book = lifeBookRead();
-  book.unshift({era:m.era, juan:m.juan, title:lifeEras[mid].title, name:L.name, origin:lifeStratum(L).n,
+  const snap = L.snaps[L.deathAge] || {};
+  book.unshift({mid, s:L.s, sex:L.sex, birth:L.birth, job:snap.job || null, mar:!!snap.mar, kidBorn:L.kidBorn,
+    era:m.era, juan:m.juan, title:lifeEras[mid].title, name:L.name, origin:lifeStratum(L).n,
     dates:`${lifeYearLabel(L.birth)} — ${lifeYearLabel(L.birth + L.deathAge)}`, age:L.deathAge, text:lifeEpitaph(L), welfare:R.welfare});
   try{ localStorage.setItem('tsLifeBook', JSON.stringify(book.slice(0,10))); }catch(e){}
   renderLifeBook();
@@ -4118,8 +4732,15 @@ function renderLifeBook(){
   if(cnt) cnt.textContent = book.length;
   const list = document.getElementById('bookList');
   if(!list) return;
-  list.innerHTML = book.length ? book.map(e=>`
-    <div class="book-item"><div class="bi-seal">${e.era}</div><div><b>${e.name}</b> <small>${e.origin} · ${e.dates} · 享年 ${e.age} 歲 · 福祉 ${e.welfare}</small><div class="bi-text">${e.text}</div></div></div>`).join('')
+  /* 由紀錄重建一個簡化的人生，用來重繪像素卡片 */
+  const card = e => {
+    if(!e.mid || !lifeEras[e.mid]) return '';
+    const L = {mid:e.mid, s:e.s, sex:e.sex, name:e.name, birth:e.birth, deathAge:e.age, alive:false, kidBorn:e.kidBorn || [], log:[], snaps:[]};
+    L.snaps[e.age] = {job:e.job, mar:e.mar};
+    return pxCard(L, e.age, {small:true});
+  };
+  list.innerHTML = book.length ? `<div class="book-grid">${book.map(e=>`
+    <div class="book-item">${card(e)}<div class="bi-text"><b>${e.juan || ''} · ${e.title || e.era}</b><br>${e.text}<br>享年 ${e.age} 歲 · 福祉 ${e.welfare}</div></div>`).join('')}</div>`
     : '<div class="inv-empty">尚未有任何一世的紀錄。完成每卷的眾生篇後，墓誌會收入此處。</div>';
 }
 function toggleBook(){
@@ -4135,38 +4756,49 @@ function clearLifeBook(){
 function epitaphImage(mid){
   const R = state.lives[mid], L = R.L, m = missionData.find(x=>x.id===mid);
   const c = document.createElement('canvas');
-  c.width = 720; c.height = 960;
+  c.width = 720; c.height = 1040;
   const g = c.getContext('2d');
-  g.fillStyle = '#F1ECDC'; g.fillRect(0,0,720,960);
-  g.fillStyle = '#FAF6EA';
-  g.beginPath(); g.moveTo(80,900); g.lineTo(80,220); g.quadraticCurveTo(80,90,360,90); g.quadraticCurveTo(640,90,640,220); g.lineTo(640,900); g.closePath(); g.fill();
-  g.strokeStyle = '#24506A'; g.lineWidth = 4; g.stroke();
-  g.strokeStyle = '#C7BC9A'; g.lineWidth = 1.5;
-  g.beginPath(); g.moveTo(100,885); g.lineTo(100,225); g.quadraticCurveTo(100,110,360,110); g.quadraticCurveTo(620,110,620,225); g.lineTo(620,885); g.closePath(); g.stroke();
   const serif = '"Noto Serif TC","Songti TC","PMingLiU",serif';
-  g.textAlign = 'center';
-  g.fillStyle = '#24506A'; g.font = `700 30px ${serif}`; g.fillText('墓　誌', 360, 175);
-  g.fillStyle = '#20242B'; g.font = `700 64px ${serif}`; g.fillText(L.name, 360, 290);
-  g.fillStyle = '#525A63'; g.font = `24px ${serif}`;
-  g.fillText(`${lifeYearLabel(L.birth)} — ${lifeYearLabel(L.birth + L.deathAge)} · 享年 ${L.deathAge} 歲`, 360, 340);
-  g.fillText(`${m.juan} · ${lifeEras[mid].title}`, 360, 378);
-  g.fillStyle = '#20242B'; g.font = `24px ${serif}`;
-  const text = lifeEpitaph(L);
-  let line = '', y = 450;
-  for(const ch of text){
-    if(g.measureText(line + ch).width > 440){ g.fillText(line, 360, y); line = ''; y += 40; }
-    line += ch;
-  }
-  if(line) g.fillText(line, 360, y);
-  g.fillStyle = '#A6342B'; g.font = `700 30px ${serif}`;
-  g.fillText(`此生福祉 ${R.welfare} / 100`, 360, Math.max(y + 80, 720));
-  g.strokeStyle = '#A6342B'; g.lineWidth = 3; g.strokeRect(318, 780, 84, 84);
-  g.fillStyle = '#A6342B'; g.font = `700 44px ${serif}`; g.fillText(m.era, 360, 838);
-  g.fillStyle = '#525A63'; g.font = `18px ${serif}`;
-  g.fillText('時空掌舵人 · 眾生篇', 360, 935);
-  const url = c.toDataURL('image/png');
-  document.getElementById('imgOut').innerHTML = `<img src="${url}" alt="${L.name}的墓誌圖卡"><div style="margin-top:10px;"><a class="btn" href="${url}" download="墓誌-${L.name}.png">⬇️ 下載圖片</a></div><p class="code-tip">如未能直接下載，可長按或按右鍵另存圖片。</p>`;
-  document.getElementById('imgPanel').classList.add('show');
+  const draw = sceneImg => {
+    g.fillStyle = '#F1ECDC'; g.fillRect(0,0,720,1040);
+    g.fillStyle = '#FAF6EA';
+    g.beginPath(); g.moveTo(80,980); g.lineTo(80,220); g.quadraticCurveTo(80,80,360,80); g.quadraticCurveTo(640,80,640,220); g.lineTo(640,980); g.closePath(); g.fill();
+    g.strokeStyle = '#24506A'; g.lineWidth = 4; g.stroke();
+    g.strokeStyle = '#C7BC9A'; g.lineWidth = 1.5;
+    g.beginPath(); g.moveTo(100,965); g.lineTo(100,225); g.quadraticCurveTo(100,100,360,100); g.quadraticCurveTo(620,100,620,225); g.lineTo(620,965); g.closePath(); g.stroke();
+    g.textAlign = 'center';
+    g.fillStyle = '#24506A'; g.font = `700 30px ${serif}`; g.fillText('墓　誌', 360, 160);
+    if(sceneImg){
+      g.imageSmoothingEnabled = false;
+      g.drawImage(sceneImg, 140, 182, 440, 132);
+      g.strokeStyle = '#C7BC9A'; g.lineWidth = 2; g.strokeRect(140, 182, 440, 132);
+    }
+    g.fillStyle = '#20242B'; g.font = `700 60px ${serif}`; g.fillText(L.name, 360, 390);
+    g.fillStyle = '#525A63'; g.font = `24px ${serif}`;
+    g.fillText(`${lifeYearLabel(L.birth)} — ${lifeYearLabel(L.birth + L.deathAge)} · 享年 ${L.deathAge} 歲`, 360, 436);
+    g.fillText(`${m.juan} · ${lifeEras[mid].title}`, 360, 472);
+    g.fillStyle = '#20242B'; g.font = `24px ${serif}`;
+    let line = '', y = 532;
+    for(const ch of lifeEpitaph(L)){
+      if(g.measureText(line + ch).width > 440){ g.fillText(line, 360, y); line = ''; y += 40; }
+      line += ch;
+    }
+    if(line) g.fillText(line, 360, y);
+    g.fillStyle = '#A6342B'; g.font = `700 30px ${serif}`;
+    g.fillText(`此生福祉 ${R.welfare} / 100`, 360, Math.max(y + 76, 800));
+    g.strokeStyle = '#A6342B'; g.lineWidth = 3; g.strokeRect(318, 860, 84, 84);
+    g.fillStyle = '#A6342B'; g.font = `700 44px ${serif}`; g.fillText(m.era, 360, 918);
+    g.fillStyle = '#525A63'; g.font = `18px ${serif}`;
+    g.fillText('時空掌舵人 · 眾生篇', 360, 1015);
+    const url = c.toDataURL('image/png');
+    document.getElementById('imgOut').innerHTML = `<img src="${url}" alt="${L.name}的墓誌圖卡"><div style="margin-top:10px;"><a class="btn" href="${url}" download="墓誌-${L.name}.png">⬇️ 下載圖片</a></div><p class="code-tip">如按鈕沒有反應（例如在預覽視窗中），可長按或按右鍵另存圖片。</p>`;
+    document.getElementById('imgPanel').classList.add('show');
+  };
+  const svg = pxLifeScene(L, L.deathAge).replace('<svg ', '<svg width="640" height="192" ');
+  const img = new Image();
+  img.onload = () => draw(img);
+  img.onerror = () => draw(null);
+  img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 }
 function closeImg(){ document.getElementById('imgPanel').classList.remove('show'); }
 /* 終卷：六世碑林 */
@@ -4177,16 +4809,10 @@ function renderLifeHall(){
   if(!done.length){ box.innerHTML = '<p class="journey-note">（本次旅程未有進行眾生篇。）</p>'; return; }
   const avg = f => Math.round(done.reduce((a,m)=>a+f(state.lives[m.id]), 0)/done.length);
   box.innerHTML = `
-    <div class="hall-grid">${done.map((m,i)=>{ const R = state.lives[m.id], L = R.L; return `
-      <div class="hall-stone" style="--i:${i}">
-        <div class="hs-era">${m.era}</div>
-        <div class="hs-face">${lifePortraitSvg(L)}</div>
-        <div class="hs-name">${L.name}</div>
-        <div class="hs-meta">${lifeStratum(L).n}<br>享年 ${L.deathAge} · 福祉 ${R.welfare}</div>
-      </div>`; }).join('')}</div>
+    <div class="px-grid hall">${done.map((m,i)=>{ const R = state.lives[m.id], L = R.L;
+      return pxCard(L, L.deathAge, {i, extra:`<div class="pxc-sub">${m.juan} · ${m.era} · 享年 ${L.deathAge} · 福祉 <b>${R.welfare}</b></div>`}); }).join('')}</div>
     <p class="journey-note">你走過 ${done.length} 世：平均享年 ${avg(R=>R.L.deathAge)} 歲，平均福祉 ${avg(R=>R.welfare)}。哪一世的出身最順？哪一世的國策最幫得到普通人？</p>`;
 }
-
 /* ---------- 眾生篇：結業卷軸與教師彙整 ---------- */
 function livesCertLine(){
   const done = missionData.filter(m=>state.lives[m.id] && state.lives[m.id].phase === 'ended');
