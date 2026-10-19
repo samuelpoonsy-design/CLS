@@ -215,7 +215,6 @@
   /* 開篇 */
   #hero{padding-top:110px; position:relative;}
   #hero.active{display:flex !important;}
-  
 
   .btn{
     display:inline-flex; align-items:center; gap:8px;
@@ -401,8 +400,7 @@
     .echo-ico svg{animation:hourglass 2.4s ease-in-out infinite; transform-origin:50% 50%;}
   }
   @keyframes hourglass{0%,40%{transform:rotate(0);}50%,90%{transform:rotate(180deg);}100%{transform:rotate(360deg);}}
-  .rescue-row{margin-top:10px; display:flex; flex-direction:column; gap:8px; align-items:flex-start; color:var(--ink);}
-  .rescue-row small{color:var(--ink-soft);}
+
   /* 交給老師 */
   .code-box{margin-top:18px; padding:14px 16px; border:1px dashed var(--indigo); background:var(--indigo-tint);}
   .code-head{font-weight:700; color:var(--indigo-deep);}
@@ -434,9 +432,6 @@
   .delta-chip.up{color:var(--jade-deep); border-color:var(--jade);}
   .delta-chip.down{color:var(--vermillion-deep); border-color:var(--vermillion);}
   .delta-chip.flat{color:var(--ink-soft);}
-  
-  .threshold-warn{background:rgba(166,52,43,0.1); border-left:3px solid var(--vermillion); padding:10px 14px; font-size:0.85rem; color:var(--vermillion-deep); margin-top:12px; display:none;}
-  .threshold-warn.show{display:block;}
 
   /* 反思 */
   .reflect-stage{margin-bottom:30px; width:100%;}
@@ -713,7 +708,6 @@
     .px-bird{animation:pxFly 24s linear infinite;}
     .px-wing1{animation:pxW1 0.5s steps(1) infinite;}
     .px-wing2{animation:pxW2 0.5s steps(1) infinite;}
-    .px-train{animation:pxTrain 7s linear infinite;}
     .px-conf{animation:pxFall 2.4s linear infinite;}
     .px-walk{animation:pxWalk 20s linear infinite;}
     .px-walk.rev{animation-name:pxWalkR;}
@@ -729,7 +723,6 @@
   @keyframes pxFly{from{transform:translateX(-90px);}to{transform:translateX(120px);}}
   @keyframes pxW1{0%,100%{opacity:1;}50%{opacity:0;}}
   @keyframes pxW2{0%,100%{opacity:0;}50%{opacity:1;}}
-  @keyframes pxTrain{from{transform:translateX(0);}to{transform:translateX(280px);}}
   @keyframes pxFall{from{transform:translateY(-6px); opacity:1;}to{transform:translateY(34px); opacity:0.2;}}
   @keyframes pxWalk{from{transform:translateX(-100px);}to{transform:translateX(100px);}}
   @keyframes pxWalkR{from{transform:translateX(100px);}to{transform:translateX(-100px);}}
@@ -779,6 +772,7 @@
   .hx-eras li:last-child{border-bottom:none;}
   .hx-eras li.on{background:var(--indigo-tint);}
   .he-seal{width:30px; height:30px; border-radius:50%; border:1.5px solid var(--vermillion); color:var(--vermillion-deep); display:flex; align-items:center; justify-content:center; font-weight:700; font-family:"Kaiti TC","STKaiti",serif;}
+  .he-name small{display:block; font-size:0.72rem; color:var(--ink-soft); line-height:1.4;}
   .he-year{font-size:0.76rem; color:var(--ink-soft); font-variant-numeric:tabular-nums;}
   .hx-cta{max-width:520px; width:100%; margin:34px auto 0; display:flex; gap:10px; padding:10px; background:var(--parchment); border:1px solid var(--line); border-radius:8px; box-shadow:0 8px 24px var(--shadow);}
   .hx-cta input{flex:1; min-width:0; border:none; background:transparent; font-size:1rem;}
@@ -838,8 +832,7 @@
   .st-line{font-size:0.9rem; margin:6px 0; display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
   .st-line .inv-icon{width:22px; height:22px; color:var(--indigo-deep);}
   .fin-title{font-size:1.3rem; font-weight:700; color:var(--vermillion-deep); margin:6px 0 14px;}
-  .sm-card .threshold-warn{margin-top:12px;}
-  .rescue-row{margin-top:8px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+
   /* 眾生篇（精簡） */
   .life-wrap{margin-top:0; padding-top:0; border-top:none;}
   .bc-name{margin-top:12px;}
@@ -917,7 +910,7 @@
 <div id="dashboard">
   <div id="meterRow"></div>
   <div class="dash-btns">
-    <button id="codexBtn" onclick="toggleCodex()" title="國安圖鑑">🛡️ <span id="codexCount">0</span>/20</button>
+    <button id="codexBtn" onclick="toggleCodex()" title="國安圖鑑">🛡️ <span id="codexCount">0</span>/<span id="codexTotal">15</span></button>
     <button id="bookBtn" onclick="toggleBook()" title="輪迴簿">📖 <span id="bookCount">0</span></button>
   </div>
 </div>
@@ -937,7 +930,7 @@
     <div style="margin-top:10px; text-align:right;"><button class="btn ember" onclick="summarizeClass()">彙整</button></div>
     <div id="teacherOut"></div>
     <div class="tr-summary" style="margin-top:18px;">
-      <b>⏱️ 短課模式</b>：課時有限時，可按下方按鈕解鎖全部卷，讓學生直接跳到指定的一卷（例如只玩清代與當代）。學生亦可在首頁取消「眾生篇」，只玩抉擇部分。
+      <b>⏱️ 短課模式</b>：課時有限時，可按下方按鈕解鎖全部卷，讓學生直接跳到指定的一卷（例如只玩清代與改革開放）。學生亦可在首頁取消「眾生篇」，只玩抉擇部分。
       <div style="margin-top:8px;"><button class="scroll-toggle" onclick="unlockAllStops()">🔓 解鎖全部卷</button> <span class="code-copied" id="unlockNote"></span></div>
     </div>
   </div>
@@ -972,12 +965,12 @@
 <section id="hero" class="active" data-stop="0">
   <div class="hx">
     <div class="hx-left">
-      <div class="hx-badge">中國歷史 × 公民與社會發展 · 互動人生模擬 · 六個時代</div>
+      <div class="hx-badge">中國歷史 × 公民與社會發展 · 互動人生模擬 · 五個時代</div>
       <h1 class="hx-title">時空<br>掌舵<em>人</em></h1>
-      <p class="hx-tag">由秦代嶺南走到今日香港。你先替國家定策，再投胎成為那個時代的一個普通人——在哪裡出生、成為誰的孩子，都無法選擇。</p>
+      <p class="hx-tag">由秦代嶺南走到改革開放的深圳特區。你先替國家定策，再投胎成為那個時代的一個普通人——在哪裡出生、成為誰的孩子，都無法選擇。</p>
       <div class="hx-stats">
         <div><b id="hxBorn">0</b><span>打開這頁後，全國出生的嬰兒</span></div>
-        <div><b>6</b><span>個時代 · 30 個抉擇 · 6 段人生</span></div>
+        <div><b>5</b><span>個時代 · 25 個抉擇 · 5 段人生</span></div>
       </div>
       <div class="hx-sub">歷史長河中的人生</div>
       <div class="hx-cards" id="hxCards"></div>
@@ -985,7 +978,7 @@
     <div class="hx-right">
       <div class="px-frame hx-city" id="hxCity"></div>
       <div class="hx-panel">
-        <h3>你將走過的六個時代</h3>
+        <h3>你將走過的五個時代</h3>
         <p>每個時代：讀一段史料 · 作五個抉擇 · 活一生</p>
         <ol class="hx-eras" id="hxEras"></ol>
       </div>
@@ -1004,12 +997,12 @@
 
 <div id="missionsRoot"></div>
 
-<section id="final" data-stop="7">
+<section id="final" data-stop="6">
   <div class="frame sm">
     <div class="sm-head"><span class="sm-seal">終</span><div><div class="sm-juan">終卷</div><h2>旅程完結</h2></div></div>
     <div class="fin-title" id="finTitle"></div>
     <div class="st-grid" id="finMeters"></div>
-    <div class="sm-label" style="margin-top:24px;">🕯️ 你走過的六世</div>
+    <div class="sm-label" style="margin-top:24px;">🕯️ 你走過的每一世</div>
     <div id="lifeHall"></div>
     <div class="sm-card">
       <div class="sm-label">📜 領取結業卷軸</div>
@@ -1042,7 +1035,7 @@
     <div class="reflect-stage">
       <h3><svg class="stage-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><circle cx="13" cy="13" r="9" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="19" y1="19" x2="27" y2="27" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>🔍 第一階段 · 所見（經驗描述）</h3>
       <div class="reflect-q">在虎門烽煙一卷中，你面臨了什麼樣的資源匱乏與主權危機？</div>
-      <div class="reflect-q">在憲制終章的審議中，你引述了《憲法》或《基本法》哪一條文，才成功兼顧國安與經濟？</div>
+      <div class="reflect-q">在蛇口潮聲一卷中，深圳經濟特區與香港如何優勢互補？你的哪一個抉擇最能體現「敢闖敢試」？</div>
       <div class="reflect-q">在整段旅程中，哪一卷史料或哪一件行囊信物最讓你印象深刻？</div>
       <div class="reflect-q">翻開你的「國安圖鑑」：你在情境中遇見了哪些國家安全領域？哪一個是你原本沒想過也算國家安全的？</div>
     </div>
@@ -1050,12 +1043,12 @@
     <div class="reflect-stage">
       <h3><svg class="stage-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><ellipse cx="16" cy="18" rx="10" ry="12" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="12" y="4" width="8" height="5" fill="currentColor"/><line x1="16" y1="30" x2="16" y2="36" stroke="currentColor" stroke-width="2"/></svg>🤔 第二階段 · 所思（意義深化）</h3>
       <div class="reflect-q">為何秦朝建立的郡縣制與嶺南開發，對後世中國的大一統版圖有如此深遠的影響？</div>
-      <div class="reflect-q">為何說《憲法》與《基本法》共同構成香港特別行政區的憲制基礎？「一國」與「兩制」有何辯證關係？</div>
-      <div class="reflect-q">中華文化中「民惟邦本」與「兼收並蓄」的思想，如何體現在當代國家治理與香港多元社會之中？</div>
+      <div class="reflect-q">為何說改革開放是國家發展的重要轉捩點？香港在這個過程中擔當了甚麼角色？</div>
+      <div class="reflect-q">中華文化中「民惟邦本」與「兼收並蓄」的思想，如何體現在歷代的嶺南治理與香港的多元社會之中？</div>
       <div class="reflect-q">為何說「總體國家安全觀」把安全視為一個整體？試以遊戲中某一次抉擇為例，說明它如何同時牽動多個安全領域。</div>
       <div class="reflect-q">宋代交子超發引發通脹、清代國力落後招致戰敗——經濟安全與科技安全，如何最終演變成政治安全與國土安全的危機？</div>
-      <div class="reflect-q">🕯️ 翻看你的「六世輪迴」：哪一世的出身令人生最艱難？那一世的國策，有沒有幫到像他／她這樣的普通人？</div>
-      <div class="reflect-q">🕯️ 在「三十而立」時，你認為人生差異主要來自出身、個人抉擇，還是時代與政策？走完六世之後，你的看法有沒有改變？</div>
+      <div class="reflect-q">🕯️ 翻看你走過的每一世：哪一世的出身令人生最艱難？那一世的國策，有沒有幫到像他／她這樣的普通人？</div>
+      <div class="reflect-q">🕯️ 在「三十而立」時，你認為人生差異主要來自出身、個人抉擇，還是時代與政策？走完每一世之後，你的看法有沒有改變？</div>
     </div>
 
     <div class="reflect-stage">
@@ -1064,7 +1057,7 @@
       <div class="reflect-q">作為具備世界視野的香港青年，你可以如何在日常生活與未來職業中，為國家與香港的發展作出貢獻？</div>
       <div class="reflect-q">我們應如何透過創新科技與現代生活方式，保護並弘揚中華優秀傳統文化（如非遺傳承）？</div>
       <div class="reflect-q">作為中學生，你在日常生活中（如網絡使用、資料保護、生態習慣）可以怎樣落實維護國家安全的責任？</div>
-      <div class="reflect-q">🕯️ 卷六的「同代人」與你同年出生：如果你是政策制定者，你最想推行哪一項政策，令公屋家庭、新來港家庭的孩子有更多機會？</div>
+      <div class="reflect-q">🕯️ 卷五的人生裏，深港兩地的普通人如何把握改革開放的機遇？如果你生於 1960 年代，你會怎樣選擇？</div>
     </div>
 
     <div class="decision-box scroll-panel" style="margin-bottom:30px;">
@@ -1080,11 +1073,12 @@
       <summary>📚 眾生篇大事年表 · 資料來源與說明</summary>
       <p>眾生篇中的出身比例與壽數屬教學推估；人生事件屬遊戲推演，並非史實。各卷「時代大事」的主要依據如下，標示「約」或「據史家考訂」者，為後世史家的繫年，原始史料未有寫明確切年份。</p>
       <ul>
+        <li><b>各卷代表年份</b>：秦平嶺南設南海郡（前214）、屯門設鎮（約 736，據史家考訂）、設益州交子務（1023）、虎門銷煙（1839）、深圳經濟特區成立（1980）。</li>
         <li><b>秦</b>：設三郡（前214）見《史記·秦始皇本紀》；趙佗封關、南越建國、陸賈出使（前196）、呂后禁鐵器、文帝再遣陸賈（前179）、趙佗去世（前137）見《史記·南越列傳》。男子名「黑夫」「驚」「衷」取材自雲夢睡虎地秦簡家書。</li>
         <li><b>唐</b>：改元開元見《舊唐書·玄宗紀》；市舶使見《新唐書·柳澤傳》（設置地點與年份學界說法不一）；開大庾嶺路（716）見張九齡〈開大庾嶺路記〉；屯門鎮兵見《新唐書·地理志》，736 年設鎮之說據香港史家考訂；鑒真經廣州（750）見《唐大和上東征傳》；安史之亂見《資治通鑑》。</li>
         <li><b>宋</b>：益州交子務（1023）及翌年發行官交子見《宋史·食貨志》、《續資治通鑑長編》；慶曆新政、州縣立學（1044）、熙寧變法見《宋史》。</li>
         <li><b>清</b>：虎門銷煙、《南京條約》、《北京條約》、《展拓香港界址專條》見條約及中國歷史科通行史實；中央書院（1862）、東華醫院（1870 年立例、1872 年落成）、香港華人西醫書院（1887）、鼠疫（1894）可參考香港歷史博物館、東華三院及香港大學校史資料。</li>
-        <li><b>改革開放至當代</b>：免費教育（1971、1978）、廉政公署（1974）、蛇口工業區（1979）、深圳經濟特區（1980）、《中英聯合聲明》（1984）、《基本法》（1990）、僱員再培訓局（1992）、回歸（1997）、CEPA（2003）、高鐵及港珠澳大橋（2018）、大灣區綱要（2019）、《香港國安法》（2020）、全面通關（2023）均為官方公布日期；2046 年長者約佔 36% 據政府統計處《香港人口推算 2022–2046》；2050 年碳中和目標據《香港氣候行動藍圖 2050》。標示「推演」者為按現行規劃的推想。</li>
+        <li><b>改革開放</b>：免費教育（1971、1978）、廉政公署（1974）、蛇口工業區（1979）、深圳經濟特區（1980）、《中英聯合聲明》（1984）、大亞灣核電站動工（1987）及投產（1994）、《基本法》（1990）、深圳證券交易所試業（1990）、僱員再培訓局（1992）、回歸（1997）、CEPA（2003）、北京奧運（2008）均為官方公布日期。</li>
       </ul>
     </details>
     <div class="sm-next"><button class="hx-link" onclick="openTeacher()">👩‍🏫 教師專區</button></div>
@@ -1104,7 +1098,7 @@ const state = {
   charName:'',
   merit:0, inventory:[],
   revealed:{}, chosen:{}, stamped:{}, dlgIndex:{}, roundIndex:{}, typing:{}, missionStart:{}, missionMeritStart:{}, domainsFound:{},
-  order:{}, bestCount:{}, quiz:{}, echoDone:{}, rescued:false,
+  order:{}, bestCount:{}, quiz:{}, echoDone:{}, 
   lives:{}, lifeMode:true, lifeSpeed:1, step:{}, lastResult:{}, echoHtml:{}
 };
 /* 每回合的方案顯示次序隨機打亂：資料中最佳方案固定排在最後，若照原序顯示，學生很快會摸出「揀最後一個就啱」 */
@@ -1172,18 +1166,7 @@ const missionData = [
 {
   id:'m1', juan:'卷一', era:'秦', chapterTag:'第一章 · 大一統與文明融和',
   title:'嶺南初定：郡縣與教化', loc:'秦代 · 南海郡番禺縣 · 中央集權與郡縣制',
-  dialogue:[
-    {who:'narrator', line:'南海之地，山高林密，俚越雜處。始皇新設郡縣，法度未行，人心未附——傳承人，且看你如何定分止爭。'},
-    {who:'exec', line:'新附之地，若不重典鎮之，恐生變亂！'},
-    {who:'cul', line:'越人風俗自有其理，一味強壓，只怕適得其反。'}
-  ],
   context:'秦始皇統一六國後，派兵平定嶺南，於此設南海郡番禺縣——香港地區自此正式納入中國版圖。然而，中原法制與本地俚越風俗差異甚大，加上山林阻隔、交通不便，如何治理這片新附之地，成為你上任後的第一道難題。',
-  deliberation:{
-    exec:'嶺南甫定、人心未附，大局上該以「立威」還是「懷柔」為先？如何在鎮壓與安撫之間拿捏分寸？',
-    law:'秦律強調「不得自為」，但若全盤移植而不因地制宜，是否反而動搖法治根基？可有典籍先例可援引變通？',
-    fis:'徵發勞役開鑿新道、運糧戍邊，財政與民力負擔如何精算，才不致竭澤而漁？',
-    cul:'推行「書同文、車同軌」固然利於一統，但百越文化（斷髮文身、干欄建築、龍舟習俗）該如何安置，才不致激起文化對立？'
-  },
   knowledge:'郡縣制取代分封制，是秦代中央集權的重要基石，也奠定了此後兩千年中國「大一統」政治格局的雛形——香港自秦代納入南海郡番禺縣起，便已是中國版圖不可分割的一部分，這正是高中公民科探討香港憲制基礎時的歷史起點。「禮法並用」的治理智慧，也呼應了中華文化兼容並蓄的天下觀。',
   scrollTitle:'史料卷軸 · 雲夢睡虎地秦簡（節錄大意）',
   scrollText:'「……什伍連坐，度量衡、文字皆依秦制，不得自為……」\n——秦簡所載的什伍連坐與統一制度，反映秦代以嚴密法制鞏固中央集權的治理邏輯。',
@@ -1214,18 +1197,7 @@ const missionData = [
 {
   id:'m2', juan:'卷二', era:'唐', chapterTag:'第一章 · 大一統與文明融和',
   title:'屯門開海：番坊與防務', loc:'唐代 · 廣州市舶司 · 屯門鎮 · 海路貿易與番坊管理',
-  dialogue:[
-    {who:'narrator', line:'大唐開廣運四海，屯門波濤日夜不息。番舶雲集，番坊喧鬧——開放與防範之間，分寸何在？'},
-    {who:'fis', line:'番商雲集，稅利可觀，何必自縛手腳？'},
-    {who:'exec', line:'利之所在，弊亦隨之，海防豈可鬆懈？'}
-  ],
   context:'海上絲綢之路日益繁榮，廣州成為對外貿易重港，屯門因地理位置優越而設鎮駐軍，護衛海路安全。大批外商湧入，聚居「番坊」，帶來文化交流的機遇，也帶來治安與監管的挑戰。',
-  deliberation:{
-    exec:'番坊繁盛帶來稅收與威望，但也牽動海防安全，如何在開放格局中仍守住底線？',
-    law:'唐律「化外人有犯，各依本俗法」是否足以應付日益複雜的涉外案件？監管的法源何在？',
-    fis:'市舶司的稅收該如何設計，才能既充盈國庫，又不致嚇跑番商？',
-    cul:'番坊帶來的異域文化與中原禮俗如何交融共存，而不致喧賓奪主？'
-  },
   knowledge:'唐代開放的對外政策與市舶司制度，是初中歷史科認識「盛唐氣象」的重要例證；屯門在唐代已是重要海防據點，說明香港自古以來便是中國海疆體系的一環，呼應高中公民科探討香港自古以來版圖演變的課題。「化外人有犯，各依本俗法」則體現中華文化兼收並蓄、禮法並用治理多元社會的智慧。',
   scrollTitle:'史料卷軸 ·《唐律疏議・名例律》',
   scrollText:'「諸化外人，同類自相犯者，各依本俗法；異類相犯者，以法律論。」\n——唐律容許外商依本俗自理內部糾紛，異族相犯則依唐律論處，體現開放與法治並存的氣度。',
@@ -1256,18 +1228,7 @@ const missionData = [
 {
   id:'m3', juan:'卷三', era:'宋', chapterTag:'第二章 · 海上絲路的繁榮與近現代轉向',
   title:'汴京交子：誠信與瓷路', loc:'宋代 · 汴京夜市 · 交子 · 香港採珠製鹽業',
-  dialogue:[
-    {who:'narrator', line:'汴京夜市燈火如晝，交子輕薄卻繫著萬千商賈的信用。度支之道，不在多印，而在守信。'},
-    {who:'exec', line:'軍費周轉不靈，交子多印一些又有何妨？'},
-    {who:'fis', line:'輕重失衡，信用一失，禍患無窮！'}
-  ],
   context:'汴京夜市燈火通明，商業高度繁榮；四川商人首創「交子」，成為世界最早的紙幣。香港地區的採珠業與製鹽業亦相當發達，茶葉、絲綢、陶瓷經海路遠銷四方。度支專員必須為交子的發行，以及海上貿易的稅收，做出精確判斷。',
-  deliberation:{
-    exec:'交子既關乎財政穩定，也牽動民心向背，發行規模該如何權衡？',
-    law:'交子發行若無明確法度規範準備金比例，日後恐生何種法律與治理風險？',
-    fis:'如何精算準備金與發行總額之間的比例，才能兼顧財政靈活與貨幣信用？',
-    cul:'誠信乃商道之本，交子的信用崩壞會如何影響社會風氣與文化凝聚？'
-  },
   knowledge:'交子是世界最早的紙幣，反映宋代商品經濟高度發展，是初中歷史科認識宋代「商業革命」的重要例證；其興衰也說明「誠信」在經濟治理中的核心地位，呼應中華文化「義利之辨」的價值觀——義以生利、利以豐民，而非見利忘義。',
   scrollTitle:'史料卷軸 · 交子發行史實摘要',
   scrollText:'北宋政府接手交子發行後，規定須備有約三分之一的鈔本（準備金）方可流通，並限定發行總額，以維持交子的信用與幣值穩定。',
@@ -1298,18 +1259,7 @@ const missionData = [
 {
   id:'m4', juan:'卷四', era:'清', chapterTag:'第二章 · 海上絲路的繁榮與近現代轉向',
   title:'虎門烽煙：存亡與氣節', loc:'清代 · 虎門銷煙 · 鴉片戰爭 ·《南京條約》',
-  dialogue:[
-    {who:'narrator', line:'虎門硝煙未散，炮火已至珠江口。國之存亡，繫於一念——是屈膝，是死戰，還是知恥而後勇？'},
-    {who:'fis', line:'兵連禍結，糜費無度，不如早日議和。'},
-    {who:'exec', line:'國恥當前，豈能不戰而降！'}
-  ],
   context:'鴉片走私氾濫，白銀外流，國力日衰。林則徐奉命赴廣東禁煙，虎門銷煙震動中外，卻招致英國以武力發動鴉片戰爭。清政府戰敗，被迫簽訂《南京條約》，割讓香港島。你必須從這段沉痛歷史中，汲取對主權與國力的深刻反思。',
-  deliberation:{
-    exec:'戰爭已然爆發，議和與抗戰的抉擇如何影響日後國家的存續與尊嚴？',
-    law:'《南京條約》從國際法與國家主權角度而言，暴露了當時中國在國際體系中何種困境？',
-    fis:'戰爭與賠款耗費巨大國力，如何在存亡關頭仍顧及民生根基？',
-    cul:'這段屈辱歷史該如何轉化為凝聚民族氣節與愛國情懷的精神資源，而非一味悲情？'
-  },
   knowledge:'鴉片戰爭與《南京條約》是初中中國歷史科的重要課題，標誌著中國近代史的開端與香港被英國佔領的起點；高中公民科則透過這段歷史，說明國家於1997年恢復對香港行使主權的歷史必然性與正當性。林則徐的氣節，正是中華文化「捨生取義」「知恥而後勇」精神的具體體現。',
   scrollTitle:'史料卷軸 · 林則徐奏摺與《南京條約》節錄',
   scrollText:'林則徐：「若鴉片一日未絕，本大臣一日不回，誓與此事相始終，斷無中止之理。」\n《南京條約》（1842）：中國割讓香港島予英國，開放五口通商，並賠款二千一百萬銀元。',
@@ -1338,86 +1288,33 @@ const missionData = [
   ]
 },
 {
-  id:'m5', juan:'卷五', era:'革', chapterTag:'第三章 · 當代治理、改革開放與全球互聯',
-  title:'蛇口潮聲：協同與轉型', loc:'當代 · 深圳經濟特區 · 大灣區產業協同',
-  dialogue:[
-    {who:'narrator', line:'深圳蛇口，推土機隆隆作響。香江之資，北望神州——這是一盤如何落子的大棋？'},
-    {who:'fis', line:'機不可失，先開閘引資再說！'},
-    {who:'exec', line:'外資湧入，變數難測，不如緩行。'}
-  ],
-  context:'國家實施改革開放，深圳設立經濟特區，香港則發揮資金、技術與管理優勢，協助內地發展，並轉型為國際金融中心。你須在大灣區地圖沙盤上，為「產業轉型」「科技創新」「生態保護」「文化交流」四類籌碼，作出配置。',
-  deliberation:{
-    exec:'大灣區協同發展牽涉多方利益，如何統籌香港與內地的角色分工？',
-    law:'外資與產業轉型的引進，需要哪些法規配套才能確保有序而非失控？',
-    fis:'產業轉型、科技創新、生態保護、文化交流四項籌碼，如何取得財政與資源上的平衡？',
-    cul:'香港的中西文化交流優勢，如何在大灣區協同發展中發揮軟實力作用？'
-  },
-  knowledge:'改革開放與大灣區建設是高中公民科「國情與國家發展」的核心課題；香港憑藉「一國兩制」下獨特的普通法制度與國際聯繫，在國家發展大局中擔當「引進來、走出去」的橋樑角色，體現中華文化「民惟邦本」以民生福祉為施政依歸的治理智慧。',
+  id:'m5', juan:'卷五', era:'革', chapterTag:'第三章 · 改革開放與深港協作',
+  title:'蛇口潮聲：開放與協作', loc:'改革開放 · 深圳經濟特區 · 前店後廠',
+  context:'國家實施改革開放，1980 年設立深圳經濟特區。昔日的邊陲小鎮，迎來港商的資金、技術與管理經驗；香港亦借助內地的土地與人力，開展「前店後廠」的合作。你要為特區的起步作出規劃。',
+  knowledge:'改革開放是高中公民科「國情與國家發展」的核心課題。深圳經濟特區「敢闖敢試」，結合香港的資金、技術與管理經驗，造就了珠三角的騰飛；香港亦在參與國家發展的過程中，轉型為國際金融、貿易與航運中心，發揮「引進來、走出去」的橋樑角色。',
   scrollTitle:'史料卷軸 · 改革開放史實摘要',
   scrollText:'1978年，國家推行改革開放；1980年，深圳、珠海等地設立經濟特區。香港以「前店後廠」模式，結合內地土地勞力與香港資金技術，推動珠三角迅速崛起為「世界工廠」。',
   item:{name:'特區地契圖卷', flavor:'深圳經濟特區的規劃圖卷，見證改革開放的起點。', icon:'map'},
   rounds:[
-    { label:'大灣區四類籌碼配置', domains:['jingji', 'shengtai', 'ziyuan'], stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'全力衝刺產業轉型，不顧環保監管', summary:'大舉引進外資與工廠，暫緩生態保護與資源安全審查。', quote:'「機不可失，先求發展，環保之事，來日方長。」', delta:{fa:-5,guo:-3,min:6,wen:0}, feedback:'經濟一時高速增長，卻埋下監管缺失與資源安全的隱患，「法治值」與「國安穩定」雙雙下滑。'},
-      {key:'B', speaker:'執政專員', label:'保守觀望，拒絕深化開放', summary:'固守原有模式，不參與大灣區產業協同與科技合作。', quote:'「外資湧入，恐生變數，不如按兵不動。」', delta:{fa:0,guo:2,min:-5,wen:-3}, feedback:'雖然穩妥，卻錯失發展機遇，「民生經濟」與「文化凝聚」停滯不前。'},
-      {key:'C', speaker:'律令專員', label:'均衡配置，依法規管外資', summary:'在產業轉型、科技創新、生態保護、文化交流四方面均衡配置籌碼，並依法規管外資。', quote:'「依法規管，產業、科創、生態、文化四者並重，方為長久之計。」', delta:{fa:3,guo:3,min:5,wen:5}, feedback:'發展與規範並重——香港正是憑藉「一國兩制」下的獨特優勢，融入國家發展大局。'}
+    { label:'特區發展路向', domains:['jingji', 'shengtai', 'ziyuan'], stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'度支專員', label:'全速招商建廠，暫緩環保規劃', summary:'大舉引進工廠，生態與資源規劃留待日後。', quote:'「先把工廠建起來再說。」', delta:{fa:-5,guo:-3,min:6,wen:0}, feedback:'工廠拔地而起，經濟增長迅速；但規劃與環保未及跟上，日後要花更多力氣補救，「法治值」與「國安穩定」受壓。'},
+      {key:'B', speaker:'執政專員', label:'保守觀望，暫不設特區', summary:'維持原有模式，暫不劃設經濟特區。', quote:'「穩一穩，再看看。」', delta:{fa:0,guo:2,min:-5,wen:-3}, feedback:'局面平穩，但錯過了改革開放帶來的發展良機，「民生經濟」與「文化凝聚」停滯不前。'},
+      {key:'C', speaker:'律令專員', label:'設立特區，依法有序引資', summary:'劃設經濟特區，以法規保障投資，產業、生態與民生並重。', quote:'「敢為天下先，也要依法辦事。」', delta:{fa:3,guo:3,min:5,wen:5}, feedback:'深圳經濟特區於 1980 年成立，港資帶來資金、技術與管理經驗，邊陲小鎮迅速發展為現代化城市——這正是改革開放「敢闖敢試」的精神。'}
     ]},
     { label:'前店後廠勞工權益', domains:['shehui', 'jingji'], situation:'「前店後廠」模式下，大量內地勞工湧入珠三角工廠，勞動條件與權益保障備受關注。度支專員須權衡生產成本與勞工福祉。', stampLabel:'蓋憲法法理印', gated:false, options:[
       {key:'A', speaker:'度支專員', label:'壓低成本，不顧勞權', summary:'壓低工資與福利以維持產業競爭力，不設勞工權益保障。', quote:'「成本才是競爭力的根本，勞權暫且擱置。」', delta:{fa:-5,guo:-2,min:5,wen:-5}, feedback:'短期成本優勢明顯，但勞資糾紛頻生，「文化凝聚」與「法治值」雙雙受損。'},
       {key:'B', speaker:'律令專員', label:'嚴格管制，增加企業負擔', summary:'立即實施最嚴格的勞工保障法規，大幅增加企業經營成本。', quote:'「勞工權益優先，企業成本其次。」', delta:{fa:3,guo:0,min:-6,wen:2}, feedback:'勞工權益雖獲保障，但企業成本驟增，部分工廠外移，「民生經濟」明顯下滑。'},
       {key:'C', speaker:'執政專員', label:'循序完善，勞資共贏', summary:'循序漸進完善勞動法規與社會保障，同時維持產業競爭力。', quote:'「勞資共贏，循序完善，方能行穩致遠。」', delta:{fa:5,guo:2,min:3,wen:5}, feedback:'勞工權益逐步改善，產業競爭力亦未受損——這正是改革開放「摸著石頭過河」漸進務實精神的體現。'}
     ]},
-    { label:'深港跨境基建協同', domains:['ziyuan', 'guotu', 'he'], situation:'港深兩地醞釀興建跨境鐵路與口岸基建，以強化雙城協同，但涉及龐大的土地、財政與規劃協調問題。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'各自為政，互不協調', summary:'港深各自按自身規劃推進，不作聯合協調。', quote:'「各有各的規劃，何必事事協調？」', delta:{fa:0,guo:0,min:-5,wen:-5}, feedback:'基建重複浪費、銜接不暢，錯失協同發展的效益，「民生經濟」與「文化凝聚」受損。'},
-      {key:'B', speaker:'度支專員', label:'倉促上馬，不計成本', summary:'為求盡快建成，倉促上馬，不作充分規劃評估。', quote:'「宜早不宜遲，先建了再說。」', delta:{fa:-5,guo:0,min:-3,wen:0}, feedback:'工程雖快速推進，但規劃粗疏引發後續爭議與超支，「法治值」明顯受損。'},
-      {key:'C', speaker:'律令專員', label:'聯合規劃，分階段推進', summary:'港深成立聯合規劃小組，分階段、按實際需求推進跨境基建。', quote:'「聯合規劃，分階段推進，方是務實之道。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'跨境基建有序推進，港深「一小時生活圈」逐步成形——區域協同發展的效益日益彰顯。'}
+    { label:'深港基建與能源合作', domains:['ziyuan', 'guotu', 'he'], situation:'特區發展一日千里，電力與交通需求急增。深港兩地商議合作興建口岸、公路與發電設施，包括引入核電。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'執政專員', label:'各自為政，互不協調', summary:'深港各自按自身規劃推進，不作聯合協調。', quote:'「各有各的規劃，何必事事協調？」', delta:{fa:0,guo:0,min:-5,wen:-5}, feedback:'口岸與電網銜接不暢，錯失協同效益，「民生經濟」與「文化凝聚」受損。'},
+      {key:'B', speaker:'度支專員', label:'倉促上馬，不作評估', summary:'為求盡快完成，不作充分的安全與規劃評估。', quote:'「宜早不宜遲，先建了再說。」', delta:{fa:-5,guo:0,min:-3,wen:0}, feedback:'工程雖快速推進，但安全與規劃評估不足，留下隱患，「法治值」明顯受損。'},
+      {key:'C', speaker:'律令專員', label:'聯合規劃，安全為先', summary:'兩地聯合規劃口岸與交通，核電項目按國際安全標準建設，分階段推進。', quote:'「聯合規劃，安全為先，方是務實之道。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'大亞灣核電站於 1987 年動工、1994 年投入商業運行，為深港兩地供電；新口岸亦相繼啟用——深港合作令兩地發展更上一層樓。'}
     ]},
-    { label:'金融開放與資本監管', domains:['jinrong', 'jingji'], situation:'香港作為國際金融中心，面對內地資本市場開放的呼聲，須決定金融互聯互通的開放步伐與監管配套。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'全面開放，資本自由進出', summary:'立即全面開放資本帳戶，不設任何限制。', quote:'「金融全面開放，方能盡顯自由港優勢。」', delta:{fa:-5,guo:-6,min:5,wen:0}, feedback:'短期資金流入暢旺，但監管缺位使系統性金融風險大增，「國安穩定」與「法治值」重挫。'},
-      {key:'B', speaker:'執政專員', label:'嚴格管制，拒絕互聯互通', summary:'拒絕任何跨境金融互聯互通機制，維持高度管制。', quote:'「金融安全為重，互聯互通暫緩為宜。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'金融體系雖穩健，但錯失國際資本樞紐的發展機遇，「民生經濟」明顯受限。'},
-      {key:'C', speaker:'律令專員', label:'漸進試點，風險可控互聯', summary:'透過「滬深港通」等機制漸進試點，在風險可控下推進互聯互通。', quote:'「漸進試點，風險可控，方能行穩致遠。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'金融市場穩步對外開放，香港「國際金融中心」與「國家金融安全屏障」角色相得益彰。'}
-    ]}
-  ]
-},
-{
-  id:'m6', juan:'卷六', era:'憲', chapterTag:'第三章 · 當代治理、改革開放與全球互聯',
-  title:'憲制終章：一國兩制', loc:'當代 ·《憲法》與《基本法》· 跨國科技合作審查 · 非遺保護立法',
-  dialogue:[
-    {who:'narrator', line:'《憲法》與《基本法》如車之兩輪，鳥之雙翼。今日的方案，能否經得起法理的最終檢驗？'},
-    {who:'fis', line:'審查費時，恐誤商機，不如從權。'},
-    {who:'exec', line:'國安大事，寧緊勿鬆，一律嚴辦！'}
-  ],
-  context:'你收到三項政策提案：跨國科技合作的國家安全審查、非物質文化遺產保護立法，以及綠色能源轉型合作。律令專員必須查閱《中華人民共和國憲法》與《香港特別行政區基本法》實體文本，準確引用相關條文。',
-  deliberation:{
-    exec:'跨國科技合作、非遺立法、綠色能源三項提案並行，執政大局上該如何排序優次？',
-    law:'《憲法》第三十一條與《基本法》相關條文如何具體適用於這些當代議題？',
-    fis:'國家安全審查會否影響香港作為自由港與國際金融中心的競爭力？',
-    cul:'非物質文化遺產保護立法，如何體現國家對文化多樣性與傳承的重視？'
-  },
-  knowledge:'《憲法》與《基本法》共同構成香港特別行政區的憲制基礎——這正是高中公民科「『一國兩制』下的香港」單元的核心概念：「一國」是「兩制」的前提與基礎，國家安全則是香港長期繁榮穩定的根本保障。這呼應中華文化「大同世界觀」與「人類命運共同體」的胸襟——在保障國家整體利益的同時，仍尊重多元差異。',
-  scrollTitle:'史料卷軸 ·《憲法》與《基本法》節錄',
-  scrollText:'《憲法》第三十一條：國家可以在特別行政區內實行的制度，按照具體情況由全國人民代表大會以法律規定。\n《基本法》第五條：香港特別行政區不實行社會主義的制度和政策，保持原有的資本主義制度和生活方式，五十年不變。\n《基本法》第二十三條：香港特別行政區應自行立法禁止危害國家安全的行為。',
-  item:{name:'憲法基本法合璧函', flavor:'載有《憲法》與《基本法》相關條文的合璧函，象徵「一國兩制」的憲制智慧。', icon:'book'},
-  rounds:[
-    { label:'跨國科技合作審查', domains:['keji', 'ai', 'zhengzhi'], stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'只顧經濟效益，擱置國安審查', summary:'優先批准跨國科技合作以促進經濟，暫緩國家安全審查。', quote:'「合作機遇稍縱即逝，審查之事，可以從緩。」', delta:{fa:-5,guo:-6,min:5,wen:0}, feedback:'國安審查缺位，潛在風險未除。'},
-      {key:'B', speaker:'執政專員', label:'全面收緊，窒礙交流', summary:'以國安為由，一律否決跨國合作與非遺立法，不予任何彈性。', quote:'「國安為先，寧緊勿鬆，一律從嚴。」', delta:{fa:2,guo:5,min:-6,wen:-5}, feedback:'安全雖獲短暫保障，卻窒礙經濟與文化交流。'},
-      {key:'C', speaker:'律令專員', label:'依憲依法，兼顧國安與發展', summary:'依據《憲法》第三十一條與《基本法》第五、二十三條等條文，對科技合作作國安審查，同時完成非遺立法保護與綠色能源合作。', quote:'「依《憲法》第三十一條、《基本法》第五、二十三條而行，國安與發展本可並行。」', delta:{fa:5,guo:5,min:3,wen:5}, feedback:'法治、國安、民生、文化四者兼顧——正是「一國兩制」行穩致遠的憲制智慧。'}
-    ]},
-    { label:'跨境數據與私隱保護', domains:['shuju', 'wangluo'], situation:'大灣區數據跨境流動日益頻繁，個人資料保護與國家數據安全的平衡引發關注。律令專員須提出規管方案。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'度支專員', label:'數據自由流動，不設限制', summary:'完全開放跨境數據流動，不設任何審查機制。', quote:'「數據自由流動，方能促進區域協同。」', delta:{fa:-5,guo:-5,min:3,wen:2}, feedback:'數據流通雖便利，但國家安全與個人私隱皆缺乏保障，「國安穩定」與「法治值」受損。'},
-      {key:'B', speaker:'執政專員', label:'全面鎖閉，禁止數據跨境', summary:'禁止一切個人資料跨境傳輸。', quote:'「數據安全為重，寧可犧牲便利。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'安全雖獲保障，但區域數字經濟協同發展受阻，「民生經濟」明顯受損。'},
-      {key:'C', speaker:'律令專員', label:'分類管理，合規跨境流動', summary:'依資料敏感程度分類管理，建立合規跨境流動機制。', quote:'「分類管理，合規流動，安全與發展兩不誤。」', delta:{fa:5,guo:3,min:3,wen:3}, feedback:'數據依法有序跨境流動，個人私隱與國家安全均獲保障——這正是當代治理「發展與安全並重」的具體實踐。'}
-    ]},
-    { label:'完善選舉制度', domains:['zhengzhi'], situation:'完善選舉制度、落實「愛國者治港」原則，是鞏固「一國兩制」行穩致遠的重要一環。執政專員須向公眾解說改革的意義。', stampLabel:'蓋憲法法理印', gated:false, options:[
-      {key:'A', speaker:'執政專員', label:'一概不作解說，強硬推行', summary:'不作任何公眾解說，強硬推行制度改革。', quote:'「政策既定，何須多加解釋？」', delta:{fa:0,guo:2,min:0,wen:-6}, feedback:'制度雖已落實，但社會理解不足，「文化凝聚」明顯受損，不利於凝聚共識。'},
-      {key:'B', speaker:'度支專員', label:'一再拖延，議而不決', summary:'因顧慮爭議而一再拖延改革，議而不決。', quote:'「爭議未消，不如暫緩推行。」', delta:{fa:-5,guo:-5,min:0,wen:0}, feedback:'制度懸而未決，治理秩序持續存在不確定性，「法治值」與「國安穩定」下滑。'},
-      {key:'C', speaker:'文教與文化使者', label:'廣泛解說，凝聚社會共識', summary:'透過廣泛公眾解說與教育，闡明「愛國者治港」原則對「一國兩制」行穩致遠的意義。', quote:'「講清楚、說明白，方能凝聚社會共識。」', delta:{fa:5,guo:5,min:2,wen:5}, feedback:'社會對制度改革的理解漸增，治理秩序更趨穩固——這正是良好管治須「說之以理」的重要一課。'}
-    ]},
-    { label:'大灣區青年發展（終局考驗）', domains:['wenhua', 'zhengzhi'], situation:'你即將完成最後一項提案——支持香港青年融入大灣區發展、深化國民身份認同的長遠政策。這是全程最後一道考驗，提案須讓四維指標同時維持在安全門檻（≥40）之上，方能蓋上最終的「憲法法理印」，為這段治世之旅畫上句點。', stampLabel:'蓋憲法法理印', gated:true, safetyThreshold:40, options:[
-      {key:'A', speaker:'度支專員', label:'口號宣傳，不設實質支援', summary:'僅以口號式宣傳鼓勵青年北上發展，不提供具體配套支援。', quote:'「多加宣傳，青年自會響應。」', delta:{fa:-3,guo:-3,min:-3,wen:-5}, feedback:'缺乏實質支援，青年參與度低，政策淪為空談。'},
-      {key:'B', speaker:'執政專員', label:'強制配額，行政指令主導', summary:'以行政指令強制安排青年名額到大灣區實習就業，不顧個人意願。', quote:'「以行政指令，強力推動青年北上。」', delta:{fa:-5,guo:2,min:-5,wen:-3}, feedback:'表面達標，但青年缺乏認同感，「法治值」與「民生經濟」皆受質疑。'},
-      {key:'C', speaker:'律令專員', label:'完善配套，雙向自願交流', summary:'完善實習就業、住房、稅務等配套支援，鼓勵青年自願雙向交流融入大灣區。', quote:'「完善配套，雙向自願，方能贏得青年真心認同。」', delta:{fa:5,guo:3,min:5,wen:6}, feedback:'香港青年積極參與大灣區發展，國民身份認同與家國情懷日漸深厚——傳承人的治世之旅，至此圓滿功成。'}
+    { label:'金融改革試點', domains:['jinrong', 'jingji'], situation:'特區經濟蓬勃，企業需要更多資金。內地醞釀設立證券市場，香港的金融經驗可作借鑑。', stampLabel:'蓋史料依據印', gated:false, options:[
+      {key:'A', speaker:'度支專員', label:'一步到位，全面放開', summary:'立即全面開放資本進出，不設監管配套。', quote:'「放開就是最好的改革。」', delta:{fa:-5,guo:-6,min:5,wen:0}, feedback:'資金一時湧入，但監管未備，金融風險急升，「國安穩定」與「法治值」重挫。'},
+      {key:'B', speaker:'執政專員', label:'嚴格管制，暫不試點', summary:'維持高度管制，暫不設立證券市場。', quote:'「金融之事，宜慢不宜快。」', delta:{fa:2,guo:5,min:-6,wen:-3}, feedback:'金融體系穩健，但企業融資困難，錯失發展機遇，「民生經濟」受限。'},
+      {key:'C', speaker:'律令專員', label:'先行先試，循序漸進', summary:'設立證券交易所作試點，參考香港經驗，逐步完善監管。', quote:'「先行先試，穩中求進。」', delta:{fa:5,guo:3,min:5,wen:3}, feedback:'深圳證券交易所於 1990 年 12 月開始試業，金融改革穩步推進；香港亦成為內地企業集資的重要平台——開放與穩健兼得。'}
     ]}
   ]
 }
@@ -1455,19 +1352,12 @@ const dilemmaRounds = {
       {key:'B', speaker:'度支專員', label:'只禁鴉片，正當貿易照常', summary:'加強查緝鴉片，但容許已具結或願意受檢的商船照常通商。', quote:'「禁其毒，不禁其利，方能分化外商。」', delta:{fa:-3,guo:1,min:4,wen:0}, feedback:'正當貿易得以延續（史實上部分英、美商船確曾具結入港）；但查緝存在漏洞，鴉片夾帶難以根絕，「法治值」受損。'},
       {key:'C', speaker:'執政專員', label:'整備海防，同時探究夷情', summary:'加固虎門炮台，並組織翻譯外國書報，了解英國國情。', quote:'「知己知彼，方能百戰不殆。」', delta:{fa:0,guo:3,min:-4,wen:2}, feedback:'海防與對外認識均有增進（林則徐曾組織編譯《四洲志》）；但軍費浩大，眼前僵局未解，「民生經濟」承受壓力。'}
     ]},
-  m5:{ label:'工廠北移的代價', dilemma:true, domains:['jingji','shehui'], stampLabel:'蓋史料依據印', gated:false,
-    situation:'隨著「前店後廠」模式興起，大量港資工廠遷往珠三角，內地就業大增，香港亦逐步轉型為服務業與金融中心。然而，大批本地製造業工人面臨失業，需要重新學習技能。',
+  m5:{ label:'工廠北移與工人轉型', dilemma:true, domains:['jingji','shehui'], stampLabel:'蓋史料依據印', gated:false,
+    situation:'「前店後廠」模式興起，港資工廠北移珠三角，內地就業大增，香港亦逐步發展為服務業與金融中心。部分本地製造業工人需要學習新技能，轉投新行業。每個方案都有取捨。',
     options:[
-      {key:'A', speaker:'度支專員', label:'鼓勵工廠全速北移', summary:'不設限制，讓市場決定工廠去留，香港全力轉型服務業。', quote:'「分工協作，兩地皆贏。」', delta:{fa:0,guo:-3,min:5,wen:-1}, feedback:'兩地分工效益迅速顯現；但中年工人大量失業，社會不安情緒上升，「國安穩定」受壓。'},
-      {key:'B', speaker:'執政專員', label:'限制北移，保障本地就業', summary:'以政策誘因挽留本地工廠，延緩產業轉移。', quote:'「先顧好自家工友的飯碗。」', delta:{fa:1,guo:3,min:-5,wen:0}, feedback:'本地就業暫時穩住；但生產成本高昂，企業競爭力下滑，錯失協同發展的時機，「民生經濟」重挫。'},
-      {key:'C', speaker:'文教與文化使者', label:'撥款再培訓，放緩轉型步伐', summary:'設立工人再培訓計劃，協助轉職，同時有序推進產業轉移。', quote:'「轉型不能只算經濟賬。」', delta:{fa:3,guo:2,min:-3,wen:-1}, feedback:'工人得到轉職支援，社會較為平穩；但公帑負擔沉重，轉型速度放緩，「民生經濟」受壓。'}
-    ]},
-  m6:{ label:'疫情下的口岸抉擇', dilemma:true, domains:['shengwu','shehui','jingji'], stampLabel:'蓋憲法法理印', gated:false,
-    situation:'大灣區突發傳染病，專家建議收緊口岸。然而港深兩地每日有大量人次往來，涉及跨境家庭、學童、物流與生計。無論怎樣做，都會有人付出代價。',
-    options:[
-      {key:'A', speaker:'執政專員', label:'全面封關，嚴防輸入', summary:'暫停所有非緊急跨境往來。', quote:'「生命至上，寧嚴勿鬆。」', delta:{fa:2,guo:4,min:-5,wen:-2}, feedback:'生物安全防線最為穩固；但跨境家庭被迫分隔，物流受阻，生計大受影響，「民生經濟」重挫。'},
-      {key:'B', speaker:'度支專員', label:'維持通關，加強檢測', summary:'口岸照常開放，所有旅客須接受檢測。', quote:'「經濟停擺，同樣傷及民生。」', delta:{fa:0,guo:-4,min:4,wen:1}, feedback:'民生與物流得以維持；但防疫風險偏高，社會憂慮加劇，「國安穩定」受壓。'},
-      {key:'C', speaker:'律令專員', label:'分類通關，保障必要往來', summary:'保留貨運及必要人員往來，其餘暫停，並按疫情調整。', quote:'「依法分類，寬嚴有據。」', delta:{fa:-3,guo:2,min:2,wen:-1}, feedback:'兼顧防疫與必要往來；但規則繁複且頻繁調整，「誰屬必要」爭議不斷，執行與公信受考驗，「法治值」下滑。'}
+      {key:'A', speaker:'度支專員', label:'鼓勵工廠北移，加快轉型', summary:'讓市場決定工廠去留，香港全力發展服務業。', quote:'「分工協作，兩地皆贏。」', delta:{fa:0,guo:-3,min:5,wen:-1}, feedback:'兩地分工效益迅速顯現；但部分中年工人一時難以轉職，「國安穩定」稍為受壓。'},
+      {key:'B', speaker:'執政專員', label:'限制北移，保留本地工廠', summary:'以政策誘因挽留本地工廠，放慢產業轉移。', quote:'「先顧好自家工友的飯碗。」', delta:{fa:1,guo:3,min:-5,wen:0}, feedback:'本地工廠暫時保留；但成本高昂，競爭力下降，「民生經濟」受挫。'},
+      {key:'C', speaker:'文教與文化使者', label:'設再培訓，穩步轉型', summary:'設立工人再培訓計劃，協助轉職，同時有序推進產業轉移。', quote:'「轉型路上，不讓一個人掉隊。」', delta:{fa:3,guo:2,min:-3,wen:-1}, feedback:'工人獲得轉職支援，社會平穩過渡；但轉型步伐稍慢，公帑支出增加，「民生經濟」稍為受壓。'}
     ]}
 };
 missionData.forEach(m=>{ if(dilemmaRounds[m.id]) m.rounds.splice(2, 0, dilemmaRounds[m.id]); });
@@ -1488,10 +1378,7 @@ const scrollQuiz = {
     why:'《南京條約》（1842）割讓香港島；九龍半島界限街以南於《北京條約》（1860）割讓；新界則於《展拓香港界址專條》（1898）租借。' },
   m5:{ q:'改革開放後的「前店後廠」模式，指的是甚麼？',
     opts:['香港負責資金、技術、接單與銷售，珠三角負責生產','香港設廠生產，內地負責開店銷售','港深兩地合資開設連鎖商店'], ans:0,
-    why:'「店」指香港的接單、設計、融資與銷售，「廠」指珠三角的工廠生產——兩地優勢互補，令珠三角崛起為「世界工廠」。' },
-  m6:{ q:'以下哪一條文，為國家設立特別行政區提供了憲制依據？',
-    opts:['《基本法》第二十三條','《憲法》第三十一條','《基本法》第五條'], ans:1,
-    why:'《憲法》第三十一條授權全國人大按具體情況以法律規定特別行政區的制度，《基本法》即據此制定；第五條保障原有制度五十年不變，第二十三條規定特區自行立法維護國家安全。' }
+    why:'「店」指香港的接單、設計、融資與銷售，「廠」指珠三角的工廠生產——兩地優勢互補，令珠三角崛起為「世界工廠」。' }
 };
 
 /* ---------- 資料：時空回響（較早的抉擇在後來的卷中產生影響） ----------
@@ -1510,13 +1397,9 @@ const echoData = {
       B:{t:'你在唐代裁減屯門駐軍。海防積弱的教訓，在千年後的鴉片戰爭中再次浮現。', d:{guo:-3}},
       C:{t:'你在唐代寓兵於民。兵農合一的傳統延續於民間，三元里團練得以迅速集結。', d:{guo:2,wen:1}} }},
   m5:{ from:'m4', label:'五口通商善後應對', text:{
-      A:{t:'你在清代諱敗為勝。封閉保守的思維延續，令改革開放之初阻力重重。', d:{min:-2,wen:-1}},
-      B:{t:'你在清代全盤西化、盡棄舊制。文化失根之下，開放時更易迷失方向。', d:{wen:-3}},
-      C:{t:'你在清代正視差距、師夷長技。自強求變的傳統，令改革開放更易凝聚共識。', d:{wen:2,min:1}} }},
-  m6:{ from:'m5', label:'金融開放與資本監管', text:{
-      A:{t:'你在改革開放時期讓資本自由進出。金融風險悄然累積，今日審查跨國合作時更顯被動。', d:{guo:-3}},
-      B:{t:'你在改革開放時期嚴格管制資本。香港錯失互聯互通的機遇，今日發展動力略遜。', d:{min:-2}},
-      C:{t:'你在改革開放時期漸進試點、風險可控。累積的監管經驗，令今日依法審查更有底氣。', d:{fa:2,guo:1}} }}
+      A:{t:'你在清代諱敗為勝。封閉保守的思維延續多年，改革開放之初需要花更多力氣解放思想。', d:{min:-2,wen:-1}},
+      B:{t:'你在清代全盤西化、盡棄舊制。改革開放之時，需要重新尋回文化根基。', d:{wen:-3}},
+      C:{t:'你在清代正視差距、師夷長技。自強求變的傳統，令改革開放更快凝聚共識。', d:{wen:2,min:1}} }}
 };
 
 /* ---------- 渲染：儀表 ---------- */
@@ -1576,20 +1459,24 @@ const domainIconPaths = {
 function domainIcon(k){
   return `<svg class="dicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${domainIconPaths[k]||''}</svg>`;
 }
+/* 遊戲各回合實際牽涉的國安領域（其餘屬當代議題，只在圖鑑中介紹） */
+const gameDomains = new Set(missionData.flatMap(m=>m.rounds.flatMap(r=>r.domains || [])));
 function renderCodex(){
   document.getElementById('codexMeters').innerHTML = Object.keys(meterMeta).map(k=>
     `<div class="codex-meter"><b>${meterMeta[k].name}</b>${meterSecurityMap[k]}</div>`).join('');
   document.getElementById('codexList').innerHTML = securityDomains.map(d=>{
     const found = !!state.domainsFound[d.k];
+    const inGame = gameDomains.has(d.k);
     return `<div class="codex-item${found?' found':''}">
       <div class="codex-ico">${domainIcon(d.k)}</div>
       <div class="codex-body">
-        <div class="cn"><span>${d.n}</span><span class="cmark">${found?'✦ 已於情境中遇見':'尚未遇見'}</span></div>
+        <div class="cn"><span>${d.n}</span><span class="cmark">${found ? '✦ 已於情境中遇見' : (inGame ? '尚未遇見' : '當代議題，本遊戲未涉及')}</span></div>
         <div class="cd">${d.d}</div>
       </div>
     </div>`;
   }).join('');
   document.getElementById('codexCount').textContent = Object.keys(state.domainsFound).length;
+  document.getElementById('codexTotal').textContent = gameDomains.size;
 }
 function toggleCodex(){
   const p = document.getElementById('codexPanel');
@@ -1605,13 +1492,20 @@ function toggleCodex(){
 
 
 
-/* ---------- 渲染：六卷情境 ---------- */
 /* 每卷依時代設定天光、遠山與環境粒子，統一置於 0..150 的天幕區，
    舊有前景圖案透過 translate(0,130) 保持不變，銜接於下方 */
-/* ---------- 渲染：六卷情境（一步一卡） ----------
+/* ---------- 渲染：各卷情境（一步一卡） ----------
    每卷的流程：情境 → 史料題 → 五個抉擇（選擇、蓋印、看結果）→ 卷末結算 → 眾生篇。
    畫面每次只顯示一張卡和一個主要按鈕，讓學生容易上手。 */
 function missionShortTitle(m){ return m.title.split('：')[0]; }
+/* 各卷的代表年份，以該卷的核心史事為準（眾生篇角色的出生年份另計，會早於此年） */
+const eraKeyYear = {
+  m1:[-214, '秦平嶺南，設南海郡'],
+  m2:[736, '屯門設鎮（約，據史家考訂）'],
+  m3:[1023, '設益州交子務'],
+  m4:[1839, '林則徐虎門銷煙'],
+  m5:[1980, '深圳經濟特區成立']
+};
 function renderMissions(){
   const root = document.getElementById('missionsRoot');
   root.innerHTML = missionData.map((m,i)=>`
@@ -1619,7 +1513,7 @@ function renderMissions(){
       <div class="frame sm">
         <div class="sm-head">
           <span class="sm-seal">${m.era}</span>
-          <div><div class="sm-juan">${m.juan} · ${m.loc.split(' · ')[0]}</div><h2>${missionShortTitle(m)}</h2></div>
+          <div><div class="sm-juan">${m.juan} · ${m.loc.split(' · ')[0]} · ${lifeYearLabel(eraKeyYear[m.id][0])}</div><h2>${missionShortTitle(m)}</h2></div>
         </div>
         <div class="sm-pips" id="pips-${m.id}"></div>
         <div class="sm-art px-frame" id="art-${m.id}">${pxCityScene(m.id)}<span class="px-cap">🏙️ ${pxCityName[m.id]}</span></div>
@@ -1735,42 +1629,14 @@ function roundHtml(mid){
         <span class="so-body"><b>${o.label}</b><small>${o.summary}</small></span>
       </button>`).join('')}
     </div>
-    <div class="threshold-warn" id="warn-${mid}"></div>
     <div class="sm-next"><button class="btn ember" id="stampbtn-${mid}" ${chosen ? '' : 'disabled'} onclick="stampChoice('${mid}')">🔴 蓋印確定</button></div>`;
 }
 function chooseOption(mid, key){
-  const m = missionData.find(x=>x.id===mid);
-  const ridx = state.roundIndex[mid] || 0, round = m.rounds[ridx], rkey = mid+'#'+ridx;
+  const rkey = mid+'#'+(state.roundIndex[mid] || 0);
   if(state.stamped[rkey]) return;
   state.chosen[rkey] = key;
   document.querySelectorAll(`#card-${mid} .sm-opt`).forEach(b=>b.classList.toggle('selected', b.dataset.key===key));
-  const btn = document.getElementById('stampbtn-'+mid), warn = document.getElementById('warn-'+mid);
-  btn.disabled = false;
-  warn.classList.remove('show');
-  if(!round.gated) return;
-  /* 終局：方案須令四維全部不低於安全門檻，才可通過合憲性審查 */
-  const passes = o => Object.keys(o.delta).every(k=>Math.max(0,Math.min(100,state.meters[k]+o.delta[k])) >= round.safetyThreshold);
-  const opt = round.options.find(o=>o.key===key);
-  if(passes(opt)) return;
-  btn.disabled = true;
-  warn.innerHTML = `⚠ 以你目前的四維，這個方案會令國家安全底線失守，未能通過審查。請另選方案。` +
-    (!round.options.some(passes) ? `<div class="rescue-row">三個方案都過不到審查。<button class="btn" onclick="rescueGate('${mid}')">🆘 緊急補救（德望 −60）</button></div>` : '');
-  warn.classList.add('show');
-}
-/* 終局安全門檻的補救：避免同學因前期抉擇而永遠無法完成旅程 */
-function rescueGate(mid){
-  const ridx = state.roundIndex[mid] || 0;
-  const round = missionData.find(x=>x.id===mid).rounds[ridx];
-  const top = round.options.slice().sort((a,b)=>optionScore(round,b)-optionScore(round,a))[0];
-  Object.keys(state.meters).forEach(k=>{
-    state.meters[k] = Math.max(state.meters[k], round.safetyThreshold - Math.min(0, top.delta[k]||0));
-  });
-  state.merit = Math.max(0, state.merit - 60);
-  state.rescued = true;
-  renderDashboard();
-  verdictFlash('補　救', false);
-  const key = state.chosen[mid+'#'+ridx];
-  if(key) chooseOption(mid, key);
+  document.getElementById('stampbtn-'+mid).disabled = false;
 }
 function stampChoice(mid){
   const missionIdx = missionData.findIndex(x=>x.id===mid);
@@ -1878,7 +1744,7 @@ const REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-
 /* ---------- 互動：蓋印確認 → 生效 ---------- */
 
 
-/* 終卷：時空足跡地圖——六卷印記沿長河排開，按上策次數著色 */
+/* 終卷：時空足跡地圖——各卷印記沿長河排開，按上策次數著色 */
 function renderJourney(){
   const el = document.getElementById('journeyMap');
   if(!el) return;
@@ -2043,7 +1909,6 @@ function genCert(){
   const quizOk = Object.values(state.quiz).filter(q=>q.ok).length;
   document.getElementById('certRole').innerHTML =
     `上策 ${bestTotal} / ${totalRounds}　· 史料題 ${quizOk} / ${missionData.length}　· 信物 ${state.inventory.length} 件` +
-    (state.rescued ? '<br><span style="color:var(--vermillion-deep)">※ 終局經緊急補救方通過安全審查</span>' : '') +
     livesCertLine();
   document.getElementById('certBox').classList.remove('hidden');
   document.getElementById('codeOut').value = makeCode(name);
@@ -2055,7 +1920,6 @@ function makeCode(name){
     ch: missionData.map(m=>m.rounds.map((r,i)=>{ const k=m.id+'#'+i; return state.stamped[k] ? state.chosen[k] : '-'; }).join('')),
     q: missionData.map(m=>state.quiz[m.id] ? (state.quiz[m.id].ok?'1':'0') : '-').join(''),
     m: [state.meters.fa, state.meters.guo, state.meters.min, state.meters.wen],
-    r: state.rescued ? 1 : 0,
     L: missionData.map(m=>{
       const R = state.lives[m.id];
       if(!R || R.phase !== 'ended') return 0;
@@ -2127,7 +1991,7 @@ function resetGame(){
   state.meters = {fa:50,guo:50,min:50,wen:50};
   state.merit = 0; state.inventory = [];
   state.chosen = {}; state.stamped = {}; state.roundIndex = {}; state.missionStart = {}; state.missionMeritStart = {}; state.domainsFound = {};
-  state.order = {}; state.bestCount = {}; state.quiz = {}; state.echoDone = {}; state.echoHtml = {}; state.rescued = false; state.step = {}; state.lastResult = {};
+  state.order = {}; state.bestCount = {}; state.quiz = {}; state.echoDone = {}; state.echoHtml = {}; state.step = {}; state.lastResult = {};
   renderDashboard();
   renderCodex();
   renderMissions();
@@ -2141,7 +2005,7 @@ const pageOpenedAt = Date.now();
 let heroCityIdx = 0, heroCityTimer = null;
 function renderHero(){
   document.getElementById('hxEras').innerHTML = missionData.map((m,i)=>`
-    <li style="--i:${i}"><span class="he-seal">${m.era}</span><span class="he-name">${missionShortTitle(m)}</span><span class="he-year">${lifeYearLabel(lifeEras[m.id].start)}</span></li>`).join('');
+    <li style="--i:${i}"><span class="he-seal">${m.era}</span><span class="he-name">${missionShortTitle(m)}<small>${eraKeyYear[m.id][1]}</small></span><span class="he-year">${lifeYearLabel(eraKeyYear[m.id][0])}</span></li>`).join('');
   /* 隨機抽三段「歷史長河中的人生」作首頁卡片 */
   const mids = missionData.map(m=>m.id).sort(()=>Math.random()-0.5).slice(0,3);
   document.getElementById('hxCards').innerHTML = mids.map((mid,i)=>{
@@ -2469,7 +2333,7 @@ m4:{
   reflect:'香港開埠前後，一個新安縣普通人的生活出現了哪些轉變？國家積弱與主權受損，怎樣影響普通人的機會？'
 },
 m5:{
-  title:'深港眾生 · 前店後廠', start:1960, where:'寶安縣（今深圳）或香港', mort:80,
+  title:'深港眾生 · 前店後廠', start:1960, where:'寶安縣（今深圳）或香港', mort:80, positive:true,
   names:{sur:['陳','李','黃','張','梁','何','劉','林','吳','鄭'], m:['志強','偉文','國華','建明','家豪','少榮','耀輝','振邦'], f:['美玲','麗珍','惠芳','淑儀','寶珠','玉蓮','秀英','嘉欣']},
   strata:[
     {k:'baoan', n:'寶安農家', w:26, flags:['farm'], pl:'sz', job:'耕作', place:'寶安縣的農村（今深圳）', base:{h:58,j:48,k:12,b:52,w:18}},
@@ -2488,15 +2352,9 @@ m5:{
     [1984, '中英兩國政府簽署《中英聯合聲明》。'],
     [1990, '全國人民代表大會通過《基本法》。'],
     [1992, '鄧小平南巡，改革開放步伐加快；香港亦成立僱員再培訓局，協助轉型中的工人。'],
-    [1997, '香港回歸祖國，成立特別行政區；同年亞洲金融風暴爆發。', {eff:{w:-3}, pl:'hk'}],
+    [1997, '香港回歸祖國，成立特別行政區。'],
     [2003, '內地與香港簽署 CEPA，兩地經貿聯繫更緊密。'],
-    [2008, '北京舉辦奧運會。'],
-    [2018, '廣深港高鐵香港段、港珠澳大橋相繼通車。'],
-    [2019, '《粵港澳大灣區發展規劃綱要》公布。'],
-    [2020, '新冠疫情爆發，各地推出防疫措施。'],
-    [2023, '香港與內地全面恢復通關。'],
-    [2035, '（推演）北部都會區陸續發展，深港兩地往來更頻繁。'],
-    [2046, '（推演）按政府推算，屆時約三分之一香港人口為長者。']
+    [2008, '北京舉辦奧運會。']
   ],
   events:[
     {id:'plastic', a:[6,14], w:()=>0.12, max:1, t:'放學後與家人一起穿膠花、做「山寨」手工，幫補家計。', eff:{w:3,b:2,j:-1}, tone:'mid'},
@@ -2528,84 +2386,26 @@ m5:{
     28:{q:'二十八歲（1988 年）：珠三角工資與租金較低，深圳特區日新月異。你的抉擇是？', opts:[
       {t:'隨工廠北上，當管工', d:'香港工廠北移，形成「前店後廠」。', pl:'hk', link:'min', p:(L,M)=>0.35+M.min/170,
         ok:{t:'你在東莞的廠房帶領數百名工人，收入大增。', eff:{w:12,b:4,j:-2}, job:'北上管工', tag:'隨廠北上當管工', tone:'good'},
-        no:{t:'北上後水土不服，工廠訂單亦不穩，兩年後回港。', eff:{w:2,j:-3}, job:'散工', tag:'北上不順而回港', tone:'mid'}},
+        no:{t:'你在北上的兩年學會了管理工廠，回港後轉任貿易公司跟單員。', eff:{w:5,k:4}, job:'貿易跟單員', tag:'北上歷練後轉投貿易', tone:'mid'}},
       {t:'留港轉行，投身服務業', d:'零售、物流、金融正在興起。', pl:'hk', mar:true, eff:{w:6,k:4,j:2}, job:'服務業僱員', tag:'留港轉投服務業', r:'你轉行成功，也在香港成了家。'},
       {t:'自己北上設廠', d:'須有本錢。', pl:'hk', req:{w:45}, why:'本錢不足', link:'min', p:(L,M)=>0.3+M.min/160,
         ok:{t:'你的工廠訂單源源不絕，成了廠商。', eff:{w:20,b:4}, job:'廠商', tag:'北上設廠而成廠商', tone:'good'},
-        no:{t:'工廠經營困難，最終結業。', eff:{w:-10,j:-4}, job:'散工', tag:'北上設廠而結業', tone:'bad'}},
+        no:{t:'工廠規模不大，你穩打穩紮，經營一間小型加工廠。', eff:{w:6,b:2}, job:'小廠東主', tag:'北上經營小型加工廠', tone:'mid'}},
       {t:'進入特區的外資工廠', d:'收入比務農高出好幾倍。', pl:'sz', mar:true, eff:{w:10,b:3}, job:'工廠技術員', tag:'入特區工廠', r:'你成了技術骨幹，也在深圳成了家。'},
       {t:'「下海」經商開店', d:'改革開放，個體戶如雨後春筍。', pl:'sz', link:'min', p:(L,M)=>0.3+M.min/160,
         ok:{t:'你的小店越開越大，成了遠近知名的老闆。', eff:{w:16,b:4}, job:'個體戶老闆', tag:'下海經商而成功', tone:'good'},
-        no:{t:'生意不如預期，最終結業轉行。', eff:{w:-5,j:-2}, job:'散工', tag:'下海經商未成', tone:'bad'}},
+        no:{t:'生意起步較慢，你轉做批發，生活逐步改善。', eff:{w:5,b:2}, job:'批發商', tag:'下海後轉做批發', tone:'mid'}},
       {t:'報讀夜校進修', d:'白天工作，晚上讀書。', pl:'sz', eff:{k:12,w:2}, job:'文員', tag:'讀夜校進修', r:'你考取了文憑，轉做文職。'}
     ]},
     45:{q:'四十五歲（2005 年）：香港經濟轉型，CEPA 實施，深港往來日密。你的打算是？', opts:[
       {t:'報讀進修或再培訓課程', d:'轉型到新行業。', eff:{k:8,w:4,j:3}, tag:'中年進修轉型', r:'你學會了電腦與新技能，順利轉型。'},
-      {t:'到大灣區其他城市發展', d:'搏一個新機會。', link:'min', p:(L,M)=>0.3+M.min/160,
-        ok:{t:'你在大灣區的新事業做得有聲有色。', eff:{w:12,b:3}, tag:'中年到大灣區發展', tone:'good'},
-        no:{t:'新環境適應困難，收入不如預期。', eff:{w:-4,j:-2}, tag:'中年到大灣區而不順', tone:'mid'}},
+      {t:'到珠三角其他城市發展', d:'搏一個新機會。', link:'min', p:(L,M)=>0.3+M.min/160,
+        ok:{t:'你在珠三角的新事業做得有聲有色。', eff:{w:12,b:3}, tag:'中年到珠三角發展', tone:'good'},
+        no:{t:'你在新城市穩步發展，結識了不少新朋友。', eff:{w:4,b:4}, tag:'中年到珠三角穩步發展', tone:'mid'}},
       {t:'維持現狀，多陪家人', d:'平平穩穩過日子。', eff:{j:4,b:3}, tag:'中年以家庭為重', r:'你與家人共度了許多溫馨時光。'}
     ]}
   },
   reflect:'改革開放與「前店後廠」，怎樣改變了深港兩地一代人的命運？如果你出生在河的另一邊，這一生會有甚麼不同？'
-},
-m6:{
-  title:'香江眾生 · 你的同代人', start:2010, where:'香港', mort:87,
-  names:{sur:['陳','李','黃','張','梁','何','劉','林','吳','鄭'], m:['卓軒','梓朗','浩然','俊熙','柏言','樂天','子謙','銘希'], f:['芷晴','凱琳','穎彤','卓欣','曉悠','心悅','詠詩','樂瑤']},
-  strata:[
-    {k:'pub', n:'公屋家庭', w:31, flags:[], job:'學生', place:'香港的公共屋邨', base:{h:58,j:52,k:22,b:54,w:28}},
-    {k:'hos', n:'居屋家庭', w:16, flags:[], job:'學生', place:'香港的居屋屋苑', base:{h:58,j:54,k:26,b:52,w:38}},
-    {k:'pri', n:'私樓打工家庭', w:35, flags:[], job:'學生', place:'香港的私人住宅', base:{h:58,j:54,k:28,b:52,w:44}},
-    {k:'new', n:'新來港家庭', w:8, flags:[], job:'學生', place:'舊區的分間單位', base:{h:58,j:48,k:20,b:42,w:20}},
-    {k:'pro', n:'專業人士家庭', w:10, flags:[], job:'學生', place:'香港的私人屋苑', base:{h:60,j:56,k:34,b:54,w:64}}
-  ],
-  hist:[
-    [2017, '香港回歸祖國二十周年。'],
-    [2018, '廣深港高鐵香港段、港珠澳大橋相繼通車。'],
-    [2019, '《粵港澳大灣區發展規劃綱要》公布。'],
-    [2020, '新冠疫情期間學校停課，你改上網課；同年，《香港國安法》公布實施。'],
-    [2023, '香港與內地全面恢復通關。'],
-    [2026, '你升上了高中——就像正在玩這個遊戲的你。'],
-    [2028, '你應考香港中學文憑試（DSE）。'],
-    [2035, '（推演）北部都會區陸續發展，新的社區與產業相繼落成。'],
-    [2046, '（推演）按政府推算，屆時約三分之一香港人口為長者。'],
-    [2050, '（推演）香港以 2050 年前實現碳中和為目標。']
-  ],
-  events:[
-    {id:'library', a:[6,18], w:()=>0.12, max:2, t:'你在公共圖書館借了一本好書，看得廢寢忘餐。', eff:{k:4,j:2}, tone:'good'},
-    {id:'gba', a:[18,70], w:(L,M)=>0.08+M.min/150, link:'min', t:'週末乘高鐵到大灣區城市，與朋友吃喝玩樂。', eff:{b:3,j:3}, tone:'good'},
-    {id:'heritage', a:[8,80], w:(L,M)=>0.06+M.wen/150, link:'wen', t:'你參加了長洲太平清醮／大坑舞火龍等非遺活動，感受傳統之美。', eff:{b:3,j:3,k:2}, tone:'good'},
-    {id:'digital', a:[14,70], w:(L,M)=>0.06+M.fa/200, link:'fa', max:2, t:'你學會了保護個人私隱與數據，避過一次網絡騙局。', eff:{k:3,w:1}, tone:'good'}
-  ],
-  stages:{
-    6:{q:'你六歲了（2016 年）。課餘時間該怎樣過？', opts:[
-      {t:'參加樂器或運動興趣班', d:'學一門技藝。', req:{w:40}, why:'家中預算有限', eff:{h:4,j:4,k:3}, tag:'少習樂器運動', r:'你在學校的音樂會／運動會上表現出色。'},
-      {t:'到社區中心參加免費功課輔導班', d:'義工哥哥姐姐陪你做功課。', eff:{k:6,b:5}, tag:'少在社區中心成長', r:'你在社區中心交了很多朋友。'},
-      {t:'多陪伴家人，到公園玩耍', d:'快樂童年最重要。', eff:{j:6,b:4,h:3}, tag:'少時多陪家人', r:'你的童年充滿笑聲。'}
-    ]},
-    16:{q:'十六歲（2026 年）：選科、升學，也開始思考出路。', opts:[
-      {t:'選讀科學與科技相關科目', d:'準備升讀大學的理工科。', p:(L,M)=>0.2+L.k/120,
-        ok:{t:'你在 DSE 取得好成績，升讀大學工程系。', eff:{k:14,w:4,j:3}, job:'大學生', tag:'升讀大學工程系', tone:'good'},
-        no:{t:'成績未如理想，你轉讀高級文憑，後來再銜接學位。', eff:{k:8,w:2}, job:'高級文憑學生', tag:'轉讀高級文憑', tone:'mid'}},
-      {t:'修讀應用學習與職業專才教育', d:'設計、護理、創科、廚藝……', eff:{k:8,j:4,w:3}, job:'職專學生', tag:'修讀職業專才教育', r:'你找到了自己真正喜歡的專業。'},
-      {t:'積極參加內地與國際交流', d:'擴闊視野。', eff:{b:7,k:5}, tag:'積極參加交流', r:'你在交流團結識了來自各地的朋友。'}
-    ]},
-    28:{q:'（推演）二十八歲（2038 年），大灣區各城市往來便捷。你會在哪裏發展？', opts:[
-      {t:'留港發展，投身本地產業', d:'在熟悉的地方打拚。', mar:true, eff:{w:6,j:4,b:3}, job:'在港工作', tag:'留港發展', r:'你在香港成了家，事業穩步上揚。'},
-      {t:'到大灣區內地城市工作', d:'搏更大的發展空間。', link:'min', p:(L,M)=>0.3+M.min/150,
-        ok:{t:'你在大灣區的科技公司晉升為主管。', eff:{w:12,k:4,b:2}, job:'大灣區主管', tag:'到大灣區發展而晉升', tone:'good'},
-        no:{t:'工作節奏與環境需時適應，發展平穩。', eff:{w:3,j:-1}, job:'大灣區工作', tag:'到大灣區發展', tone:'mid'}},
-      {t:'赴海外深造，再回港貢獻', d:'須有學識或家庭支持。', req:{k:55}, why:'學識未達深造要求', eff:{k:12,w:-3,b:2}, job:'研究人員', tag:'海外深造後回港', r:'你學成歸來，在本地大學做研究。'}
-    ]},
-    45:{q:'（推演）四十五歲（2055 年）：人口老化、人工智能普及。你最想投入甚麼？', opts:[
-      {t:'學習新技能，與人工智能協作', d:'終身學習。', eff:{k:8,w:5}, tag:'中年終身學習', r:'你善用新科技，工作效率倍增。'},
-      {t:'照顧年長家人，參與社區關懷', d:'陪伴與扶持。', eff:{b:10,j:5,w:-3}, tag:'中年投身社區關懷', r:'社區的長者都很喜歡你。'},
-      {t:'傳承非遺、推廣中華文化', d:'讓下一代認識傳統。', link:'wen', p:(L,M)=>0.35+M.wen/150,
-        ok:{t:'你主辦的非遺工作坊大受歡迎，年輕人踴躍參與。', eff:{b:8,j:7}, tag:'中年傳承非遺', tone:'good'},
-        no:{t:'工作坊參加者不多，但你仍堅持下去。', eff:{b:3,j:3}, tag:'中年堅持傳承非遺', tone:'mid'}}
-    ]}
-  },
-  reflect:'這一生與你自己的人生最像嗎？你今天的哪一個選擇，最可能改變你的將來？你希望國家與香港的哪些政策，能幫助同代人過得更好？'
 }
 };
 const lifeStageAges = [6,16,28,45];
@@ -2699,6 +2499,8 @@ function lifePickEvent(L, M, rng){
     if(ev.f && !ev.f.split('|').some(f=>lifeStratum(L).flags.includes(f))) return false;
     if(ev.need && !ev.need(L)) return false;
     if(ev.max && (L.counts[ev.id]||0) >= ev.max) return false;
+    /* 正面描述的時代：不抽難關事件 */
+    if(era.positive && (ev.p ? ev.ok.tone !== 'good' : ev.tone === 'bad')) return false;
     /* 同一類事件至少相隔五年，免得紀錄重複 */
     if(L.lastEv[ev.id] !== undefined && L.age - L.lastEv[ev.id] < 5) return false;
     return true;
@@ -2708,7 +2510,7 @@ function lifePickEvent(L, M, rng){
 }
 function lifeResolveEvent(L, ev, M, rng){
   let r = ev;
-  if(ev.p) r = rng() < Math.max(0, Math.min(1, ev.p(L, M))) ? ev.ok : ev.no;
+  if(ev.p) r = (lifeEras[L.mid].positive || rng() < Math.max(0, Math.min(1, ev.p(L, M)))) ? ev.ok : ev.no;
   lifeApply(L, r.eff);
   L.counts[ev.id] = (L.counts[ev.id]||0) + 1;
   L.lastEv[ev.id] = L.age;
@@ -3053,14 +2855,6 @@ function pxEstate(x, w, h, palette){
   for(let y=PXF-h+2, r=0; y<PXF-2; y+=3, r++) s += pr(x, y, w, 2, palette[r%palette.length]) + (r%2 ? pr(x+2, y, w-4, 1, '#7E95A8') : '');
   return s;
 }
-function pxBridge(y){
-  let s = pr(0, y, PXW, 2, '#D2D6DA') + pr(0, y+2, PXW, 1, '#9AA3AB');
-  for(let x=20; x<PXW; x+=40) s += pr(x, y-12, 2, 12, '#C9CED3') + pr(x-10, y-11, 22, 1, '#C9CED3') + pr(x, y+3, 2, PXF-y-3, '#9AA3AB');
-  return s;
-}
-function pxTrain(y){
-  return `<g class="px-train"><g transform="translate(-60 ${y})">${pr(0,0,44,4,'#F4F6F8')}${pr(44,1,4,3,'#F4F6F8')}${pr(0,2,48,1,'#C8473A')}${pr(4,1,36,1,'#5A6E8A')}</g></g>`;
-}
 function pxArch(cx){
   let s = '';
   for(let a=0; a<=12; a++){
@@ -3085,7 +2879,7 @@ const PX_HAIR = ['#2A2420','#3B2A20','#1F1F24'];
 const PX_CLOTH = {
   m1:['#6B5B45','#8C7A5B','#A0522D','#5E6B4F','#7D6A4E'], m2:['#B5523B','#3E7A8C','#C9A227','#7A4E8C','#4F7A6A'],
   m3:['#4F7A6A','#8C6A4F','#5A6E9A','#A8875A','#7A5A7A'], m4:['#2F4F6F','#3D3D3D','#6B4F3A','#4A6B8A','#5A4A6A'],
-  m5:['#E2C044','#D96C4F','#4F86C6','#7FB069','#E07A5F'], m6:['#E07A5F','#3D405B','#81B29A','#F2CC8F','#5FA8D3','#C77DFF']
+  m5:['#E2C044','#D96C4F','#4F86C6','#7FB069','#E07A5F']
 };
 function pxPersonPal(seed, mid, sex){
   const r = mulberry32(seed);
@@ -3093,7 +2887,7 @@ function pxPersonPal(seed, mid, sex){
   return {sex, mid, skin:PX_SKIN[Math.floor(r()*3)], hair:PX_HAIR[Math.floor(r()*3)], cloth:cl[Math.floor(r()*cl.length)], cloth2:cl[Math.floor(r()*cl.length)]};
 }
 function pxPerson(x, p, kind){
-  const modern = p.mid === 'm5' || p.mid === 'm6';
+  const modern = p.mid === 'm5';
   const elder = kind === 'elder';
   const hair = elder ? '#D9D9D9' : p.hair, sk = p.skin, eye = '#2B2B2B', shoe = '#3A3A3A';
   const B = PXF + 2;
@@ -3145,7 +2939,7 @@ function pxFamily(v){
   const base = pxHash(v.name + v.mid);
   const opp = v.sex === 'm' ? 'f' : 'm';
   const list = [];
-  const parentGone = (v.mid === 'm5' || v.mid === 'm6') ? 55 : 42;
+  const parentGone = v.mid === 'm5' ? 55 : 42;
   if(v.age < parentGone){
     const pk = pxKindOf(v.age + 26);
     list.push({p:pxPersonPal(base+11, v.mid, 'm'), kind:pk});
@@ -3188,15 +2982,14 @@ const pxStratumScene = {
   'm2.farmer':'village', 'm2.tanka':'fishing', 'm2.boat':'port', 'm2.shop':'market', 'm2.fanshang':'port', 'm2.soldier':'camp', 'm2.scholar':'study',
   'm3.salt':'salt', 'm3.pearl':'fishing', 'm3.farmer':'village', 'm3.potter':'kiln', 'm3.shop':'market', 'm3.sailor':'port', 'm3.scholar':'study',
   'm4.tanka':'fishing', 'm4.hakka':'village', 'm4.punti':'village', 'm4.quarry':'quarry', 'm4.shop':'market', 'm4.scholar':'study', 'm4.hong':'port',
-  'm5.baoan':'village', 'm5.shekou':'fishing', 'm5.factory':'resettle', 'm5.hawker':'tenement', 'm5.civil':'tenement', 'm5.boss':'skyline',
-  'm6.pub':'estate', 'm6.hos':'estate', 'm6.pri':'skyline', 'm6.new':'tenement', 'm6.pro':'skyline'
+  'm5.baoan':'village', 'm5.shekou':'fishing', 'm5.factory':'resettle', 'm5.hawker':'tenement', 'm5.civil':'tenement', 'm5.boss':'skyline'
 };
 /* 職業 → 場景（長大後按職業轉換） */
 const pxJobScene = [
   [/小吏|地方官/, 'yamen'], [/塾師|秀才/, 'study'], [/通譯/, 'port'], [/行商/, 'market'], [/瓷器商/, 'kiln'],
-  [/港島工人|洋行/, 'harbour'], [/金山客/, 'ship'], [/店主/, 'market'], [/北上管工|廠商|工廠|技術員|^工人$|師傅/, 'factory'],
+  [/港島工人|洋行/, 'harbour'], [/金山客/, 'ship'], [/店主/, 'market'], [/北上管工|廠商|工廠|技術員|^工人$|師傅|小廠東主/, 'factory'], [/貿易跟單員/, 'skyline'], [/批發商/, 'market'],
   [/專業人士|服務業|在港工作/, 'skyline'], [/個體戶|文員/, 'shenzhen'], [/大學生|文憑學生|職專學生|研究人員/, 'campus'],
-  [/大灣區/, 'gba'], [/公社會計/, 'village']
+  [/公社會計/, 'village']
 ];
 function pxSceneKey(v){
   let key = pxStratumScene[`${v.mid}.${lifeEras[v.mid].strata[v.s].k}`] || 'village';
@@ -3205,8 +2998,8 @@ function pxSceneKey(v){
   if(v.mid === 'm5' && key === 'resettle' && v.year >= 1990) key = 'estate';
   return key;
 }
-const pxCityKey = {m1:'city', m2:'port', m3:'market', m4:'harbour', m5:'shenzhen', m6:'skyline'};
-const pxCityName = {m1:'秦 · 番禺城', m2:'唐 · 廣州港', m3:'宋 · 東莞墟市', m4:'清 · 香港開埠', m5:'改革開放 · 深圳特區', m6:'當代 · 維港兩岸'};
+const pxCityKey = {m1:'city', m2:'port', m3:'market', m4:'harbour', m5:'shenzhen'};
+const pxCityName = {m1:'秦 · 番禺城', m2:'唐 · 廣州港', m3:'宋 · 東莞墟市', m4:'清 · 香港開埠', m5:'改革開放 · 深圳特區'};
 function pxScene(key, o){
   const rng = mulberry32(o.seed || 7);
   const m = o.mid;
@@ -3224,7 +3017,7 @@ function pxScene(key, o){
     case 'fishing':
       ground = 'sand';
       bg = pxSun(130, 9) + clouds() + pxMount(30, 28, 12, '#A9C4C8') + pxSea(28) + pxBoat(14, 30, 0) + pxBoat(120, 32, 1.1) + pxBirds(70, 6);
-      mid = (m === 'm5' || m === 'm6') ? pxHouse(132, 16, '#E6DCC8', '#7A7A7A') : pxPalm(146) + pxPalm(6);
+      mid = m === 'm5' ? pxHouse(132, 16, '#E6DCC8', '#7A7A7A') : pxPalm(146) + pxPalm(6);
       if(m === 'm4') mid += pxHut(128);
       break;
     case 'port':
@@ -3290,7 +3083,7 @@ function pxScene(key, o){
       break;
     case 'tenement':
       ground = 'pave';
-      bg = pxSun(80, 6) + clouds() + (m === 'm6' ? pxSkyline(rng, false, 32, 22) : '');
+      bg = pxSun(80, 6) + clouds();
       mid = pxTenement(0, 34, '#D8C7A8') + pxTenement(126, 34, '#C9B8A8') + pxLaundry(2, 32, 20);
       break;
     case 'factory':
@@ -3320,10 +3113,6 @@ function pxScene(key, o){
       bg = pxSun(20, 8) + clouds();
       mid = pxBlock(48, 64, 22, '#E6DCC8', '#8FB3C9') + pr(74, PXF-34, 12, 12, '#E6DCC8') + pr(77, PXF-31, 6, 6, '#F4F6F8') + pr(79, PXF-30, 1, 3, '#3A3A3A') + pr(79, PXF-28, 3, 1, '#3A3A3A')
         + pr(72, PXF-36, 16, 2, '#B5473A') + pxTree(8) + pxTree(24, '#4F8F4A') + pxTree(130) + pxTree(146, '#4F8F4A');
-      break;
-    case 'gba':
-      ground = 'pave';
-      bg = pxSun(146, 7) + clouds() + pxSkyline(rng, false, 26, 16).replace(/<rect /g, '<rect opacity="0.55" ') + pxSea(26) + pxBridge(24) + pxTrain(20);
       break;
   }
   let over = '', top = '';
@@ -3374,7 +3163,7 @@ function pxCard(L, age, opts){
 }
 
 const pxSceneName = {village:'鄉村', fishing:'漁村', port:'港口', market:'墟市', city:'城郭', kiln:'窯場', salt:'鹽場', quarry:'石礦場', yamen:'官署', study:'書齋',
-  camp:'兵營', harbour:'維多利亞港', ship:'遠洋船上', resettle:'徙置大廈', tenement:'唐樓街坊', factory:'工廠', shenzhen:'深圳特區', skyline:'都市', estate:'公共屋邨', campus:'校園', gba:'大灣區'};
+  camp:'兵營', harbour:'維多利亞港', ship:'遠洋船上', resettle:'徙置大廈', tenement:'唐樓街坊', factory:'工廠', shenzhen:'深圳特區', skyline:'都市', estate:'公共屋邨', campus:'校園'};
 function pxPlaceName(L, age){
   const v = pxViewOf(L, age), key = pxSceneKey(v);
   return key === pxStratumScene[`${v.mid}.${lifeStratum(L).k}`] ? lifeStratum(L).place : pxSceneName[key];
@@ -3818,7 +3607,7 @@ function saveEpitaph(){
   }, 'image/png');
 }
 function closeImg(){ document.getElementById('imgPanel').classList.remove('show'); }
-/* 終卷：六世碑林 */
+/* 終卷：眾生碑林 */
 function renderLifeHall(){
   const box = document.getElementById('lifeHall');
   if(!box) return;
