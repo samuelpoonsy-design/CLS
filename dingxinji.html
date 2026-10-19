@@ -85,7 +85,7 @@
     --indigo-tint:rgba(36,80,106,0.08);
   }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; font-size:106.25%;}
   body{
     margin:0;
     background-color:var(--paper);
@@ -268,7 +268,7 @@
   .codex-ico .dicon{width:20px; height:20px; margin:0;}
   .codex-item.found .codex-ico{color:var(--vermillion-deep); border-color:var(--vermillion); background:rgba(166,52,43,0.07);}
   .codex-body{flex:1; min-width:0;}
-  #toastStack{position:fixed; right:16px; bottom:18px; z-index:90; display:flex; flex-direction:column; gap:8px; align-items:flex-end; pointer-events:none;}
+  #toastStack{position:fixed; left:16px; bottom:18px; z-index:90; display:flex; flex-direction:column; gap:8px; align-items:flex-start; pointer-events:none;}
   .unlock-toast{display:flex; gap:10px; align-items:center; padding:9px 14px 9px 10px; background:var(--parchment); border:2px solid var(--vermillion-deep); box-shadow:0 8px 22px var(--shadow); color:var(--ink); font-size:0.85rem;}
   .unlock-toast small{display:block; font-size:0.68rem; color:var(--vermillion-deep); letter-spacing:0.08em;}
   .unlock-toast .ut-ico{width:32px; height:32px; border-radius:50%; background:rgba(166,52,43,0.1); color:var(--vermillion-deep); display:flex; align-items:center; justify-content:center;}
@@ -277,8 +277,8 @@
     .unlock-toast{animation:toastIn .45s cubic-bezier(.2,.9,.3,1.3) both;}
     .unlock-toast .ut-ico{animation:icoSpin .8s ease-out .2s both;}
   }
-  .unlock-toast.out{opacity:0; transform:translateX(30px); transition:all .35s ease;}
-  @keyframes toastIn{from{opacity:0; transform:translateX(60px);}to{opacity:1; transform:none;}}
+  .unlock-toast.out{opacity:0; transform:translateX(-30px); transition:all .35s ease;}
+  @keyframes toastIn{from{opacity:0; transform:translateX(-60px);}to{opacity:1; transform:none;}}
   @keyframes icoSpin{from{transform:rotate(-180deg) scale(.4);}to{transform:none;}}
 
   /* 蓋印：落印 + 墨暈 */
@@ -507,7 +507,7 @@
     .verdict-flash{font-size:1.5rem; letter-spacing:0.2em;}
     /* 足跡地圖縮放後字太細：放大 SVG 內字級 */
     .jn-lbl{font-size:21px;}
-    #toastStack{right:8px; bottom:10px;}
+    #toastStack{left:8px; bottom:10px;}
     .unlock-toast{font-size:0.74rem; padding:4px 9px 4px 5px; gap:6px; border-width:1.5px; opacity:.96;}
     .unlock-toast small{display:none;}
     .unlock-toast b::before{content:'解鎖 ';font-weight:400;color:var(--vermillion-deep);}
@@ -837,13 +837,11 @@
   .life-wrap{margin-top:0; padding-top:0; border-top:none;}
   .bc-name{margin-top:12px;}
   .bc-peers{font-size:0.84rem; color:var(--ink-soft); margin-top:8px;}
-  .lh-now{margin:12px 0; padding:10px 14px; border-radius:8px; background:var(--paper); border-left:4px solid var(--line); font-size:0.95rem; line-height:1.7; min-height:3.6em;}
-  .lh-now.lg-good{border-left-color:var(--jade);} .lh-now.lg-bad{border-left-color:var(--vermillion);} .lh-now.lg-era{border-left-color:var(--indigo); background:var(--indigo-tint);} .lh-now.lg-choice{border-left-color:var(--vermillion-deep);}
+
   .lh-stats{grid-template-columns:repeat(5,1fr); gap:6px 10px; margin:8px 0;}
   .ls-row{grid-template-columns:1fr; gap:3px; font-size:0.72rem;}
   .lh-ctrl{justify-content:center; margin:10px 0 0;}
-  .life-log{list-style:none; padding:0; margin:12px 0; max-height:260px; overflow-y:auto; font-size:0.82rem;}
-  .life-log li{padding:5px 0; border-bottom:1px dashed var(--line); line-height:1.6;}
+
   .end-merit{text-align:center;}
   @media (prefers-reduced-motion: no-preference){
     .sm-card.swap{animation:resultIn .35s ease-out;}
@@ -883,6 +881,36 @@
     #dashboard{top:40px;}
     .hx-cta{position:sticky; bottom:12px; z-index:5;}
   }
+
+  /* 卷末結果一覽、國安知識、人生紀錄框 */
+  .st-picks{list-style:none; margin:0 0 14px; padding:0; border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  .st-picks li{display:grid; grid-template-columns:28px 1fr auto; gap:10px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--line); background:var(--paper);}
+  .st-picks li:last-child{border-bottom:none;}
+  .sr-n{width:24px; height:24px; border-radius:50%; background:var(--indigo-tint); color:var(--indigo-deep); display:flex; align-items:center; justify-content:center; font-size:0.78rem; font-weight:700;}
+  .sr-body small{display:block; font-size:0.76rem; color:var(--ink-soft);}
+  .sr-body b{font-size:0.95rem;}
+  .sr-v{font-size:0.8rem; padding:2px 10px; border-radius:12px; color:#fff; white-space:nowrap;}
+  .sr-v.good{background:var(--jade);} .sr-v.mid{background:var(--indigo);} .sr-v.bad{background:var(--vermillion);}
+  .st-h{margin-top:18px;}
+  .st-note{font-size:0.92rem; color:var(--ink-soft);}
+  .st-sec{list-style:none; margin:6px 0 0; padding:0; display:grid; gap:8px;}
+  .st-sec li{display:flex; gap:10px; align-items:flex-start; padding:10px 12px; background:var(--paper); border-left:3px solid var(--vermillion); border-radius:6px; font-size:0.9rem; line-height:1.7;}
+  .st-sec li b{display:block; color:var(--vermillion-deep);}
+  .sd-ico{width:30px; height:30px; flex:none; border-radius:50%; background:rgba(166,52,43,0.1); color:var(--vermillion-deep); display:flex; align-items:center; justify-content:center;}
+  .sd-ico .dicon{width:18px; height:18px; margin:0;}
+  .lh-logbox{margin:12px 0; border:1px solid var(--line); border-radius:8px; background:var(--paper); overflow:hidden;}
+  .lh-logh{padding:8px 12px; font-size:0.84rem; font-weight:700; color:var(--indigo-deep); border-bottom:1px solid var(--line); background:var(--parchment);}
+  .lh-logh small{font-weight:400; color:var(--ink-soft); margin-left:6px;}
+  .lh-log{list-style:none; margin:0; padding:0 12px; max-height:300px; overflow-y:auto;}
+  .lh-log li{position:relative; padding:8px 0 8px 14px; border-bottom:1px dashed var(--line); font-size:0.94rem; line-height:1.7;}
+  .lh-log li:last-child{border-bottom:none;}
+  .lh-log li::before{content:""; position:absolute; left:0; top:15px; width:7px; height:7px; border-radius:50%; background:var(--line);}
+  .lh-log li.lg-good::before{background:var(--jade);} .lh-log li.lg-bad::before{background:var(--vermillion);}
+  .lh-log li.lg-era{color:var(--indigo-deep);} .lh-log li.lg-era::before{background:var(--indigo);}
+  .lh-log li.lg-choice{font-weight:700;} .lh-log li.lg-choice::before{background:var(--vermillion-deep); border-radius:0;}
+  .lh-log li.lg-death{color:var(--ink-soft); font-style:italic;}
+  .lh-log li:first-child{background:linear-gradient(90deg, var(--indigo-tint), transparent);}
+  @media (prefers-reduced-motion: no-preference){ .lh-log li:first-child{animation:optIn .35s ease-out;} }
 </style>
 </head>
 <body>
@@ -1099,7 +1127,7 @@ const state = {
   merit:0, inventory:[],
   revealed:{}, chosen:{}, stamped:{}, dlgIndex:{}, roundIndex:{}, typing:{}, missionStart:{}, missionMeritStart:{}, domainsFound:{},
   order:{}, bestCount:{}, quiz:{}, echoDone:{}, 
-  lives:{}, lifeMode:true, lifeSpeed:1, step:{}, lastResult:{}, echoHtml:{}
+  lives:{}, lifeMode:true, lifeSpeed:1, step:{}, lastResult:{}, echoHtml:{}, verdicts:{}
 };
 /* 每回合的方案顯示次序隨機打亂：資料中最佳方案固定排在最後，若照原序顯示，學生很快會摸出「揀最後一個就啱」 */
 function optionOrder(rkey, options){
@@ -1656,6 +1684,7 @@ function stampChoice(mid){
   state.bestCount[mid] = (state.bestCount[mid] || 0) + (wasBest ? 1 : 0);
   state.stamped[rkey] = true;
   state.lastResult[mid] = {key, before, wasBest};
+  state.verdicts[rkey] = verdictOf(round, opt, wasBest);
   const fresh = (round.domains || []).filter(k=>!state.domainsFound[k]);
   fresh.forEach(k=>{ state.domainsFound[k] = true; });
   if(fresh.length) unlockToast(fresh);
@@ -1669,12 +1698,17 @@ function stampChoice(mid){
   if(ridx === m.rounds.length-1) state.inventory.push(m.item);
   goStep(mid, 'result');
 }
+/* 判定：上策／有得有失（兩難題）／失策／可行 */
+function verdictOf(round, opt, wasBest){
+  if(wasBest) return ['上策', 'good'];
+  if(round.dilemma) return ['有得有失', 'mid'];
+  return Math.min(...Object.values(opt.delta)) <= -5 ? ['失策', 'bad'] : ['可行', 'mid'];
+}
 function resultHtml(mid){
   const m = missionData.find(x=>x.id===mid);
   const ridx = state.roundIndex[mid] || 0, round = m.rounds[ridx], rkey = mid+'#'+ridx;
   const res = state.lastResult[mid], opt = round.options.find(o=>o.key===res.key);
-  const worst = Math.min(...Object.values(opt.delta));
-  const verdict = res.wasBest ? ['上策', 'good'] : round.dilemma ? ['有得有失', 'mid'] : worst <= -5 ? ['失策', 'bad'] : ['可行', 'mid'];
+  const verdict = verdictOf(round, opt, res.wasBest);
   const chips = Object.keys(meterMeta).map(k=>{
     const d = opt.delta[k] || 0;
     return `<span class="delta-chip ${d>0?'up':(d<0?'down':'flat')}">${meterMeta[k].name} ${d>0?'+':''}${d}</span>`;
@@ -1712,17 +1746,29 @@ function settleHtml(mid){
   const next = state.lifeMode
     ? `<button class="btn ember" onclick="finishMission('${mid}')">🌏 投胎做這個時代的普通人 →</button>`
     : `<button class="btn ember" onclick="finishMission('${mid}')">${isLast ? '前往終卷 →' : '下一卷 →'}</button>`;
-  return `<div class="sm-label">${m.juan}完成</div>
+  /* 五個抉擇的結果一覽 */
+  const picks = m.rounds.map((r,i)=>{
+    const rkey = mid+'#'+i, opt = r.options.find(o=>o.key===state.chosen[rkey]);
+    const v = state.verdicts[rkey] || ['—', 'mid'];
+    return `<li><span class="sr-n">${i+1}</span><span class="sr-body"><small>${r.label}</small><b>${opt ? opt.label : '—'}</b></span><span class="sr-v ${v[1]}">${v[0]}</span></li>`;
+  }).join('');
+  /* 本卷牽涉的國安領域與說明 */
+  const domains = [...new Set(m.rounds.flatMap(r=>r.domains || []))];
+  const sec = domains.map(k=>{
+    const d = securityDomains.find(x=>x.k===k);
+    return `<li><span class="sd-ico">${domainIcon(k)}</span><span><b>${d.n}</b>${d.d}</span></li>`;
+  }).join('');
+  return `<div class="sm-label">${m.juan}完成 · 你的五個抉擇</div>
+    <ul class="st-picks">${picks}</ul>
     <div class="st-grid">${rows}</div>
-    <div class="st-line">上策 <b>${state.bestCount[mid]||0} / ${m.rounds.length}</b> · 史料題 ${state.quiz[mid] && state.quiz[mid].ok ? '✔' : '✘'} · 德望 +${meritGain}</div>
-    <div class="st-line">${itemIconSvg(m.item.icon)} 獲得信物：<b>${m.item.name}</b></div>
-    <details class="sm-more"><summary>💡 小百科</summary><p>${m.knowledge}</p></details>
+    <div class="st-line">上策 <b>${state.bestCount[mid]||0} / ${m.rounds.length}</b> · 史料題 ${state.quiz[mid] && state.quiz[mid].ok ? '✔' : '✘'} · 德望 +${meritGain} · ${itemIconSvg(m.item.icon)} 獲得信物：<b>${m.item.name}</b></div>
+    <div class="sm-label st-h">🛡️ 與國家安全的關係</div>
+    <p class="sm-text st-note">總體國家安全觀強調各領域環環相扣。本卷的抉擇牽涉以下 ${domains.length} 個國家安全領域：</p>
+    <ul class="st-sec">${sec}</ul>
+    <div class="sm-label st-h">💡 小百科</div>
+    <p class="sm-text">${m.knowledge}</p>
     <div class="sm-next">${next}</div>`;
 }
-/* ---------- 渲染：情境回合 ---------- */
-
-
-/* ---------- 互動：議事對話（打字機 + 立繪 + 姓名牌） ---------- */
 const REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 
@@ -1991,7 +2037,7 @@ function resetGame(){
   state.meters = {fa:50,guo:50,min:50,wen:50};
   state.merit = 0; state.inventory = [];
   state.chosen = {}; state.stamped = {}; state.roundIndex = {}; state.missionStart = {}; state.missionMeritStart = {}; state.domainsFound = {};
-  state.order = {}; state.bestCount = {}; state.quiz = {}; state.echoDone = {}; state.echoHtml = {}; state.step = {}; state.lastResult = {};
+  state.order = {}; state.bestCount = {}; state.quiz = {}; state.echoDone = {}; state.echoHtml = {}; state.step = {}; state.lastResult = {}; state.verdicts = {};
   renderDashboard();
   renderCodex();
   renderMissions();
@@ -3280,7 +3326,7 @@ function beginLife(mid){
         </div>
         <div class="lh-age"><span id="lage-${mid}">0</span><small>歲</small></div>
       </div>
-      <div class="lh-now" id="lnow-${mid}">人生開始了……</div>
+      <div class="lh-logbox"><div class="lh-logh">📜 人生紀錄 <small>新 → 舊，保留至這個時代結束</small></div><ul class="lh-log" id="llog-${mid}"><li class="lg-mid"><span class="lg-y">${lifeYearLabel(L.birth)} · 0歲</span>你出生了。</li></ul></div>
       <div class="lh-choice" id="lchoice-${mid}"></div>
       <div class="lh-stats" id="lstats-${mid}"></div>
       <div class="lh-ctrl"><button class="lc-btn" id="lfast-${mid}" onclick="lifeFast()">${state.lifeSpeed > 1 ? '▶ 正常速度' : '⏩ 快進'}</button></div>
@@ -3316,20 +3362,23 @@ function renderLifeHud(mid){
 }
 function renderLifeEvents(mid, entries){
   const R = state.lives[mid];
-  const e = entries.filter(x=>x.tone !== 'death').slice(-1)[0];
-  if(!e) return;
-  const el = document.getElementById('lnow-'+mid);
-  el.className = 'lh-now lg-' + e.tone;
-  el.innerHTML = `<span class="lg-y">${lifeYearLabel(e.year)} · ${e.age}歲</span>${e.tone==='era' ? '📜 ' : ''}${e.t.replace(/^【抉擇】/,'')}${lifeLinkChip(e.link, R.M)}`;
+  const ul = document.getElementById('llog-'+mid);
+  if(!ul) return;
+  entries.forEach(e=>{
+    const li = document.createElement('li');
+    li.className = 'lg-' + e.tone;
+    li.innerHTML = `<span class="lg-y">${lifeYearLabel(e.year)} · ${e.age}歲</span>${e.tone==='era' ? '📜 ' : ''}${e.t.replace(/^【抉擇】/,'🔴 ')}${lifeLinkChip(e.link, R.M)}`;
+    ul.prepend(li);
+  });
+  ul.scrollTop = 0;
 }
-
 function lifeSchedule(mid, delay){
   clearTimeout(lifeTimers[mid]);
   lifeTimers[mid] = setTimeout(()=>lifeTick(mid), delay);
 }
 function lifeTick(mid){
   const R = state.lives[mid];
-  if(!R || R.phase !== 'living' || R.paused || R.waiting || !document.getElementById('lnow-'+mid)) return;
+  if(!R || R.phase !== 'living' || R.paused || R.waiting || !document.getElementById('llog-'+mid)) return;
   const before = R.L.log.length;
   const res = lifeStep(R.L, R.M, R.rng);
   renderLifeEvents(mid, R.L.log.slice(before));
@@ -3384,7 +3433,9 @@ function showLifeChoice(mid){
 function pickLife(mid, idx){
   const R = state.lives[mid], L = R.L;
   if(!R.waiting || L.picks[L.age] !== undefined) return;
+  const before = L.log.length;
   const res = lifeApplyChoice(L, L.age, idx, R.M, R.rng);
+  renderLifeEvents(mid, L.log.slice(before));
   renderLifeHud(mid);
   const chips = Object.keys(res.eff || {}).map(k=>{ const d = res.eff[k]; return `<span class="delta-chip ${d>0?'up':'down'}">${lifeStatMeta[k].n} ${d>0?'+':''}${d}</span>`; }).join('');
   document.getElementById('lchoice-'+mid).innerHTML = `
@@ -3436,8 +3487,8 @@ function endLife(mid){
   const people = [L].concat(R.peers);
   const g = Object.keys(L.links).reduce((a,k)=>a+L.links[k].g, 0);
   const b = Object.keys(L.links).reduce((a,k)=>a+L.links[k].b, 0);
-  document.querySelector(`#life-${mid} .life-hud`).classList.add('hide');
-  const log = L.log.slice().reverse().map(e=>`<li class="lg-${e.tone}"><span class="lg-y">${lifeYearLabel(e.year)} · ${e.age}歲</span>${e.t}</li>`).join('');
+  const hud = document.querySelector(`#life-${mid} .life-hud`);
+  hud.querySelector('.lh-ctrl').remove();
   document.getElementById('lend-'+mid).innerHTML = `
     <div class="life-end">
       <div class="epitaph" id="epitaph-${mid}">
@@ -3456,10 +3507,9 @@ function endLife(mid){
       </div>
       <p class="end-merit">🔗 你的國策令這一生多了 <b class="up">${g}</b> 件順境、<b class="down">${b}</b> 件難關 · 德望 +${gain}</p>
       <div class="px-grid">${people.map((P,i)=>pxCard(P, P.deathAge, {me:i===0, i, extra:`<div class="pxc-sub">享年 ${P.deathAge} · 福祉 <b>${lifeWelfare(P)}</b></div>`})).join('')}</div>
-      <details class="sm-more"><summary>📈 更多：壽數曲線、人生紀錄、反思</summary>
+      <details class="sm-more"><summary>📈 更多：壽數曲線、反思</summary>
         ${survivalSvg(mid, people)}
         <p class="lot-note small">曲線為按史料推估的同代成年人仍在世比例（成年人平均壽數約 ${Math.round(era.mort)} 歲）。為免沉重，遊戲角色不會在 ${LIFE_MIN_DEATH} 歲前辭世。</p>
-        <ul class="life-log">${log}</ul>
         <div class="reflect-q">${era.reflect}</div>
         <textarea rows="3" id="lifeNote-${mid}" placeholder="寫下你的想法（只保存在這部裝置）……" oninput="saveLifeNote('${mid}')"></textarea>
       </details>
