@@ -1,0 +1,6 @@
+name = "green-island-3d"
+compatibility_date = "2026-10-26"
+
+# This is a static Workers site. Wrangler serves public/index.html for the
+# site root and publishes the bundled 3D game without a separate build step.
+assets = { directory = "./public" }
