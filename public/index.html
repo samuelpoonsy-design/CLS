@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>綠途冒險島 · 眾生篇｜3D 互動探索</title>
+<title>路德會協同中學 · 協同綠途島｜3D 互動探索</title>
 <!-- Three.js r128 bundled for offline use. The MIT License
 
 Copyright © 2010-2021 three.js authors
@@ -425,7 +425,7 @@ body:has(#uiStage:not(.minimized)) #proximityPrompt{display:none!important}
 <canvas id="islandCanvas"></canvas>
 <div id="pinLayer"></div>
 <div class="pop-layer" id="popLayer"></div>
-<div class="world-mark">EXPLORE / CONNECT / RESTORE<b>每一個選擇，都在改寫島嶼的未來。</b></div>
+<div class="world-mark">CONCORDIA LUTHERAN SCHOOL · HONG KONG<b>協同同學，以行動守護我們的城市與海港。</b></div>
 <div class="mini-map" aria-label="島嶼小地圖"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="49" fill="#d8e5c9" stroke="#f5f4d4" stroke-width="5"/><circle cx="60" cy="60" r="25" fill="none" stroke="#a5bc8f" stroke-width="10"/><path d="M48 49L60 24L75 50Z" fill="#84a27a"/><text x="57" y="88">源</text><text x="30" y="65">行</text><text x="39" y="40">廢</text><text x="78" y="40">生</text><text x="86" y="70">共</text><circle id="mapSelf" class="map-self" cx="60" cy="89" r="4"/></svg></div>
 <div class="compass"><span>↑</span></div><button class="audio-toggle" id="audioToggle" title="開啟音效" aria-label="切換遊戲音效" aria-pressed="false" onclick="toggleAudio()">♩</button>
 <div class="modal-mask" id="helpModal"><div class="modal-card"><div class="modal-head"><h3>冒險指南 / FIELD GUIDE</h3><button class="close-x" aria-label="關閉說明" onclick="setModal('helpModal',false)">✕</button></div><div id="helpBody"></div></div></div>
@@ -439,7 +439,7 @@ body:has(#uiStage:not(.minimized)) #proximityPrompt{display:none!important}
 <!-- 頂部導覽與永續四維 HUD -->
 <div id="topHud">
   <div class="hud-pill">
-    <span class="brand-tag" onclick="goTo(0)" title="返回全島總覽">◈ 綠途冒險島</span>
+    <span class="brand-tag" onclick="goTo(0)" title="返回全島總覽">◈ 協同綠途島</span>
     <div class="stop-dots" id="dotGroup"></div>
   </div>
   <div class="hud-pill" id="meterPill">
@@ -1435,6 +1435,7 @@ function init3DIsland(){
   buildZone3Waste();
   buildZone4Biodiversity();
   buildZone5Community();
+  buildHongKongLandmarks();
   buildMetaverseAvatars();
   buildClouds();
   buildPinDOM();
@@ -1584,7 +1585,7 @@ function buildMetaverseAvatars(){
   /* 五大持份者 NPC 在島上自主巡邏行走 */
   const npcDefs = [
     {name:'🏛️ 政府環保官員', color:0x2563EB, hat:0x1E40AF, cx:0.8, cz:5.2, rad:1.6, sp:0.7},
-    {name:'🏫 綠校統籌老師', color:0x8B5CF6, hat:0x6D28D9, cx:5.2, cz:1.8, rad:1.5, sp:0.85},
+    {name:'🏫 協同綠校統籌老師', color:0x8B5CF6, hat:0x6D28D9, cx:5.2, cz:1.8, rad:1.5, sp:0.85},
     {name:'🏢 企業 ESG 代表', color:0xF59E0B, hat:0xB45309, cx:-5.2, cz:1.2, rad:1.5, sp:0.75},
     {name:'📢 環保 NGO 幹事', color:0x059669, hat:0x047857, cx:4.2, cz:-4.2, rad:1.6, sp:0.9},
     {name:'🌱 綠活市民代表', color:0xEC4899, hat:0xBE185D, cx:-3.6, cz:-4.5, rad:1.5, sp:0.8}
@@ -1762,6 +1763,72 @@ function buildZone5Community(){
   addObstacle(8.5, 3.2, 1.15);
   addObstacle(5.4, 3.8, 0.85);
   zoneMeshes.push(z5); islandGroup.add(z5);
+}
+
+function buildHongKongLandmarks(){
+  const landmarks=new THREE.Group();
+  landmarks.name='香港城市與海港地標';
+
+  /* 維多利亞港對岸天際線：以低多邊形樓宇構成。 */
+  [[-2.0,5.2,0.75,0x9FB7B0],[-0.7,6.7,0.9,0xD9C8A8],[0.8,4.5,0.7,0x8AA7B6],[2.0,7.8,0.65,0xD6AFA0],[3.1,5.6,0.85,0xAFC5A4]].forEach(([x,height,width,color])=>{
+    const tower=new THREE.Mesh(new THREE.BoxGeometry(width,height,0.7),mat(color));
+    tower.position.set(x,1.9+height/2,-10.2);
+    tower.castShadow=true;
+    landmarks.add(tower);
+    const roof=new THREE.Mesh(new THREE.ConeGeometry(width*0.62,0.55,4),mat(0xE8DDB7));
+    roof.position.set(x,1.9+height+0.28,-10.2);
+    landmarks.add(roof);
+  });
+
+  /* 天星小輪：藍白船身在海港邊輕微浮動。 */
+  const ferry=new THREE.Group();
+  const hull=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.38,0.8),mat(0x245E79));
+  const deck=new THREE.Mesh(new THREE.BoxGeometry(1.45,0.42,0.62),mat(0xF7F3E5));
+  deck.position.y=0.34;
+  const cabin=new THREE.Mesh(new THREE.BoxGeometry(0.72,0.34,0.54),mat(0xE5D9B0));
+  cabin.position.set(0,0.67,0);
+  ferry.add(hull,deck,cabin);
+  ferry.position.set(-13.6,0.34,-6.2);
+  landmarks.add(ferry);
+  boats.push({mesh:ferry,baseZ:-6.2,phase:2.6});
+
+  /* 香港電車與港鐵站牌放在低碳交通區旁。 */
+  const tram=new THREE.Group();
+  const tramBody=new THREE.Mesh(new THREE.BoxGeometry(1.5,0.9,0.48),mat(0x1E7B63));
+  const tramRoof=new THREE.Mesh(new THREE.BoxGeometry(1.62,0.12,0.56),mat(0xF6E7BA));
+  tramRoof.position.y=0.5;
+  const tramWindow=new THREE.Mesh(new THREE.BoxGeometry(1.12,0.28,0.50),mat(0xA9D5DC));
+  tramWindow.position.y=0.1;
+  tram.add(tramBody,tramRoof,tramWindow);
+  tram.position.set(-9.6,2.43,0.2);
+  landmarks.add(tram);
+  addObstacle(-9.6,0.2,0.8);
+  const mtrPost=new THREE.Mesh(new THREE.CylinderGeometry(0.07,0.08,1.35,8),mat(0x606D62));
+  const mtrSign=new THREE.Mesh(new THREE.TorusGeometry(0.26,0.08,6,16),new THREE.MeshBasicMaterial({color:0xD94F45}));
+  mtrSign.position.y=0.67;
+  const mtr=new THREE.Group(); mtr.add(mtrPost,mtrSign); mtr.position.set(-8.8,2.58,-0.6); landmarks.add(mtr);
+
+  /* 金紫荊作為學校計劃的香港標誌。 */
+  const bauhinia=new THREE.Group();
+  for(let i=0;i<5;i++){
+    const petal=new THREE.Mesh(new THREE.SphereGeometry(0.28,8,6),mat(0xD68AA4));
+    const angle=(Math.PI*2*i)/5;
+    petal.position.set(Math.cos(angle)*0.34,0.08,Math.sin(angle)*0.34);
+    petal.scale.set(1.35,0.35,0.75);
+    petal.rotation.y=-angle;
+    bauhinia.add(petal);
+  }
+  bauhinia.add(new THREE.Mesh(new THREE.SphereGeometry(0.15,8,6),mat(0xE9C467)));
+  bauhinia.position.set(9.6,2.34,5.2);
+  landmarks.add(bauhinia);
+
+  /* 獅子山輪廓位於島嶼後方。 */
+  [[-5.4,2.4,0.9],[-4.5,3.2,1.15],[-3.4,2.55,0.95]].forEach(([x,height,scale])=>{
+    const ridge=new THREE.Mesh(new THREE.ConeGeometry(scale,height,5),mat(0x66775A));
+    ridge.position.set(x,1.9+height/2,-8.6);
+    landmarks.add(ridge);
+  });
+  islandGroup.add(landmarks);
 }
 
 function buildClouds(){
@@ -2679,9 +2746,9 @@ function governanceTitle(){
   const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
   const min = Math.min(...vals);
   if(avg>=82 && min>=70) return '天人合一 · 永續發展領航宗師';
-  if(avg>=68) return '綠途同行 · 生態文明良臣';
+  if(avg>=68) return '協同同行 · 生態文明良臣';
   if(avg>=52) return '惜物減碳 · 勤勉環保實踐者';
-  return '知行待進 · 見習綠途專員';
+  return '協同起步 · 見習綠途專員';
 }
 
 function renderFinalCard(){
@@ -2692,7 +2759,7 @@ function renderFinalCard(){
   const quizOk = Object.values(state.quiz).filter(q=>q.ok).length;
 
   card.innerHTML = `
-    <span class="badge-line">🏆 綠途冒險島 · 全程總結</span>
+    <span class="badge-line">🏆 協同綠途島 · 全程總結</span>
     <h2 style="margin:0 0 6px; font-size:1.45rem;">${governanceTitle()}</h2>
     <p style="font-size:0.84rem; color:var(--ink-soft); margin:0 0 10px;">
       上策 <b>${bestTotal} / ${totalRounds}</b> · 互動挑戰 <b>${quizOk} / ${missionData.length}</b> · 解鎖概念 <b>${Object.keys(state.domainsFound).length}</b> 個
@@ -2754,7 +2821,7 @@ function downloadCertPng(){
 
   g.textAlign = 'center';
   g.fillStyle = '#059669'; g.font = '800 22px sans-serif';
-  g.fillText('綠途冒險島 · 元宇宙 3D 永續探索（公民科 主題3）', 400, 95);
+  g.fillText('路德會協同中學 · 協同綠途島 3D 永續探索（公民科 主題3）', 400, 95);
   g.fillStyle = '#1E293B'; g.font = '900 44px sans-serif';
   g.fillText(name, 400, 175);
   g.fillStyle = '#047857'; g.font = '800 28px sans-serif';
@@ -2771,7 +2838,7 @@ function downloadCertPng(){
 
   const a = document.createElement('a');
   a.href = c.toDataURL('image/png');
-  a.download = `綠途冒險島證書-${name}.png`;
+  a.download = `協同綠途島證書-${name}.png`;
   a.click();
 }
 
@@ -2886,7 +2953,7 @@ function loadProgress(){
 function downloadOffline(){
   const link=document.createElement('a');
   link.href='index.html';
-  link.download='綠途冒險島_3D互動版.html';
+  link.download='協同綠途島_3D互動版.html';
   document.body.appendChild(link);
   link.click();
   link.remove();
@@ -2958,6 +3025,12 @@ function checkLab(mid){
 
 function renderHeroCard(){
   renderHeroCardBase();
+  const card=document.getElementById('mainCard');
+  card.querySelector('.hero-kicker').innerHTML='<i class="live-dot"></i> CONCORDIA LUTHERAN SCHOOL · HONG KONG';
+  card.querySelector('h1').innerHTML='協同<br><em>綠途島。</em>';
+  card.querySelector('.hero-en').textContent='CONCORDIA LUTHERAN SCHOOL · GREEN HORIZON';
+  card.querySelector('.hero-lead').innerHTML='路德會協同中學的校本計劃。<br>化身香港綠色探險家，在 3D 島嶼自由行走，<br>從維港、電車與社區生活，實踐永續未來。';
+  card.querySelector('.hero-note').textContent='HONG KONG　／　05 島區　／　05 操作挑戰　／　眾生人生模擬';
   const footer=document.querySelector('#mainCard .hero-footer');
   if(!footer) return;
   if(hasRestorableProgress){
